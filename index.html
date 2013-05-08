@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>WordPress Plugin Boilerplate by tommcfarlin</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>WordPress Plugin Boilerplate</h1>
+        <h2>The WordPress Plugin Boilerplate is an organized, maintainable boilerplate for building plugins using WordPress best practices.</h2>
+        <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>WordPress Plugin Boilerplate</h1>
+
+<p>The WordPress Plugin Boilerplate serves as a foundation and aims to provide a clear and consistent guide for building your WordPress plugins. </p>
+
+<h2>Features</h2>
+
+<ul>
+<li>The Plugin Boilerplate is fully-based on the WordPress <a href="http://codex.wordpress.org/Plugin_API">Plugin API</a>
+</li>
+<li>Uses <a href="http://en.wikipedia.org/wiki/PHPDoc">PHPDoc</a> conventions for easily following the code</li>
+<li>Liberal use of <code>TODO</code> to guide you through what you need to change</li>
+<li>Uses a strict file organization scheme to make sure the assets are easily maintainable</li>
+</ul><h2>Contents</h2>
+
+<p>The WordPress Plugin Boilerplate includes the following files:</p>
+
+<ul>
+<li>This <code>README</code>
+</li>
+<li>A subdirectory called <code>plugin-boilerplate</code>
+</li>
+</ul><ol>
+<li>Copy the <code>plugin-boilerplate</code> directory into your <code>wp-content/plugins</code> directory</li>
+<li>Navigate to the <em>Plugins</em> dashboard page</li>
+<li>Locate the menu item that reads <em>TODO</em>
+</li>
+<li>Click on <em>Activate</em>
+</li>
+</ol><p>This will activate the WordPress Plugin Boilerplate. Because the Boilerplate has no real functionality, nothing will be added to WordPress; however, this demonstrates exactly how your plugin should behave as you're working with it.</p>
+
+<p>If you opt to uncomment Line 77 which contains the following line:</p>
+
+<p><code>add_action( 'admin_menu', array( $this, 'plugin_admin_menu' ) );</code></p>
+
+<p>Then a new menu item will be added to the <em>Plugins</em> menu.</p>
+
+<h2>License</h2>
+
+<p>The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.</p>
+
+<blockquote>
+<p>This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</p>
+</blockquote>
+
+<h2>Changelog</h2>
+
+<h3>2.0 (7 May 2012)</h3>
+
+<ul>
+<li>Disabling the admin menu by default</li>
+<li>Initializing the attributes</li>
+<li>Combining the <code>admin_open</code> and <code>admin_close</code> into a single <code>admin</code> view</li>
+<li>Bringing some of the code up to the WordPress coding standards</li>
+<li>Added access modifiers for functions</li>
+<li>Implemented the single pattern</li>
+<li>
+<strong>japh</strong>. Merged upstream changes, maintained separation of uninstall functionality</li>
+<li>
+<strong>mikkelbreum</strong>. Restricted scripts and styles to load only on plugin settings page if it is enabled.</li>
+<li>
+<strong>mikkelbreum</strong>. Added the option for a plugin settings page</li>
+<li>
+<strong>mikkelbreum</strong>. Removed the need to customize the URL for <code>wp_enqueue_style</code> and <code>wp_enqueue_scripts</code>
+</li>
+<li>
+<strong>mikkelbreum</strong>. Corrected action book for <code>register_admin_styles</code>
+</li>
+<li>
+<strong>tbwiii</strong>. Listed jQuery as a dependency for both JavaScript sources</li>
+<li>
+<strong>japh</strong>. Added an <code>uninstall.php</code> placeholder</li>
+<li>
+<strong>leewillis77</strong>. Improved the way language files are loaded</li>
+<li>
+<strong>wesbos</strong>. Updated the year to 2013 </li>
+</ul><h3>1.0 (29 November 2012)</h3>
+
+<ul>
+<li>Official Release</li>
+</ul><h2>Author Information</h2>
+
+<p>The WordPress Plugin Boilerplate was originally started and is maintained by <a href="http://twitter.com/tommcfarlin/">Tom McFarlin</a>. </p>
+
+<p>It is constantly under development thanks to the contributions from the many WordPress developers throughout the world.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate"></a> is maintained by <a href="https://github.com/tommcfarlin">tommcfarlin</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
