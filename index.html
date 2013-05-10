@@ -31,7 +31,9 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>The WordPress Plugin Boilerplate serves as a foundation and aims to provide a clear and consistent guide for building your WordPress plugins. </p>
+        <h1>WordPress Plugin Boilerplate</h1>
+
+<p>The WordPress Plugin Boilerplate serves as a foundation and aims to provide a clear and consistent guide for building your WordPress plugins. </p>
 
 <h2>Features</h2>
 
@@ -41,6 +43,8 @@
 <li>Uses <a href="http://en.wikipedia.org/wiki/PHPDoc">PHPDoc</a> conventions for easily following the code</li>
 <li>Liberal use of <code>TODO</code> to guide you through what you need to change</li>
 <li>Uses a strict file organization scheme to make sure the assets are easily maintainable</li>
+<li>Note that this boilerplate uses <code>plugin.po</code> to provide a translation file. This is compatible with <a href="http://www.poedit.net/">POEdit</a>
+</li>
 </ul><h2>Contents</h2>
 
 <p>The WordPress Plugin Boilerplate includes the following files:</p>
@@ -86,7 +90,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</p>
 
 <h2>Changelog</h2>
 
-<h3>2.0.1 (7 May 2013)</h3>
+<h3>2.1.0 (9 May 2013)</h3>
+
+<ul>
+<li>Refactoring the ternary operator in the constructor to make the code more readable for developers and to avoid returning an orphaned object</li>
+<li>Updating certain function names to use verbs to be clearer in their purpose</li>
+<li>Updating versioning in the plugin and in the <code>README</code> to use the <code>x.y.z</code> convention rather than the <code>x.y</code> convention</li>
+<li>Adding class property DocBlocks</li>
+<li>Adding <code>@since</code> tags to each of the DocBlocks for methods</li>
+<li>Cleaning up the PHP code formatting for easier readability</li>
+<li>Adding a note about POEdit and it being used as my preferred translations</li>
+<li>Automatically displaying the name of the plugin admin page</li>
+<li>Changing 'directives' to 'tags'</li>
+<li>Updating page-level DocBlocks for <code>plugin.php</code> and for <code>uninstall.php</code>
+</li>
+</ul><h3>2.0.1 (7 May 2013)</h3>
 
 <ul>
 <li>Updating the year of the release of 2.0</li>
