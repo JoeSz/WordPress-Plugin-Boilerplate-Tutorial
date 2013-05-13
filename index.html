@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="WordPress Plugin Boilerplate : The WordPress Plugin Boilerplate is an organized, maintainable boilerplate for building plugins using WordPress best practices." />
+    <meta name="description" content="WordPress Plugin Boilerplate : A foundation for WordPress Plugin Development that aims to provide a clear and consistent guide for building your plugins." />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate">View on GitHub</a>
 
           <h1 id="project_title">WordPress Plugin Boilerplate</h1>
-          <h2 id="project_tagline">The WordPress Plugin Boilerplate is an organized, maintainable boilerplate for building plugins using WordPress best practices.</h2>
+          <h2 id="project_tagline">A foundation for WordPress Plugin Development that aims to provide a clear and consistent guide for building your plugins.</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/zipball/master">Download this project as a .zip file</a>
@@ -31,9 +31,7 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>WordPress Plugin Boilerplate</h1>
-
-<p>The WordPress Plugin Boilerplate serves as a foundation and aims to provide a clear and consistent guide for building your WordPress plugins. </p>
+        <p><strong>Current Version</strong>: 2.3.0. See the <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/blob/master/ChangeLog.md">changelog</a> for more information.</p>
 
 <h2>Features</h2>
 
@@ -75,7 +73,7 @@
 
 <blockquote>
 <p>This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as 
+it under the terms of the GNU General Public License, version 2, as
 published by the Free Software Foundation.</p>
 
 <p>This program is distributed in the hope that it will be useful,
@@ -88,76 +86,41 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</p>
 </blockquote>
 
-<h2>Changelog</h2>
+<h2>Important Notes</h2>
 
-<h3>2.2.1 (10 May 2013)</h3>
+<h3>Licensing</h3>
 
-<ul>
-<li>Updating the <code>.pot</code> file as it was resulting in a minor error in one of the translation tools.</li>
-</ul><h3>2.2.0 (10 May 2013)</h3>
+<p>The WordPress Plugin Boilerplate is licensed under the GPL2+ or later; however, if you opt to use third-party frameworks
+such as <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> in your work, then you should be aware of this:</p>
 
-<ul>
-<li>Updating the README so the demo changelog is more accurate</li>
-<li>Renaming the core plugin file to match the name of the plugin (specifically <code>plugin-boilerplate.php</code> from <code>plugin.php</code>)</li>
-<li>Removing the default <code>.po</code> file and introducing the <code>plugin-boilerplate.pot</code> catalog</li>
-<li>Removing all terminating code block comments</li>
-<li>Adding braces around the <code>uninstall.php</code> conditional</li>
-<li>Changing access modifiers from <code>private</code> to <code>protected</code>. See <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/issues/36">this discussion</a> for more details.</li>
-<li>Removing redundant headers since properties, constructors, and methods are clearly defined and segmented throughout the code.</li>
-</ul><h3>2.1.0 (9 May 2013)</h3>
+<blockquote>
+<p>The most likely occurrence of this issue is with Themes developed using Twitter Bootstrap. When reviewing such Themes, please be sure to check that, if the Theme is licensed under GPL, that the license specifies either unversioned GPL, or GPLv3.0.</p>
+</blockquote>
 
-<ul>
-<li>Refactoring the ternary operator in the constructor to make the code more readable for developers and to avoid returning an orphaned object</li>
-<li>Updating certain function names to use verbs to be clearer in their purpose</li>
-<li>Updating versioning in the plugin and in the <code>README</code> to use the <code>x.y.z</code> convention rather than the <code>x.y</code> convention</li>
-<li>Adding class property DocBlocks</li>
-<li>Adding <code>@since</code> tags to each of the DocBlocks for methods</li>
-<li>Cleaning up the PHP code formatting for easier readability</li>
-<li>Adding a note about POEdit and it being used as my preferred translations</li>
-<li>Automatically displaying the name of the plugin admin page</li>
-<li>Changing 'directives' to 'tags'</li>
-<li>Updating page-level DocBlocks for <code>plugin.php</code> and for <code>uninstall.php</code>
-</li>
-</ul><h3>2.0.1 (7 May 2013)</h3>
+<p>For reference, <a href="http://make.wordpress.org/themes/2013/03/04/licensing-note-apache-and-gpl/">here's the full conversation</a>.</p>
 
-<ul>
-<li>Updating the year of the release of 2.0</li>
-</ul><h3>2.0.0 (7 May 2013)</h3>
+<h2>Assets</h2>
 
-<ul>
-<li>Disabling the admin menu by default</li>
-<li>Initializing the attributes</li>
-<li>Combining the <code>admin_open</code> and <code>admin_close</code> into a single <code>admin</code> view</li>
-<li>Bringing some of the code up to the WordPress coding standards</li>
-<li>Added access modifiers for functions</li>
-<li>Implemented the single pattern</li>
-<li>
-<strong>japh</strong>. Merged upstream changes, maintained separation of uninstall functionality</li>
-<li>
-<strong>mikkelbreum</strong>. Restricted scripts and styles to load only on plugin settings page if it is enabled.</li>
-<li>
-<strong>mikkelbreum</strong>. Added the option for a plugin settings page</li>
-<li>
-<strong>mikkelbreum</strong>. Removed the need to customize the URL for <code>wp_enqueue_style</code> and <code>wp_enqueue_scripts</code>
-</li>
-<li>
-<strong>mikkelbreum</strong>. Corrected action book for <code>register_admin_styles</code>
-</li>
-<li>
-<strong>tbwiii</strong>. Listed jQuery as a dependency for both JavaScript sources</li>
-<li>
-<strong>japh</strong>. Added an <code>uninstall.php</code> placeholder</li>
-<li>
-<strong>leewillis77</strong>. Improved the way language files are loaded</li>
-<li>
-<strong>wesbos</strong>. Updated the year to 2013 </li>
-</ul><h3>1.0 (29 November 2012)</h3>
+<p>The assets directory provides two files that are used to represent plugin header images.</p>
 
-<ul>
-<li>Official Release</li>
-</ul><h2>Author Information</h2>
+<p>When committing your work to the WordPress Plugin Repository, these files should reside in their own <code>assets</code> directory, not in the root of the plugin. The initaly repository will contain three directories:</p>
 
-<p>The WordPress Plugin Boilerplate was originally started and is maintained by <a href="http://twitter.com/tommcfarlin/">Tom McFarlin</a>, but is constantly under development thanks to the contributions from the many WordPress developers throughout the world.</p>
+<ol>
+<li><code>branches</code></li>
+<li><code>tags</code></li>
+<li><code>trunk</code></li>
+</ol><p>You'll need to add an <code>assets</code> directory into the root of the repository. So the final directory structure should include <em>four</em> directories:</p>
+
+<ol>
+<li><code>assets</code></li>
+<li><code>branches</code></li>
+<li><code>tags</code></li>
+<li><code>trunk</code></li>
+</ol><p>Next, copy the contents of the <code>assets</code> directory that are bundled with the Boilerplate into the root of the repository. This is how the WordPress Plugin Repository will retrieving the plugin header image.</p>
+
+<p>Of course, you'll want to customize the header images from the place holders that are provided with the boilerplate.</p>
+
+<p>For more, in-depth information about this, read <a href="http://make.wordpress.org/plugins/2012/09/13/last-december-we-added-header-images-to-the/">this post</a> by Otto.</p>
       </section>
     </div>
 
