@@ -31,41 +31,38 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p><strong>Current Version</strong>: 2.3.0. See the <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/blob/master/ChangeLog.md">changelog</a> for more information.</p>
+        <p><strong>Current Version</strong>: 2.4.0. See the <a href="https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/blob/master/ChangeLog.md">ChangeLog</a> for more information.</p>
 
 <h2>Features</h2>
 
 <ul>
-<li>The Plugin Boilerplate is fully-based on the WordPress <a href="http://codex.wordpress.org/Plugin_API">Plugin API</a>
-</li>
-<li>Uses <a href="http://en.wikipedia.org/wiki/PHPDoc">PHPDoc</a> conventions for easily following the code</li>
-<li>Liberal use of <code>TODO</code> to guide you through what you need to change</li>
-<li>Uses a strict file organization scheme to make sure the assets are easily maintainable</li>
-<li>Note that this boilerplate uses <code>plugin.po</code> to provide a translation file. This is compatible with <a href="http://www.poedit.net/">POEdit</a>
-</li>
+<li>The Plugin Boilerplate is fully-based on the WordPress <a href="http://codex.wordpress.org/Plugin_API">Plugin API</a>.</li>
+<li>Uses <a href="http://en.wikipedia.org/wiki/PHPDoc">PHPDoc</a> conventions to document the code.</li>
+<li>Example values are given, so you can see what needs to be changed.</li>
+<li>Uses a strict file organization scheme to make sure the assets are easily maintainable.</li>
+<li>Note that this boilerplate includes a <code>.pot</code> as a starting translation file.</li>
 </ul><h2>Contents</h2>
 
 <p>The WordPress Plugin Boilerplate includes the following files:</p>
 
 <ul>
-<li>This <code>README</code>
+<li>This README, a ChangeLog, and a <code>gitignore</code> file.</li>
+<li>A subdirectory called <code>plugin-name</code>
 </li>
-<li>A subdirectory called <code>plugin-boilerplate</code>
-</li>
-</ul><ol>
-<li>Copy the <code>plugin-boilerplate</code> directory into your <code>wp-content/plugins</code> directory</li>
+</ul><h2>Installation</h2>
+
+<ol>
+<li>Copy the <code>plugin-name</code> directory into your <code>wp-content/plugins</code> directory</li>
 <li>Navigate to the <em>Plugins</em> dashboard page</li>
-<li>Locate the menu item that reads <em>TODO</em>
+<li>Locate the menu item that reads <em>Plugin Name</em>
 </li>
 <li>Click on <em>Activate</em>
 </li>
-</ol><p>This will activate the WordPress Plugin Boilerplate. Because the Boilerplate has no real functionality, nothing will be added to WordPress; however, this demonstrates exactly how your plugin should behave as you're working with it.</p>
+</ol><p>This will activate the WordPress Plugin Boilerplate. Because the Boilerplate has no real functionality, nothing will be added to WordPress; however, this demonstrates exactly how your plugin should behave while you're working with it.</p>
 
-<p>If you opt to uncomment Line 77 which contains the following line:</p>
+<p>A new menu item will be added to the <em>Plugins</em> menu if you uncomment Line 71 in the class file which contains the following line:</p>
 
-<p><code>add_action( 'admin_menu', array( $this, 'plugin_admin_menu' ) );</code></p>
-
-<p>Then a new menu item will be added to the <em>Plugins</em> menu.</p>
+<p><code>add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );</code></p>
 
 <h2>License</h2>
 
@@ -90,20 +87,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</p>
 
 <h3>Licensing</h3>
 
-<p>The WordPress Plugin Boilerplate is licensed under the GPL2+ or later; however, if you opt to use third-party frameworks
-such as <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> in your work, then you should be aware of this:</p>
+<p>The WordPress Plugin Boilerplate is licensed under the GPL v2 or later; however, if you opt to use third-party code that is not compatible with v2, then you may need to switch to using code that is GPL v3 compatible.</p>
 
-<blockquote>
-<p>The most likely occurrence of this issue is with Themes developed using Twitter Bootstrap. When reviewing such Themes, please be sure to check that, if the Theme is licensed under GPL, that the license specifies either unversioned GPL, or GPLv3.0.</p>
-</blockquote>
-
-<p>For reference, <a href="http://make.wordpress.org/themes/2013/03/04/licensing-note-apache-and-gpl/">here's the full conversation</a>.</p>
+<p>For reference, <a href="http://make.wordpress.org/themes/2013/03/04/licensing-note-apache-and-gpl/">here's a discussion</a> that covers the Apache 2.0 License used by <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>.</p>
 
 <h2>Assets</h2>
 
 <p>The assets directory provides two files that are used to represent plugin header images.</p>
 
-<p>When committing your work to the WordPress Plugin Repository, these files should reside in their own <code>assets</code> directory, not in the root of the plugin. The initaly repository will contain three directories:</p>
+<p>When committing your work to the WordPress Plugin Repository, these files should reside in their own <code>assets</code> directory, not in the root of the plugin. The initial repository will contain three directories:</p>
 
 <ol>
 <li><code>branches</code></li>
@@ -116,11 +108,18 @@ such as <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> in your work
 <li><code>branches</code></li>
 <li><code>tags</code></li>
 <li><code>trunk</code></li>
-</ol><p>Next, copy the contents of the <code>assets</code> directory that are bundled with the Boilerplate into the root of the repository. This is how the WordPress Plugin Repository will retrieving the plugin header image.</p>
+</ol><p>Next, copy the contents of the <code>assets</code> directory that are bundled with the Boilerplate into the root of the repository. This is how the WordPress Plugin Repository will retrievie the plugin header image.</p>
 
-<p>Of course, you'll want to customize the header images from the place holders that are provided with the boilerplate.</p>
+<p>Of course, you'll want to customize the header images from the place holders that are provided with the Boilerplate.</p>
 
-<p>For more, in-depth information about this, read <a href="http://make.wordpress.org/plugins/2012/09/13/last-december-we-added-header-images-to-the/">this post</a> by Otto.</p>
+<p>For more, in-depth information about this, read <a href="http://make.wordpress.org/plugins/2012/09/13/last-december-we-added-header-images-to-the/">this post</a> by <a href="https://twitter.com/Otto42">Otto</a>.</p>
+
+<p>Plugin screenshots can be saved to one of two locations:</p>
+
+<ul>
+<li>The traditional location is to keep them in the root of the plugin directory. This will increase the size of the download of the plugin, but make the images accessible for those who install it.</li>
+<li>Alternatively, you can save the screenshots in the <code>assets</code> directory, as well. The repository will look here for the screenshot files as well; however, they will not be included in the plugin download thus reducing the size of the plugin.</li>
+</ul>
       </section>
     </div>
 
