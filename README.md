@@ -96,8 +96,7 @@ CHANGELOG
 ---------
 
 = 1.0.1 =
-* Add shortcode hooks
-  More: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/262
+* Add shortcode hooks. More: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/262
 
 = 1.0.0 =
 * Initial release
