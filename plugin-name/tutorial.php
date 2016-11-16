@@ -561,7 +561,7 @@ function shortcode_function( $atts ) {
  * a plugin’s output more to their specific needs.
  *
  * @link https://github.com/pippinsplugins/pw-sample-template-loader-plugin
- * @link https://pippinsplugins.com/template-file-loaders-plugins/#
+ * @link https://pippinsplugins.com/template-file-loaders-plugins/
  */
 define( 'PLUGIN_NAME_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 if( ! class_exists( 'Gamajo_Template_Loader' ) ) {

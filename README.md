@@ -26,6 +26,15 @@ Note that this will activate the source code of the Boilerplate, but because the
 
 ## Tutorial files
 
+You may delete, what you don't use, on production
+
+Template File Loaders in Plugins
+
+Template file loaders like this are used in a lot of large-scale plugins in order to provide greater flexibility and better control for advanced users that want to tailor a plugin’s output more to their specific needs.
+
+Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin
+Tutorial: https://pippinsplugins.com/template-file-loaders-plugins/
+
 * Main tutorial file: `tutorial.php`
 * `class-gamajo-template-loader.php`
 * `custom-template-loader.class.php`
