@@ -26,14 +26,13 @@ Note that this will activate the source code of the Boilerplate, but because the
 
 ## Tutorial files
 
-* Main tutorial file: tutorial.php
-
-* class-gamajo-template-loader.php
-* custom-template-loader.class.php
-* exopite-template.class.php
-* templates/partial.html
-* templates/archive-custom-post-type.php
-* templates/content-custom-post-type.php
+* Main tutorial file: `tutorial.php`
+* `class-gamajo-template-loader.php`
+* `custom-template-loader.class.php`
+* `exopite-template.class.php`
+* `templates/partial.html`
+* `templates/archive-custom-post-type.php`
+* `templates/content-custom-post-type.php`
 
 ## WordPress.org Preparation
 
