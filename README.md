@@ -24,6 +24,17 @@ The Boilerplate can be installed directly into your plugins folder "as-is". You 
 
 Note that this will activate the source code of the Boilerplate, but because the Boilerplate has no real functionality so no menu  items, meta boxes, or custom post types will be added.
 
+## Tutorial files
+
+* Main tutorial file: tutorial.php
+
+* class-gamajo-template-loader.php
+* custom-template-loader.class.php
+* exopite-template.class.php
+* templates/partial.html
+* templates/archive-custom-post-type.php
+* templates/content-custom-post-type.php
+
 ## WordPress.org Preparation
 
 The original launch of this version of the boilerplate included the folder structure needed for using your plugin on the WordPress.org. That folder structure has been moved to its own repo here: https://github.com/DevinVinson/Plugin-Directory-Boilerplate
@@ -94,6 +105,9 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 1.0.2 =
+* Add tutorial
 
 = 1.0.1 =
 * Add shortcode hooks. More: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/262
