@@ -722,15 +722,36 @@ $(function() {
 
     // ...
 
-    var data = {
+    var dataJSON = {
         'action': 'prefix_ajax_first',
         'whatever': 1234
     };
 
-    jQuery.post( wp_ajax.ajax_url, data, function(response) {
+    // Or:
 
-        // code...
+    // < ... id="selector" data-value="key=value&key2=value2[...]" ... >
+    var dataItem = $( '#selector' ).data( 'value' );
 
+    // Convert to JSON array
+    var dataJSON = dataItem?JSON.parse( '{"' + dataItem.replace( /&/g, '","' ).replace( /=/g,'":"' ) + '"}', function( key, value ) {
+        return key===""?value:decodeURIComponent(value);
+    }):{};
+
+    dataJSON["action"] ='prefix_ajax_first';
+
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url: wp_ajax.ajax_url,
+        data: dataJSON,
+        success: function( response ){
+            // on success
+            // code...
+        },
+        error: function( xhr, status, error ) {
+            console.log( 'Status: ' + xhr.status );
+            console.log( 'Error: ' + xhr.responseText );
+        }
     });
 
 });
