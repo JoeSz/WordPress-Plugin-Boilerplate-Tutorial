@@ -194,7 +194,10 @@ private function define_public_hooks() {
     // ...
 
     // Override archive template location for custom post type
-    $this->loader->add_filter( 'archive_template', $plugin_public, 'get_custom_post_type_template' );
+    $this->loader->add_filter( 'archive_template', $plugin_public, 'get_custom_post_type_archive_template' );
+
+    //OR
+    $this->loader->add_filter( 'template_include', $plugin_public, 'get_custom_post_type_templates' );
 
 }
 
@@ -210,13 +213,14 @@ private function define_public_hooks() {
  * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/archive_template
  * @link http://wordpress.stackexchange.com/a/116025/90212
  */
-function get_custom_post_type_template( $archive_template ) {
+function get_custom_post_type_archive_template(  ) {
 
     global $post;
     $custom_post_type = 'customers';
     $templates_dir = 'templates';
 
     if ( is_post_type_archive( $custom_post_type ) ) {
+
         $theme_files = array('archive-' . $custom_post_type . '.php', $this->plugin_name . '/archive-' . $custom_post_type . '.php');
         $exists_in_theme = locate_template( $theme_files, false );
         if ( $exists_in_theme != '' ) {
@@ -234,9 +238,57 @@ function get_custom_post_type_template( $archive_template ) {
             }
 
         }
-     }
 
-     return $template;
+    }
+
+    return $archive_template;
+
+}
+
+// OR (not tested yet!)
+
+function locate_template( $template, $settings, $page_type ) {
+
+    $theme_files = array( $page_type . '-' . $settings['custom_post_type'] . '.php', $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php');
+    $exists_in_theme = locate_template( $theme_files, false );
+
+    if ( $exists_in_theme != '' ) {
+        // Try to locate in theme first
+        return $template;
+    } else {
+        // Try to locate in plugin templates folder
+        if ( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $settings['templates_dir'] . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php' ) ) {
+            return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $settings['templates_dir'] . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php';
+        } elseif ( file_exists( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php' ) ) {
+            // Try to locate in plugin base folder
+            return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php';
+        } else {
+            return $template;
+        }
+    }
+
+}
+
+function get_custom_post_type_templates( $template ) {
+
+    global $post;
+    $settings = array(
+        'custom_post_type' => 'customers',
+        'templates_dir' => 'templates',
+    );
+    $page_type = array( 'archive', 'single' );
+
+    if ( is_post_type_archive( $settings['custom_post_type'] ) ) {
+
+        return $this->locate_template( $template, $settings, $page_type[0] );
+
+    } elseif ( ! is_archive() && ! is_search() ) {
+
+        return $this->locate_template( $template, $settings, $page_type[1] );
+
+    }
+
+    return $template;
 
 }
 
