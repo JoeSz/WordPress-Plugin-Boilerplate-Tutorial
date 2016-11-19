@@ -1,6 +1,23 @@
 # WordPress Plugin Boilerplate
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.   
+I also added some tutorial codes and add_shortcode hooks.
+
+## Tutorial code for:
+* How to register a custom post type (e.g.: customers)
+* How to register metabox for a custom post type (e.g.: customers)
+* How to get custom post type (e.g.: customers) archive template from plugin folder
+* How to add/remove/reorder custom post type list columns in admin area (e.g.: customers)
+* How to add pptions page to plugin
+* How to Register Shortcode in Plugin
+* Added custom `get_template_part` to load (single) template from plugin folder,   
+(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and   
+`custom-template-loader.class.php`)
+* Added template engine to plugin (`exopite-template.class.php`)
+* Register any external php file in permalinks
+* Register and use AJAX callback (also JavaScript code)
+
+Check out the `tutorial.php`.
 
 ## Contents
 
