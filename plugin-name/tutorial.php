@@ -282,7 +282,7 @@ function get_custom_post_type_templates( $template ) {
 
         return $this->locate_template( $template, $settings, $page_type[0] );
 
-    } elseif ( ! is_archive() && ! is_search() ) {
+    } elseif ( 'customers' == get_post_type() && ! is_archive() && ! is_search() ) {
 
         return $this->locate_template( $template, $settings, $page_type[1] );
 
@@ -652,7 +652,7 @@ $placeholders = array(
 );
 
 Exopite_Template::$variables_array = $placeholders;
-Exopite_Template::$filename = 'templates/partial.html';
+Exopite_Template::$filename = WP_PLUGIN_DIR . '/' . $this->plugin_name . 'templates/partial.html';
 echo Exopite_Template::get_template();
 
 /***********************************************
@@ -733,6 +733,8 @@ private function define_public_hooks() {
 
     // ...
 
+    // The wp_ajax_ is telling wordpress to use ajax and the prefix_ajax_first is the hook name to use in JavaScript.
+    // The ajax_first is the callback function.
     $this->loader->add_action('wp_ajax_prefix_ajax_first', $plugin_public, 'ajax_first');
 
 }
@@ -756,7 +758,7 @@ public function enqueue_scripts() {
 
 }
 
-
+// Callback function
 public function ajax_first() {
 
     $ret = '';
@@ -779,16 +781,17 @@ $(function() {
         'whatever': 1234
     };
 
-    // Or:
+    // Or get from HTML element:
 
-    // < ... id="selector" data-value="key=value&key2=value2[...]" ... >
-    var dataItem = $( '#selector' ).data( 'value' );
+        // < ... id="selector" data-value="key=value&key2=value2[...]" ... >
+        var dataItem = $( '#selector' ).data( 'value' );
 
-    // Convert to JSON array
-    var dataJSON = dataItem?JSON.parse( '{"' + dataItem.replace( /&/g, '","' ).replace( /=/g,'":"' ) + '"}', function( key, value ) {
-        return key===""?value:decodeURIComponent(value);
-    }):{};
+        // Convert to JSON array
+        var dataJSON = dataItem?JSON.parse( '{"' + dataItem.replace( /&/g, '","' ).replace( /=/g,'":"' ) + '"}', function( key, value ) {
+            return key===""?value:decodeURIComponent(value);
+        }):{};
 
+    // From the wp_ajax_prefix_ajax_first hook
     dataJSON["action"] ='prefix_ajax_first';
 
     $.ajax({
