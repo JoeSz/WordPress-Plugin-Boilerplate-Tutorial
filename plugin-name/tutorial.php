@@ -240,6 +240,36 @@ function get_custom_post_type_template( $archive_template ) {
 
 }
 
+
+function get_custom_post_type_template( $archive_template ) {
+    global $post;
+
+    if ( is_post_type_archive( get_post_type() ) ) {
+        $theme_files = array('archive-' . get_post_type() . '.php', $this->plugin_name . '/archive-' . get_post_type() . '.php');
+        $exists_in_theme = locate_template( $theme_files, false );
+        if ( $exists_in_theme != '' ) {
+            return $archive_template;
+        } else {
+            $base_dir = WP_PLUGIN_DIR . '/' . $this->plugin_name . '/';
+            $templates_dir = 'templates/';
+            $fn = 'archive-' . get_post_type() . '.php';
+
+            if ( file_exists( $base_dir . $templates_dir . $fn ) ) {
+                // Try to locate in plugin templates folder
+                return $base_dir . $templates_dir . $fn;
+            } elseif ( file_exists( $base_dir . $fn ) {
+                // Try to locate in plugin base folder
+                return $base_dir . $fn;
+            } else {
+                return $archive_template;
+            }
+        }
+    }
+
+    return $archive_template;
+
+}
+
 /****************************************************************
  * ADD/REMOVE/REORDER CUSTOM POST TYPE LIST COLUMNS (customers) *
  * ------------------------------------------------------------ *
