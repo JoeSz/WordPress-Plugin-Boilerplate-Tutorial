@@ -1,6 +1,24 @@
 # WordPress Plugin Boilerplate
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.   
+I created some tutorials to help with my work and I tought, I share this to help others.
+I also added add_shortcode hooks.
+
+## Tutorial code for:
+* How to register a custom post type (e.g.: customers)
+* How to register metabox for a custom post type (e.g.: customers)
+* How to get custom post type (e.g.: customers) archive template from plugin folder
+* How to add/remove/reorder custom post type list columns in admin area (e.g.: customers)
+* How to add pptions page to plugin
+* How to Register Shortcode in Plugin
+* Added custom `get_template_part` to load (single) template from plugin folder,   
+(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and   
+`custom-template-loader.class.php`)
+* Added template engine to plugin (`exopite-template.class.php`)
+* Register any external php file in permalinks
+* Register and use AJAX callback (also JavaScript code)
+
+Check out the `tutorial.php`.
 
 ## Contents
 
@@ -32,7 +50,7 @@ Template File Loaders in Plugins
 
 Template file loaders like this are used in a lot of large-scale plugins in order to provide greater flexibility and better control for advanced users that want to tailor a plugin’s output more to their specific needs.
 
-Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin
+Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin   
 Tutorial: https://pippinsplugins.com/template-file-loaders-plugins/
 
 * Main tutorial file: `tutorial.php`
