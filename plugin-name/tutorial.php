@@ -69,6 +69,7 @@ public static function deactivate() {
  * Create post type "Customers"
  *
  * @link https://codex.wordpress.org/Function_Reference/register_post_type
+ * @link https://www.smashingmagazine.com/2012/11/complete-guide-custom-post-types/
  */
 public function create_custom_post_type() {
 
