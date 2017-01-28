@@ -625,7 +625,7 @@ function shortcode_function( $atts ) {
 
     // code...
 
-    $var = ( strtolower( $args['arg1']) != "" ) ? strtolower( $args['arg1'] : 'default';
+    $var = ( strtolower( $args['arg1']) != "" ) ? strtolower( $args['arg1'] ) : 'default';
 
     // code...
 
