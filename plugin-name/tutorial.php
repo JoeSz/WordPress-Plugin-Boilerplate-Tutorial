@@ -630,8 +630,19 @@ public function add_shortcode( $tag, $component, $callback, $priority = 10, $acc
     $this->shortcodes = $this->add( $this->shortcodes, $tag, $component, $callback, $priority, $accepted_args );
 }
 
-foreach ( $this->shortcodes as $hook ) {
-    add_shortcode(  $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+/**
+ * Register the filters and actions with WordPress.
+ *
+ * @since    1.0.0
+ */
+public function run() {
+
+    // ...
+
+    foreach ( $this->shortcodes as $hook ) {
+        add_shortcode(  $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+    }
+
 }
 
 ////////////////////////////////////////////////
