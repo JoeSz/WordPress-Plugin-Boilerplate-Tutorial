@@ -250,22 +250,36 @@ function get_custom_post_type_archive_template(  ) {
 
 function locate_template( $template, $settings, $page_type ) {
 
-    $theme_files = array( $page_type . '-' . $settings['custom_post_type'] . '.php', $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php');
+    $theme_files = array(
+        $page_type . '-' . $settings['custom_post_type'] . '.php',
+        $this->plugin_name . DIRECTORY_SEPARATOR . $page_type . '-' . $settings['custom_post_type'] . '.php'
+    );
+
     $exists_in_theme = locate_template( $theme_files, false );
 
     if ( $exists_in_theme != '' ) {
+
         // Try to locate in theme first
         return $template;
+
     } else {
-        // Try to locate in plugin templates folder
-        if ( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $settings['templates_dir'] . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php' ) ) {
-            return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $settings['templates_dir'] . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php';
-        } elseif ( file_exists( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php' ) ) {
-            // Try to locate in plugin base folder
-            return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $page_type . '-' . $settings['custom_post_type'] . '.php';
-        } else {
-            return $template;
+
+        // Try to locate in plugin base folder,
+        // try to locate in plugin $settings['templates'] folder,
+        // return $template if non of above exist
+        $locations = array(
+            join( DIRECTORY_SEPARATOR, array( WP_PLUGIN_DIR, $this->plugin_name, '' ) ),
+            join( DIRECTORY_SEPARATOR, array( WP_PLUGIN_DIR, $this->plugin_name, $settings['templates_dir'], '' ) ), //plugin $settings['templates'] folder
+        );
+
+        foreach ( $locations as $location ) {
+            if ( file_exists( $location . $theme_files[0] ) ) {
+                return $location . $theme_files[0];
+            }
         }
+
+        return $template;
+
     }
 
 }
@@ -281,10 +295,12 @@ function get_custom_post_type_templates( $template ) {
 
     if ( is_post_type_archive( $settings['custom_post_type'] ) ) {
 
+        // is archive
         return $this->locate_template( $template, $settings, $page_type[0] );
 
-    } elseif ( 'customers' == get_post_type() && ! is_archive() && ! is_search() ) {
+    } elseif ( $settings['custom_post_type'] == get_post_type() && is_single() ) {
 
+        // is single and our post type (not other post types link post or page, etc...)
         return $this->locate_template( $template, $settings, $page_type[1] );
 
     }
@@ -293,35 +309,6 @@ function get_custom_post_type_templates( $template ) {
 
 }
 
-
-function get_custom_post_type_template( $archive_template ) {
-    global $post;
-
-    if ( is_post_type_archive( get_post_type() ) ) {
-        $theme_files = array('archive-' . get_post_type() . '.php', $this->plugin_name . '/archive-' . get_post_type() . '.php');
-        $exists_in_theme = locate_template( $theme_files, false );
-        if ( $exists_in_theme != '' ) {
-            return $archive_template;
-        } else {
-            $base_dir = WP_PLUGIN_DIR . '/' . $this->plugin_name . '/';
-            $templates_dir = 'templates/';
-            $fn = 'archive-' . get_post_type() . '.php';
-
-            if ( file_exists( $base_dir . $templates_dir . $fn ) ) {
-                // Try to locate in plugin templates folder
-                return $base_dir . $templates_dir . $fn;
-            } elseif ( file_exists( $base_dir . $fn ) {
-                // Try to locate in plugin base folder
-                return $base_dir . $fn;
-            } else {
-                return $archive_template;
-            }
-        }
-    }
-
-    return $archive_template;
-
-}
 
 /****************************************************************
  * ADD/REMOVE/REORDER CUSTOM POST TYPE LIST COLUMNS (customers) *
