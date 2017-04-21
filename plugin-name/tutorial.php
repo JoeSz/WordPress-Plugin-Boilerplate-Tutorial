@@ -324,6 +324,7 @@ private function define_admin_hooks() {
 
     // Change list columns in customers list
     $this->loader->add_filter( 'manage_edit-customers_columns', $plugin_admin, 'customers_list_edit_columns' );
+    // manage_<type>_custom_column, type: pages or posts
     $this->loader->add_action( 'manage_pages_custom_column', $plugin_admin, 'customers_list_custom_columns', 10, 2 );
 
 }
@@ -392,17 +393,6 @@ public function customers_list_custom_columns( $column ) {
 
 }
 
-// Make columns sortable
-public function customers_list_sortable_columns() {
-
-    return array(
-            'title'            => 'title',
-            'customer_id'      => 'customer_id',
-            'customer_address' => 'customer_address',
-            'date'             => 'date',
-    );
-
-}
 
 /******************************
  * ADD OPTIONS PAGE TO PLUGIN *
