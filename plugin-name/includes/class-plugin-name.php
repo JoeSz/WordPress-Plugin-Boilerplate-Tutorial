@@ -119,6 +119,16 @@ class Plugin_Name {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-plugin-name-public.php';
 
+        /**
+         * The class responsible for defining all actions for AJAX
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-ajax.php';
+
+        /**
+         * Custom Post Types
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
+
 		$this->loader = new Plugin_Name_Loader();
 
 	}
@@ -150,9 +160,22 @@ class Plugin_Name {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
+        $plugin_post_types = new Plugin_Name_Post_Types();
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+        /**
+         * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
+         * so hooking into init from the activation hook won't do anything.
+         * You don't need to register the CPT within the activation function unless you need rewrite rules to be added
+         * via flush_rewrite_rules() on activation. In that case, you'll want to register the CPT normally, via the
+         * loader on the init hook, and also re-register it within the activation function and
+         * call flush_rewrite_rules() to add the CPT rewrite rules.
+         *
+         * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
+         */
+        $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type' );
 
 	}
 

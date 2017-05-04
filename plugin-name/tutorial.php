@@ -22,9 +22,26 @@
 ////////////////////////////////////////////////
 // ADD TO FILE -> includes/class-plugin-name.php
 
+private function load_dependencies() {
+
+    // ...
+
+    /**
+     * Custom Post Types
+     */
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
+
+    // ...
+
+    $this->loader = new Plugin_Name_Loader();
+
+}
+
 private function define_admin_hooks() {
 
     // ...
+
+    $plugin_post_types = new Plugin_Name_Post_Types();
 
     /**
      * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
@@ -36,7 +53,7 @@ private function define_admin_hooks() {
      *
      * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
      */
-    $this->loader->add_action( 'init', $plugin_admin, 'create_custom_post_type' );
+    $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type' );
 
 }
 
@@ -46,6 +63,24 @@ private function define_admin_hooks() {
 public static function activate() {
 
     // ...
+
+    /**
+     * Custom Post Types
+     */
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
+    $plugin_post_types = new Plugin_Name_Post_Types();
+
+    /**
+     * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
+     * so hooking into init from the activation hook won't do anything.
+     * You don't need to register the CPT within the activation function unless you need rewrite rules to be added
+     * via flush_rewrite_rules() on activation. In that case, you'll want to register the CPT normally, via the
+     * loader on the init hook, and also re-register it within the activation function and
+     * call flush_rewrite_rules() to add the CPT rewrite rules.
+     *
+     * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
+     */
+    $plugin_post_types->create_custom_post_type();
 
     flush_rewrite_rules();
 
@@ -63,53 +98,32 @@ public static function deactivate() {
 }
 
 ///////////////////////////////////////////////////
-// ADD TO FILE -> admin/class-plugin-name-admin.php
+// ADD TO FILE -> includes/class-plugin-name-post_types.php
+<?php
 
 /**
- * Create post type "Customers"
+ * Register custom post type
  *
- * @link https://codex.wordpress.org/Function_Reference/register_post_type
- * @link https://www.smashingmagazine.com/2012/11/complete-guide-custom-post-types/
+ * @link       http://joe.szalai.org
+ * @since      1.0.0
+ *
+ * @package    Exopite_Portfolio
+ * @subpackage Exopite_Portfolio/includes
  */
-public function create_custom_post_type() {
+class Plugin_Name_Post_Types {
 
-    $labels = array(
-        'name'               => __( 'Customers' , $this->plugin_name ),
-        'singular_name'      => __( 'Customer' , $this->plugin_name ),
-        'menu_name'          => __( 'Customers', $this->plugin_name ),
-        'parent_item_colon'  => __( 'Parent Customer', $this->plugin_name ),
-        'all_items'          => __( 'All Customers', $this->plugin_name ),
-        'add_new'            => __( 'Add New' , $this->plugin_name ),
-        'add_new_item'       => __( 'Add New Customer' , $this->plugin_name ),
-        'edit_item'          => __( 'Edit Customer' , $this->plugin_name ),
-        'new_item'           => __( 'New Customer' , $this->plugin_name ),
-        'view_item'          => __( 'View Customer ' , $this->plugin_name ),
-        'search_items'       => __( 'Search Customer' , $this->plugin_name ),
-        'not_found'          => __( 'Not Found' , $this->plugin_name ),
-        'not_found_in_trash' => __( 'Not found in Trash' , $this->plugin_name ),
-    );
+    /**
+     * Create post type "customers"
+     *
+     * @link https://codex.wordpress.org/Function_Reference/register_post_type
+     */
+    public function create_custom_post_type() {
 
-    register_post_type( 'customers', array(
-        'description'       => __( 'Customers', $this->plugin_name ),
-        'labels'            => $labels,
-        'public'            => true,
-        'show_ui'           => true,
-        'show_in_menu'      => true,
-        'show_in_nav_menus' => true,
-        'show_in_admin_bar' => true,
-        'capability_type'   => 'page',
-        'hierarchical'      => true,
-        /* Add $this->plugin_name as translatable in the permalink structure,
-           to avoid conflicts with other plugins which may use customers as well. */
-        'rewrite' => array(
-            'slug' => __( $this->plugin_name, $this->plugin_name ) . '/' . __( 'customers', $this->plugin_name ),
-            'with_front' => false
-        ),
-        'has_archive'       => true,
-        'show_in_menu'      => true,
-        'menu_position'     => 21,
-        'menu_icon'         => 'dashicons-admin-users',
-        'supports'          => array(
+        // custom post type
+        $slug = 'customers';
+        $has_archive = false;
+        $hierarchical = false;
+        $supports = array(
             'title',
             'editor',
             'excerpt',
@@ -117,10 +131,55 @@ public function create_custom_post_type() {
             'thumbnail',
             'page-attributes',
             'custom-fields',
-        ),
-    ));
+        );
+
+        $labels = array(
+            'name'               => esc_html__( 'Customers' , 'plugin-name' ),
+            'singular_name'      => esc_html__( 'Customer' , 'plugin-name' ),
+            'menu_name'          => esc_html__( 'Customers', 'plugin-name' ),
+            'parent_item_colon'  => esc_html__( 'Parent Customer', 'plugin-name' ),
+            'all_items'          => esc_html__( 'All Customers', 'plugin-name' ),
+            'add_new'            => esc_html__( 'Add New' , 'plugin-name' ),
+            'add_new_item'       => esc_html__( 'Add New Customer' , 'plugin-name' ),
+            'edit_item'          => esc_html__( 'Edit Customer' , 'plugin-name' ),
+            'new_item'           => esc_html__( 'New Customer' , 'plugin-name' ),
+            'view_item'          => esc_html__( 'View Customer ' , 'plugin-name' ),
+            'search_items'       => esc_html__( 'Search Customer' , 'plugin-name' ),
+            'not_found'          => esc_html__( 'Not Found' , 'plugin-name' ),
+            'not_found_in_trash' => esc_html__( 'Not found in Trash' , 'plugin-name' ),
+        );
+
+        $args = array(
+            'labels'             => $labels,
+            'description'        => esc_html__( 'Customers', 'plugin-name' ),
+            'public'             => true,
+            'publicly_queryable' => true,
+            'exclude_from_search'=> true,
+            'show_ui'            => true,
+            'show_in_menu'       => true,
+            'query_var'          => true,
+            'show_in_admin_bar'  => true,
+            'capability_type'    => 'page',
+            'has_archive'        => $has_archive,
+            'hierarchical'       => $hierarchical,
+            'menu_position'      => null,
+            'supports'           => $supports,
+            'menu_position'      => 21,
+            'menu_icon'          => 'dashicons-tickets',
+            /* Add $this->plugin_name as translatable in the permalink structure,
+               to avoid conflicts with other plugins which may use customers as well. */
+            'rewrite' => array(
+                'slug' => esc_attr__( $this->plugin_name, $this->plugin_name ) . '/' . esc_attr__( 'customers', 'plugin-name' ),
+                'with_front' => false
+            ),
+        );
+
+        register_post_type( $slug, $args );
+
+    }
 
 }
+
 
 /*******************************************************
  * REGISTER METABOX FOR A CUSTOM POST TYPE (customers) *
