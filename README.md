@@ -14,12 +14,15 @@ I also added add_shortcode hooks.
 * Added custom `get_template_part` to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
 `class-custom-template-loader.php`)
-* Added template engine to plugin (`class-exopite-template.php`)
+* Added template engine to plugin <br />
+(`class-exopite-template.php` https://gist.github.com/JoeSz/3e27ee4230b8ce842ac4989016a38caa)
 * Register any external php file in permalinks
 * Register AJAX callback (also JavaScript code)
 * Register POST callback (also JavaScript code)
-* Handle AJAX/POST callback <br />
-(eg.: check nonce, insert post and post meta, upload file and add to meta and/or WordPress Media)
+* Handle AJAX/POST callback (eg.:)<br />
+  * check nonce,
+  * insert post and post meta,
+  * upload file and add to meta and/or WordPress Media
 
 Check out the `/tutorial/`.
 
