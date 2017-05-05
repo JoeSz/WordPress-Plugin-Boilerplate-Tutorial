@@ -42,13 +42,18 @@ public function ajax_first() {
 
     $ret = '';
 
-    // code...
+    /*
+     * Code to handle POST request...
+     *
+     * See tutorial file:
+     * handling_POST_request.php
+     */
 
     die( $ret );
 
 }
 
-/////////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // ADD TO FILE -> public/js/plugin-name-public.js
 
 $(function() {
@@ -89,3 +94,51 @@ $(function() {
     });
 
 });
+
+/////////////////////////////////////////////////////
+// OR more modern and handeling file upload as well.
+//
+// Required modern browser, for more information on compatibility, please check:
+// https://developer.mozilla.org/en-US/docs/Web/API/FormData
+//
+// For file upload use must declair enctype="multipart/form-data"
+// eg.: <form enctype="multipart/form-data" method="post" name="primaryPostForm" id="primaryPostForm">
+
+$(function() {
+
+    // On form submit
+    $( '#ajax' ).on( 'submit', '#primaryPostForm', function( event ) {
+        event.preventDefault();
+
+        // Validate form (optional)
+        $( this ).validate();
+
+        var form = document.getElementById('primaryPostForm');
+
+        var formData = new FormData( form );
+
+        // From the wp_ajax_prefix_ajax_first hook
+        formData.append( 'action', 'prefix_ajax_first' );
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: wp_ajax.ajax_url,
+            data: formData,
+            processData: false, // Required for file upload
+            contentType: false, // Required for file upload
+            success: function( response ){
+
+                // on success
+                // code...
+
+            },
+            error: function( xhr, status, error ) {
+                console.log( 'Status: ' + xhr.status );
+                console.log( 'Error: ' + xhr.responseText );
+            }
+        });
+
+    });
+
+}
