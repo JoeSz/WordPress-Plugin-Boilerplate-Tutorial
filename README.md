@@ -6,6 +6,7 @@ Recommend to use the WordPress [Plugin Boilerplate Generator](https://wppb.me/) 
 ---
 
 > A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+
 Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
 Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site
 
