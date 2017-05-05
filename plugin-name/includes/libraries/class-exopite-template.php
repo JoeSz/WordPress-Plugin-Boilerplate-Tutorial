@@ -4,9 +4,15 @@
  *
  * Filename can be an actual file name or a link with a file name.
  *
- * Change -if exist- [#variable] or %%VARIABLE%% in template file based on
- * the given $variables_array and optionally remove HTML comments even munltiline ones.
- * It will also remove not existing [#variable] placeholders.
+ * Change following placeholders -if exist-
+ *
+ * [#variable]
+ * %%VARIABLE%%
+ * {$variable}
+ * {{variable}}
+ *
+ * in template file based on the given $variables_array and optionally remove HTML comments even munltiline ones.
+ * It will also remove not existing placeholders.
  *
  * The function accept multidimensional arrays as well.
  *
