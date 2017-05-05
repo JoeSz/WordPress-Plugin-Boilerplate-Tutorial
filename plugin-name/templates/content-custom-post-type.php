@@ -7,6 +7,12 @@
  * @package plugin-name
  */
 
+/*
+ * Exopite_Template template engine uses includes/libraries/class-exopite-template.php
+ *
+ * See tutorial file:
+ * add_templater_engine_to_plugin.php
+ */
 $placeholders = array(
     'post-id' => 'post-' . get_the_ID(),
     'title' => get_the_title(),
