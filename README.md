@@ -1,6 +1,6 @@
-# WordPress Plugin Boilerplate
+# WordPress Plugin Boilerplate Tutorial
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.   
+A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
 I created some tutorials to help with my work and I tought, I share this to help others.
 I also added add_shortcode hooks.
 
@@ -11,14 +11,17 @@ I also added add_shortcode hooks.
 * How to add/remove/reorder custom post type list columns in admin area (e.g.: customers)
 * How to add pptions page to plugin
 * How to Register Shortcode in Plugin
-* Added custom `get_template_part` to load (single) template from plugin folder,   
-(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and   
-`custom-template-loader.class.php`)
-* Added template engine to plugin (`exopite-template.class.php`)
+* Added custom `get_template_part` to load (single) template from plugin folder<br />
+(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
+`class-custom-template-loader.php`)
+* Added template engine to plugin (`class-exopite-template.php`)
 * Register any external php file in permalinks
-* Register and use AJAX callback (also JavaScript code)
+* Register AJAX callback (also JavaScript code)
+* Register POST callback (also JavaScript code)
+* Handle AJAX/POST callback <br />
+(eg.: check nonce, insert post and post meta, upload file and add to meta and/or WordPress Media)
 
-Check out the `tutorial.php`.
+Check out the `/tutorial/`.
 
 ## Contents
 
@@ -50,7 +53,7 @@ Template File Loaders in Plugins
 
 Template file loaders like this are used in a lot of large-scale plugins in order to provide greater flexibility and better control for advanced users that want to tailor a plugin’s output more to their specific needs.
 
-Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin   
+Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin
 Tutorial: https://pippinsplugins.com/template-file-loaders-plugins/
 
 * Main tutorial file: `tutorial.php`
