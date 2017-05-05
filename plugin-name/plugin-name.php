@@ -13,7 +13,7 @@
  * @package           Plugin_Name
  *
  * @wordpress-plugin
- * Plugin Name:       WordPress Plugin Boilerplate
+ * Plugin Name:       WordPress Plugin Boilerplate Tutorial
  * Plugin URI:        http://example.com/plugin-name-uri/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
@@ -28,6 +28,15 @@
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
+}
+
+define( 'PLUGIN_NAME_BASE_DIR', plugin_dir_path( __FILE__ ) );
+
+/**
+ * Initialize custom templater
+ */
+if( ! class_exists( 'Exopite_Template' ) ) {
+    require_once plugin_dir_path( __FILE__ ) . 'includes/libraries/class-exopite-template.php';
 }
 
 /**
