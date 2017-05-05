@@ -1,6 +1,12 @@
 # WordPress Plugin Boilerplate Tutorial
+##THIS PLUGIN NOT INTEND TO INSTALL OR USE AS IS, THIS IS A TUTORIAL
+
+Recommend to use the WordPress [Plugin Boilerplate Generator]https://wppb.me/ <br />
 
 A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
+Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site
+
 I created some tutorials to help with my work and I tought, I share this to help others.
 I also added add_shortcode hooks.
 
@@ -52,6 +58,21 @@ Note that this will activate the source code of the Boilerplate, but because the
 
 You may delete, what you don't use, on production
 
+Tutorial files
+
+* `tutorials/add_custom_get-template-part_to_load_template_from_plugin.php`
+* `tutorials/add_remove_reorder_custom_post_type_list_columns_in_admin_area.php`
+* `tutorials/add_templater_engine_to_plugin.php`
+* `tutorials/app_option_page_for_plugin.php`
+* `tutorials/custom_post_types.php`
+* `tutorials/get_custom_post_type_archive_template_from_plugin.php`
+* `tutorials/handling_POST_request.php`
+* `tutorials/meta_box_for_custom_post_type.php`
+* `tutorials/register_ajax_callback.php`
+* `tutorials/register_an_external_php_file_in_permalinks.php`
+* `tutorials/register_a_shortcode_in_plugin.php`
+* `tutorials/register_post_callback_without_ajax.php`
+
 Template File Loaders in Plugins
 
 Template file loaders like this are used in a lot of large-scale plugins in order to provide greater flexibility and better control for advanced users that want to tailor a plugin’s output more to their specific needs.
@@ -59,10 +80,9 @@ Template file loaders like this are used in a lot of large-scale plugins in orde
 Source: https://github.com/pippinsplugins/pw-sample-template-loader-plugin
 Tutorial: https://pippinsplugins.com/template-file-loaders-plugins/
 
-* Main tutorial file: `tutorial.php`
-* `class-gamajo-template-loader.php`
-* `custom-template-loader.class.php`
-* `exopite-template.class.php`
+* `includes/libraries/class-gamajo-template-loader.php`
+* `includes/libraries/class-custom-template-loader.php`
+* `includes/libraries/class-exopite-template.class.php`
 * `templates/partial.html`
 * `templates/archive-custom-post-type.php`
 * `templates/content-custom-post-type.php`
@@ -77,6 +97,7 @@ The original launch of this version of the boilerplate included the folder struc
 
 The WordPress Plugin Boilerplate uses a variable to store the text domain used when internationalizing strings throughout the Boilerplate. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
 
+* [Easy PO](http://www.eazypo.ca/)
 * [Poedit](http://www.poedit.net/)
 * [makepot](http://i18n.svn.wordpress.org/tools/trunk/)
 * [i18n](https://github.com/grappler/i18n)
@@ -85,7 +106,7 @@ Any of the above tools should provide you with the proper tooling to internation
 
 ## License
 
-The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
+The WordPress Plugin Boilerplate is licensed under the GPL v3 or later.
 
 > This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 2, as published by the Free Software Foundation.
 
