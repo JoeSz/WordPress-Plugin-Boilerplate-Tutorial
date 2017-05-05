@@ -18,7 +18,7 @@ I also added add_shortcode hooks.
 (`class-exopite-template.php` https://gist.github.com/JoeSz/3e27ee4230b8ce842ac4989016a38caa)
 * Register any external php file in permalinks
 * Register AJAX callback (also JavaScript code)
-* Register POST callback (also JavaScript code)
+* Register POST callback
 * Handle AJAX/POST callback (eg.:)<br />
   * check nonce,
   * insert post and post meta,
