@@ -1,11 +1,15 @@
 # WordPress Plugin Boilerplate Tutorial
-##THIS PLUGIN NOT INTEND TO INSTALL OR USE AS IS, THIS IS A TUTORIAL
+## **THIS PLUGIN NOT INTEND TO INSTALL OR USE AS IS, THIS IS A TUTORIAL**
 
-Recommend to use the WordPress [Plugin Boilerplate Generator]https://wppb.me/ <br />
+Recommend to use the WordPress [Plugin Boilerplate Generator](https://wppb.me/) <br />
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+---
+
+> A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
 Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
 Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site
+
+---
 
 I created some tutorials to help with my work and I tought, I share this to help others.
 I also added add_shortcode hooks.
