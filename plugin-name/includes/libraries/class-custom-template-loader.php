@@ -30,6 +30,6 @@ class Custom_Template_Loader extends Gamajo_Template_Loader {
 	 * @since 1.0.0
 	 * @type string
 	 */
-	protected $plugin_directory = PLUGIN_NAME_PLUGIN_DIR;
+	protected $plugin_directory = PLUGIN_NAME_BASE_DIR;
 
 }
