@@ -40,7 +40,7 @@ public function enqueue_scripts() {
 // Callback function
 public function ajax_first() {
 
-    $ret = '';
+    $ret = array();
 
     /*
      * Code to handle POST request...
@@ -49,7 +49,25 @@ public function ajax_first() {
      * handling_POST_request.php
      */
 
-    die( $ret );
+    // Eg.: get POST value
+    $function = sanitize_text_field( $_POST["function"] );
+
+    // Eg.: custom Loop for Custom Post Type
+    $args = array(
+        'post_type' => 'your_post_type',
+        'posts_per_page' => '-1', // for all of them
+    );
+
+    $loop = new WP_Query( $args );
+
+    while( $loop->have_posts() ): $loop->the_post();
+        $ret['meta_field'] = get_post_meta( $post_id, 'custom_meta_id', true );
+        $ret['post_id']    = get_the_ID();
+    endwhile;
+
+    wp_reset_query();
+
+    die( json_encode( $ret ) );
 
 }
 
