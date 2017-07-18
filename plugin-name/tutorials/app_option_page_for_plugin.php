@@ -119,7 +119,7 @@ if ( ! defined( 'WPINC' ) ) die;
         //Grab all options
         $options = get_option($this->plugin_name);
 
-        $example_select = ( isset($ options['example_checkbox'] ) && ! empty( $options['example_checkbox'] ) ) ? esc_attr( $options['example_checkbox'] ) : '1';
+        $example_select = ( isset( $options['example_checkbox'] ) && ! empty( $options['example_checkbox'] ) ) ? esc_attr( $options['example_checkbox'] ) : '1';
         $example_text = ( isset( $options['example_text'] ) && ! empty( $options['example_text'] ) ) ? esc_attr( $options['example_text'] ) : 'default';
         $example_radio = ( isset( $options['example_radio'] ) && ! empty( $options['example_radio'] ) ) ? 1 : 0;
 
