@@ -77,7 +77,7 @@ public function add_action_links( $links ) {
  */
 public function display_plugin_setup_page() {
 
-    include_once( 'partials/plugin-name-admin-display.php' );
+    include_once( 'partials/' . $this->plugin_name . '-admin-display.php' );
 
 }
 
