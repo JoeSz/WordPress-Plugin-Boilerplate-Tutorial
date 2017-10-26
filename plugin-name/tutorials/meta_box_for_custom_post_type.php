@@ -30,6 +30,8 @@ private function define_admin_hooks() {
 // Save custom fields
 public function save_meta_options() {
 
+    if ( ! current_user_can( '' ) ) return;
+
     global $post;
     update_post_meta($post->ID, "customer_id", $_POST["customer_id"]);
     update_post_meta($post->ID, "customer_address", $_POST["customer_address"]);
