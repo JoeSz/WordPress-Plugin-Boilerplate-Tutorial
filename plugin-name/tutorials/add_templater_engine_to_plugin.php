@@ -54,7 +54,7 @@ $templates->get_template_part( 'content', 'custom-post-type' );
  *
  * Initialize custom templater
  */
-require PLUGIN_NAME_BASE_DIR . 'includes/libraries/exopite-template.class.php';
+require PLUGIN_NAME_BASE_DIR . 'includes/libraries/class-exopite-template.php';
 
 //////////////////////////////////////////////////////////////////////////
 // USE INSIDE TEMPLATE FILE -> eg.: templates/archive-custom-post-type.php
