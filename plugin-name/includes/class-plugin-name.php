@@ -129,6 +129,8 @@ class Plugin_Name {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
 
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
+
 		$this->loader = new Plugin_Name_Loader();
 
 	}
@@ -176,6 +178,9 @@ class Plugin_Name {
          * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
          */
         $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type' );
+
+        // Save/Update our plugin options
+        $this->loader->add_action( 'init', $plugin_admin, 'create_menu' );
 
 	}
 
