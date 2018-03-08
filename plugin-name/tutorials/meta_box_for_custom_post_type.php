@@ -41,12 +41,12 @@ public function save_meta_options() {
 /* Create a meta box for our custom fields */
 public function rerender_meta_options() {
 
-    add_meta_box("customer-meta", "Customer Details", array($this, "dispaly_meta_options"), "customers", "normal", "low");
+    add_meta_box("customer-meta", "Customer Details", array($this, "display_meta_options"), "customers", "normal", "low");
 
 }
 
 // Display meta box and custom fields
-public function dispaly_meta_options() {
+public function display_meta_options() {
 
     global $post;
     $custom = get_post_custom($post->ID);
