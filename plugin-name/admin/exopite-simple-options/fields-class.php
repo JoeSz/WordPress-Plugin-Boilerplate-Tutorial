@@ -25,18 +25,18 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
         public function element_before() {
 
-          return ( isset( $this->field['before'] ) ) ? '<div class="exopite-sof-before">' . $this->field['before'] . '</div>' : '';
+            return ( isset( $this->field['before'] ) ) ? '<div class="exopite-sof-before">' . $this->field['before'] . '</div>' : '';
 
         }
 
         public function element_after() {
 
-          $out  = ( isset( $this->field['info'] ) ) ? '<span class="exopite-sof-text-desc">'. $this->field['info'] .'</span>' : '';
-          $out .= $this->element_help();
-          $out .= ( isset( $this->field['after'] ) ) ? '<div class="exopite-sof-after">' . $this->field['after'] . '</div>' : '';
-          // $out .= $this->element_get_error();
+            $out  = ( isset( $this->field['info'] ) ) ? '<span class="exopite-sof-text-desc">'. $this->field['info'] .'</span>' : '';
+            $out .= $this->element_help();
+            $out .= ( isset( $this->field['after'] ) ) ? '<div class="exopite-sof-after">' . $this->field['after'] . '</div>' : '';
+            // $out .= $this->element_get_error();
 
-          return $out;
+            return $out;
 
         }
 
@@ -52,7 +52,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
         public function element_name( $extra_name = '' ) {
 
-            return $this->unique .'['. $this->field['id'] .']' . $extra_name;
+            return ( ! empty( $this->unique ) ) ? $this->unique .'['. $this->field['id'] .']' . $extra_name : '';
 
         }
 

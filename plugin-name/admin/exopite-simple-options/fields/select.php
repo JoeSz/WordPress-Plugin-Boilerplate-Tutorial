@@ -153,6 +153,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
             /*
              * https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.min.js
+             * https://www.sitepoint.com/jquery-select-box-components-chosen-vs-select2/
              */
             wp_enqueue_style( 'jquery-chosen', '//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.min.css',  array(), '1.8.2', 'all' );
 

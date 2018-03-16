@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-23 11:44+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: exopite-simple-options-framework-class.php:261
+msgid "Settings"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:808
+msgid "ERROR:"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:809
+msgid "This field class is not available!"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:832
+msgid "Saving..."
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:832
+msgid "Saved Successfully."
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:841
+#: exopite-simple-options-framework-class.php:856
+msgid "Save Settings"
+msgstr ""
+
+#: fields/attached.php:43
+#, php-format
+msgid "There is no attachment with type %s for this %s."
+msgstr ""
+
+#: fields/backup.php:43
+msgid "copy-paste your backup string here"
+msgstr ""
+
+#: fields/backup.php:44
+msgid "Are you sure, you want to overwrite existing options?"
+msgstr ""
+
+#: fields/backup.php:44
+msgid "Import a Backup"
+msgstr ""
+
+#: fields/backup.php:48
+msgid "Download Backup"
+msgstr ""
+
+#: fields/backup.php:51
+msgid "Please be sure for reset all of framework options."
+msgstr ""
+
+#: fields/backup.php:52
+msgid "Are you sure, you want to reset all options?"
+msgstr ""
+
+#: fields/backup.php:52
+msgid "Reset All Options"
+msgstr ""
+
+#: fields/group.php:174
+msgid "Max items:"
+msgstr ""
+
+#: fields/image.php:74
+msgid "Add Image"
+msgstr ""
+
+#: fields/upload.php:70
+msgid "Drop files here"
+msgstr ""
+
+#: fields/upload.php:79
+msgid "Select files"
+msgstr ""
+
+#: fields/upload.php:82
+msgid "Upload"
+msgstr ""
+
+#: fields/upload.php:86
+msgid "Processing dropped files..."
+msgstr ""
+
+#: fields/upload.php:100 fields/upload.php:126
+msgid "Cancel"
+msgstr ""
+
+#: fields/upload.php:101
+msgid "Retry"
+msgstr ""
+
+#: fields/upload.php:102
+msgid "Delete"
+msgstr ""
+
+#: fields/upload.php:110
+msgid "Close"
+msgstr ""
+
+#: fields/upload.php:117
+msgid "No"
+msgstr ""
+
+#: fields/upload.php:118
+msgid "Yes"
+msgstr ""
+
+#: fields/upload.php:127
+msgid "Ok"
+msgstr ""
+
+#: fields/upload.php:166
+msgid "Max amount of files: "
+msgstr ""
+
+#: fields/upload.php:167
+msgid "Max file upload size: "
+msgstr ""
+
+#: fields/video.php:56
+msgid "Add Video"
+msgstr ""
