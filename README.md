@@ -1,7 +1,31 @@
-# WordPress Plugin Boilerplate Tutorial
+# WordPress Plugin Boilerplate Tutorial with Examples
 ## **THIS PLUGIN NOT INTEND TO INSTALL OR USE AS IS, THIS IS A TUTORIAL**
 
-Recommend to use the WordPress [Plugin Boilerplate Generator](https://wppb.me/) <br />
+This is a tutorial plugin with examples. I created some tutorials to help with my work and I tought, I share this to help others.
+
+More will come... ;)
+
+To generate your personalized plugin, I recommend to use the WordPress [Plugin Boilerplate Generator](https://wppb.me/) <br />
+
+###For more real life example, you can check out my plugin, which I have created with the boilerplate:
+
+[Exopite-Multifilter-Multi-Sorter](https://github.com/JoeSz/Exopite-Multifilter-Multi-Sorter-WordPress-Plugin) <br />
+Working with shortcodes and AJAX
+
+[Exopite-Notificator](https://github.com/JoeSz/Exopite-Notificator-WordPress-Plugin) <br />
+Working with hooks for comments, posts, user profile, authenticate, etc... in WordPress.
+
+[Exopite-Combiner-and-Minifier-WordPress-Plugin](https://github.com/JoeSz/Exopite-Combiner-and-Minifier-WordPress-Plugin) <br />
+Working with output buffering and DOM manipulation with Simple HTML DOM.
+
+[Exopite-SEO-Core](https://github.com/JoeSz/Exopite-SEO-Core) <br />
+Working with several SEO releated WordPress hooks.
+
+[Exopite-Lazy-Load-XT](https://github.com/JoeSz/Exopite-Lazy-Load-XT-WordPress-Plugin) <br />
+Working with output buffering as well as content manipulation (like thumbnails, etc...) in WordPress.
+
+[Exopite-WooCommerce-Ajaxify](https://github.com/JoeSz/Exopite-WooCommerce-Ajaxify-WordPress-Plugin) <br />
+Using WooCommers hooks and AJAX.
 
 ---
 
@@ -12,10 +36,9 @@ Github link for the WordPress Plugin Boilerplate Generator: https://github.com/T
 
 ---
 
-I created some tutorials to help with my work and I tought, I share this to help others.
 I also added add_shortcode hooks.
 
-## Tutorial code for:
+## Tutorial and example code for:
 * How to register a custom post type (e.g.: customers)
 * How to register metabox for a custom post type (e.g.: customers)
 * How to get custom post type (e.g.: customers) archive template from plugin folder
@@ -35,7 +58,7 @@ I also added add_shortcode hooks.
   * insert post and post meta,
   * upload file and add to meta and/or WordPress Media
 
-Check out the `/tutorial/`.
+Check out the `/tutorials/`.
 
 ## Contents
 
