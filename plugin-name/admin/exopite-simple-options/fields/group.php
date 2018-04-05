@@ -95,6 +95,8 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
                 // If repeater, template field has no values
                 if ( $this->field['options']['repeater'] ) {
 
+                    $field_value = '';
+
                     $field_attributes = array(
                         'disabled'  => 'only-key',
                     );

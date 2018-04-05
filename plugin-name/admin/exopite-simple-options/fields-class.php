@@ -90,11 +90,22 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
             if ( empty( $value ) && ! empty( $this->field['default'] ) ) {
 
-                $value = $this->field['default'];
+                $default = $this->field['default'];
+
+                if( is_array( $default ) ) {
+
+                    if( is_callable( $default['function'] ) ) {
+                        $args = ( isset( $default['args'] ) ) ? $default['args'] : '';
+                        return call_user_func( $default['function'], $args );
+                    }
+
+                }
+
+                return $default;
 
             }
 
-            return $value;
+            return $this->value;
 
         }
 

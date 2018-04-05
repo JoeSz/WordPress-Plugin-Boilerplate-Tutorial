@@ -138,7 +138,8 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
                 case 'callback':
 
                     if( is_callable( $query_args['function'] ) ) {
-                        $options = call_user_func( $query_args['function'], $query_args['args'] );
+                        $args = ( isset( $query_args['args'] ) ) ? $query_args['args'] : '';
+                        $options = call_user_func( $query_args['function'], $args );
                     }
 
                 break;

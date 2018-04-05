@@ -14,8 +14,21 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_content' ) ) {
 
         public function output() {
 
+            $content = ( isset( $this->field['content'] ) ) ? $this->field['content'] : '';
+
+            if( isset( $this->field['callback'] ) ) {
+
+                $callback = $this->field['callback'];
+                if( is_callable( $callback['function'] ) ) {
+
+                    $args = ( isset( $callback['args'] ) ) ? $callback['args'] : '';
+                    $content = call_user_func( $callback['function'], $args );
+
+                }
+            }
+
             echo $this->element_before();
-            echo '<div'. $this->element_class() . $this->element_attributes() .'>' . $this->field['content'] . '</div>';
+            echo '<div'. $this->element_class() . $this->element_attributes() .'>' . $content . '</div>';
             echo $this->element_after();
 
         }
