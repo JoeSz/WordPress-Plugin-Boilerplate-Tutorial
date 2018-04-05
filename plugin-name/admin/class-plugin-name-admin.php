@@ -100,6 +100,19 @@ class Plugin_Name_Admin {
 
 	}
 
+    public function get_all_emails() {
+
+        $all_users = get_users();
+
+        $user_email_list = array();
+
+        foreach ($all_users as $user) {
+            $user_email_list[esc_html($user->user_email)] = esc_html($user->display_name);
+        }
+
+        return $user_email_list;
+
+    }
 
     public function create_menu() {
 
@@ -204,16 +217,17 @@ class Plugin_Name_Admin {
                     'id'            => 'video_1',
                     'type'          => 'video',
                     'title'         => 'Video oEmbed',
-                    'options'       => array(
-                        // 'input'         => false,
-                        // 'oembed'        => true,
+                    // 'default'       => '/wp-content/uploads/2018/01/video.mp4',
+                    // - OR for oEmbed: -
+                    'default'       => 'https://www.youtube.com/watch?v=KujZ__rrs0k',
+                    'info'          => 'oEmbed',
+                    'attributes'    => array(
+                        'placeholder'   => 'oEmbed',
                     ),
-                    'default'       => '/wp-content/uploads/2018/01/video.mp4',
-                    // 'default'       => 'https://www.youtube.com/watch?v=KujZ__rrs0k',
-                    // 'info'          => 'oEmbed',
-                    // 'attributes'    => array(
-                    //     'placeholder'   => 'oEmbed',
-                    // ),
+                    'options'       => array(
+                        'input'         => false,
+                        'oembed'        => true,
+                    ),
                 ),
 
                 array(
@@ -633,6 +647,71 @@ class Plugin_Name_Admin {
                     'default'      => 'value-5',
                 ),
 
+                 array(
+                    'type'    => 'group',
+                    'id'      => 'email',
+                    'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => true,
+                        'button_title'      => 'Add new',
+                        'accordion_title'   => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'text_group',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'switcher_group',
+                            'type'    => 'switcher',
+                            'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                            'default' => 'yes',
+                        ),
+
+                        array(
+                            'id'             => 'emails',
+                            'type'           => 'select',
+                            'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
+                            'options'        => 'callback',
+                            'query_args'     => array(
+                                'function'      => array( $this, 'get_all_emails' ),
+                            ),
+                            'attributes' => array(
+                                'multiple' => 'multiple',
+                                'style'    => 'width: 200px; height: 56px;',
+                            ),
+                            'class'       => 'chosen',
+
+                        ),
+
+                        array(
+                            'id'      => 'textarea_group',
+                            'type'    => 'textarea',
+                            'class'   => 'some-class',
+                            'title'   => esc_html__( 'Textarea', 'plugin-name' ),
+                            'default' => esc_html__( 'Some text', 'plugin-name' ),
+                            'after'   => '<mute>' . esc_html__( 'Some info: ', 'plugin-name' ) . '</mute>',
+                        ),
+
+                    ),
+
+                ),
+
+                array(
+                    'type'    => 'backup',
+                    'title'   => esc_html__( 'Backup', 'exopite-seo-core' ),
+                ),
+
             )
         );
 
@@ -664,8 +743,7 @@ class Plugin_Name_Admin {
 
                 ),
 
-
-            )
+            ),
         );
 
         /**
