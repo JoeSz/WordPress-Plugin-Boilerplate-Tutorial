@@ -31,6 +31,11 @@ class Plugin_Name_Deactivator {
 	 */
 	public static function deactivate() {
 
+        /**
+         * This only required if custom post type has rewrite!
+         */
+        flush_rewrite_rules();
+
 	}
 
 }

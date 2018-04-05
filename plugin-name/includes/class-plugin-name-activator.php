@@ -49,6 +49,22 @@ class Plugin_Name_Activator {
          */
         $plugin_post_types->create_custom_post_type();
 
+        /**
+         * This only required if custom post type has rewrite!
+         *
+         * Remove rewrite rules and then recreate rewrite rules.
+         *
+         * This function is useful when used with custom post types as it allows for automatic flushing of the WordPress
+         * rewrite rules (usually needs to be done manually for new custom post types).
+         * However, this is an expensive operation so it should only be used when absolutely necessary.
+         * See Usage section for more details.
+         *
+         * Flushing the rewrite rules is an expensive operation, there are tutorials and examples that suggest
+         * executing it on the 'init' hook. This is bad practice. It should be executed either
+         * on the 'shutdown' hook, or on plugin/theme (de)activation.
+         *
+         * @link https://codex.wordpress.org/Function_Reference/flush_rewrite_rules
+         */
         flush_rewrite_rules();
 
 	}

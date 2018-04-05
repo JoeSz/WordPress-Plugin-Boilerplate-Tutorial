@@ -68,6 +68,22 @@ public static function activate() {
      */
     $plugin_post_types->create_custom_post_type();
 
+    /**
+     * This only required if custom post type has rewrite!
+     *
+     * Remove rewrite rules and then recreate rewrite rules.
+     *
+     * This function is useful when used with custom post types as it allows for automatic flushing of the WordPress
+     * rewrite rules (usually needs to be done manually for new custom post types).
+     * However, this is an expensive operation so it should only be used when absolutely necessary.
+     * See Usage section for more details.
+     *
+     * Flushing the rewrite rules is an expensive operation, there are tutorials and examples that suggest
+     * executing it on the 'init' hook. This is bad practice. It should be executed either
+     * on the 'shutdown' hook, or on plugin/theme (de)activation.
+     *
+     * @link https://codex.wordpress.org/Function_Reference/flush_rewrite_rules
+     */
     flush_rewrite_rules();
 
 }
@@ -79,89 +95,77 @@ public static function deactivate() {
 
     // ...
 
+    /**
+     * This only required if custom post type has rewrite!
+     */
     flush_rewrite_rules();
 
 }
 
 ///////////////////////////////////////////////////
-// ADD TO FILE -> includes/class-plugin-name-post_types.php
+// COPY FILE FROM TUTORIAL -> includes/class-plugin-name-post_types.php
 <?php
 
-/**
- * Register custom post type
- *
- * @link       http://joe.szalai.org
- * @since      1.0.0
- *
- * @package    Exopite_Portfolio
- * @subpackage Exopite_Portfolio/includes
- */
-class Plugin_Name_Post_Types {
+    /**
+     * CUSTOMIZE CUSTOM POST TYPE AS YOU WISH.
+     */
 
     /**
-     * Create post type "customers"
-     *
-     * @link https://codex.wordpress.org/Function_Reference/register_post_type
+     * Create post types
      */
     public function create_custom_post_type() {
 
-        // custom post type
-        $slug = 'customers';
-        $has_archive = false;
-        $hierarchical = false;
-        $supports = array(
-            'title',
-            'editor',
-            'excerpt',
-            'author',
-            'thumbnail',
-            'page-attributes',
-            'custom-fields',
-        );
-
-        $labels = array(
-            'name'               => esc_html__( 'Customers' , 'plugin-name' ),
-            'singular_name'      => esc_html__( 'Customer' , 'plugin-name' ),
-            'menu_name'          => esc_html__( 'Customers', 'plugin-name' ),
-            'parent_item_colon'  => esc_html__( 'Parent Customer', 'plugin-name' ),
-            'all_items'          => esc_html__( 'All Customers', 'plugin-name' ),
-            'add_new'            => esc_html__( 'Add New' , 'plugin-name' ),
-            'add_new_item'       => esc_html__( 'Add New Customer' , 'plugin-name' ),
-            'edit_item'          => esc_html__( 'Edit Customer' , 'plugin-name' ),
-            'new_item'           => esc_html__( 'New Customer' , 'plugin-name' ),
-            'view_item'          => esc_html__( 'View Customer ' , 'plugin-name' ),
-            'search_items'       => esc_html__( 'Search Customer' , 'plugin-name' ),
-            'not_found'          => esc_html__( 'Not Found' , 'plugin-name' ),
-            'not_found_in_trash' => esc_html__( 'Not found in Trash' , 'plugin-name' ),
-        );
-
-        $args = array(
-            'labels'             => $labels,
-            'description'        => esc_html__( 'Customers', 'plugin-name' ),
-            'public'             => true,
-            'publicly_queryable' => true,
-            'exclude_from_search'=> true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'query_var'          => true,
-            'show_in_admin_bar'  => true,
-            'capability_type'    => 'page',
-            'has_archive'        => $has_archive,
-            'hierarchical'       => $hierarchical,
-            'menu_position'      => null,
-            'supports'           => $supports,
-            'menu_position'      => 21,
-            'menu_icon'          => 'dashicons-tickets',
-            /* Add $this->plugin_name as translatable in the permalink structure,
-               to avoid conflicts with other plugins which may use customers as well. */
-            'rewrite' => array(
-                'slug' => esc_attr__( $this->plugin_name, $this->plugin_name ) . '/' . esc_attr__( 'customers', 'plugin-name' ),
-                'with_front' => false
+        /**
+         * This is not all the fields, only what I find important. Feel free to change this function ;)
+         *
+         * @link https://codex.wordpress.org/Function_Reference/register_post_type
+         */
+        $post_types_fields = array(
+            array(
+                'slug'                  => 'test',
+                'singular'              => 'Test',
+                'plural'                => 'Tests',
+                'menu_name'             => 'Tests',
+                'description'           => 'Tests',
+                'has_archive'           => true,
+                'hierarchical'          => false,
+                'menu_icon'             => 'dashicons-tag',
+                'rewrite' => array(
+                    'slug'                  => 'tests',
+                    'with_front'            => true,
+                    'pages'                 => true,
+                    'feeds'                 => true,
+                    'ep_mask'               => EP_PERMALINK,
+                ),
+                'menu_position'         => 21,
+                'public'                => true,
+                'publicly_queryable'    => true,
+                'exclude_from_search'   => true,
+                'show_ui'               => true,
+                'show_in_menu'          => true,
+                'query_var'             => true,
+                'show_in_admin_bar'     => true,
+                'show_in_nav_menus'     => true,
+                'supports'              => array(
+                    'title',
+                    'editor',
+                    'excerpt',
+                    'author',
+                    'thumbnail',
+                    'comments',
+                    'trackbacks',
+                    'custom-fields',
+                    'revisions',
+                    'page-attributes',
+                    'post-formats',
+                ),
+                'custom_caps'           => true,
+                'custom_caps_users'     => array(
+                    'administrator',
+                ),
             ),
         );
 
-        register_post_type( $slug, $args );
+        // ...
 
     }
-
-}
