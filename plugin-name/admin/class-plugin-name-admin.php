@@ -103,9 +103,10 @@ class Plugin_Name_Admin {
 
     public function create_menu() {
 
-        /*
+        /**
          * Create a submenu page under Plugins.
          * Framework also add "Settings" to your plugin in plugins list.
+         * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
          */
         $config_submenu = array(
 
@@ -131,7 +132,7 @@ class Plugin_Name_Admin {
              */
             'type'              => 'metabox',                       // Required, menu or metabox
             'id'                => $this->plugin_name . '-meta',    // Required, meta box id, unique, for saving meta: id[field-id]
-            'post_types'        => array( 'page' ),                 // Post types to display meta box
+            'post_types'        => array( 'test' ),                 // Post types to display meta box
             // 'post_types'        => array( 'post', 'page' ),         // Post types to display meta box
             'context'           => 'advanced',
             'priority'          => 'default',
@@ -146,6 +147,40 @@ class Plugin_Name_Admin {
             'title'  => 'First',
             'icon'   => 'dashicons-admin-generic',
             'fields' => array(
+
+                /**
+                 * Available fields:
+                 * - ACE field
+                 * - attached
+                 * - backup
+                 * - button
+                 * - button_bar
+                 * - card
+                 * - checkbox
+                 * - color
+                 * - content
+                 * - date
+                 * - editor
+                 * - group
+                 * - hidden
+                 * - image
+                 * - image_select
+                 * - meta
+                 * - notice
+                 * - number
+                 * - password
+                 * - radio
+                 * - range
+                 * - select
+                 * - switcher
+                 * - tap_list
+                 * - text
+                 * - textarea
+                 * - upload
+                 * - video mp4/oembed
+                 *
+                 * Add your fields, eg.:
+                 */
 
                 array(
                     'id'      => 'ace_editor_1',
@@ -368,7 +403,7 @@ class Plugin_Name_Admin {
 
                 array(
                   'id'      => 'button_bar_1',
-                  'type'    => 'botton_bar',
+                  'type'    => 'button_bar',
                   'title'   => 'Button bar',
                   'options' => array(
                     'one'   => 'One',
@@ -608,7 +643,7 @@ class Plugin_Name_Admin {
             'fields' => array(
 
                 array(
-                    'type'    => 'content_second',
+                    'type'    => 'content',
                     'content' => 'Second Section',
 
                 ),
@@ -624,7 +659,7 @@ class Plugin_Name_Admin {
             'fields' => array(
 
                 array(
-                    'type'    => 'content_third',
+                    'type'    => 'content',
                     'content' => 'Third Section',
 
                 ),
