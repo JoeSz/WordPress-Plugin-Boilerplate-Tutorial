@@ -296,14 +296,14 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'     => 'color_1',
+                    'id'     => 'color_2',
                     'type'   => 'color',
                     'title'  => 'Color',
                     'rgba'   => true,
                 ),
 
                 array(
-                    'id'     => 'color_2',
+                    'id'     => 'color_3',
                     'type'   => 'color',
                     'title'  => 'Color',
                     'picker' => 'html5',
@@ -753,5 +753,7 @@ class Plugin_Name_Admin {
         $options_panel = new Exopite_Simple_Options_Framework( $config_metabox, $fields );
 
     }
+
+
 
 }
