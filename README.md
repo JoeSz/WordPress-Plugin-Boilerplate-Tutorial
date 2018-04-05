@@ -1,5 +1,6 @@
 # WordPress Plugin Boilerplate Tutorial with Examples
-## **THIS PLUGIN NOT INTEND TO INSTALL OR USE AS IS, THIS IS A TUTORIAL**
+## **THIS IS A TUTORIAL**
+## Now you can install the plugin, I will implement all functionality.
 
 This is a tutorial plugin with examples. I created some tutorials to help with my work and I tought, I share this to help others.
 
@@ -28,11 +29,13 @@ Github link for the WordPress Plugin Boilerplate Generator: https://github.com/T
 I also added add_shortcode hooks.
 
 ## Tutorial and example code for:
-* How to register a custom post type (e.g.: customers)
-* How to register metabox for a custom post type (e.g.: customers)
+* How to register a custom post types (e.g.: tests)
+* How to register metabox for a custom post type (e.g.: tests)
+* How to register metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
 * How to get custom post type (e.g.: customers) archive template from plugin folder
 * How to add/remove/reorder custom post type list columns in admin area (e.g.: customers)
-* How to add pptions page to plugin
+* How to add admin options page to plugin
+* How to add admin options page to plugin with `Exopite Simple Options Framework`
 * How to Register Shortcode in Plugin
 * Added custom `get_template_part` to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
@@ -81,10 +84,12 @@ Tutorial files
 * `tutorials/add_remove_reorder_custom_post_type_list_columns_in_admin_area.php`
 * `tutorials/add_templater_engine_to_plugin.php`
 * `tutorials/app_option_page_for_plugin.php`
+* `tutorials/app_option_page_for_plugin_with_options_framework.php`
 * `tutorials/custom_post_types.php`
 * `tutorials/get_custom_post_type_archive_template_from_plugin.php`
 * `tutorials/handling_POST_request.php`
 * `tutorials/meta_box_for_custom_post_type.php`
+* `tutorials/meta_box_for_custom_post_type_with_options_framework.php`
 * `tutorials/register_ajax_callback.php`
 * `tutorials/register_an_external_php_file_in_permalinks.php`
 * `tutorials/register_a_shortcode_in_plugin.php`
