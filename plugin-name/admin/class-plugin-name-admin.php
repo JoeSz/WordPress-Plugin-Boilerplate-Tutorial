@@ -754,6 +754,81 @@ class Plugin_Name_Admin {
 
     }
 
+    // Modify columns in customers list in admin area
+    public function admin_list_edit_columns( $columns ) {
+
+        // Remove unnecessary columns
+        // unset(
+        //     $columns['author'],
+        //     $columns['comments']
+        // );
+
+        // Rename title and add ID and Address
+        $columns['text_1'] = __( 'Text', 'plugin-name' );
+        $columns['color_2'] = __( 'Color', 'plugin-name' );
+        $columns['date_2'] = __( 'Date', 'plugin-name' );
 
 
+        /*
+         * Rearrange column order
+         *
+         * Now define a new order. you need to look up the column
+         * names in the HTML of the admin interface HTML of the table header.
+         *
+         *     "cb" is the "select all" checkbox.
+         *     "title" is the title column.
+         *     "date" is the date column.
+         *     "icl_translations" comes from a plugin (in this case, WPML).
+         *
+         * change the order of the names to change the order of the columns.
+         *
+         * @link http://wordpress.stackexchange.com/questions/8427/change-order-of-custom-columns-for-edit-panels
+         */
+        $customOrder = array('cb', 'title', 'text_1', 'color_2', 'date_2', 'author', 'comments', 'icl_translations', 'date');
+
+        /*
+         * return a new column array to wordpress.
+         * order is the exactly like you set in $customOrder.
+         */
+        foreach ($customOrder as $column_name)
+            $rearranged[$column_name] = $columns[$column_name];
+
+        return $rearranged;
+
+    }
+
+    // Populate new columns in customers list in admin area
+    public function admin_list_custom_columns( $column ) {
+
+        /*
+        'user_login' => 'js@markatus.de',
+        'arbeitszeiterfassung' => 'no',
+        'soll_stunden' => '',
+        'anstellung' => 'vollzeit',
+        'festlegung_zeitraum' => 'abreitstage_pro_woche',
+        'verwaltung_jahresurlaub' => 'ja',
+        'code_fuer_erfassungsbestaetigung' => '',
+        'team' => 'markatus',
+         */
+
+        global $post;
+        $custom = get_post_custom();
+        $meta = maybe_unserialize( $custom[$this->plugin_name . '-meta'][0] );
+        // Populate column form meta
+        switch ($column) {
+
+            case "text_1":
+                // echo var_export( $meta, true );
+                echo $meta["text_1"];
+                break;
+            case "color_2":
+                echo $meta["color_2"];
+                break;
+            case "date_2":
+                echo $meta["date_2"];
+                break;
+
+        }
+
+    }
 }
