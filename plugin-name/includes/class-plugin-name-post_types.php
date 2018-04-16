@@ -2,12 +2,6 @@
 
 /**
  * Register custom post type
- *
- * @link       http://joe.szalai.org
- * @since      1.0.0
- *
- * @package    Exopite_Portfolio
- * @subpackage Exopite_Portfolio/includes
  */
 class Plugin_Name_Post_Types {
 
@@ -152,7 +146,6 @@ class Plugin_Name_Post_Types {
         }
 
     }
-
 
     /**
      * Create post types
