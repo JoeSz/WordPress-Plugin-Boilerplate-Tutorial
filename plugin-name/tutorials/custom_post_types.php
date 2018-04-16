@@ -39,7 +39,7 @@ private function define_admin_hooks() {
      *
      * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
      */
-    $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type' );
+    $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
 
 }
 

@@ -177,7 +177,7 @@ class Plugin_Name {
          *
          * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
          */
-        $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type' );
+        $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
 
         // Save/Update our plugin options
         $this->loader->add_action( 'init', $plugin_admin, 'create_menu' );
