@@ -402,14 +402,24 @@ class Plugin_Name_Post_Types {
                     'post-formats',
                 ),
 
+                //'capability_type'       => 'post',
+
                 /**
                  * If you want to add custom capabilities to the post type.
                  */
                 'custom_caps'           => true,
+
+                /**
+                 * Assign capabilities for roles.
+                 */
                 'custom_caps_users'     => array(
                     'administrator',
+                    // 'editor',
+                    // 'author',
+                    // 'contributor',
+                    // 'subscriber',
                 ),
-                //'capability_type'       => 'post',
+
                 'taxonomies'            => array(
 
                     array(
