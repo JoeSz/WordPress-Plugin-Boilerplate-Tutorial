@@ -51,18 +51,18 @@ class Plugin_Name_Post_Types {
 
         $args = array(
             'labels'             => $labels,
-            'description'        => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['description'] : '',
-            'public'             => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['public'] : true,
-            'publicly_queryable' => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['publicly_queryable'] : true,
-            'exclude_from_search'=> ( isset( $tax_fields['hierarchical'] ) ) ? $fields['exclude_from_search'] : false,
-            'show_ui'            => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_ui'] : true,
-            'show_in_menu'       => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_menu'] : true,
-            'query_var'          => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['query_var'] : true,
-            'show_in_admin_bar'  => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_admin_bar'] : true,
-            'capability_type'    => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['capability_type'] : 'post',
-            'has_archive'        => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['has_archive'] : true,
-            'hierarchical'       => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['hierarchical'] : true,
-            'supports'           => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['supports'] : array(
+            'description'        => ( isset( $fields['description'] ) ) ? $fields['description'] : '',
+            'public'             => ( isset( $fields['public'] ) ) ? $fields['public'] : true,
+            'publicly_queryable' => ( isset( $fields['publicly_queryable'] ) ) ? $fields['publicly_queryable'] : true,
+            'exclude_from_search'=> ( isset( $fields['exclude_from_search'] ) ) ? $fields['exclude_from_search'] : false,
+            'show_ui'            => ( isset( $fields['show_ui'] ) ) ? $fields['show_ui'] : true,
+            'show_in_menu'       => ( isset( $fields['show_in_menu'] ) ) ? $fields['show_in_menu'] : true,
+            'query_var'          => ( isset( $fields['query_var'] ) ) ? $fields['query_var'] : true,
+            'show_in_admin_bar'  => ( isset( $fields['show_in_admin_bar'] ) ) ? $fields['show_in_admin_bar'] : true,
+            'capability_type'    => ( isset( $fields['capability_type'] ) ) ? $fields['capability_type'] : 'post',
+            'has_archive'        => ( isset( $fields['has_archive'] ) ) ? $fields['has_archive'] : true,
+            'hierarchical'       => ( isset( $fields['hierarchical'] ) ) ? $fields['hierarchical'] : true,
+            'supports'           => ( isset( $fields['supports'] ) ) ? $fields['supports'] : array(
                     'title',
                     'editor',
                     'excerpt',
@@ -75,9 +75,9 @@ class Plugin_Name_Post_Types {
                     'page-attributes',
                     'post-formats',
             ),
-            'menu_position'      => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['menu_position'] : 21,
-            'menu_icon'          => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
-            'show_in_nav_menus'  => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_nav_menus'] : true,
+            'menu_position'      => ( isset( $fields['menu_position'] ) ) ? $fields['menu_position'] : 21,
+            'menu_icon'          => ( isset( $fields['menu_icon'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
+            'show_in_nav_menus'  => ( isset( $fields['show_in_nav_menus'] ) ) ? $fields['show_in_nav_menus'] : true,
         );
 
         if ( isset( $fields['rewrite'] ) ) {

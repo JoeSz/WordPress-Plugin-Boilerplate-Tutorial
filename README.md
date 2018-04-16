@@ -38,7 +38,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
   * insert post and post meta,
   * upload file and add to meta and/or WordPress Media
 
-Check out the `/tutorials/`.
+Check out the `/plugin-name/tutorials/`.
 
 ### For more real life example, you can check out my plugin, which I have created with the boilerplate:
 
