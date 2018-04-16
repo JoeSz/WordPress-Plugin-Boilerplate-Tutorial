@@ -108,6 +108,12 @@ public static function deactivate() {
 
 /**
  * Register custom post type
+ *
+ * @link       http://joe.szalai.org
+ * @since      1.0.0
+ *
+ * @package    Exopite_Portfolio
+ * @subpackage Exopite_Portfolio/includes
  */
 class Plugin_Name_Post_Types {
 
@@ -151,21 +157,33 @@ class Plugin_Name_Post_Types {
 
         $args = array(
             'labels'             => $labels,
-            'description'        => $fields['description'],
-            'public'             => $fields['public'],
-            'publicly_queryable' => $fields['publicly_queryable'],
-            'exclude_from_search'=> $fields['exclude_from_search'],
-            'show_ui'            => $fields['show_ui'],
-            'show_in_menu'       => $fields['show_in_menu'],
-            'query_var'          => $fields['query_var'],
-            'show_in_admin_bar'  => $fields['show_in_admin_bar'],
-            'capability_type'    => $fields['capability_type'],
-            'has_archive'        => $fields['has_archive'],
-            'hierarchical'       => $fields['hierarchical'],
-            'supports'           => $fields['supports'],
-            'menu_position'      => $fields['menu_position'],
-            'menu_icon'          => $fields['menu_icon'],
-            'show_in_nav_menus'  => $fields['show_in_nav_menus'], // true
+            'description'        => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['description'] : '',
+            'public'             => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['public'] : true,
+            'publicly_queryable' => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['publicly_queryable'] : true,
+            'exclude_from_search'=> ( isset( $tax_fields['hierarchical'] ) ) ? $fields['exclude_from_search'] : false,
+            'show_ui'            => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_ui'] : true,
+            'show_in_menu'       => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_menu'] : true,
+            'query_var'          => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['query_var'] : true,
+            'show_in_admin_bar'  => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_admin_bar'] : true,
+            'capability_type'    => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['capability_type'] : 'post',
+            'has_archive'        => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['has_archive'] : true,
+            'hierarchical'       => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['hierarchical'] : true,
+            'supports'           => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['supports'] : array(
+                    'title',
+                    'editor',
+                    'excerpt',
+                    'author',
+                    'thumbnail',
+                    'comments',
+                    'trackbacks',
+                    'custom-fields',
+                    'revisions',
+                    'page-attributes',
+                    'post-formats',
+            ),
+            'menu_position'      => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['menu_position'] : 21,
+            'menu_icon'          => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
+            'show_in_nav_menus'  => ( isset( $tax_fields['hierarchical'] ) ) ? $fields['show_in_nav_menus'] : true,
         );
 
         if ( isset( $fields['rewrite'] ) ) {
@@ -228,6 +246,68 @@ class Plugin_Name_Post_Types {
         }
 
         register_post_type( $fields['slug'], $args );
+
+        /**
+         * Register Taxnonmies if any
+         * @link https://codex.wordpress.org/Function_Reference/register_taxonomy
+         */
+        if ( isset( $fields['taxonomies'] ) && is_array( $fields['taxonomies'] ) ) {
+
+            foreach ( $fields['taxonomies'] as $taxonomy ) {
+
+                $this->register_single_post_type_taxnonomy( $taxonomy );
+
+            }
+
+        }
+
+    }
+
+    private function register_single_post_type_taxnonomy( $tax_fields ) {
+
+        $labels = array(
+            'name'                       => $tax_fields['plural'],
+            'singular_name'              => $tax_fields['single'],
+            'menu_name'                  => $tax_fields['plural'],
+            'all_items'                  => sprintf( __( 'All %s' , 'plugin-name' ), $tax_fields['plural'] ),
+            'edit_item'                  => sprintf( __( 'Edit %s' , 'plugin-name' ), $tax_fields['single'] ),
+            'view_item'                  => sprintf( __( 'View %s' , 'plugin-name' ), $tax_fields['single'] ),
+            'update_item'                => sprintf( __( 'Update %s' , 'plugin-name' ), $tax_fields['single'] ),
+            'add_new_item'               => sprintf( __( 'Add New %s' , 'plugin-name' ), $tax_fields['single'] ),
+            'new_item_name'              => sprintf( __( 'New %s Name' , 'plugin-name' ), $tax_fields['single'] ),
+            'parent_item'                => sprintf( __( 'Parent %s' , 'plugin-name' ), $tax_fields['single'] ),
+            'parent_item_colon'          => sprintf( __( 'Parent %s:' , 'plugin-name' ), $tax_fields['single'] ),
+            'search_items'               => sprintf( __( 'Search %s' , 'plugin-name' ), $tax_fields['plural'] ),
+            'popular_items'              => sprintf( __( 'Popular %s' , 'plugin-name' ), $tax_fields['plural'] ),
+            'separate_items_with_commas' => sprintf( __( 'Separate %s with commas' , 'plugin-name' ), $tax_fields['plural'] ),
+            'add_or_remove_items'        => sprintf( __( 'Add or remove %s' , 'plugin-name' ), $tax_fields['plural'] ),
+            'choose_from_most_used'      => sprintf( __( 'Choose from the most used %s' , 'plugin-name' ), $tax_fields['plural'] ),
+            'not_found'                  => sprintf( __( 'No %s found' , 'plugin-name' ), $tax_fields['plural'] ),
+        );
+
+        $args = array(
+        	'label'                 => $tax_fields['plural'],
+        	'labels'                => $labels,
+        	'hierarchical'          => ( isset( $tax_fields['hierarchical'] ) )          ? $tax_fields['hierarchical']          : true,
+        	'public'                => ( isset( $tax_fields['public'] ) )                ? $tax_fields['public']                : true,
+        	'show_ui'               => ( isset( $tax_fields['show_ui'] ) )               ? $tax_fields['show_ui']               : true,
+        	'show_in_nav_menus'     => ( isset( $tax_fields['show_in_nav_menus'] ) )     ? $tax_fields['show_in_nav_menus']     : true,
+        	'show_tagcloud'         => ( isset( $tax_fields['show_tagcloud'] ) )         ? $tax_fields['show_tagcloud']         : true,
+        	'meta_box_cb'           => ( isset( $tax_fields['meta_box_cb'] ) )           ? $tax_fields['meta_box_cb']           : null,
+        	'show_admin_column'     => ( isset( $tax_fields['show_admin_column'] ) )     ? $tax_fields['show_admin_column']     : true,
+        	'show_in_quick_edit'    => ( isset( $tax_fields['show_in_quick_edit'] ) )    ? $tax_fields['show_in_quick_edit']    : true,
+        	'update_count_callback' => ( isset( $tax_fields['update_count_callback'] ) ) ? $tax_fields['update_count_callback'] : '',
+        	'show_in_rest'          => ( isset( $tax_fields['show_in_rest'] ) )          ? $tax_fields['show_in_rest']          : true,
+        	'rest_base'             => $tax_fields['taxonomy'],
+        	'rest_controller_class' => ( isset( $tax_fields['rest_controller_class'] ) ) ? $tax_fields['rest_controller_class'] : 'WP_REST_Terms_Controller',
+        	'query_var'             => $tax_fields['taxonomy'],
+        	'rewrite'               => ( isset( $tax_fields['rewrite'] ) )               ? $tax_fields['rewrite']               : true,
+        	'sort'                  => ( isset( $tax_fields['sort'] ) )                  ? $tax_fields['sort']                  : '',
+        );
+
+        $args = apply_filters( $tax_fields['taxonomy'] . '_args', $args );
+
+        register_taxonomy( $tax_fields['taxonomy'], $tax_fields['post_types'], $args );
 
     }
 
@@ -309,6 +389,16 @@ class Plugin_Name_Post_Types {
                 'custom_caps'           => true,
                 'custom_caps_users'     => array(
                     'administrator',
+                ),
+                'taxonomies'            => array(
+
+                    array(
+                        'taxonomy'          => 'test_category',
+                        'plural'            => 'Test Categories',
+                        'single'            => 'Test Category',
+                        'post_types'        => array( 'test' ),
+                    ),
+
                 ),
             ),
         );
