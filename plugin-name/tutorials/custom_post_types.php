@@ -346,6 +346,9 @@ class Plugin_Name_Post_Types {
          * This is not all the fields, only what I find important. Feel free to change this function ;)
          *
          * @link https://codex.wordpress.org/Function_Reference/register_post_type
+         *
+         * For more info on fields:
+         * @link https://github.com/JoeSz/WordPress-Plugin-Boilerplate-Tutorial/blob/9fb56794bc1f8aebfe04e99b15881db0c4bc61bd/plugin-name/includes/class-plugin-name-post_types.php#L230
          */
         $post_types_fields = array(
             array(
