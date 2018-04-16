@@ -1,12 +1,47 @@
 # WordPress Plugin Boilerplate Tutorial with Examples
-## **THIS IS A TUTORIAL**
+## **THIS IS A TUTORIAL WITH EXAMPLES**
 ## Now you can install the plugin, I will implement all functionality.
 
 This is a tutorial plugin with examples. I created some tutorials to help with my work and I tought, I share this to help others.
 
 More will come... ;)
 
-To generate your personalized plugin, I recommend to use the WordPress [Plugin Boilerplate Generator](https://wppb.me/) <br />
+---
+
+> A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+
+---
+
+Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
+Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site <br />
+Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.me/)
+
+
+I also added add_shortcode hooks.
+
+## Tutorial and example code for:
+* How to register a **custom post types** (e.g.: tests) with **taxonomies** and **capabilities**
+* How to register **metabox** for a custom post type (e.g.: tests)
+* How to register metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
+* How to get custom post type (e.g.: customers) **archive template** from plugin folder
+* How to add/remove/reorder **custom** post type **list columns** in **admin area** (e.g.: test)
+* How to add admin **options page** to plugin
+* How to add admin options page to plugin with `Exopite Simple Options Framework`
+* How to Register **Shortcode** in Plugin
+* Added **custom `get_template_part`** to load (single) template from plugin folder<br />
+(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
+`class-custom-template-loader.php`)
+* Added template engine to plugin <br />
+(`class-exopite-template.php` https://gist.github.com/JoeSz/3e27ee4230b8ce842ac4989016a38caa)
+* Register any external php file in permalinks
+* Register **AJAX callback** (also JavaScript code)
+* Register **POST callback**
+* Handle AJAX/POST callback (eg.:)<br />
+  * check nonce,
+  * insert post and post meta,
+  * upload file and add to meta and/or WordPress Media
+
+Check out the `/tutorials/`.
 
 ### For more real life example, you can check out my plugin, which I have created with the boilerplate:
 
@@ -16,41 +51,6 @@ To generate your personalized plugin, I recommend to use the WordPress [Plugin B
 * [Exopite-SEO-Core](https://github.com/JoeSz/Exopite-SEO-Core) - Working with several SEO releated WordPress hooks.
 * [Exopite-Lazy-Load-XT](https://github.com/JoeSz/Exopite-Lazy-Load-XT-WordPress-Plugin) - Working with output buffering as well as content manipulation (like thumbnails, etc...) in WordPress.
 * [Exopite-WooCommerce-Ajaxify](https://github.com/JoeSz/Exopite-WooCommerce-Ajaxify-WordPress-Plugin) - Using WooCommers hooks and AJAX.
-
----
-
-> A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
-
-Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
-Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site
-
----
-
-I also added add_shortcode hooks.
-
-## Tutorial and example code for:
-* How to register a custom post types (e.g.: tests)
-* How to register metabox for a custom post type (e.g.: tests)
-* How to register metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
-* How to get custom post type (e.g.: customers) archive template from plugin folder
-* How to add/remove/reorder custom post type list columns in admin area (e.g.: customers)
-* How to add admin options page to plugin
-* How to add admin options page to plugin with `Exopite Simple Options Framework`
-* How to Register Shortcode in Plugin
-* Added custom `get_template_part` to load (single) template from plugin folder<br />
-(`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
-`class-custom-template-loader.php`)
-* Added template engine to plugin <br />
-(`class-exopite-template.php` https://gist.github.com/JoeSz/3e27ee4230b8ce842ac4989016a38caa)
-* Register any external php file in permalinks
-* Register AJAX callback (also JavaScript code)
-* Register POST callback
-* Handle AJAX/POST callback (eg.:)<br />
-  * check nonce,
-  * insert post and post meta,
-  * upload file and add to meta and/or WordPress Media
-
-Check out the `/tutorials/`.
 
 ## Contents
 
