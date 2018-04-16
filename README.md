@@ -16,9 +16,6 @@ Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/
 Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site <br />
 Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.me/)
 
-
-I also added add_shortcode hooks.
-
 ## Tutorial and example code for:
 * How to register a **custom post types** (e.g.: tests) with **taxonomies** and **capabilities**
 * How to register **metabox** for a custom post type (e.g.: tests)
@@ -27,7 +24,7 @@ I also added add_shortcode hooks.
 * How to add/remove/reorder **custom** post type **list columns** in **admin area** (e.g.: test)
 * How to add admin **options page** to plugin
 * How to add admin options page to plugin with `Exopite Simple Options Framework`
-* How to Register **Shortcode** in Plugin
+* How to register **shortcodes** in plugin
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
 `class-custom-template-loader.php`)
