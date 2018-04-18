@@ -17,18 +17,18 @@
  */
 protected $shortcodes;
 
-    /**
-     * Initialize the collections used to maintain the actions and filters.
-     *
-     * @since    1.0.0
-     */
-    public function __construct() {
+/**
+ * Initialize the collections used to maintain the actions and filters.
+ *
+ * @since    1.0.0
+ */
+public function __construct() {
 
-        // ...
+    // ...
 
-        $this->shortcodes = array();
+    $this->shortcodes = array();
 
-    }
+}
 
 /**
  * Add a new shortcode to the collection to be registered with WordPress
@@ -71,7 +71,7 @@ private function define_public_hooks() {
      *
      * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/262
      */
-    $this->loader->add_shortcode( "short-code-name", $plugin_public, "shortcode_function", $priority = 10, $accepted_args = 2 );
+    $this->loader->add_shortcode( "shortcode-name", $plugin_public, "shortcode_function", $priority = 10, $accepted_args = 2 );
 }
 
 /////////////////////////////////////////////////////
