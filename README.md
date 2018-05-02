@@ -40,7 +40,8 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 
 Check out the `/plugin-name/tutorials/`.
 
-### For more real life example, you can check out my plugin, which I have created with the boilerplate:
+
+### Example Plugins, Plugins I have created with the Boilerplate
 
 * [Exopite-Multifilter-Multi-Sorter](https://github.com/JoeSz/Exopite-Multifilter-Multi-Sorter-WordPress-Plugin) - Working with shortcodes and AJAX
 * [Exopite-Notificator](https://github.com/JoeSz/Exopite-Notificator-WordPress-Plugin) - Working with hooks for comments, posts, user profile, authenticate, etc... in WordPress.
