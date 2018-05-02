@@ -1,7 +1,7 @@
 ;(function ( $, window, document, undefined ) {
 
     $.fn.exopiteSofFieldACEEditor = function() {
-        return this.each(function() {
+        return this.each(function(index) {
 
             if( typeof ace !== 'undefined' ) {
 
@@ -25,8 +25,20 @@
 
     $( document ).ready(function() {
 
-        console.log( 'ace-loader' );
+        if( typeof ace !== 'undefined' ) {
+            //exopite-sof-cloneable__wrapper
+            $( '.exopite-sof-field-group' ).find( '.exopite-sof-field-ace_editor' ).each(function(index, el) {
+
+                var $thisEditor = $(this).find('.exopite-sof-ace-editor');
+                var thisId = $thisEditor.attr('id');
+                $thisEditor.attr( 'id', thisId + index );
+
+            });
+        }
+
         $( '.exopite-sof-field-ace_editor' ).exopiteSofFieldACEEditor();
+
+
 
     });
 

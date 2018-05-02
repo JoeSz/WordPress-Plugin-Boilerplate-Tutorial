@@ -88,7 +88,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
             $value = $this->value;
 
-            if ( empty( $value ) && ! empty( $this->field['default'] ) ) {
+            if ( empty( $value ) && isset( $this->field['default'] ) && $this->field['default'] !== '' ) {
 
                 $default = $this->field['default'];
 

@@ -70,12 +70,12 @@ if ( ! class_exists( 'Exopite_Template' ) ) {
          * @return array [array.subarray.subarray] => 'value'
          * @link source: http://stackoverflow.com/questions/9546181/flatten-multidimensional-array-concatenating-keys/9546215#9546215
          */
-        public static function flat_concatenat_array( $array, $prefix = '' ) {
+        public static function flat_concatenate_array( $array, $prefix = '' ) {
             //
             $result = array();
             foreach( $array as $key => $value ) {
                 if( is_array( $value ) ) {
-                    $result = $result + self::flat_concatenat_array( $value, $prefix . $key . '.' );
+                    $result = $result + self::flat_concatenate_array( $value, $prefix . $key . '.' );
                 }
                 else {
                     $result[$prefix . $key] = $value;
