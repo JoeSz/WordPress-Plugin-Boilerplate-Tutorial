@@ -44,17 +44,17 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_color' ) ) {
 
         }
 
-        public static function enqueue( $plugin_sof_url, $plugin_sof_path ) {
+        public static function enqueue( $args ) {
 
             // Add the color picker css file
             wp_enqueue_style( 'wp-color-picker' );
 
-            wp_enqueue_script( 'wp-color-picker-alpha', $plugin_sof_url . 'assets/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '2.1.3', true );
+            wp_enqueue_script( 'wp-color-picker-alpha', $args['plugin_sof_url'] . 'assets/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '2.1.3', true );
 
             $script_file = 'loader-color-picker.min.js';
             $script_name = 'exopite-sof-wp-color-picker-loader';
 
-            wp_enqueue_script( $script_name, $plugin_sof_url . 'assets/' . $script_file, array( 'wp-color-picker-alpha' ), filemtime( join( DIRECTORY_SEPARATOR, array( $plugin_sof_path . 'assets', $script_file ) ) ), true );
+            wp_enqueue_script( $script_name, $args['plugin_sof_url'] . 'assets/' . $script_file, array( 'wp-color-picker-alpha' ), filemtime( join( DIRECTORY_SEPARATOR, array( $args['plugin_sof_path'] . 'assets', $script_file ) ) ), true );
 
 
         }

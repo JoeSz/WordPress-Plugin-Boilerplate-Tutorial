@@ -1987,3 +1987,25 @@ input:disabled + .switch__toggle {
 #side-sortables .exopite-sof-section-header .dashicons-before {
     padding-right: 14px;
 }
+/* Loading */
+/* https://austin.passy.co/2014/native-wordpress-loading-gifs/ */
+.exopite-sof-field .loading {
+    z-index: 0;
+}
+.exopite-sof-field .loading::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255, 0.7);
+    z-index: 1;
+}
+.exopite-sof-field .loading::after {
+    content: url('/wp-includes/images/spinner-2x.gif');
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    z-index: 2;
+}

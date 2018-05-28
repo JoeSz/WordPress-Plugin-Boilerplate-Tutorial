@@ -150,7 +150,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
         }
 
 
-        public static function enqueue( $plugin_sof_url, $plugin_sof_path ) {
+        public static function enqueue( $args ) {
 
             /*
              * https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.min.js
@@ -163,7 +163,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
             $script_file = 'loader-jquery-chosen.min.js';
             $script_name = 'exopite-sof-jquery-chosen-loader';
 
-            wp_enqueue_script( $script_name, $plugin_sof_url . 'assets/' . $script_file, array( 'jquery-chosen' ), filemtime( join( DIRECTORY_SEPARATOR, array( $plugin_sof_path . 'assets', $script_file ) ) ), true );
+            wp_enqueue_script( $script_name, $args['plugin_sof_url'] . 'assets/' . $script_file, array( 'jquery-chosen' ), filemtime( join( DIRECTORY_SEPARATOR, array( $args['plugin_sof_path'] . 'assets', $script_file ) ) ), true );
 
         }
 

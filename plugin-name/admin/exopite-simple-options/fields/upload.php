@@ -175,7 +175,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
 
         }
 
-        public static function enqueue( $plugin_sof_url, $plugin_sof_path ) {
+        public static function enqueue( $args ) {
 
             if( ! wp_script_is( 'fine-uploader' ) ) {
 
@@ -197,7 +197,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
                 $script_file = 'loader-fine-uploader.min.js';
                 $script_name = 'exopite-sof-fine-uploader-loader';
 
-                wp_enqueue_script( $script_name, $plugin_sof_url . 'assets/' . $script_file, array( 'fine-uploader' ), filemtime( join( DIRECTORY_SEPARATOR, array( $plugin_sof_path . 'assets', $script_file ) ) ), true );
+                wp_enqueue_script( $script_name, $args['plugin_sof_url'] . 'assets/' . $script_file, array( 'fine-uploader' ), filemtime( join( DIRECTORY_SEPARATOR, array( $args['plugin_sof_path'] . 'assets', $script_file ) ) ), true );
 
             }
 

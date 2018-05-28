@@ -109,7 +109,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                 return;
             }
 
-            $this->version = '20180425';
+            $this->version = '20180528';
 
             // Filter for override
             $this->config  = apply_filters( 'exopite-simple-options-framework-config', $config );
@@ -134,6 +134,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             //scripts and styles
             add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts_styles' ) );
+
+            // Add "code" plugin for TinyMCE
+            // @link https://www.tinymce.com/docs/plugins/code/
+            add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
 
             switch ( $this->config['type'] ) {
                 case 'menu':
@@ -162,6 +166,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             // add_action( 'wp_ajax_exopite_test', array( $this, 'exopite_test' ) );
 
+        }
+
+        // for TinyMCE Code Plugin
+        public function mce_external_plugins( $plugins ) {
+            $url = $this->get_url( $this->dirname );
+            $base = trailingslashit( join( '/', array( $url, 'assets' ) ) );
+            $plugins['code'] = $base . 'plugin.code.min.js';
+            return $plugins;
         }
 
         public function import_options() {
@@ -645,7 +657,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                     break;
             }
 
-            return $value;
+            return apply_filters( 'exopite-simple-options-framework-sanitize-value', $value, $this->config );
 
         }
 
@@ -725,11 +737,17 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
                 if( class_exists( $class ) && method_exists( $class, 'enqueue' ) ) {
 
+                    $args = array(
+                        'plugin_sof_url'  => plugin_dir_url( __FILE__ ),
+                        'plugin_sof_path' => plugin_dir_path( __FILE__ ),
+                        'field'           => $field,
+                    );
+
+                    $class::enqueue( $args );
 
                     // $url = $this->get_url( plugin_dir_path( __FILE__ ) );
-                    $url = plugin_dir_url( __FILE__ );
-
-                    $class::enqueue( $url, plugin_dir_path( __FILE__ ) );
+                    // $url = plugin_dir_url( __FILE__ );
+                    // $class::enqueue( $url, plugin_dir_path( __FILE__ ) );
 
                     // $class::enqueue( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );
 
@@ -745,6 +763,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
          * @return string       generated HTML for the field
          */
         public function add_field( $field, $value = '' ) {
+
+            do_action( 'exopite-simple-options-framework-before-generate-field', $field, $this->config );
+            do_action( 'exopite-simple-options-framework-before-add-field', $field, $this->config );
 
             $output     = '';
             $class      = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
@@ -813,7 +834,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             $output .= '</div>'; // exopite-sof-field
 
-            echo $output;
+            do_action( 'exopite-simple-options-framework-after-generate-field', $field, $this->config );
+
+            echo apply_filters( 'exopite-simple-options-framework-add-field', $output, $field, $this->config );
+
+            do_action( 'exopite-simple-options-framework-after-add-field', $field, $this->config );
 
         }
 
@@ -898,7 +923,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             switch ( $this->config['type'] ) {
                 case 'menu':
-                    $this->display_options_page_header();
+                    add_action( 'exopite-simple-options-framework-display-page-header', array( $this, 'display_options_page_header' ), 10, 1 );
+                    do_action( 'exopite-simple-options-framework-display-page-header', $this->config );
                     break;
 
                 case 'metabox':
@@ -975,10 +1001,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             echo '</div>'; // sections
             echo '</div>'; // content
-
             if ( $this->config['type'] == 'menu' ) {
 
-                $this->display_options_page_footer();
+                add_action( 'exopite-simple-options-framework-display-page-footer', array( $this, 'display_options_page_footer' ), 10, 1 );
+                do_action( 'exopite-simple-options-framework-display-page-footer', $this->config );
 
             }
 

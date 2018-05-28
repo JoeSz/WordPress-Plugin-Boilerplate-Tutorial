@@ -43,7 +43,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_ace_editor' ) ) {
 
         }
 
-        public static function enqueue( $plugin_sof_url, $plugin_sof_path ) {
+        public static function enqueue( $args ) {
 
             //https://cdnjs.com/libraries/ace/
 
@@ -54,7 +54,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_ace_editor' ) ) {
             $script_file = 'ace-loader.min.js';
             $script_name = 'exopite-sof-ace-loader';
 
-            wp_enqueue_script( $script_name, $plugin_sof_url . 'assets/' . $script_file, array( 'ace-editor-language_tool' ), filemtime( join( DIRECTORY_SEPARATOR, array( $plugin_sof_path . 'assets', $script_file ) ) ), true );
+            wp_enqueue_script( $script_name, $args['plugin_sof_url'] . 'assets/' . $script_file, array( 'ace-editor-language_tool' ), filemtime( join( DIRECTORY_SEPARATOR, array( $args['plugin_sof_path'] . 'assets', $script_file ) ) ), true );
 
         }
 

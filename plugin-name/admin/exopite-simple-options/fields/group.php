@@ -47,7 +47,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
             echo $this->element_before();
 
-            $unallows    = array( 'editor', 'group' );
+            $unallows    = array( 'group' );
             $fields      = array_values( $this->field['fields'] );
             $unique_id   = ( ! empty( $this->unique ) ) ? $this->unique : $this->field['id'];
             $base_id = ( $this->field['options']['repeater'] ) ? array( 'id' => $this->unique . '[' . $this->field['id'] . '][]' ) : array( 'id' => $this->unique . '[' . $this->field['id'] . ']' );
@@ -118,10 +118,6 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
                 }
 
-                // echo '<pre>';
-                // var_export( $field_value );
-                // echo '</pre>';
-
                 $self->add_field( $field, $field_value );
 
 
@@ -185,18 +181,10 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
             echo '</div>'; // exopite-sof-group
 
-            // echo '<pre>';
-            // var_export( $this->value );
-            // echo '</pre>';
+            echo $this->element_after();
 
-        echo $this->element_after();
+        }
 
     }
-
-
-
-    }
-
-
 
 }
