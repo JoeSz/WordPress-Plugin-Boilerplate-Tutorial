@@ -109,7 +109,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                 return;
             }
 
-            $this->version = '20180528';
+            $this->version = '20180608';
 
             // Filter for override
             $this->config  = apply_filters( 'exopite-simple-options-framework-config', $config );

@@ -163,6 +163,9 @@ Actions
 
 == Changelog ==
 
+= 20180608 - 2018-06-08 =
+* Add open section with url (...?page=[plulin-slug]&section=[the-id-of-the-section])
+
 = 20180528 - 2018-05-28 =
 * Fix footer displayed twice
 * Add save form on CTRL+S

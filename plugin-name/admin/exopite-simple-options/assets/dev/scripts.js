@@ -24,6 +24,22 @@ if (typeof throttle !== "function") {
 }
 
 /**
+ * Get url parameter in jQuery
+ * @link https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js/25359264#25359264
+ */
+; (function ($, window, document, undefined) {
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        }
+        else {
+            return decodeURI(results[1]) || 0;
+        }
+    };
+})(jQuery, window, document);
+
+/**
  * Plugin to handle dependencies
  *
  * @link https://github.com/miohtama/jquery-interdependencies
@@ -401,6 +417,8 @@ if (typeof throttle !== "function") {
         bindEvents: function() {
             var plugin = this;
 
+            plugin.onLoad.call( plugin );
+
             plugin.$element.find( '.exopite-sof-nav-list-item' ).on( 'click'+'.'+plugin._name, function() {
 
                 plugin.changeTab.call( plugin, $( this ) );
@@ -429,7 +447,31 @@ if (typeof throttle !== "function") {
 
             }
 
-        }
+        },
+
+        onLoad: function () {
+            var plugin = this;
+
+            /**
+             * "Sanitize" URL
+             * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+             */
+            var URLSection = encodeURIComponent( $.urlParam('section') );
+
+            // If section not exist, then return
+            if ( ! plugin.$element.find( '.exopite-sof-section-' + URLSection ).length ) return false;
+
+            var navList = plugin.$element.find('.exopite-sof-nav-list-item');
+            plugin.$element.find('.exopite-sof-section').addClass('hide');
+            plugin.$element.find('.exopite-sof-section-' + URLSection).removeClass('hide');
+            navList.removeClass('active');
+            navList.each( function ( index, el ) {
+                var section = $( el ).data( 'section' );
+                if ( section == URLSection ) {
+                    $( el ).addClass( 'active' );
+                }
+            });
+        },
 
     };
 
