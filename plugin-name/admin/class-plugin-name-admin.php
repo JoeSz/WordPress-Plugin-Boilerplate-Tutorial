@@ -657,6 +657,7 @@ class Plugin_Name_Admin {
                         'button_title'      => 'Add new',
                         'accordion_title'   => esc_html__( 'Accordion Title', 'plugin-name' ),
                         'limit'             => 50,
+                        'sortable'          => true,
                     ),
                     'fields'  => array(
 
