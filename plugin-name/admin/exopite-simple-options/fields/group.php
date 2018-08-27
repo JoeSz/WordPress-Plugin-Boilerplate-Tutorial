@@ -7,8 +7,7 @@
  * @version 1.0.0
  *
  */
-/*
- *
+/**
  * - check defults
  * - design
  * - add/remove group item

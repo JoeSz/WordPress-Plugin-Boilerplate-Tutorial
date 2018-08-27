@@ -62,7 +62,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
         public static function enqueue( $args ) {
 
-            wp_enqueue_script( 'jquery-finderselect', $plugin_sof_url . 'assets/jquery.finderSelect.min.js', array( 'jquery' ), '0.7.0', true );
+            wp_enqueue_script( 'jquery-finderselect', $args['plugin_sof_url'] . 'assets/jquery.finderSelect.min.js', array( 'jquery' ), '0.7.0', true );
 
             $script_file = 'loader-jquery-finderselect.min.js';
             $script_name = 'exopite-sof-jquery-finderselect-loader';
