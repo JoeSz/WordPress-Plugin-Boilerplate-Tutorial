@@ -78,6 +78,7 @@ You may delete, what you don't use, on production
 
 Tutorial files
 
+* `tutorials/access_plugin_and_its_methodes_later_from_outside_of_plugin.php`
 * `tutorials/add_custom_get-template-part_to_load_template_from_plugin.php`
 * `tutorials/add_remove_reorder_custom_post_type_list_columns_in_admin_area.php`
 * `tutorials/add_templater_engine_to_plugin.php`
