@@ -10,7 +10,10 @@
 /**
  * This allow you to access your plugin class eg. in your template.
  *
- * Of course you do not need to use a global, you could wrap it in singleton too.
+ * Of course you do not need to use a global,
+ * you could wrap it in singleton too,
+ * or you can store it in a static class,
+ * etc...
  */
 // THIS:
 function run_plugin_name() {
@@ -101,4 +104,5 @@ public function access_test( $test_var ) {
 }
 
 // AND IN YOUR THEME OR TEMPLATE FILE:
+global $prefix_plugin_name;
 echo $prefix_plugin_name->plugin_public->access_test( $test_var );
