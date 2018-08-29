@@ -28,6 +28,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * How to add admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
 * How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
+* How to register, update and use custom datebase tables
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
 `class-custom-template-loader.php`)
@@ -97,6 +98,7 @@ Tutorial files
 * `tutorials/register_ajax_callback.php`
 * `tutorials/register_an_external_php_file_in_permalinks.php`
 * `tutorials/register_a_shortcode_in_plugin.php`
+* `tutorials/register_and_use_custom_tables_in_datebase.php`
 * `tutorials/register_post_callback_without_ajax.php`
 
 Template File Loaders in Plugins
@@ -188,6 +190,7 @@ CHANGELOG
 = 2018-08-29 =
 * Add tutorial: How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
 * Add tutorial: Custom updater for your plugin
+* Add tutorial: How to register, update and use custom datebase tables
 
 = 1.0.2 =
 * Add tutorial
