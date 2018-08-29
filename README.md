@@ -6,6 +6,8 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
+LAST CHANGE: 2018-08-29
+
 ---
 
 > A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
@@ -182,6 +184,10 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 2018-08-29 =
+* Add tutorial: How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
+* Add tutorial: Custom updater for your plugin
 
 = 1.0.2 =
 * Add tutorial
