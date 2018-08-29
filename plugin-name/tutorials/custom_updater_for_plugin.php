@@ -109,12 +109,15 @@ if ( is_admin() ) {
      * This version add an extra <p> after the notice.
      * I want that to remove later.
      */
-    add_action('in_plugin_update_message-plugin-name/plugin-name.php', 'showUpgradeNotification', 10, 2);
-    function showUpgradeNotification($currentPluginMetadata, $newPluginMetadata){
+    add_action('in_plugin_update_message-plugin-name/plugin-name.php', 'show_upgrade_notification', 10, 2);
+    function show_upgrade_notification( $current_plugin_metadata, $new_plugin_metadata ){
        // check "upgrade_notice"
-       if (isset($newPluginMetadata->upgrade_notice) && strlen(trim($newPluginMetadata->upgrade_notice)) > 0){
-            echo '<div style="background-color: #d54e21; padding: 10px; color: #f9f9f9; margin-top: 10px"><strong>Important Upgrade Notice:</strong> ';
-            echo esc_html($newPluginMetadata->upgrade_notice), '</div>';
+       if (isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) )  > 0 ) {
+
+            echo '<span style="background-color:#d54e21;padding:6px;color:#f9f9f9;margin-top:10px;display:block;"><strong>' . esc_html( 'Upgrade Notice', 'plugin-name' ) . ':</strong><br>';
+            echo esc_html( $new_plugin_metadata->upgrade_notice );
+            echo '</span>';
+
        }
     }
 
