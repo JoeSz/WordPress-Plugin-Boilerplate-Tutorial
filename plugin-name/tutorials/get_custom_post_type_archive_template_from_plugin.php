@@ -25,7 +25,7 @@ private function define_public_hooks() {
 // ADD TO FILE -> public/class-plugin-name-public.php
 
 /**
- * Override acrive template location for custom post type
+ * Override archive template location for custom post type
  *
  * If the archive template file not exist in the theme folder, then use  the plugin template.
  * In this case, file can be overridden inside the [child] theme.
