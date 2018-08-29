@@ -56,7 +56,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 # This is for the "Important upgrade notice"
 == Upgrade Notice ==
-= 20180624 =
+= 1.0.0 =
 Important notice to this update
 
 */
