@@ -25,6 +25,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * How to add admin **options page** to plugin
 * How to add admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
+* How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
 `class-custom-template-loader.php`)
@@ -33,6 +34,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * Register any external php file in permalinks
 * Register **AJAX callback** (also JavaScript code)
 * Register **POST callback**
+* Add custom updater for your plugin
 * Handle AJAX/POST callback (eg.:)<br />
   * check nonce,
   * insert post and post meta,
@@ -85,6 +87,7 @@ Tutorial files
 * `tutorials/app_option_page_for_plugin.php`
 * `tutorials/app_option_page_for_plugin_with_options_framework.php`
 * `tutorials/custom_post_types.php`
+* `tutorials/custom_updater_for_plugin.php`
 * `tutorials/get_custom_post_type_archive_template_from_plugin.php`
 * `tutorials/handling_POST_request.php`
 * `tutorials/meta_box_for_custom_post_type.php`
