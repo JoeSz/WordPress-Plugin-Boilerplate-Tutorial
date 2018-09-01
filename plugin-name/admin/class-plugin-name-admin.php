@@ -427,7 +427,7 @@ class Plugin_Name_Admin {
                   'default' => 'two',
                 ),
 
-                array(
+               array(
                     'id'             => 'select_1',
                     'type'           => 'select',
                     'title'          => 'Select',
@@ -444,32 +444,6 @@ class Plugin_Name_Admin {
                 array(
                     'id'             => 'select_4',
                     'type'           => 'select',
-                    'title'          => 'Select Chosen Posts',
-                    'options'        => 'posts',
-                    'query_args'     => array(
-                        'orderby'      => 'post_date',
-                        'order'        => 'DESC',
-                    ),
-                    'default_option' => '',
-                    'class'       => 'chosen',
-                ),
-
-                array(
-                    'id'             => 'select_4',
-                    'type'           => 'select',
-                    'title'          => 'Select Chosen Pages',
-                    'options'        => 'pages',
-                    'query_args'     => array(
-                        'orderby'      => 'post_date',
-                        'order'        => 'DESC',
-                    ),
-                    'default_option' => '',
-                    'class'       => 'chosen',
-                ),
-
-                array(
-                    'id'             => 'select_3',
-                    'type'           => 'select',
                     'title'          => 'Select Chosen',
                     'options'        => array(
                         'bmw'          => 'BMW',
@@ -483,7 +457,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_2',
+                    'id'             => 'select_5',
                     'type'           => 'select',
                     'title'          => 'Miltiselect',
                     'options'        => array(
@@ -504,20 +478,50 @@ class Plugin_Name_Admin {
                 array(
                     'id'             => 'select_2',
                     'type'           => 'select',
-                    'title'          => 'Miltiselect',
-                    'options'        => array(
-                        'bmw'          => 'BMW',
-                        'mercedes'     => 'Mercedes',
-                        'volkswagen'   => 'Volkswagen',
-                        'other'        => 'Other',
+                    'title'          => 'Select Chosen Posts',
+                    'options'        => 'posts',
+                    'query'          => array(
+                        'args'           => array(
+                            'orderby'      => 'post_date',
+                            'order'        => 'DESC',
+                        ),
                     ),
-                    'default_option' => 'Select your favorite car',
-                    'default'     => 'bmw',
-                    'attributes' => array(
-                        'multiple' => 'multiple',
-                        'style'    => 'width: 200px; height: 125px;',
+                    'default_option' => '',
+                    'class'       => 'chosen',
+                ),
+
+
+                array(
+                    'id'             => 'select_3',
+                    'type'           => 'select',
+                    'title'          => 'Select Chosen Pages',
+                    'options'        => 'pages',
+                    'query'          => array(
+                        'args'           => array(
+                            'orderby'      => 'post_date',
+                            'order'        => 'DESC',
+                        ),
+                    ),
+                    'default_option' => '',
+                    'class'       => 'chosen',
+                ),
+
+                /**
+                 * Options via callback function,
+                 * options settings will be ignored
+                 */
+                array(
+                    'id'             => 'select_6',
+                    'type'           => 'select',
+                    'title'          => 'Title',
+                    'query'          => array(
+                        'type'          => 'callback',
+                        'function'      => array( $this, 'function_name' ),
+                        'args'          => array() // WordPress query args
                     ),
                 ),
+
+
 
                 array(
                     'type'    => 'card',
