@@ -442,7 +442,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_4',
+                    'id'             => 'select_2',
                     'type'           => 'select',
                     'title'          => 'Select Chosen',
                     'options'        => array(
@@ -457,7 +457,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_5',
+                    'id'             => 'select_3',
                     'type'           => 'select',
                     'title'          => 'Miltiselect',
                     'options'        => array(
@@ -476,7 +476,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_2',
+                    'id'             => 'select_4',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Posts',
                     'options'        => 'posts',
@@ -492,7 +492,7 @@ class Plugin_Name_Admin {
 
 
                 array(
-                    'id'             => 'select_3',
+                    'id'             => 'select_5',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Pages',
                     'options'        => 'pages',
@@ -516,7 +516,7 @@ class Plugin_Name_Admin {
                     'title'          => 'Title',
                     'query'          => array(
                         'type'          => 'callback',
-                        'function'      => array( $this, 'function_name' ),
+                        'function'      => array( $this, 'get_all_emails' ),
                         'args'          => array() // WordPress query args
                     ),
                 ),
@@ -687,16 +687,16 @@ class Plugin_Name_Admin {
                             'id'             => 'emails',
                             'type'           => 'select',
                             'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
-                            'options'        => 'callback',
-                            'query_args'     => array(
+                            'query'          => array(
+                                'type'          => 'callback',
                                 'function'      => array( $this, 'get_all_emails' ),
+                                'args'          => array() // WordPress query args
                             ),
                             'attributes' => array(
                                 'multiple' => 'multiple',
                                 'style'    => 'width: 200px; height: 56px;',
                             ),
                             'class'       => 'chosen',
-
                         ),
 
                         array(
