@@ -6,7 +6,7 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
-LAST CHANGE: 2018-08-29
+LAST CHANGE: 2018-09-01
 
 ---
 
@@ -28,6 +28,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * How to add admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
 * How to **access plugin** and it's **methodes** later from **outside** of the plugin (eg. from theme or template file)
+* How to **access plugin methodes** from **inside** of the plugin (eg. from admin from public)
 * How to **register, update** and **use custom** datebase **tables**
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
@@ -83,6 +84,7 @@ You may delete, what you don't use, on production
 
 Tutorial files
 
+* `tutorials/access_plugin_admin_public_methodes_from_inside.php`
 * `tutorials/access_plugin_and_its_methodes_later_from_outside_of_plugin.php`
 * `tutorials/add_custom_get-template-part_to_load_template_from_plugin.php`
 * `tutorials/add_remove_reorder_custom_post_type_list_columns_in_admin_area.php`
