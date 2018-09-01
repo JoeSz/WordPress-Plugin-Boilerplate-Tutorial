@@ -4,6 +4,36 @@
  * Field: Select
  *
  */
+/* Usage:
+ *
+array(
+    'id'             => 'select_1',
+    'type'           => 'select',
+    'title'          => 'Title',
+    'query'          => array(
+        'type'          => 'callback',
+        'function'      => array( $this, 'function_name' ),
+        'args'          => array() // WordPress query args
+    ),
+),
+
+- OR -
+
+array(
+    'id'             => 'select_1',
+    'type'           => 'select',
+    'title'          => 'Title',
+    'options'        => array(
+        'bmw'            => 'BMW',
+        'mercedes'       => 'Mercedes',
+        'volkswagen'     => 'Volkswagen',
+        'other'          => 'Other',
+    ),
+    'default_option' => 'Select your favorite car',
+    'default'        => 'bmw',
+),
+
+ */
 if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
     class Exopite_Simple_Options_Framework_Field_select extends Exopite_Simple_Options_Framework_Fields {
@@ -16,10 +46,11 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
             echo $this->element_before();
 
-            if( isset( $this->field['options'] ) ) {
+            if( isset( $this->field['options'] ) || isset( $this->field['query'] ) ) {
 
-                $options    = $this->field['options'];
-                $options    = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
+                $options    = ( is_array( $this->field['options'] ) ) ? $this->field['options'] : array();
+                $query      = ( isset( $this->field['query'] ) && isset( $this->field['query']['type'] ) ) ? $this->field['query'] : false;
+                $select     = ( $query ) ? $this->element_data( $query['type'] ) : $options;
                 $class      = $this->element_class();
                 $extra_name = ( isset( $this->field['attributes']['multiple'] ) ) ? '[]' : '';
 
@@ -27,9 +58,9 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                 echo ( isset( $this->field['default_option'] ) ) ? '<option value="">'.$this->field['default_option'].'</option>' : '';
 
-                if( ! empty( $options ) ) {
+                if( ! empty( $select ) ) {
 
-                    foreach ( $options as $key => $value ) {
+                    foreach ( $select as $key => $value ) {
                         echo '<option value="'. $key .'" '. $this->checked( $this->element_value(), $key, 'selected' ) .'>'. $value .'</option>';
 
                     }
@@ -48,8 +79,9 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
          */
         public function element_data( $type = '' ) {
 
-            $options = array();
-            $query_args = ( isset( $this->field['query_args'] ) ) ? $this->field['query_args'] : array();
+            $select     = array();
+            $query      = ( isset( $this->field['query'] ) ) ? $this->field['query'] : array();
+            $query_args = ( isset( $this->field['query']['args'] ) ) ? $this->field['query']['args'] : array();
 
             switch( $type ) {
 
@@ -60,7 +92,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $pages ) && ! empty( $pages ) ) {
                         foreach ( $pages as $page ) {
-                            $options[$page->ID] = $page->post_title;
+                            $select[$page->ID] = $page->post_title;
                         }
                     }
 
@@ -73,7 +105,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $posts ) && ! empty( $posts ) ) {
                         foreach ( $posts as $post ) {
-                            $options[$post->ID] = $post->post_title;
+                            $select[$post->ID] = $post->post_title;
                         }
                     }
 
@@ -86,7 +118,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $categories ) && ! empty( $categories ) && ! isset( $categories['errors'] ) ) {
                         foreach ( $categories as $category ) {
-                            $options[$category->term_id] = $category->name;
+                            $select[$category->term_id] = $category->name;
                         }
                     }
 
@@ -100,7 +132,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
                         foreach ( $tags as $tag ) {
-                            $options[$tag->term_id] = $tag->name;
+                            $select[$tag->term_id] = $tag->name;
                         }
                     }
 
@@ -113,7 +145,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $menus ) && ! empty( $menus ) ) {
                         foreach ( $menus as $menu ) {
-                            $options[$menu->term_id] = $menu->name;
+                            $select[$menu->term_id] = $menu->name;
                         }
                     }
 
@@ -128,7 +160,7 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
                     if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
                         foreach ( $post_types as $post_type ) {
-                            $options[$post_type] = ucfirst($post_type);
+                            $select[$post_type] = ucfirst($post_type);
                         }
                     }
 
@@ -137,16 +169,15 @@ if( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
                 case 'custom':
                 case 'callback':
 
-                    if( is_callable( $query_args['function'] ) ) {
-                        $args = ( isset( $query_args['args'] ) ) ? $query_args['args'] : '';
-                        $options = call_user_func( $query_args['function'], $args );
+                    if( is_callable( $query['function'] ) ) {
+                        $select = call_user_func( $query['function'], $query_args );
                     }
 
                 break;
 
             }
 
-            return $options;
+            return $select;
         }
 
 

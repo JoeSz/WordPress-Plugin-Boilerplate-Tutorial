@@ -116,7 +116,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                 return;
             }
 
-            $this->version = '20180608';
+            $this->version = '20180901';
 
             // Filter for override
             $this->config  = apply_filters( 'exopite-simple-options-framework-config', $config );
@@ -127,8 +127,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             if ( ! isset( $this->config['type'] ) ) $this->config['type'] = '';
 
-            // Load options only if menu
-            // on metabox, page id is not yet available
+            /**
+             * Load options only if menu
+             * on metabox, page id is not yet available
+             */
             if ( $this->config['type'] == 'menu' ) {
 
                 $this->db_options = apply_filters( 'exopite-simple-options-framework-menu-get-options', get_option( $this->unique ), $this->unique );
@@ -142,8 +144,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
             //scripts and styles
             add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts_styles' ) );
 
-            // Add "code" plugin for TinyMCE
-            // @link https://www.tinymce.com/docs/plugins/code/
+            /**
+             * Add "code" plugin for TinyMCE
+             * @link https://www.tinymce.com/docs/plugins/code/
+             */
             add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
 
             switch ( $this->config['type'] ) {
@@ -170,8 +174,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                     add_action( 'save_post', array( $this, 'save' ) );
                     break;
             }
-
-            // add_action( 'wp_ajax_exopite_test', array( $this, 'exopite_test' ) );
 
         }
 
@@ -236,7 +238,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
             die( $retval );
         }
 
-        /*
+        /**
          * Load classes
          */
         public function load_classes() {
@@ -265,7 +267,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         public function locate_template( $type ) {
 
-            /*
+            /**
              * Ideas:
              * - May extend this with override.
              */
@@ -276,12 +278,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Register "settings" for plugin option page in plugins list
          */
         public function plugin_action_links( $links ) {
 
-            /*
+            /**
              *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
              */
             $settings_link = '';
@@ -331,7 +333,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Register settings for plugin option page with a callback to save
          */
         public function register_setting() {
@@ -340,7 +342,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Register plugin option page
          */
         public function add_admin_menu() {
@@ -387,12 +389,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Load scripts and styles
          */
         public function load_scripts_styles( $hook ) {
 
-            /*
+            /**
              * Ideas:
              * - split JS to (metabox and menu) and menu -> not all scripts are required for metabox
              * - proper versioning based on file timestamp?
@@ -437,7 +439,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
                     wp_enqueue_script( 'jquery-interdependencies', $base . 'jquery.interdependencies.min.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-color-picker' ), $this->version, true );
 
-                    /*
+                    /**
                      * Load classes and enqueue class scripts
                      * with this, only enqueue scripts if class/field is used
                      */
@@ -457,8 +459,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
             if ( ! current_user_can( $this->config['capability'] ) ) return;
 
-            // If fields is post id then check post type
-            // and if not the post types in settings, then return.
+            /**
+             * If fields is post id then check post type
+             * and if not the post types in settings, then return.
+             */
             if ( ! is_array( $fields ) ) {
 
                 $post_type = get_post_type( $fields );
@@ -487,6 +491,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                 }
             }
 
+            /**
+             * Loop all fields (from options)
+             */
             foreach ( $this->fields as $section ) {
 
                 foreach ( $section['fields'] as $field ) {
@@ -574,7 +581,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
             $valid = apply_filters( 'exopite-simple-options-framework-save-options', $valid, $this->unique );
             switch ( $this->config['type'] ) {
                 case 'menu':
-                //exopite-simple-options-framework-options
                     $valid = apply_filters( 'exopite-simple-options-framework-save-menu-options', $valid, $this->unique );
                     do_action( 'exopite-simple-options-framework-do-save-menu-options', $value, $this->unique );
                     return $valid;
@@ -599,7 +605,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
         }
         // DEBUG
 
-        /*
+        /**
          * Validate and sanitize values
          */
         public function sanitize( $field, $value ) {
@@ -648,7 +654,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
                 case 'range':
                     // no break
-                case 'numeric':
+                case 'number':
                     if ( isset( $field['min'] ) && $value < $field['min'] ) {
                         $value = $field['min'];
                     }
@@ -656,6 +662,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                         $value = $field['max'];
                     }
                     $value = ( isset( $value ) && ! empty( $value ) && is_numeric( $value ) ) ? $value : 0;
+
                     break;
 
                 default:
@@ -667,7 +674,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Loop fileds based on field from user
          */
         public function loop_fields( $callbacks ) {
@@ -703,7 +710,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Loop and add callback to include and enqueue
          */
         public function include_enqueue_field_classes() {
@@ -718,7 +725,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Include field classes
          * and enqueue they scripts
          */
@@ -751,12 +758,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
                     $class::enqueue( $args );
 
-                    // $url = $this->get_url( plugin_dir_path( __FILE__ ) );
-                    // $url = plugin_dir_url( __FILE__ );
-                    // $class::enqueue( $url, plugin_dir_path( __FILE__ ) );
-
-                    // $class::enqueue( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );
-
                 }
 
             }
@@ -765,8 +766,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         /**
          * Generate files
-         * @param  array $field field args
-         * @return string       generated HTML for the field
+         * @param  array    $field field args
+         * @return string   generated HTML for the field
          */
         public function add_field( $field, $value = '' ) {
 
@@ -848,7 +849,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Display form and header for options page
          * for metabox no need to do this.
          */
@@ -870,7 +871,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Display form and footer for options page
          * for metabox no need to do this.
          */
@@ -888,7 +889,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Display section header, only first is visible on start
          */
         public function display_options_section_header( $section ) {
@@ -907,7 +908,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
         }
 
-        /*
+        /**
          * Display section footer
          */
         public function display_options_section_footer() {
@@ -934,7 +935,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
                     break;
 
                 case 'metabox':
-                    /*
+                    /**
                      * Get options
                      * Can not get options in __consturct, because there, the_ID is not yet available.
                      */
@@ -956,7 +957,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
             // var_export( $this->db_options );
             // echo '</pre>';
 
-            /*
+            /**
              * Generate fields
              */
             // Generate tab navigation
@@ -971,6 +972,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
                     $depend = '';
                     $hidden = '';
+
                     // Dependency for tabs too
                     if ( ! empty( $section['dependency'] ) ) {
                         $hidden  = ' hidden';
