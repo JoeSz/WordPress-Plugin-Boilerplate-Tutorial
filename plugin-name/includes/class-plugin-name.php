@@ -129,6 +129,12 @@ class Plugin_Name {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
 
+		/**
+		 * Exopite Simple Options Framework
+		 *
+		 * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
+		 * @link https://www.joeszalai.org/exopite/exopite-simple-options-framework/
+		 */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
 
 		$this->loader = new Plugin_Name_Loader();
