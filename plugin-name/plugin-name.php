@@ -115,7 +115,7 @@ if ( is_admin() ) {
 		if ( isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) ) > 0 ) {
 
 			// Display "upgrade_notice".
-			echo sprintf( '<div style="background-color:#d54e21;padding:10px;color:#f9f9f9;margin-top:10px"><strong>%1$s: </strong>%2$s</div>', esc_attr( 'Important Upgrade Notice', 'terminplaner' ), esc_html( $new_plugin_metadata->upgrade_notice ) );
+			echo sprintf( '<span style="background-color:#d54e21;padding:10px;color:#f9f9f9;margin-top:10px;display:block;"><strong>%1$s: </strong>%2$s</span>', esc_attr( 'Important Upgrade Notice', 'exopite-multifilter' ), esc_html( rtrim( $new_plugin_metadata->upgrade_notice ) ) );
 
 		}
 	}
