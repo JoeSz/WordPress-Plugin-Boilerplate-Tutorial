@@ -40,6 +40,20 @@ class Plugin_Name_Admin {
 	 */
 	private $version;
 
+	/*************************************************************
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 *
+	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 */
+	/**
+	 * Store plugin main class to allow public access.
+	 *
+	 * @since    20180622
+	 * @var object      The main class.
+	 */
+	public $main;
+	// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -47,12 +61,33 @@ class Plugin_Name_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	// public function __construct( $plugin_name, $version ) {
+
+	// 	$this->plugin_name = $plugin_name;
+	// 	$this->version = $version;
+
+    // }
+
+	/*************************************************************
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 *
+	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 */
+	/**
+	 * Initialize the class and set its properties.
+	 *
+	 * @since    1.0.0
+	 * @param      string    $plugin_name       The name of this plugin.
+	 * @param      string    $version    The version of this plugin.
+	 */
+	public function __construct( $plugin_name, $version, $plugin_main ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+        $this->version = $version;
+        $this->main = $plugin_main;
 
-	}
+    }
+    // ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
 
 	/**
 	 * Register the stylesheets for the admin area.

@@ -57,6 +57,43 @@ class Plugin_Name {
 	 */
 	protected $version;
 
+	/*************************************************************
+	 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+	 *
+	 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+	 */
+	/**
+	 * Store plugin admin class to allow public access.
+	 *
+	 * @since    20180622
+	 * @var object      The admin class.
+	 */
+	public $admin;
+
+
+	/**
+	 * Store plugin public class to allow public access.
+	 *
+	 * @since    20180622
+	 * @var object      The admin class.
+	 */
+	public $public;
+	// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+
+	/*************************************************************
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 *
+	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 */
+	/**
+	 * Store plugin main class to allow public access.
+	 *
+	 * @since    20180622
+	 * @var object      The main class.
+	 */
+	public $main;
+	// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -70,6 +107,14 @@ class Plugin_Name {
 
 		$this->plugin_name = 'plugin-name';
 		$this->version = '1.0.0';
+
+		/*************************************************************
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		 *
+		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 */
+		$this->main = $this;
+		// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -129,13 +174,18 @@ class Plugin_Name {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
 
-		/**
-		 * Exopite Simple Options Framework
+		/**************************************
+		 * EXOPITE SIMPLE OPTIONS FRAMEWORK
+		 *
+		 * Get Exopite Simple Options Framework
 		 *
 		 * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
 		 * @link https://www.joeszalai.org/exopite/exopite-simple-options-framework/
+		 *
+		 * @tutorial app_option_page_for_plugin_with_options_framework.php
 		 */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
+		// END EXOPITE SIMPLE OPTIONS FRAMEWORK
 
 		$this->loader = new Plugin_Name_Loader();
 
@@ -167,13 +217,35 @@ class Plugin_Name {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
-        $plugin_post_types = new Plugin_Name_Post_Types();
+		// $plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-        /**
+		/*************************************************************
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN)
+		 *
+		 *
+		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 */
+		$this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version(), $this->main );
+		// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+
+		/*************************************************************
+		 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		 *
+		 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+		 */
+		// $this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
+		// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+
+        /**************************
+		 * CREATE CUSTOM POST TYPES
+		 *
          * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
          * so hooking into init from the activation hook won't do anything.
          * You don't need to register the CPT within the activation function unless you need rewrite rules to be added
@@ -182,11 +254,22 @@ class Plugin_Name {
          * call flush_rewrite_rules() to add the CPT rewrite rules.
          *
          * @link https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/261
+		 *
+		 * @tutorial custom_post_types.php
          */
+		$plugin_post_types = new Plugin_Name_Post_Types();
         $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
+		// END CREATE CUSTOM POST TYPES
 
-        // Save/Update our plugin options
-        $this->loader->add_action( 'init', $plugin_admin, 'create_menu' );
+		/***********************************
+		 * EXOPITE SIMPLE OPTIONS FRAMEWORK
+		 *
+		 * Save/Update our plugin options
+		 *
+		 * @tutorial app_option_page_for_plugin_with_options_framework.php
+		 */
+        $this->loader->add_action( 'init', $this->admin, 'create_menu' );
+		// END EXOPITE SIMPLE OPTIONS FRAMEWORK
 
 	}
 
@@ -199,11 +282,29 @@ class Plugin_Name {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+		// $plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		/*************************************************************
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN)
+		 *
+		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 */
+		$this->public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version(), $this->main );
+		// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+
+		/*************************************************************
+		 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		 *
+		 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+		 */
+    	// $this->public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
+		// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
 	}
 
 	/**

@@ -39,7 +39,7 @@ $prefix_plugin_name->run();
  * @since    20180622
  * @var object      The admin class.
  */
-public $plugin_admin;
+public $admin;
 
 
 /**
@@ -48,7 +48,7 @@ public $plugin_admin;
  * @since    20180622
  * @var object      The admin class.
  */
-public $plugin_public;
+public $public;
 
 // ...
 
@@ -65,12 +65,12 @@ private function define_admin_hooks() {
     $plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
     // TO THIS:
     // of course, now you do not have "$plugin_admin", you need to use "$this->plugin_admin" instead.
-    $this->plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
+    $this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
 
     // SO THIS:
     $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
     // BECOME THIS:
-    $this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_styles' );
+    $this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
     // AND SO ON...
 
 // Same with public function
@@ -88,7 +88,8 @@ private function define_public_hooks() {
     $plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
     // TO THIS:
     // of course, now you do not have "$plugin_public", you need to use "$this->plugin_public" instead.
-    $this->plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+    $this->public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+    // AND SO ON...
 
 /**
  * Now you can access to your functions.
@@ -105,4 +106,4 @@ public function access_test( $test_var ) {
 
 // AND IN YOUR THEME OR TEMPLATE FILE:
 global $prefix_plugin_name;
-echo $prefix_plugin_name->plugin_public->access_test( $test_var );
+echo $prefix_plugin_name->public->access_test( $test_var );
