@@ -31,6 +31,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'PLUGIN_NAME_PLUGIN_NAME', 'plugin-name' );
+
+/**
+ * Store plugin base dir, for easier access later from other classes.
+ * (eg. Include, pubic or admin)
+ */
 define( 'PLUGIN_NAME_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
@@ -61,8 +66,9 @@ function deactivate_plugin_name() {
 register_activation_hook( __FILE__, 'activate_plugin_name' );
 register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
 
-/*
- * Update
+/*****************************************
+ * CUSTOM UPDATER FOR PLUGIN
+ * @tutorial custom_updater_for_plugin.php
  */
 if ( is_admin() ) {
 
@@ -122,7 +128,7 @@ if ( is_admin() ) {
 
 
 }
-// End Update
+// END CUSTOM UPDATER FOR PLUGIN
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -139,10 +145,26 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  *
  * @since    1.0.0
  */
-function run_plugin_name() {
+// function run_plugin_name() {
 
-	$plugin = new Plugin_Name();
-	$plugin->run();
+// 	$plugin = new Plugin_Name();
+// 	$plugin->run();
 
-}
-run_plugin_name();
+// }
+// run_plugin_name();
+
+/********************************************
+ * THIS ALLOW YOU TO ACCESS YOUR PLUGIN CLASS
+ * eg. in your template/outside of the plugin.
+ *
+ * Of course you do not need to use a global,
+ * you could wrap it in singleton too,
+ * or you can store it in a static class,
+ * etc...
+ *
+ * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+ */
+global $pbt_prefix_plugin_name;
+$pbt_prefix_plugin_name = new Plugin_Name();
+$pbt_prefix_plugin_name->run();
+// END THIS ALLOW YOU TO ACCESS YOUR PLUGIN CLASS
