@@ -599,7 +599,14 @@ class Plugin_Name_Admin {
                 array(
                     'id'     => 'editor_1',
                     'type'   => 'editor',
-                    'title'  => 'Editor',
+                    'title'  => 'Editor TinyMCE',
+                ),
+
+                array(
+                    'id'     => 'editor_trumbowyg',
+                    'type'   => 'editor',
+                    'title'  => 'Editor Trumbowyg',
+                    'editor' => 'trumbowyg',
                 ),
 
                 array(
@@ -688,7 +695,7 @@ class Plugin_Name_Admin {
 
                  array(
                     'type'    => 'group',
-                    'id'      => 'email',
+                    'id'      => 'group_1',
                     'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
                     'options' => array(
                         'repeater'          => true,
@@ -719,7 +726,7 @@ class Plugin_Name_Admin {
                         ),
 
                         array(
-                            'id'             => 'emails',
+                            'id'             => 'emails_group_callback',
                             'type'           => 'select',
                             'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
                             'query'          => array(
@@ -741,6 +748,19 @@ class Plugin_Name_Admin {
                             'title'   => esc_html__( 'Textarea', 'plugin-name' ),
                             'default' => esc_html__( 'Some text', 'plugin-name' ),
                             'after'   => '<mute>' . esc_html__( 'Some info: ', 'plugin-name' ) . '</mute>',
+                        ),
+
+                        array(
+                            'id'     => 'editor_tinymce_group',
+                            'type'   => 'editor',
+                            'title'  => 'Editor TinyMCE',
+                        ),
+
+                        array(
+                            'id'     => 'editor_trumbowyg_group',
+                            'type'   => 'editor',
+                            'title'  => 'Editor Trumbowyg',
+                            'editor' => 'trumbowyg',
                         ),
 
                     ),
