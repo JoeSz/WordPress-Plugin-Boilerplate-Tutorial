@@ -2009,3 +2009,6 @@ input:disabled + .switch__toggle {
     left: calc(50% - 20px);
     z-index: 2;
 }
+.exopite-sof-group .exopite-sof-tinymce-editor .exopite-sof-fieldset {
+    border: 1px solid #ddd;
+}

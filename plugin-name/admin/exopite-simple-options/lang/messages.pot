@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-23 11:44+0100\n"
+"POT-Creation-Date: 2018-09-16 22:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,124 +17,147 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: exopite-simple-options-framework-class.php:261
+#: exopite-simple-options-framework-class.php:239
+#, php-format
+msgid "%s is missing in the configuration array"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:348
+msgid "Irks! An un-known error has occurred."
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:685
+#: exopite-simple-options-framework-class.php:708
 msgid "Settings"
 msgstr ""
 
-#: exopite-simple-options-framework-class.php:808
+#: exopite-simple-options-framework-class.php:794
+msgid "Add New"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:795
+msgid "Accordion Title"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:813
+#: exopite-simple-options-framework-class.php:817
+msgid "Plugin Options"
+msgstr ""
+
+#: exopite-simple-options-framework-class.php:1696
 msgid "ERROR:"
 msgstr ""
 
-#: exopite-simple-options-framework-class.php:809
+#: exopite-simple-options-framework-class.php:1697
 msgid "This field class is not available!"
 msgstr ""
 
-#: exopite-simple-options-framework-class.php:832
+#: exopite-simple-options-framework-class.php:1725
 msgid "Saving..."
 msgstr ""
 
-#: exopite-simple-options-framework-class.php:832
+#: exopite-simple-options-framework-class.php:1725
 msgid "Saved Successfully."
 msgstr ""
 
-#: exopite-simple-options-framework-class.php:841
-#: exopite-simple-options-framework-class.php:856
+#: exopite-simple-options-framework-class.php:1739
+#: exopite-simple-options-framework-class.php:1754
 msgid "Save Settings"
 msgstr ""
 
-#: fields/attached.php:43
+#: fields/attached.php:45
 #, php-format
 msgid "There is no attachment with type %s for this %s."
 msgstr ""
 
-#: fields/backup.php:43
+#: fields/backup.php:45
 msgid "copy-paste your backup string here"
 msgstr ""
 
-#: fields/backup.php:44
+#: fields/backup.php:46
 msgid "Are you sure, you want to overwrite existing options?"
 msgstr ""
 
-#: fields/backup.php:44
+#: fields/backup.php:46
 msgid "Import a Backup"
 msgstr ""
 
-#: fields/backup.php:48
+#: fields/backup.php:50
 msgid "Download Backup"
 msgstr ""
 
-#: fields/backup.php:51
+#: fields/backup.php:53
 msgid "Please be sure for reset all of framework options."
 msgstr ""
 
-#: fields/backup.php:52
+#: fields/backup.php:54
 msgid "Are you sure, you want to reset all options?"
 msgstr ""
 
-#: fields/backup.php:52
+#: fields/backup.php:54
 msgid "Reset All Options"
 msgstr ""
 
-#: fields/group.php:174
+#: fields/group.php:377
 msgid "Max items:"
 msgstr ""
 
-#: fields/image.php:74
+#: fields/image.php:77
 msgid "Add Image"
 msgstr ""
 
-#: fields/upload.php:70
+#: fields/upload.php:73
 msgid "Drop files here"
 msgstr ""
 
-#: fields/upload.php:79
+#: fields/upload.php:83
 msgid "Select files"
 msgstr ""
 
-#: fields/upload.php:82
+#: fields/upload.php:86
 msgid "Upload"
 msgstr ""
 
-#: fields/upload.php:86
+#: fields/upload.php:90
 msgid "Processing dropped files..."
 msgstr ""
 
-#: fields/upload.php:100 fields/upload.php:126
+#: fields/upload.php:108 fields/upload.php:140
 msgid "Cancel"
 msgstr ""
 
-#: fields/upload.php:101
+#: fields/upload.php:110
 msgid "Retry"
 msgstr ""
 
-#: fields/upload.php:102
+#: fields/upload.php:112
 msgid "Delete"
 msgstr ""
 
-#: fields/upload.php:110
+#: fields/upload.php:121
 msgid "Close"
 msgstr ""
 
-#: fields/upload.php:117
+#: fields/upload.php:129
 msgid "No"
 msgstr ""
 
-#: fields/upload.php:118
+#: fields/upload.php:131
 msgid "Yes"
 msgstr ""
 
-#: fields/upload.php:127
+#: fields/upload.php:142
 msgid "Ok"
 msgstr ""
 
-#: fields/upload.php:166
+#: fields/upload.php:181
 msgid "Max amount of files: "
 msgstr ""
 
-#: fields/upload.php:167
+#: fields/upload.php:182
 msgid "Max file upload size: "
 msgstr ""
 
-#: fields/video.php:56
+#: fields/video.php:74
 msgid "Add Video"
 msgstr ""

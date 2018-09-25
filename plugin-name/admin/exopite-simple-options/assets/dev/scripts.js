@@ -1,22 +1,22 @@
-function updateRangeInput( elem ) {
-    jQuery( elem ).next().val( jQuery( elem ).val() );
+function updateRangeInput(elem) {
+    jQuery(elem).next().val(jQuery(elem).val());
 }
 
-function updateInputRange( elem ) {
-    jQuery( elem ).prev().val( jQuery( elem ).val() );
+function updateInputRange(elem) {
+    jQuery(elem).prev().val(jQuery(elem).val());
 }
 
 if (typeof throttle !== "function") {
     // Source: https://gist.github.com/killersean/6742f98122d1207cf3bd
     function throttle(callback, limit, callingEvent) {
         var wait = false;
-        return function() {
-            if ( wait && jQuery(window).scrollTop() > 0 ) {
+        return function () {
+            if (wait && jQuery(window).scrollTop() > 0) {
                 return;
             }
             callback.call(undefined, callingEvent);
             wait = true;
-            setTimeout(function() {
+            setTimeout(function () {
                 wait = false;
             }, limit);
         };
@@ -49,29 +49,29 @@ if (typeof throttle !== "function") {
  *
  * @link https://github.com/Codestar/codestar-framework/
  */
-;(function ( $, window, document, undefined ) {
-      'use strict';
+; (function ($, window, document, undefined) {
+    'use strict';
     /*
      * Dependency System
      *
      * Codestar Framework
      */
-    $.fn.exopiteSofManageDependencies = function ( param ) {
+    $.fn.exopiteSofManageDependencies = function (param) {
         return this.each(function () {
 
-            var base  = this,
+            var base = this,
                 $this = $(this);
 
             base.init = function () {
 
                 base.ruleset = $.deps.createRuleset();
-                base.param = ( param !== undefined ) ? base.param = param + '-' : '';
+                base.param = (param !== undefined) ? base.param = param + '-' : '';
 
                 var cfg = {
-                    show: function( el ) {
+                    show: function (el) {
                         el.removeClass('hidden');
                     },
-                    hide: function( el ) {
+                    hide: function (el) {
                         el.addClass('hidden');
                     },
                     log: false,
@@ -81,29 +81,29 @@ if (typeof throttle !== "function") {
 
                 base.dep();
 
-                $.deps.enable( $this, base.ruleset, cfg );
+                $.deps.enable($this, base.ruleset, cfg);
 
             };
 
-            base.dep = function() {
+            base.dep = function () {
 
-                $this.each( function() {
+                $this.each(function () {
 
-                    $(this).find( '[data-' + base.param + 'controller]' ).each( function() {
+                    $(this).find('[data-' + base.param + 'controller]').each(function () {
 
-                        var $this       = $( this ),
-                            _controller = $this.data( base.param + 'controller' ).split( '|' ),
-                            _condition  = $this.data( base.param + 'condition' ).split( '|' ),
-                            _value      = $this.data( base.param + 'value' ).toString().split( '|' ),
-                            _rules      = base.ruleset;
+                        var $this = $(this),
+                            _controller = $this.data(base.param + 'controller').split('|'),
+                            _condition = $this.data(base.param + 'condition').split('|'),
+                            _value = $this.data(base.param + 'value').toString().split('|'),
+                            _rules = base.ruleset;
 
-                        $.each( _controller, function( index, element ) {
+                        $.each(_controller, function (index, element) {
 
-                            var value     = _value[index] || '',
+                            var value = _value[index] || '',
                                 condition = _condition[index] || _condition[0];
 
-                            _rules = _rules.createRule( '[data-' + base.param + 'depend-id="'+ element +'"]', condition, value );
-                            _rules.include( $this );
+                            _rules = _rules.createRule('[data-' + base.param + 'depend-id="' + element + '"]', condition, value);
+                            _rules.include($this);
 
                         });
 
@@ -119,46 +119,46 @@ if (typeof throttle !== "function") {
 
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite Save Options with AJAX
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     var pluginName = "exopiteSaveOptionsAJAX";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
         this.init();
 
     }
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
 
         },
 
-       // Bind events that trigger methods
-        bindEvents: function() {
+        // Bind events that trigger methods
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.$element.find( '.exopite-sof-form-js' ).on( 'submit'+'.'+plugin._name, function( event ) {
-                plugin.submitOptions.call( this, event );
+            plugin.$element.find('.exopite-sof-form-js').on('submit' + '.' + plugin._name, function (event) {
+                plugin.submitOptions.call(this, event);
             });
 
             /**
              * Save on CRTL+S
              * @link https://stackoverflow.com/questions/93695/best-cross-browser-method-to-capture-ctrls-with-jquery/14180949#14180949
              */
-            $( window ).on( 'keydown' + '.' + plugin._name, function( event ) {
+            $(window).on('keydown' + '.' + plugin._name, function (event) {
 
                 if (plugin.$element.find('.exopite-sof-form-js').length) {
                     if (event.ctrlKey || event.metaKey) {
@@ -166,71 +166,72 @@ if (typeof throttle !== "function") {
                             case 's':
                                 event.preventDefault();
                                 var $form = plugin.$element.find('.exopite-sof-form-js');
-                                plugin.submitOptions.call( $form, event );
+                                plugin.submitOptions.call($form, event);
                                 break;
                         }
                     }
                 }
             });
 
-            $(window).on( 'scroll'+'.'+plugin._name, throttle(plugin.checkFixed, 100, ''));
+            $(window).on('scroll' + '.' + plugin._name, throttle(plugin.checkFixed, 100, ''));
 
         },
 
         // Unbind events that trigger methods
-        unbindEvents: function() {
-            this.$element.off('.'+this._name);
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
         },
 
-        checkFixed: function() {
+        checkFixed: function () {
 
-            var footerWidth = $( '.exopite-sof-form-js' ).outerWidth();
+            var footerWidth = $('.exopite-sof-form-js').outerWidth();
             var bottom = 0;
 
-            if ( ( $( window ).scrollTop() > ( $( '.exopite-sof-header-js' ).position().top + $( '.exopite-sof-header-js' ).outerHeight(true) ) ) &&
-                ($(window).scrollTop() + $(window).height() < $(document).height() - 100) ) {
+            if (($(window).scrollTop() > ($('.exopite-sof-header-js').position().top + $('.exopite-sof-header-js').outerHeight(true))) &&
+                ($(window).scrollTop() + $(window).height() < $(document).height() - 100)) {
                 bottom = '0';
             } else {
-                bottom = '-' + $( '.exopite-sof-footer-js' ).outerHeight() + 'px';
+                bottom = '-' + $('.exopite-sof-footer-js').outerHeight() + 'px';
             }
 
 
-            $( '.exopite-sof-footer-js' ).outerWidth( footerWidth );
-            $( '.exopite-sof-footer-js' ).css({
+            $('.exopite-sof-footer-js').outerWidth(footerWidth);
+            $('.exopite-sof-footer-js').css({
                 bottom: bottom,
             });
 
         },
 
-        submitOptions: function ( event ) {
+        submitOptions: function (event) {
 
             event.preventDefault();
-            var saveButtonString = $( this ).data( 'save' );
-            var savedButtonString = $( this ).data( 'saved' );
-            var $submitButtons = $( this ).find( '.exopite-sof-submit-button-js' );
+            var saveButtonString = $(this).data('save');
+            var savedButtonString = $(this).data('saved');
+            var $submitButtons = $(this).find('.exopite-sof-submit-button-js');
             var currentButtonString = $submitButtons.val();
-            var $ajaxMessage = $( this ).find( '.exopite-sof-ajax-message' );
-            $submitButtons.val( saveButtonString ).attr( 'disabled', true );
+            var $ajaxMessage = $(this).find('.exopite-sof-ajax-message');
+            $submitButtons.val(saveButtonString).attr('disabled', true);
 
-            /*
+            tinyMCE.triggerSave();
+
+            /**
              * Ajax save submit
              *
              * @link https://www.wpoptimus.com/434/save-plugin-theme-setting-options-ajax-wordpress/
              */
             $(this).ajaxSubmit({
-                success: function(){
-                    $submitButtons.val( currentButtonString ).attr( 'disabled', false );
-                    $ajaxMessage.html( savedButtonString ).addClass('success show');
-                    setTimeout(function(){
+                success: function () {
+                    $submitButtons.val(currentButtonString).attr('disabled', false);
+                    $ajaxMessage.html(savedButtonString).addClass('success show');
+                    setTimeout(function () {
                         // $ajaxMessage.fadeOut( 400 );
-                        $ajaxMessage.removeClass( 'show' );
+                        $ajaxMessage.removeClass('show');
                     }, 3000);
                 },
 
-                error: function( data ) {
-                    console.log( 'data: ' + data );
-                    $submitButtons.val( currentButtonString ).attr( 'disabled', false );
-                    $ajaxMessage.html( 'Error! See console!' ).addClass('error show');
+                error: function (data) {
+                    $submitButtons.val(currentButtonString).attr('disabled', false);
+                    $ajaxMessage.html('Error! See console!').addClass('error show');
                 },
             });
             return false;
@@ -239,33 +240,33 @@ if (typeof throttle !== "function") {
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite Media Uploader
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     var pluginName = "exopiteMediaUploader";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
 
         this._defaults = $.fn.exopiteMediaUploader.defaults;
-        this.options = $.extend( {}, this._defaults, options );
+        this.options = $.extend({}, this._defaults, options);
 
         this.init();
 
@@ -273,31 +274,31 @@ if (typeof throttle !== "function") {
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
 
         },
 
         // Bind events that trigger methods
-        bindEvents: function() {
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.$element.find( '.button' ).on( 'click'+'.'+plugin._name, function( event ) {
+            plugin.$element.find('.button').on('click' + '.' + plugin._name, function (event) {
                 // this refer to the "[plugin-selector] .button" element
-                plugin.openMediaUploader.call( this, event, plugin );
+                plugin.openMediaUploader.call(this, event, plugin);
             });
 
-            if ( plugin.options.remove !== undefined && plugin.options.input !== undefined && plugin.options.preview !== undefined ) {
-                plugin.$element.find( plugin.options.remove ).on( 'click'+'.'+plugin._name, function( event ) {
+            if (plugin.options.remove !== undefined && plugin.options.input !== undefined && plugin.options.preview !== undefined) {
+                plugin.$element.find(plugin.options.remove).on('click' + '.' + plugin._name, function (event) {
                     // this refer to the "[plugin-selector] .button" element
-                    plugin.removePreview.call( this, event, plugin );
+                    plugin.removePreview.call(this, event, plugin);
                 });
             }
 
         },
 
-        openMediaUploader: function( event, plugin ) {
+        openMediaUploader: function (event, plugin) {
 
             event.preventDefault();
 
@@ -307,84 +308,84 @@ if (typeof throttle !== "function") {
              * @link https://rudrastyh.com/wordpress/customizable-media-uploader.html
              */
 
-            var button = $( this ),
-            parent = button.closest( '.exopite-sof-media' ),
-            isVideo = parent.hasClass( 'exopite-sof-video' ),
-            mediaType = ( isVideo ) ? 'video' : 'image',
-            custom_uploader = wp.media({
-                title: 'Insert image',
-                library : {
-                    // uncomment the next line if you want to attach image to the current post
-                    // uploadedTo : wp.media.view.settings.post.id,
-                    type : mediaType
-                },
-                button: {
-                    text: 'Use this image' // button label text
-                },
-                multiple: false // for multiple image selection set to true
-            }).on('select', function() { // it also has "open" and "close" events
-                var attachment = custom_uploader.state().get('selection').first().toJSON();
+            var button = $(this),
+                parent = button.closest('.exopite-sof-media'),
+                isVideo = parent.hasClass('exopite-sof-video'),
+                mediaType = (isVideo) ? 'video' : 'image',
+                custom_uploader = wp.media({
+                    title: 'Insert image',
+                    library: {
+                        // uncomment the next line if you want to attach image to the current post
+                        // uploadedTo : wp.media.view.settings.post.id,
+                        type: mediaType
+                    },
+                    button: {
+                        text: 'Use this image' // button label text
+                    },
+                    multiple: false // for multiple image selection set to true
+                }).on('select', function () { // it also has "open" and "close" events
+                    var attachment = custom_uploader.state().get('selection').first().toJSON();
 
-                if ( plugin.options.input !== undefined ) {
-                    parent.find( plugin.options.input ).val( attachment.url );
-                }
-                if ( ! isVideo && plugin.options.preview !== undefined ) {
-                    parent.find( plugin.options.preview ).removeClass( 'hidden' );
-                    parent.find( 'img' ).attr({ 'src': attachment.url });
-                }
-                if ( isVideo ) {
-                    parent.find( 'video' ).attr({ 'src': attachment.url });
-                }
-                // $(button).removeClass('button').html('<img class="true_pre_image" src="' + attachment.url + '" style="max-width:95%;display:block;" />').next().val(attachment.id).next().show();
-                /* if you sen multiple to true, here is some code for getting the image IDs
-                var attachments = frame.state().get('selection'),
-                    attachment_ids = new Array(),
-                    i = 0;
-                attachments.each(function(attachment) {
-                    attachment_ids[i] = attachment['id'];
-                    console.log( attachment );
-                    i++;
-                });
-                */
-            })
-            .open();
+                    if (plugin.options.input !== undefined) {
+                        parent.find(plugin.options.input).val(attachment.url);
+                    }
+                    if (!isVideo && plugin.options.preview !== undefined) {
+                        parent.find(plugin.options.preview).removeClass('hidden');
+                        parent.find('img').attr({ 'src': attachment.url });
+                    }
+                    if (isVideo) {
+                        parent.find('video').attr({ 'src': attachment.url });
+                    }
+                    // $(button).removeClass('button').html('<img class="true_pre_image" src="' + attachment.url + '" style="max-width:95%;display:block;" />').next().val(attachment.id).next().show();
+                    /* if you sen multiple to true, here is some code for getting the image IDs
+                    var attachments = frame.state().get('selection'),
+                        attachment_ids = new Array(),
+                        i = 0;
+                    attachments.each(function(attachment) {
+                        attachment_ids[i] = attachment['id'];
+                        console.log( attachment );
+                        i++;
+                    });
+                    */
+                })
+                    .open();
 
         },
 
-        removePreview: function( event, plugin ) {
+        removePreview: function (event, plugin) {
 
             var parent = plugin.$element;
 
-            var previewWrapper = parent.find( plugin.options.preview );
-            var previewImg = parent.find( 'img' );
+            var previewWrapper = parent.find(plugin.options.preview);
+            var previewImg = parent.find('img');
 
-            if ( previewWrapper.css('display') !== 'none' &&
-                 previewImg.css('display') !== 'none'
-               ) {
-                previewWrapper.addClass( 'hidden' );
+            if (previewWrapper.css('display') !== 'none' &&
+                previewImg.css('display') !== 'none'
+            ) {
+                previewWrapper.addClass('hidden');
                 previewImg.attr({ 'src': '' });
             }
 
-            parent.find( plugin.options.input ).val( '' );
+            parent.find(plugin.options.input).val('');
         }
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite Options Navigation
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     /*
      * A jQuery Plugin Boilerplate
@@ -396,54 +397,54 @@ if (typeof throttle !== "function") {
     var pluginName = "exopiteOptionsNavigation";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
         this.init();
 
     }
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
 
         },
 
-       // Bind events that trigger methods
-        bindEvents: function() {
+        // Bind events that trigger methods
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.onLoad.call( plugin );
+            plugin.onLoad.call(plugin);
 
-            plugin.$element.find( '.exopite-sof-nav-list-item' ).on( 'click'+'.'+plugin._name, function() {
+            plugin.$element.find('.exopite-sof-nav-list-item').on('click' + '.' + plugin._name, function () {
 
-                plugin.changeTab.call( plugin, $( this ) );
+                plugin.changeTab.call(plugin, $(this));
 
             });
 
         },
 
         // Unbind events that trigger methods
-        unbindEvents: function() {
-            this.$element.off('.'+this._name);
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
         },
 
-        changeTab: function( botton ) {
+        changeTab: function (botton) {
 
-            if ( ! botton.hasClass( 'active' ) ) {
+            if (!botton.hasClass('active')) {
 
-                var section = '.exopite-sof-section-' + botton.data( 'section' );
+                var section = '.exopite-sof-section-' + botton.data('section');
 
-                this.$element.find( '.exopite-sof-nav-list-item.active' ).removeClass( 'active' );
+                this.$element.find('.exopite-sof-nav-list-item.active').removeClass('active');
 
-                botton.addClass( 'active' );
+                botton.addClass('active');
 
-                this.$element.find( '.exopite-sof-section' ).addClass( 'hide' );
-                this.$element.find( section ).removeClass( 'hide' );
+                this.$element.find('.exopite-sof-section').addClass('hide');
+                this.$element.find(section).removeClass('hide');
 
             }
 
@@ -456,40 +457,40 @@ if (typeof throttle !== "function") {
              * "Sanitize" URL
              * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
              */
-            var URLSection = encodeURIComponent( $.urlParam('section') );
+            var URLSection = encodeURIComponent($.urlParam('section'));
 
             // If section not exist, then return
-            if ( ! plugin.$element.find( '.exopite-sof-section-' + URLSection ).length ) return false;
+            if (!plugin.$element.find('.exopite-sof-section-' + URLSection).length) return false;
 
             var navList = plugin.$element.find('.exopite-sof-nav-list-item');
             plugin.$element.find('.exopite-sof-section').addClass('hide');
             plugin.$element.find('.exopite-sof-section-' + URLSection).removeClass('hide');
             navList.removeClass('active');
-            navList.each( function ( index, el ) {
-                var section = $( el ).data( 'section' );
-                if ( section == URLSection ) {
-                    $( el ).addClass( 'active' );
+            navList.each(function (index, el) {
+                var section = $(el).data('section');
+                if (section == URLSection) {
+                    $(el).addClass('active');
                 }
             });
         },
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite SOF Repeater
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     /*
      * A jQuery Plugin Boilerplate
@@ -501,44 +502,44 @@ if (typeof throttle !== "function") {
     var pluginName = "exopiteSOFRepeater";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
         this.init();
 
     }
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
             this.updateTitle();
 
         },
 
-       // Bind events that trigger methods
-        bindEvents: function() {
+        // Bind events that trigger methods
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.$element.find( '.exopite-sof-cloneable--add' ).off().on( 'click'+'.'+plugin._name, function(e) {
+            plugin.$element.find('.exopite-sof-cloneable--add').off().on('click' + '.' + plugin._name, function (e) {
 
                 e.preventDefault();
-                if ( $( this ).is(":disabled") ) return;
-                plugin.addNew.call( plugin, $( this ) );
+                if ($(this).is(":disabled")) return;
+                plugin.addNew.call(plugin, $(this));
 
             });
 
-            plugin.$element.on( 'click'+'.'+plugin._name, '.exopite-sof-cloneable--remove:not(.disabled)', function(e) {
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--remove:not(.disabled)', function (e) {
 
                 e.preventDefault();
-                plugin.remove.call( plugin, $( this ) );
+                plugin.remove.call(plugin, $(this));
 
             });
 
-            plugin.$element.find( '.exopite-sof-cloneable__item' ).on('input', '[data-title=title]', function(event) {
+            plugin.$element.find('.exopite-sof-cloneable__item').on('input change blur', '[data-title=title]', function (event) {
 
                 plugin.updateTitle();
 
@@ -547,186 +548,212 @@ if (typeof throttle !== "function") {
         },
 
         // Unbind events that trigger methods
-        unbindEvents: function() {
-            this.$element.off('.'+this._name);
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
         },
 
-        remove: function( $button ) {
+        remove: function ($button) {
 
-            $button.parents( '.exopite-sof-cloneable__item' ).remove();
+            $button.parents('.exopite-sof-cloneable__item').remove();
             this.checkAmount();
             this.updateNameIndex();
             $button.trigger('exopite-sof-field-group-item-removed');
         },
 
-        checkAmount: function() {
+        checkAmount: function () {
 
-            var numItems = this.$element.find( '.exopite-sof-cloneable__wrapper' ).children( '.exopite-sof-cloneable__item' ).length;
-            var maxItems = this.$element.data( 'limit' );
+            var numItems = this.$element.find('.exopite-sof-cloneable__wrapper').children('.exopite-sof-cloneable__item').length;
+            var maxItems = this.$element.data('limit');
 
-            if ( maxItems <= numItems ) {
-                this.$element.find( '.exopite-sof-cloneable--add' ).attr("disabled", true);
+            if (maxItems <= numItems) {
+                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", true);
                 return false;
             } else {
-                this.$element.find( '.exopite-sof-cloneable--add' ).attr("disabled", false);
+                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", false);
                 return true;
             }
 
 
         },
 
-        updateTitle: function() {
+        updateTitle: function () {
 
-            this.$element.find( '.exopite-sof-cloneable__wrapper' ).find( '.exopite-sof-cloneable__item' ).each(function(index, el) {
-                var title = $( el ).find( '[data-title=title]' ).val();
-                $( el ).find( '.exopite-sof-cloneable__text' ).text( title );
-                $( el ).trigger('exopite-sof-field-group-item-title-updated');
+            this.$element.find('.exopite-sof-cloneable__wrapper').find('.exopite-sof-cloneable__item').each(function (index, el) {
+                var title = $(el).find('[data-title=title]').val();
+                $(el).find('.exopite-sof-cloneable__text').text(title);
+                $(el).trigger('exopite-sof-field-group-item-title-updated');
             });
 
         },
 
-        updateNameIndex: function() {
+        updateNameIndex: function () {
 
-            var fieldParentName = this.$element.find( '.exopite-sof-cloneable__wrapper' ).data( 'name' );
-            var regex = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
+            var fieldParentName = this.$element.find('.exopite-sof-cloneable__wrapper').data('name');
 
-            this.$element.find( '.exopite-sof-cloneable__wrapper' ).find( '.exopite-sof-cloneable__item' ).each(function(index, el) {
+            // test if multilang (and option stored in array)
+            var regex_multilang = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
+            // test if not multilang (and option stored in array)
+            var regex_array = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
+            // test if metabox and option stored in separate meta values
+            var regex_simple = new RegExp(/\[(.*?)\]\[(.*?)\]/, "i");
 
-                $( el ).find( '[name^="' + fieldParentName + '"]' ).attr( 'name', function () {
+            this.$element.find('.exopite-sof-cloneable__wrapper').find('.exopite-sof-cloneable__item').each(function (index, el) {
 
-                    return this.name.replace(regex, function ($0, $1, $2, $3) {
-                        return '[' + $1 + '][' + index + '][' + $3 + ']';
-                    });
+                $(el).find('[name^="' + fieldParentName + '"]').attr('name', function () {
+
+                    if (regex_multilang.test(this.name)) {
+                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4) {
+                            // [en][group][0][field]
+                            var index_item = ($3 == 'REPLACEME') ? index : $3;
+                            return '[' + $1 + '][' + $2 + '][' + index_item + '][' + $4 + ']';
+                        });
+                    }
+                    if (regex_array.test(this.name)) {
+                        return this.name.replace(regex_array, function ($0, $1, $2, $3) {
+                            // [group][0][field]
+                            var index_item = ($2 == 'REPLACEME') ? index : $2;
+                            return '[' + $1 + '][' + index_item + '][' + $3 + ']';
+                        });
+                    }
+                    if (regex_simple.test(this.name)) {
+                        return this.name.replace(regex_simple, function ($0, $1, $2) {
+                            //[0][field]
+                            var index_item = ($1 == 'REPLACEME') ? index : $1;
+                            return '[' + index_item + '][' + $2 + ']';
+                        });
+                    }
+
+
                 });
 
             });
 
         },
 
-        addNew: function() {
+        addNew: function () {
 
-            var $group = this.$element.parents( '.exopite-sof-field-group' );
+            var $group = this.$element.parents('.exopite-sof-field-group');
 
-            if ( $.fn.chosen ) $group.find("select.chosen").chosen("destroy");
+            if ($.fn.chosen) $group.find("select.chosen").chosen("destroy");
 
-            var $muster = this.$element.find( '.exopite-sof-cloneable__muster' );
-            var $cloned = $muster.clone( true );
+            var $muster = this.$element.find('.exopite-sof-cloneable__muster');
+            var $cloned = $muster.clone(true);
 
             /**
              * Get hidden "muster" element and clone it. Remove hidden muster classes.
              * Add trigger before and after (for various programs, like TinyMCE, Trumbowyg, etc...)
              * Finaly append to group.
              */
-            $cloned.find( '.exopite-sof-cloneable--remove' ).removeClass( 'disabled' );
-            $cloned.removeClass( 'exopite-sof-cloneable__muster' );
-            $cloned.removeClass( 'exopite-sof-cloneable__muster--hidden' );
-            $cloned.removeClass( 'exopite-sof-accordion--hidden' );
-            $cloned.find( '[disabled]' ).attr('disabled', false);
+            $cloned.find('.exopite-sof-cloneable--remove').removeClass('disabled');
+            $cloned.removeClass('exopite-sof-cloneable__muster');
+            $cloned.removeClass('exopite-sof-cloneable__muster--hidden');
+            $cloned.removeClass('exopite-sof-accordion--hidden');
+            $cloned.find('[disabled]').attr('disabled', false);
 
-            this.$element.trigger( 'exopite-sof-field-group-item-added-before', [$cloned,$group] );
+            this.$element.trigger('exopite-sof-field-group-item-added-before', [$cloned, $group]);
 
-            $group.find( '.exopite-sof-cloneable__wrapper' ).append( $cloned );
+            $group.find('.exopite-sof-cloneable__wrapper').append($cloned);
 
             this.checkAmount();
             this.updateNameIndex();
 
             // If has choosen, initilize it.
-            if ( $.fn.chosen ) $group.find("select.chosen").chosen({width:"300px"});
+            if ($.fn.chosen) $group.find("select.chosen").chosen({ width: "300px" });
 
             // If has date picker, initilize it.
-            $cloned.find( '.datepicker' ).each(function(index, el) {
-                var dateFormat = $( el ).data( 'format' );
-                $( el ).removeClass('hasDatepicker').datepicker( { 'dateFormat': dateFormat } );
+            $cloned.find('.datepicker').each(function (index, el) {
+                var dateFormat = $(el).data('format');
+                $(el).removeClass('hasDatepicker').datepicker({ 'dateFormat': dateFormat });
             });
 
             // Handle dependencies.
-            $cloned.exopiteSofManageDependencies( 'sub' );
+            $cloned.exopiteSofManageDependencies('sub');
 
-            this.$element.trigger( 'exopite-sof-field-group-item-added-after', [$cloned,$group] );
+            this.$element.trigger('exopite-sof-field-group-item-added-after', [$cloned, $group]);
         },
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite Save Options with AJAX
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     var pluginName = "exopiteSOFTinyMCE";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         if (typeof tinyMCE == 'undefined') return;
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
         this.init();
 
     }
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             var plugin = this;
 
             tinyMCE.init({
-                theme:'modern',
-                plugins : "charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,code",
-                quicktags : true,
-                tinymce : true,
-                branding:false,
-                media_buttons : true,
+                theme: 'modern',
+                plugins: "charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,code",
+                quicktags: true,
+                tinymce: true,
+                branding: false,
+                media_buttons: true,
             });
 
             plugin.initTinyMCE();
 
-            plugin.$element.on('exopite-sof-accordion-sortstart', function( event, $sortable ) {
-                $sortable.find('.tinymce-js').not( ':disabled' ).each(function(){
-                    tinyMCE.execCommand( 'mceRemoveEditor', false, $(this).attr('id') );
+            plugin.$element.on('exopite-sof-accordion-sortstart', function (event, $sortable) {
+                $sortable.find('.tinymce-js').not(':disabled').each(function () {
+                    tinyMCE.execCommand('mceRemoveEditor', false, $(this).attr('id'));
                 });
             });
 
-            plugin.$element.on('exopite-sof-accordion-sortstop', function( event, $sortable ) {
-                $sortable.find('.tinymce-js').not( ':disabled' ).each(function(){
-                    tinyMCE.execCommand( 'mceAddEditor', true, $(this).attr('id') );
+            plugin.$element.on('exopite-sof-accordion-sortstop', function (event, $sortable) {
+                $sortable.find('.tinymce-js').not(':disabled').each(function () {
+                    tinyMCE.execCommand('mceAddEditor', true, $(this).attr('id'));
                 });
             });
 
-            var $group = plugin.$element.parents( '.exopite-sof-field-group' );
+            var $group = plugin.$element.parents('.exopite-sof-field-group');
 
-            plugin.$element.on('exopite-sof-field-group-item-added-after', function( event, $cloned ) {
+            plugin.$element.on('exopite-sof-field-group-item-added-after', function (event, $cloned) {
 
-                $cloned.find( '.tinymce-js' ).each(function(index, el) {
-                    var nextEditorID = plugin.musterID + ( parseInt( $group.find( '.tinymce-js' ).not( ':disabled' ).length ) - 1 );
-                    $( el ).attr( 'id', nextEditorID );
-                    tinyMCE.execCommand( 'mceAddEditor', true, nextEditorID );
+                $cloned.find('.tinymce-js').each(function (index, el) {
+                    var nextEditorID = plugin.musterID + (parseInt($group.find('.tinymce-js').not(':disabled').length) - 1);
+                    $(el).attr('id', nextEditorID);
+                    tinyMCE.execCommand('mceAddEditor', true, nextEditorID);
                 });
 
             });
 
         },
 
-        initTinyMCE: function() {
+        initTinyMCE: function () {
             var plugin = this;
-            plugin.musterID = plugin.$element.find( '.exopite-sof-cloneable__muster .tinymce-js' ).first().attr( 'id' ) + '-';
+            plugin.musterID = plugin.$element.find('.exopite-sof-cloneable__muster .tinymce-js').first().attr('id') + '-';
 
-            plugin.$element.find( '.tinymce-js' ).not( ':disabled' ).each(function(index, el) {
-                $( this ).attr( 'id', plugin.musterID + index );
-                var fullId = $( this ).attr( 'id' );
+            plugin.$element.find('.tinymce-js').not(':disabled').each(function (index, el) {
+                $(this).attr('id', plugin.musterID + index);
+                var fullId = $(this).attr('id');
 
                 tinyMCE.execCommand('mceAddEditor', true, fullId);
 
@@ -737,31 +764,31 @@ if (typeof throttle !== "function") {
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite SOF Accordion
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     var pluginName = "exopiteSOFAccordion";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
-        this.$container = $( element ).find( '.exopite-sof-accordion__wrapper' ).first();
+        this.$element = $(element);
+        this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
         this.isSortableCalled = false;
         this.init();
 
@@ -769,11 +796,11 @@ if (typeof throttle !== "function") {
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
 
-            if ( this.$container.data( 'sortable' ) ) {
+            if (this.$container.data('sortable')) {
 
                 /**
                  * Make accordion items sortable.
@@ -794,13 +821,13 @@ if (typeof throttle !== "function") {
 
         },
 
-       // Bind events that trigger methods
-        bindEvents: function() {
+        // Bind events that trigger methods
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.$container.off().on( 'click' + '.' + plugin._name, '.exopite-sof-accordion__title', function(e) {
+            plugin.$container.off().on('click' + '.' + plugin._name, '.exopite-sof-accordion__title', function (e) {
                 e.preventDefault();
-                plugin.toggleAccordion.call( plugin, $( this ) );
+                plugin.toggleAccordion.call(plugin, $(this));
 
             });
 
@@ -811,32 +838,29 @@ if (typeof throttle !== "function") {
             // Call function if sorting is stopped
             plugin.$container.on('sortstart' + '.' + plugin._name, function () {
 
-                plugin.$element.trigger( 'exopite-sof-accordion-sortstart', [plugin.$container] );
+                plugin.$element.trigger('exopite-sof-accordion-sortstart', [plugin.$container]);
 
             });
 
             plugin.$container.on('sortstop' + '.' + plugin._name, function () {
 
-                // If it is a metabox (not a plugin options)
-                if ( plugin.$container.parents('.exopite-sof-wrapper-metabox').length && plugin.$container.data('sortable') ) {
-                    // Need to reorder name index, make sure, saved in the wanted order in meta
-                    plugin.$container.find('.exopite-sof-accordion__item').each(function (index_item) {
-                        $(this).find('[name^="' + plugin.$container.data('name') + '"]').each(function () {
-                            var $this_name = $(this).attr('name');
-                            // Get name "prefix" from parent
-                            var $name_prefix = plugin.$container.data('name');
-                            // Escape square brackets
-                            $name_prefix = $name_prefix.replace(/\[/g, '\\[').replace(/]/g, '\\]');
-                            var regex = new RegExp($name_prefix + '\\[\\d+\\]');
-                            // Generate name to replace based on the parent item
-                            var $this_name_updated = $this_name.replace(regex, plugin.$container.data('name') + '\[' + index_item + '\]');
-                            // Update
-                            $(this).attr('name', $this_name_updated);
-                        });
+                // Need to reorder name index, make sure, saved in the wanted order in meta
+                plugin.$container.find('.exopite-sof-accordion__item').each(function (index_item) {
+                    var $name_prefix = plugin.$container.data('name');
+                    var $name_prefix = $name_prefix.replace('[REPLACEME]', '');
+                    $(this).find('[name^="' + $name_prefix + '"]').each(function () {
+                        var $this_name = $(this).attr('name');
+                        // Escape square brackets
+                        $name_prefix_item = $name_prefix.replace(/\[/g, '\\[').replace(/]/g, '\\]');
+                        var regex = new RegExp($name_prefix_item + '\\[\\d+\\]');
+                        // Generate name to replace based on the parent item
+                        var $this_name_updated = $this_name.replace(regex, $name_prefix + '\[' + index_item + '\]');
+                        // Update
+                        $(this).attr('name', $this_name_updated);
                     });
-                }
+                });
 
-                plugin.$element.trigger( 'exopite-sof-accordion-sortstop', [plugin.$container] );
+                plugin.$element.trigger('exopite-sof-accordion-sortstop', [plugin.$container]);
 
                 // Stop next click after reorder
                 // @link https://stackoverflow.com/questions/947195/jquery-ui-sortable-how-can-i-cancel-the-click-event-on-an-item-thats-dragged/19858331#19858331
@@ -848,27 +872,27 @@ if (typeof throttle !== "function") {
         },
 
         // Unbind events that trigger methods
-        unbindEvents: function() {
-            this.$container.off('.'+this._name);
+        unbindEvents: function () {
+            this.$container.off('.' + this._name);
         },
 
-        toggleAccordion: function( $header ) {
+        toggleAccordion: function ($header) {
 
-            var $this = $header.parent( '.exopite-sof-accordion__item' );
+            var $this = $header.parent('.exopite-sof-accordion__item');
 
             // To prevent unwanted click trigger after sort (drag and drop)
-            if ( this.isSortableCalled ) {
+            if (this.isSortableCalled) {
                 this.isSortableCalled = false;
                 return;
             }
 
-            if ( $this.hasClass('exopite-sof-accordion--hidden' ) ) {
-                $this.find( '.exopite-sof-accordion__content' ).slideDown(350, function(){
-                    $this.removeClass( 'exopite-sof-accordion--hidden' );
+            if ($this.hasClass('exopite-sof-accordion--hidden')) {
+                $this.find('.exopite-sof-accordion__content').slideDown(350, function () {
+                    $this.removeClass('exopite-sof-accordion--hidden');
                 });
             } else {
-                $this.find( '.exopite-sof-accordion__content' ).slideUp(350, function(){
-                    $this.addClass( 'exopite-sof-accordion--hidden' );
+                $this.find('.exopite-sof-accordion__content').slideUp(350, function () {
+                    $this.addClass('exopite-sof-accordion--hidden');
                 });
 
             }
@@ -877,67 +901,67 @@ if (typeof throttle !== "function") {
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
 /*
  * Exopite Save Options with AJAX
  */
-;(function ( $, window, document, undefined ) {
+; (function ($, window, document, undefined) {
 
     var pluginName = "exopiteImportExportAJAX";
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin(element, options) {
 
         this.element = element;
         this._name = pluginName;
-        this.$element = $( element );
+        this.$element = $(element);
         this.init();
 
     }
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function () {
 
             this.bindEvents();
 
         },
 
-       // Bind events that trigger methods
-        bindEvents: function() {
+        // Bind events that trigger methods
+        bindEvents: function () {
             var plugin = this;
 
-            plugin.$element.find( '.exopite-sof-import-js' ).off().on( 'click'+'.'+plugin._name, function( event ) {
+            plugin.$element.find('.exopite-sof-import-js').off().on('click' + '.' + plugin._name, function (event) {
 
                 event.preventDefault();
-                if ( $( this ).hasClass( 'loading' ) ) return;
+                if ($(this).hasClass('loading')) return;
 
                 swal({
 
                     // title: "Are you sure?",
-                    text: $( this ).data( 'confirm' ),
+                    text: $(this).data('confirm'),
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
 
-                }).then(( willImport ) => {
+                }).then((willImport) = {
 
-                    if ( willImport ) {
+                    if(willImport) {
 
-                        $( this ).addClass('loading');
-                        $( this ).prop( "disabled", true );
+                        $(this).addClass('loading');
+                        $(this).prop("disabled", true);
                         this.disabled = true;
-                        plugin.importOptions.call( this, event, plugin );
+                        plugin.importOptions.call(this, event, plugin);
 
                     }
 
@@ -951,25 +975,25 @@ if (typeof throttle !== "function") {
 
             });
 
-            plugin.$element.find( '.exopite-sof-reset-js' ).off().on( 'click'+'.'+plugin._name, function( event ) {
+            plugin.$element.find('.exopite-sof-reset-js').off().on('click' + '.' + plugin._name, function (event) {
 
                 event.preventDefault();
 
                 swal({
 
                     // title: "Are you sure?",
-                    text: $( this ).data( 'confirm' ),
+                    text: $(this).data('confirm'),
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
 
-                }).then(( willDelete ) => {
+                }).then((willDelete) = {
 
-                    if (willDelete) {
+                    if(willDelete) {
 
-                        $( this ).addClass('loading');
-                        $( this ).prop( "disabled", true );
-                        plugin.resetOptions.call( this, event, plugin );
+                        $(this).addClass('loading');
+                        $(this).prop("disabled", true);
+                        plugin.resetOptions.call(this, event, plugin);
 
                     }
 
@@ -980,28 +1004,28 @@ if (typeof throttle !== "function") {
         },
 
         // Unbind events that trigger methods
-        unbindEvents: function() {
-            this.$element.off('.'+this._name);
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
         },
 
-        importOptions: function ( event, plugin ) {
+        importOptions: function (event, plugin) {
 
-            var AJAXData = plugin.$element.find( '.exopite-sof--data' );
+            var AJAXData = plugin.$element.find('.exopite-sof--data');
 
             $.ajax({
-                url: AJAXData.data( 'admin' ),
+                url: AJAXData.data('admin'),
                 type: 'post',
                 data: {
                     action: 'exopite-sof-import-options',
-                    unique: AJAXData.data( 'unique' ),
-                    value: plugin.$element.find( '.exopite-sof__import' ).val(),
-                    wpnonce: AJAXData.data( 'wpnonce' )
+                    unique: AJAXData.data('unique'),
+                    value: plugin.$element.find('.exopite-sof__import').val(),
+                    wpnonce: AJAXData.data('wpnonce')
                 },
-                success: function( response ) {
+                success: function (response) {
 
-                    if ( response == 'success' ) {
+                    if (response == 'success') {
 
-                        plugin.$element.find( '.exopite-sof__import' ).val( '' );
+                        plugin.$element.find('.exopite-sof__import').val('');
                         swal({
                             icon: "success",
                         });
@@ -1010,11 +1034,11 @@ if (typeof throttle !== "function") {
                     }
 
                 },
-                error: function( xhr, status, error ) {
+                error: function (xhr, status, error) {
 
-                    console.log( 'Status: ' + xhr.status );
-                    console.log( 'Error: ' + xhr.responseText );
-                    swal( "Error!", "Check console for more info!", "error" );
+                    console.log('Status: ' + xhr.status);
+                    console.log('Error: ' + xhr.responseText);
+                    swal("Error!", "Check console for more info!", "error");
 
                 }
             });
@@ -1023,21 +1047,21 @@ if (typeof throttle !== "function") {
 
         },
 
-        resetOptions: function ( event, plugin ) {
+        resetOptions: function (event, plugin) {
 
-            var AJAXData = plugin.$element.find( '.exopite-sof--data' );
+            var AJAXData = plugin.$element.find('.exopite-sof--data');
 
             $.ajax({
-                url: AJAXData.data( 'admin' ),
+                url: AJAXData.data('admin'),
                 type: 'post',
                 data: {
                     action: 'exopite-sof-reset-options',
-                    unique: AJAXData.data( 'unique' ),
-                    wpnonce: AJAXData.data( 'wpnonce' )
+                    unique: AJAXData.data('unique'),
+                    wpnonce: AJAXData.data('wpnonce')
                 },
-                success: function( response ) {
+                success: function (response) {
 
-                    if ( response == 'success' ) {
+                    if (response == 'success') {
 
                         swal({
                             icon: "success",
@@ -1048,10 +1072,10 @@ if (typeof throttle !== "function") {
 
                 },
 
-                error: function( xhr, status, error ) {
-                    console.log( 'Status: ' + xhr.status );
-                    console.log( 'Error: ' + xhr.responseText );
-                    swal( "Error!", "Check console for more info!", "error" );
+                error: function (xhr, status, error) {
+                    console.log('Status: ' + xhr.status);
+                    console.log('Error: ' + xhr.responseText);
+                    swal("Error!", "Check console for more info!", "error");
                 }
             });
 
@@ -1061,40 +1085,40 @@ if (typeof throttle !== "function") {
 
     };
 
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin( this, options ));
+                    new Plugin(this, options));
             }
         });
     };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
 
-;(function( $ ) {
+; (function ($) {
     "use strict";
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
 
-        $( '.exopite-sof-wrapper' ).exopiteSofManageDependencies();
-        $( '.exopite-sof-sub-dependencies' ).exopiteSofManageDependencies( 'sub' );
+        $('.exopite-sof-wrapper').exopiteSofManageDependencies();
+        $('.exopite-sof-sub-dependencies').exopiteSofManageDependencies('sub');
 
-        $( '.exopite-sof-wrapper-menu' ).exopiteSaveOptionsAJAX();
+        $('.exopite-sof-wrapper-menu').exopiteSaveOptionsAJAX();
 
-        $( '.exopite-sof-media' ).exopiteMediaUploader({
+        $('.exopite-sof-media').exopiteMediaUploader({
             input: 'input',
             preview: '.exopite-sof-image-preview',
             remove: '.exopite-sof-image-remove'
         });
 
-        $( '.exopite-sof-content-js' ).exopiteOptionsNavigation();
+        $('.exopite-sof-content-js').exopiteOptionsNavigation();
 
-        $( '.exopite-sof-group' ).exopiteSOFTinyMCE();
-        $( '.exopite-sof-group' ).exopiteSOFRepeater();
-        $( '.exopite-sof-group' ).exopiteSOFAccordion();
+        $('.exopite-sof-group').exopiteSOFTinyMCE();
+        $('.exopite-sof-group').exopiteSOFRepeater();
+        $('.exopite-sof-group').exopiteSOFAccordion();
 
-        $( '.exopite-sof-field-backup' ).exopiteImportExportAJAX();
+        $('.exopite-sof-field-backup').exopiteImportExportAJAX();
 
     });
 

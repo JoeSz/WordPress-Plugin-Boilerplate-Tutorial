@@ -1,12 +1,13 @@
 === Plugin Name ===
+Author: Joe Szalai and raoabid
 Donate link: http://joe.szalai.org
 Tags: comments, spam
 Requires at least: 4.9
-Tested up to: 4.9.1
+Tested up to: 4.9.8
 Stable tag: 4.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180511
+Version: 20180924
 Plugin URL: https://joe.szalai.org/exopite/exopite-simple-options-framework/
 GitHub URL: https://github.com/JoeSz/Exopite-Simple-Options-Framework
 
@@ -38,7 +39,55 @@ Exopite Simple Options is free and available on Github. Feel free to submit patc
 
 == Features ==
 
-Available fields:
+- Easy field generator for plugin options for metabox for any post type.
+- All field support callback on default value, content callback for content and notice field.
+- Dependency handling, also for section tabs (only in tabbed=true).
+- No ads, and never will.
+- Files are loaded only when required.
+- Minimum footprint.
+- Multilang support for WPML, Polylang, WP Multilang and qTranslate-X.
+- Availability to save post meta as simple (each setting has it's own custom field) istead of an array.
+
+#### Why did we add options to save meta as "simple"
+Simple options is stored az induvidual meta key, value pair, otherwise it is stored in an array.
+
+I implemented this option because it is possible to search in serialized (array) post meta:
+- https://wordpress.stackexchange.com/questions/16709/meta-query-with-meta-values-as-serialize-arrays
+- https://stackoverflow.com/questions/15056407/wordpress-search-serialized-meta-data-with-custom-query
+- https://www.simonbattersby.com/blog/2013/03/querying-wordpress-serialized-custom-post-data/
+
+but there is no way to sort them with wp_query or SQL.
+
+https://wordpress.stackexchange.com/questions/87265/order-by-meta-value-serialized-array/87268#87268<br>
+> "Not in any reliable way. You can certainly ORDER BY that value but the sorting will use the whole serialized string,
+> which will give * you technically accurate results but not the results you want. You can't extract part of the string
+> for sorting within the query itself. Even if you wrote raw SQL, which would give you access to database functions like
+> SUBSTRING, I can't think of a dependable way to do it. You'd need a MySQL function that would unserialize the value--
+> you'd have to write it yourself.<br>
+> Basically, if you need to sort on a meta_value you can't store it serialized. Sorry."
+
+It is possible to get all required posts and store them in an array and then sort them as an array, but what if you want
+multiple keys/value pair to be sorted?
+
+UPDATE<br>
+it is maybe possible:<br>
+http://www.russellengland.com/2012/07/how-to-unserialize-data-using-mysql.html<br>
+but it is waaay more complicated and less documented as meta query sort and search.
+It should be not an excuse to use it, but it is not as reliable as it should be.
+
+https://wpquestions.com/Order_by_meta_key_where_value_is_serialized/7908<br>
+> "...meta info serialized is not a good idea. But you really are going to lose the ability to query your
+> data in any efficient manner when serializing entries into the WP database.
+>
+> The overall performance saving and gain you think you are achieving by serialization is not going to be noticeable to
+> any major extent. You might obtain a slightly smaller database size but the cost of SQL transactions is going to be
+> heavy if you ever query those fields and try to compare them in any useful, meaningful manner.
+>
+> Instead, save serialization for data that you do not intend to query in that nature, but instead would only access in
+> a passive fashion by the direct WP API call get_post_meta() - from that function you can unpack a serialized entry
+> to access its array properties too."
+
+== Available fields: ==
 
 - ace_field
 - video (mp4/oembed)
@@ -136,32 +185,52 @@ $options_panel = new Exopite_Simple_Options_Framework( $config, $fields );
 == HOOKS ==
 
 Filters
-* exopite-simple-options-framework-config (config)
-* exopite-simple-options-framework-options (fields)
-* exopite-simple-options-framework-menu-get-options (options, unique)
-* exopite-simple-options-framework-save-options (valid, unique)
-* exopite-simple-options-framework-save-menu-options (valid, unique)
-* exopite-simple-options-framework-save-meta-options (valid, unique)
-* exopite-simple-options-framework-sanitize-value (value, config)
-* exopite-simple-options-framework-add-field (output, field, config )
-* exopite-simple-options-framework-meta-get-options (meta_options, unique, post_id )
+* exopite_sof_config (config)
+* exopite_sof_options (fields)
+* exopite_sof_menu_get_options (options, unique)
+* exopite_sof_save_options (valid, unique)
+* exopite_sof_save_menu_options (valid, unique)
+* exopite_sof_save_meta_options (valid, unique)
+* exopite_sof_sanitize_value (value, config)
+* exopite_sof_add_field (output, field, config )
+* exopite_sof_meta_get_options (meta_options, unique, post_id )
 
 Actions
-* exopite-simple-options-framework-do-save-options (valid, unique)
-* exopite-simple-options-framework-do-save-menu-options (value, unique)
-* exopite-simple-options-framework-do-save-meta-options (valid, unique, post_id)
-* exopite-simple-options-framework-before-generate-field (field, config)
-* exopite-simple-options-framework-before-add-field (field, config)
-* exopite-simple-options-framework-after-generate-field (field, config)
-* exopite-simple-options-framework-after-add-field (field, config)
-* exopite-simple-options-framework-form-menu-before (unique)
-* exopite-simple-options-framework-form-meta-before (unique)
-* exopite-simple-options-framework-display-page-header (config)
-* exopite-simple-options-framework-display-page-footer (config)
-* exopite-simple-options-framework-form-menu-after (unique)
-* exopite-simple-options-framework-form-meta-after (unique)
+* exopite_sof_do_save_options (valid, unique)
+* exopite_sof_do_save_menu_options (value, unique)
+* exopite_sof_do_save_meta_options (valid, unique, post_id)
+* exopite_sof_before_generate_field (field, config)
+* exopite_sof_before_add_field (field, config)
+* exopite_sof_after_generate_field (field, config)
+* exopite_sof_after_add_field (field, config)
+* exopite_sof_form_menu_before (unique)
+* exopite_sof_form_meta_before (unique)
+* exopite_sof_display_page_header (config)
+* exopite_sof_display_page_footer (config)
+* exopite_sof_form_menu_after (unique)
+* exopite_sof_form_meta_after (unique)
 
 == Changelog ==
+
+= 20180924 - 2018-09-24 =
+* Fixed TinyMCE does not save.
+* Fixed ACE Editor addig slashes.
+
+= 20180916 - 2018-09-16 =
+* Code clean up
+* Fix image_select and multiselect doen't save
+* Import, export using JSON encoded array
+
+= 20180911 - 2018-09-11 =
+* Multilang support for WPML, Polylang, WP Multilang and qTranslate-X
+* Major refactoring to meet WordPress standard
+* Option to save post meta as simple instad of array
+
+= 20180904 - 2018-09-04 =
+* Dashes in Filter and Action names to meet WordPress standars (thanks to raoabid GitHub)
+
+= 20180903 - 2018-09-03 =
+* Refactoring main class to include some helper functions (thanks to raoabid GitHub)
 
 = 20180608 - 2018-06-08 =
 * Add open section with url (...?page=[plulin-slug]&section=[the-id-of-the-section])
