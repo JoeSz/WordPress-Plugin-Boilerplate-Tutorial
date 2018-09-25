@@ -6,7 +6,7 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
-LAST CHANGE: 2018-09-01
+LAST CHANGE: 2018-09-25
 
 ---
 
@@ -38,6 +38,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * Register any external php file in permalinks
 * Register **AJAX callback** (also JavaScript code)
 * Register **POST callback**
+* **Export CSV**
 * Add **custom updater** for your plugin with `YahnisElsts - Plugin Update Checker` (https://github.com/YahnisElsts/plugin-update-checker)
 * Handle AJAX/POST callback (eg.:)<br />
   * check nonce,
@@ -93,6 +94,7 @@ Tutorial files
 * `tutorials/app_option_page_for_plugin_with_options_framework.php`
 * `tutorials/custom_post_types.php`
 * `tutorials/custom_updater_for_plugin.php`
+* `tutorials/export_csv.php`
 * `tutorials/get_custom_post_type_archive_template_from_plugin.php`
 * `tutorials/handling_POST_request.php`
 * `tutorials/meta_box_for_custom_post_type.php`
@@ -188,6 +190,10 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 2018-09-25 =
+* Update Exopite Simple Options Framework
+* Add tutorial: Export CSV
 
 = 2018-08-29 =
 * Add tutorial: How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
