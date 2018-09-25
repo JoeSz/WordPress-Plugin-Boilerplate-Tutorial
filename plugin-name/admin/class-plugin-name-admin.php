@@ -493,6 +493,12 @@ class Plugin_Name_Admin {
                   'id'      => 'button_1',
                   'type'    => 'button',
                   'title'   => 'Button',
+                  'options' => array(
+                    'href'      => '#',
+                    'target'    => '_self',
+                    'value'     => 'button',
+                    'btn-class' => 'exopite-sof-btn',
+                  ),
                 ),
 
                 array(
