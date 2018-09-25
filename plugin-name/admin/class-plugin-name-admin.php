@@ -160,7 +160,7 @@ class Plugin_Name_Admin {
 
             'type'              => 'menu',                          // Required, menu or metabox
             'id'                => $this->plugin_name,              // Required, meta box id, unique per page, to save: get_option( id )
-            'menu'              => 'plugins.php',                   // Parent page of plugin menu (default Settings [options-general.php])
+            'parent'            => 'plugins.php',                   // Parent page of plugin menu (default Settings [options-general.php])
             'submenu'           => true,                            // Required for submenu
             'title'             => 'Demo Admin Page',               // The title of the options page and the name in admin menu
             'capability'        => 'manage_options',                // The capability needed to view the page
