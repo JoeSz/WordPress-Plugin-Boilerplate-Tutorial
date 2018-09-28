@@ -43,23 +43,26 @@ $_nonce = wp_create_nonce( 'my_post_form_nonce' );
         - set to esc_url( admin_url('admin-post.php') ) to process with a admin_post_/admin_post_nopriv_ hook
     -->
     <form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>?action=post_first" method="post" enctype="multipart/form-data">
-    <?php
-        /**
-         * The setting fields will know which settings your options page will handle.
-         * After the opening form tag, add this function
-         */
-        settings_fields( $this->plugin_name );
-        do_settings_sections( $this->plugin_name );
-    ?>
-    <!--
-        your form fields if any,
-        you could use add_settings_section hook
-        @link https://codex.wordpress.org/Function_Reference/add_settings_section
-    -->
-    <?php
-        submit_button( esc_attr__( 'Submit', $this->plugin_name ), 'primary', 'submit-name', TRUE );
-    ?>
-</form>
+        <!-- action for admin_post_/admin_post_nopriv_ hook -->
+        <input type="hidden" name="action" value="post_first">
+        <input type="hidden" name="_nonce" value="<?php echo $_nonce; ?>" />
+        <?php
+            /**
+             * The setting fields will know which settings your options page will handle.
+             * After the opening form tag, add this function
+             */
+            settings_fields( $this->plugin_name );
+            do_settings_sections( $this->plugin_name );
+        ?>
+        <!--
+            your form fields if any,
+            you could use add_settings_section hook
+            @link https://codex.wordpress.org/Function_Reference/add_settings_section
+        -->
+        <?php
+            submit_button( esc_attr__( 'Submit', $this->plugin_name ), 'primary', 'submit-name', TRUE );
+        ?>
+    </form>
 <?php
 
 // ... some php code ...

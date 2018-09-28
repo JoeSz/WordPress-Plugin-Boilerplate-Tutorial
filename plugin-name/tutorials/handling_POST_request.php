@@ -22,7 +22,7 @@ function handling_POST_request() {
     /*
      * May check nonce
      */
-    $nonce = $_POST['nonce_field'];
+    $nonce = $_POST['_nonce'];
 
     if ( ! isset( $nonce ) || ! wp_verify_nonce($nonce, 'post_first' ) ) {
         // Nonce not match
