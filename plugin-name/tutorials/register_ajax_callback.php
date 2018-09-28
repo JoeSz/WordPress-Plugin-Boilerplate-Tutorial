@@ -5,6 +5,12 @@
  * ---------------------- *
  **************************/
 
+/**
+ * Good articles about the teheme:
+ * - https://developer.wordpress.org/plugins/javascript/ajax/
+ * - https://premium.wpmudev.org/blog/using-ajax-with-wordpress/
+ */
+
 ////////////////////////////////////////////////
 // ADD TO FILE -> includes/class-plugin-name.php
 
@@ -12,9 +18,17 @@ private function define_public_hooks() {
 
     // ...
 
-    // The wp_ajax_ is telling wordpress to use ajax and the prefix_ajax_first is the hook name to use in JavaScript.
-    // The ajax_first is the callback function.
+    /**
+     * The wp_ajax_ is telling wordpress to use ajax and the prefix_ajax_first is the hook name to use in JavaScript or in URL.
+     *
+     * Call AJAX function via URL: https://www.yourwebsite.com/wp-admin/admin-ajax.php?action=ajax_first&post_id=23&other_param=something
+     *
+     * The ajax_first is the callback function.
+     * wp_ajax_ is for authenticated users
+     * wp_ajax_nopriv_ is for NOT authenticated users
+     */
     $this->loader->add_action('wp_ajax_prefix_ajax_first', $plugin_public, 'ajax_first');
+    $this->loader->add_action('wp_ajax_nopriv_prefix_ajax_first', $plugin_public, 'ajax_first');
 
 }
 
@@ -32,17 +46,55 @@ public function enqueue_scripts() {
      * Good way to do this is to use wp_localize_script.
      *
      * @link http://wordpress.stackexchange.com/a/190299/90212
+     *
+     * You could also pass this datas with the "data" attribute somewhere in your form.
      */
-    wp_localize_script( $this->plugin_name, 'wp_ajax', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+    wp_localize_script( $this->plugin_name, 'wp_ajax', array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        /**
+         * Create nonce for security.
+         *
+         * @link https://codex.wordpress.org/Function_Reference/wp_create_nonce
+         */
+        '_nonce' => wp_create_nonce( 'any_value_here' ),
+
+    ) );
+
 
 }
+
+/////////////////////////////////////////////////////
+// ADD TO FILE -> public/class-plugin-name-public.php
 
 // Callback function
 public function ajax_first() {
 
+    /**
+     * Do not forget to check your nonce for security!
+     *
+     * @link https://codex.wordpress.org/Function_Reference/wp_verify_nonce
+     */
+    if( ! wp_verify_nonce( $_POST['_nonce'], 'any_value_here' ) ) {
+        wp_send_json_error();
+        die();
+    }
+    /**
+     * OR you can use check_ajax_referer
+     *
+     * @link https://codex.wordpress.org/Function_Reference/check_ajax_referer
+     * @link https://tommcfarlin.com/secure-ajax-requests-in-wordpress/
+     * @link https://wordpress.stackexchange.com/questions/48110/wp-verify-nonce-vs-check-admin-referer
+     */
+    if ( ! check_ajax_referer( 'any_value_here', '_nonce', false ) ) {
+        wp_send_json_error( 'Invalid security token sent.' );
+        die();
+    }
+
+  // The rest of the function that does actual work.
+
     $ret = array();
 
-    /*
+    /**
      * Code to handle POST request...
      *
      * See tutorial file:
@@ -80,7 +132,8 @@ $(function() {
 
     var dataJSON = {
         'action': 'prefix_ajax_first',
-        'whatever': 1234
+        'whatever': 1234,
+        'nonce': 'nonce-key',
     };
 
     // Or get from HTML element:
