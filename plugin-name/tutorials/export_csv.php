@@ -5,6 +5,12 @@
  * ------------- *
  *****************/
 
+/**
+ * For import a CSV, you could use post, see:
+ * - handling_POST_request.php
+ * - register_post_callback_without_ajax.php
+ */
+
  ////////////////////////////////////////////////
 // ADD TO FILE -> includes/class-plugin-name.php
 
@@ -49,16 +55,12 @@
     /**
      * Set csv file header without caching.
      */
-    public function set_csv_header( $extra_file_name ) {
+    public function set_csv_header( $extra_file_name = 'csv_export' ) {
 
         $sitename = sanitize_key( get_bloginfo( 'name' ) );
 
         if ( ! empty( $sitename ) ) {
             $sitename .= '.';
-        }
-
-        if ( empty( $extra_file_name ) ) {
-            $extra_file_name = 'csv_export';
         }
 
         $filename = $sitename . $extra_file_name . '.' . date( 'Y-m-d-H-i-s' ) . '.csv';
