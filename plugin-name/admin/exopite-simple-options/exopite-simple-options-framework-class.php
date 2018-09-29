@@ -2068,3 +2068,48 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 	} //class
 
 endif;
+
+/**
+ * Use:
+ *  $options = ( function_exists( 'get_exopite_sof_option' ) ) ? get_exopite_sof_option( $this->plugin_name ) : get_option( $this->plugin_name );
+
+ *  // OR
+ *
+ *  if ( function_exists( 'get_exopite_sof_option' ) ) {
+ *      $options = get_exopite_sof_option( $this->plugin_name );
+ *  } else {
+ *      $options = get_option( $this->plugin_name );
+ *  }
+ */
+if ( ! function_exists( 'get_exopite_sof_option' ) ) {
+	function get_exopite_sof_option( $option_slug, $default = false  ) {
+
+		/**
+		 * save in cache?
+		 * @link https://codex.wordpress.org/Transients_API
+		 */
+
+		if ( ! class_exists( 'Exopite_Simple_Options_Framework_Helper' ) ) {
+			require_once 'multilang-class.php';
+		}
+
+		$language_defaults = Exopite_Simple_Options_Framework_Helper::get_language_defaults();
+
+		$options = apply_filters( 'get_exopite_sof_option', get_option( $option_slug, $default ), $option_slug, $default );
+
+		if ( isset( $options[$language_defaults['current']] ) ) {
+
+			return $options[$language_defaults['current']];
+
+		} elseif ( isset( $options[$language_defaults['default']] ) ) {
+
+			return $options[$language_defaults['default']];
+
+		} else {
+
+			return $options;
+
+		}
+
+	}
+}
