@@ -2,7 +2,7 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2018-09-16
+ * Last edit: 2018-09-30
  *
  * INFOS AND TODOS:
  *
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		public $languages = array();
 
-		public $version = '20180924';
+		public $version = '20180930';
 
 		public $debug = false;
 
@@ -1703,20 +1703,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 				if ( empty( $value ) ) {
 
-					if ( ( isset( $field['sub'] ) && ! empty( $field['sub'] ) ) ) {
+					// NEW
 
-						$value = ( isset( $field['id'] ) && isset( $this->db_options[ $this->lang_current ][ $field['id'] ] ) ) ? $this->db_options[ $this->lang_current ][ $field['id'] ] : null;
-
-					}
-
-					if ( $this->is_menu() ) {
-
-						if ( $this->is_multilang() ) {
-							$value = ( isset( $field['id'] ) && isset( $this->db_options[ $this->lang_current ][ $field['id'] ] ) ) ? $this->db_options[ $this->lang_current ][ $field['id'] ] : null;
-						} else {
-							$value = ( isset( $field['id'] ) && isset( $this->db_options[ $field['id'] ] ) ) ? $this->db_options[ $field['id'] ] : null;
-						}
-
+					if ( ( isset( $field['sub'] ) && ! empty( $field['sub'] ) ) || $this->is_menu() ) {
+						$value = $this->get_value( $this->db_options, $field  );
 					}
 
 					if ( $this->is_metabox() ) {
@@ -1741,13 +1731,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 						} else {
 
-							if ( $this->is_multilang() ) {
-								$meta  = get_post_meta( get_the_ID(), $this->unique, true );
-								$value = ( isset( $field['id'] ) && isset( $meta[ $this->lang_current ][ $field['id'] ] ) ) ? $meta[ $this->lang_current ][ $field['id'] ] : null;
-							} else {
-								$meta  = get_post_meta( get_the_ID(), $this->unique, true );
-								$value = ( isset( $field['id'] ) && isset( $meta[ $field['id'] ] ) ) ? $meta[ $field['id'] ] : null;
-							}
+							$meta  = get_post_meta( get_the_ID(), $this->unique, true );
+							$value = $this->get_value( $meta, $field  );
 
 						}
 
@@ -1783,6 +1768,36 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			echo apply_filters( 'exopite_sof_add_field', $output, $field, $this->config );
 
 			do_action( 'exopite_sof_after_add_field', $field, $this->config );
+
+		}
+
+		public function get_value( $options, $field  ) {
+
+			/**
+			 * IF MULTILANG
+			 * - get option[current-lang][id]
+			 * - but not the get option[default-lang][id] <- because if no options in current lang, should display default
+			 * NOT MULTILANG OR MULTILANG NOT EXIST THEN TRY
+			 * - get option[id]
+			 */
+
+			$value = null;
+
+			if ( ! isset( $field['id'] ) ) {
+				return $value;
+			}
+
+			if ( isset( $options[ $this->lang_current ][ $field['id'] ] ) ) {
+
+				$value = $options[ $this->lang_current ][ $field['id'] ];
+
+			} elseif ( $value === null && isset( $options[ $field['id'] ] ) ) {
+
+				$value = $options[ $field['id'] ];
+
+			}
+
+			return $value;
 
 		}
 

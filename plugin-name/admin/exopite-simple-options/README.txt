@@ -7,7 +7,7 @@ Tested up to: 4.9.8
 Stable tag: 4.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180924
+Version: 20180930
 Plugin URL: https://joe.szalai.org/exopite/exopite-simple-options-framework/
 GitHub URL: https://github.com/JoeSz/Exopite-Simple-Options-Framework
 
@@ -211,6 +211,9 @@ Actions
 * exopite_sof_form_meta_after (unique)
 
 == Changelog ==
+
+= 20180930 - 2018-09-30 =
+* Load "non multilang" options in multilang if multilang not exist and other way arround for compatibility.
 
 = 20180924 - 2018-09-24 =
 * Fixed TinyMCE does not save.

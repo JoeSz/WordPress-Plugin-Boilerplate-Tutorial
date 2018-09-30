@@ -712,7 +712,7 @@ if (typeof throttle !== "function") {
 
             tinyMCE.init({
                 theme: 'modern',
-                plugins: "charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview,code",
+                plugins: "charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview",
                 quicktags: true,
                 tinymce: true,
                 branding: false,
