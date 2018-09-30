@@ -166,6 +166,7 @@ class Plugin_Name_Admin {
             'capability'        => 'manage_options',                // The capability needed to view the page
             'plugin_basename'   =>  plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' ),
             // 'tabbed'            => false,
+            // 'multilang'         => false,                        // To turn of multilang, default on.
 
         );
 
@@ -187,6 +188,7 @@ class Plugin_Name_Admin {
             'title'             => 'Demo Metabox',                  // The title of the metabox
             'capability'        => 'edit_posts',                    // The capability needed to view the page
             'tabbed'            => true,
+            // 'multilang'         => false,                        // To turn of multilang, default off except if you have qTransalte-X.
             'options'           => 'simple',                        // Only for metabox, options is stored az induvidual meta key, value pair.
             /**
              * Simple options is stored az induvidual meta key, value pair, otherwise it is stored in an array.
@@ -910,17 +912,6 @@ class Plugin_Name_Admin {
 
     // Populate new columns in customers list in admin area
     public function admin_list_custom_columns( $column ) {
-
-        /*
-        'user_login' => 'js@markatus.de',
-        'arbeitszeiterfassung' => 'no',
-        'soll_stunden' => '',
-        'anstellung' => 'vollzeit',
-        'festlegung_zeitraum' => 'abreitstage_pro_woche',
-        'verwaltung_jahresurlaub' => 'ja',
-        'code_fuer_erfassungsbestaetigung' => '',
-        'team' => 'markatus',
-         */
 
         global $post;
         $custom = get_post_custom();
