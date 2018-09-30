@@ -880,7 +880,7 @@ class Plugin_Name_Admin {
         $columns['date_2'] = __( 'Date', 'plugin-name' );
 
 
-        /*
+        /**
          * Rearrange column order
          *
          * Now define a new order. you need to look up the column
@@ -942,4 +942,56 @@ class Plugin_Name_Admin {
         }
 
     }
+
+    /********************************************
+     * RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+     *
+     * @tutorial run_code_on_plugin_upgrade_and_admin_notice.php
+     */
+    /**
+     * This function runs when WordPress completes its upgrade process
+     * It iterates through each plugin updated to see if ours is included
+     *
+     * @param $upgrader_object Array
+     * @param $options Array
+     * @link https://catapultthemes.com/wordpress-plugin-update-hook-upgrader_process_complete/
+     */
+    public function upgrader_process_complete( $upgrader_object, $options ) {
+        // The path to our plugin's main file
+        // $our_plugin = plugin_basename( __FILE__ );
+        // If an update has taken place and the updated type is plugins and the plugins element exists
+        if( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
+
+            $this->write_log( 'pulgin-updates', var_export( $options, true ) );
+            $this->write_log( 'pulgin-updates', var_export( PLUGIN_NAME_BASE_NAME, true ) );
+            // $this->write_log( 'pulgin-updates', var_export( $upgrader_object, true ) );
+
+            set_transient( 'exopite_sof_updated', 1 );
+            set_transient( 'exopite_sof_updated_message', esc_html__( 'Thanks for updating', 'exopite_sof' ) );
+
+            // Iterate through the plugins being updated and check if ours is there
+            foreach( $options['plugins'] as $plugin ) {
+                if( $plugin == PLUGIN_NAME_BASE_NAME ) {
+                    // Set a transient to record that our plugin has just been updated
+                    set_transient( 'exopite_sof_updated', 1 );
+                }
+            }
+        }
+    }
+
+    /**
+     * Show a notice to anyone who has just updated this plugin
+     * This notice shouldn't display to anyone who has just installed the plugin for the first time
+     */
+    public function display_update_notice() {
+        // Check the transient to see if we've just activated the plugin
+        if( get_transient( 'exopite_sof_updated' ) ) {
+            // @link https://digwp.com/2016/05/wordpress-admin-notices/
+            echo '<div class="notice notice-success is-dismissible"><p><strong>' . get_transient( 'exopite_sof_updated_message' ) . '</strong></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+            // Delete the transient so we don't keep displaying the activation message
+            delete_transient( 'exopite_sof_updated' );
+            delete_transient( 'exopite_sof_updated_message' );
+        }
+    }
+    // RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
 }

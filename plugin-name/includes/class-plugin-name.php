@@ -271,6 +271,25 @@ class Plugin_Name {
         $this->loader->add_action( 'init', $this->admin, 'create_menu' );
 		// END EXOPITE SIMPLE OPTIONS FRAMEWORK
 
+		/********************************************
+		 * RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+		 *
+		 * @tutorial run_code_on_plugin_upgrade_and_admin_notice.php
+		 */
+		/**
+		* This function runs when WordPress completes its upgrade process
+		* It iterates through each plugin updated to see if ours is included
+		* @param $upgrader_object Array
+		* @param $options Array
+		*/
+		$this->loader->add_action( 'upgrader_process_complete', $this->admin, 'upgrader_process_complete', 10, 2 );
+
+		/**
+		* Show a notice to anyone who has just updated this plugin
+		* This notice shouldn't display to anyone who has just installed the plugin for the first time
+		*/
+		$this->loader->add_action( 'admin_notices', $this->admin, 'display_update_notice' );
+		// RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
 	}
 
 	/**

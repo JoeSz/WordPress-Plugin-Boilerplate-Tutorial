@@ -38,6 +38,14 @@ define( 'PLUGIN_NAME_PLUGIN_NAME', 'plugin-name' );
  */
 define( 'PLUGIN_NAME_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
+/********************************************
+* RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+*
+* @tutorial run_code_on_plugin_upgrade_and_admin_notice.php
+*/
+define( 'PLUGIN_NAME_BASE_NAME', plugin_basename( __FILE__ ) );
+// RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+
 /**
  * Initialize custom templater
  */
