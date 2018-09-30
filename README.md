@@ -6,7 +6,7 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
-LAST CHANGE: 2018-09-28
+LAST CHANGE: 2018-09-30
 
 ---
 
@@ -44,6 +44,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
   * check nonce,
   * insert post and post meta,
   * upload file and add to meta and/or WordPress Media
+* Run code on plugin upgrade
 
 Check out the `/plugin-name/tutorials/`.
 
@@ -104,6 +105,7 @@ Tutorial files
 * `tutorials/register_a_shortcode_in_plugin.php`
 * `tutorials/register_and_use_custom_tables_in_datebase.php`
 * `tutorials/register_post_callback_without_ajax.php`
+* `tutorials/run_code_on_plugin_upgrade_and_admin_notice.php`
 
 Template File Loaders in Plugins
 
@@ -190,6 +192,9 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 2018-09-30 =
+* Add tutorial: run code on plugin upgrade with admin notice
 
 = 2018-09-25 =
 * Update Exopite Simple Options Framework
