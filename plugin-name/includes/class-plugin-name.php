@@ -290,6 +290,46 @@ class Plugin_Name {
 		*/
 		$this->loader->add_action( 'admin_notices', $this->admin, 'display_update_notice' );
 		// RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+
+		/**
+		 * Add new image size.
+		 *
+		 * @link https://wordpress.stackexchange.com/questions/54423/add-image-size-in-a-plugin-i-created/304941#304941
+		 */
+		$this->loader->add_action( 'after_setup_theme', $this->admin, 'add_thumbnail_size' );
+
+		/**************************************************************
+		 * ADD/REMOVE/REORDER/SORT CUSTOM POST TYPE LIST COLUMNS (test)
+		 *
+		 * @tutorial add_remove_reorder_sort_custom_post_type_list_columns_in_admin_area.php
+		 */
+		/**
+		 * Modify columns in tests list in admin area.
+		 *
+		 * The hooks to create custom columns and their associated data for a custom post type
+		 * are manage_{$post_type}_posts_columns and
+		 * manage_{$post_type}_{$post_type_type}_custom_column or manage_{$post_type_hierarchical}_custom_column respectively,
+		 * where {$post_type} is the name of the custom post type and {$post_type_hierarchical} is post or page.
+		 *
+		 * @link https://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column
+		 * @link https://wordpress.stackexchange.com/questions/253640/adding-custom-columns-to-custom-post-types/253644#253644
+		 */
+		$this->loader->add_filter( 'manage_test_posts_columns', $this->admin, 'manage_test_posts_columns' );
+		$this->loader->add_action( 'manage_posts_custom_column', $this->admin, 'manage_posts_custom_column', 10, 2 );
+
+		$this->loader->add_action( 'admin_head', $this->admin, 'add_style_to_admin_head' );
+
+		/**
+		 * Filters the list table sortable columns for a specific screen.
+		 * manage_{$this->screen->id}_sortable_columns
+		 *
+		 * @link https://developer.wordpress.org/reference/hooks/manage_this-screen-id_sortable_columns/
+		 * @link https://www.smashingmagazine.com/2017/12/customizing-admin-columns-wordpress/
+		 */
+		$this->loader->add_filter( 'manage_edit-test_sortable_columns', $this->admin, 'manage_sortable_columns' );
+		$this->loader->add_action( 'pre_get_posts', $this->admin, 'manage_posts_orderby' );
+		// END ADD/REMOVE/REORDER/SORT CUSTOM POST TYPE LIST COLUMNS (test)
+
 	}
 
 	/**
