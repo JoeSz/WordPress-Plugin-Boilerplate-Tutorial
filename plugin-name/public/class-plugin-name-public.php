@@ -52,7 +52,7 @@ class Plugin_Name_Public {
 	 * @var object      The main class.
 	 */
 	public $main;
-	// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
 
 	/**
 	 * Initialize the class and set its properties.
@@ -87,7 +87,7 @@ class Plugin_Name_Public {
         $this->main = $plugin_main;
 
     }
-    // ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+    // END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
