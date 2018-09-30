@@ -9,6 +9,8 @@
  * For import a CSV, you could use post, see:
  * - handling_POST_request.php
  * - register_post_callback_without_ajax.php
+ *
+ * @link https://tommcfarlin.com/importing-csv-files-into-wordpress-visual-cues-part-1/
  */
 
  ////////////////////////////////////////////////
