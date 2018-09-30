@@ -23,7 +23,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * How to register **metabox** for a custom post type (e.g.: tests)
 * How to register metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
 * How to get custom post type (e.g.: customers) **archive template** from plugin folder
-* How to add/remove/reorder **custom** post type **list columns** in **admin area** (e.g.: test)
+* How to add/remove/reorder/sort **custom** post type **list columns** in **admin area** (e.g.: test)
 * How to add admin **options page** to plugin
 * How to add admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
@@ -89,7 +89,7 @@ Tutorial files
 * `tutorials/access_plugin_admin_public_methodes_from_inside.php`
 * `tutorials/access_plugin_and_its_methodes_later_from_outside_of_plugin.php`
 * `tutorials/add_custom_get-template-part_to_load_template_from_plugin.php`
-* `tutorials/add_remove_reorder_custom_post_type_list_columns_in_admin_area.php`
+* `tutorials/add_remove_reorder_sort_custom_post_type_list_columns_in_admin_area.php`
 * `tutorials/add_templater_engine_to_plugin.php`
 * `tutorials/app_option_page_for_plugin.php`
 * `tutorials/app_option_page_for_plugin_with_options_framework.php`
@@ -195,6 +195,8 @@ CHANGELOG
 
 = 2018-09-30 =
 * Add tutorial: run code on plugin upgrade with admin notice
+* Add sort to custom post type list columns in admin area
+* Add tutorial to pluhin: add, remove, reorder and sort custom post type list columns in admin area
 
 = 2018-09-25 =
 * Update Exopite Simple Options Framework
