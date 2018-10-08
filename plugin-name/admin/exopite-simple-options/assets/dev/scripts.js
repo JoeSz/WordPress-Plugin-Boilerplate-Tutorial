@@ -603,21 +603,40 @@ if (typeof throttle !== "function") {
 
                     if (regex_multilang.test(this.name)) {
                         return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4) {
-                            // [en][group][0][field]
-                            var index_item = ($3 == 'REPLACEME') ? index : $3;
-                            return '[' + $1 + '][' + $2 + '][' + index_item + '][' + $4 + ']';
+                            // options[en][group][0][field][]
+                            // options[en][group][0][field]
+                            // options[group][0][field][] (options array no multilang and select)
+                            var index_item_second = $2;
+                            var index_item_third = $3;
+                            if ($2 == 'REPLACEME') {
+                                index_item_second = index;
+                            }
+                            if ($3 == 'REPLACEME') {
+                                index_item_third = index;
+                            }
+                            // var index_item = ($3 == 'REPLACEME') ? index : $3;
+                            return '[' + $1 + '][' + index_item_second + '][' + index_item_third + '][' + $4 + ']';
                         });
                     }
                     if (regex_array.test(this.name)) {
                         return this.name.replace(regex_array, function ($0, $1, $2, $3) {
-                            // [group][0][field]
-                            var index_item = ($2 == 'REPLACEME') ? index : $2;
-                            return '[' + $1 + '][' + index_item + '][' + $3 + ']';
+                            // options[group][0][field]
+                            // group[0][emails_group_callback][] (simple and select)
+                            var index_item_first = $1;
+                            var index_item_second = $2;
+                            if ($1 == 'REPLACEME') {
+                                index_item_first = index;
+                            }
+                            if ($2 == 'REPLACEME') {
+                                index_item_second = index;
+                            }
+                            // var index_item = ($2 == 'REPLACEME') ? index : $2;
+                            return '[' + index_item_first + '][' + index_item_second + '][' + $3 + ']';
                         });
                     }
                     if (regex_simple.test(this.name)) {
                         return this.name.replace(regex_simple, function ($0, $1, $2) {
-                            //[0][field]
+                            //options[0][field]
                             var index_item = ($1 == 'REPLACEME') ? index : $1;
                             return '[' + index_item + '][' + $2 + ']';
                         });
@@ -954,9 +973,9 @@ if (typeof throttle !== "function") {
                     buttons: true,
                     dangerMode: true,
 
-                }).then((willImport) = {
+                }).then((willImport) => {
 
-                    if(willImport) {
+                    if (willImport) {
 
                         $(this).addClass('loading');
                         $(this).prop("disabled", true);
@@ -987,9 +1006,9 @@ if (typeof throttle !== "function") {
                     buttons: true,
                     dangerMode: true,
 
-                }).then((willDelete) = {
+                }).then((willDelete) => {
 
-                    if(willDelete) {
+                    if (willDelete) {
 
                         $(this).addClass('loading');
                         $(this).prop("disabled", true);

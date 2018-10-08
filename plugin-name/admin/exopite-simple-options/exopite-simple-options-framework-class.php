@@ -2,7 +2,7 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2018-09-30
+ * Last edit: 2018-10-02
  *
  * INFOS AND TODOS:
  *
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		public $languages = array();
 
-		public $version = '20180930';
+		public $version = '20181002';
 
 		public $debug = false;
 
@@ -140,7 +140,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		/**
 		 * @var array required fields for $type = menu
 		 */
-//		protected $required_keys_all_types = array( 'type' );
 		protected $required_keys_all_types = array();
 
 
@@ -162,10 +161,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				return;
 			}
 
-			$this->version = '20190910';
+			$this->version = '20181002';
 
 			// TODO: Do sanitize $config['id']
 			$this->unique = $config['id'];
+
 			// Filter for override every exopite $config and $fields
 			$this->config = apply_filters( 'exopite_sof_config', $config );
 			$this->fields = apply_filters( 'exopite_sof_options', $fields );
@@ -184,6 +184,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			$this->setup_multilang();
 
+			$this->include_field_classes();
+
 			$this->define_shared_hooks();
 
 			$this->define_menu_hooks();
@@ -197,7 +199,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			// Srt Defaults for all cases
 			$multilang_defaults = Exopite_Simple_Options_Framework_Helper::get_language_defaults();
 
-
 			if ( is_array( $multilang_defaults ) ) {
 
 				$this->config['multilang'] = $this->multilang = $multilang_defaults;
@@ -208,6 +209,28 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			}
 
+
+		}
+
+		/**
+		 * Return the array of languages except current language
+		 *
+		 * @return array $languages_except_current
+		 *
+		 */
+		public function languages_except_current_language() {
+
+			$all_languages = $this->languages;
+
+			if ( empty( $all_languages ) ) {
+				return $all_languages;
+			}
+
+			$languages_except_current = array_diff( $all_languages, array( $this->lang_current ) );
+
+			unset( $all_languages );
+
+			return $languages_except_current;
 
 		}
 
@@ -759,29 +782,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		}
 
 		/**
-		 * Get default config for metabox
-		 * @return array $default
-		 */
-		public function get_config_default_metabox() {
-
-			$default = array(
-
-				'title'      => '',
-				'post_types' => array( 'post' ),
-				'context'    => 'advanced',
-				'priority'   => 'default',
-				'capability' => 'edit_posts',
-				'tabbed'     => true,
-				'options'    => false,
-				'multilang'  => false
-
-			);
-
-			return apply_filters( 'exopite_sof_filter_config_default_metabox_array', $default );
-		}
-
-
-		/**
 		 * Get default config for group type field
 		 * @return array $default
 		 */
@@ -826,6 +826,28 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			);
 
 			return apply_filters( 'exopite_sof_filter_config_default_menu_array', $default );
+		}
+
+		/**
+		 * Get default config for metabox
+		 * @return array $default
+		 */
+		public function get_config_default_metabox() {
+
+			$default = array(
+
+				'title'      => '',
+				'post_types' => array( 'post' ),
+				'context'    => 'advanced',
+				'priority'   => 'default',
+				'capability' => 'edit_posts',
+				'tabbed'     => true,
+				'options'    => false,
+				'multilang'  => false
+
+			);
+
+			return apply_filters( 'exopite_sof_filter_config_default_metabox_array', $default );
 		}
 
 		/* Create a meta box for our custom fields */
@@ -983,34 +1005,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				}
 
 				/**
-				 * Load classes and enqueue class scripts
+				 * Enqueue class scripts
 				 * with this, only enqueue scripts if class/field is used
 				 */
-				$this->include_enqueue_field_classes();
+				$this->enqueue_field_classes();
 
 			endif; //$this->is_menu_page_loaded() || $this->is_metabox_enabled_post_type()
-
-		}
-
-		/**
-		 * Return the array of languages except current language
-		 *
-		 * @return array $languages_except_current
-		 *
-		 */
-		public function languages_except_current_language() {
-
-			$all_languages = $this->languages;
-
-			if ( empty( $all_languages ) ) {
-				return $all_languages;
-			}
-
-			$languages_except_current = array_diff( $all_languages, array( $this->lang_current ) );
-
-			unset( $all_languages );
-
-			return $languages_except_current;
 
 		}
 
@@ -1025,12 +1025,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function save( $posted_data ) {
 
-			// $this->write_log( 'posted_data', var_export( $_POST, true ) . PHP_EOL . PHP_EOL );
-
-			/**
-			* Import options sould not be checked.
-			*/
-			if ( $_POST['action'] == 'exopite-sof-import-options' ) return apply_filters( 'exopite_sof_import_options', $posted_data, $this->unique );
+			// $this->write_log( 'posted_post', var_export( $_POST, true ) . PHP_EOL . PHP_EOL );
 
 			// Is user has ability to save?
 			if ( ! current_user_can( $this->config['capability'] ) ) {
@@ -1076,6 +1071,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 				// if this is metabox, $posted_data is post_id we are saving
 				$post_id = $posted_data;
+				if ( $this->is_options_simple() ) {
+					$posted_data = $_POST;
+				} else {
+					$posted_data = $_POST[ $this->unique ];
+				}
+
 
 				// Stop WP from clearing custom fields on autosave
 				if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -1219,6 +1220,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 
 		public function get_sanitized_fields_values( $fields, $posted_data ) {
+
 			$sanitized_fields_data = array();
 			foreach ( $fields as $index => $field ) :
 
@@ -1233,7 +1235,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				// if field is not a group
 				if ( $field_type !== 'group' ) {
 
-					$sanitized_fields_data[ $field['id'] ] = $this->get_sanitized_field_value_from_global_post( $field );
+					$sanitized_fields_data[ $field['id'] ] = $this->get_sanitized_field_value_from_global_post( $field, $posted_data );
 
 				} // ( $field_type !== 'group' )
 
@@ -1263,7 +1265,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 								$sub_field_id = ( isset( $sub_field['id'] ) ) ? $sub_field['id'] : false;
 
-								$sanitized_fields_data[ $group_id ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $group_id );;
+								$sanitized_fields_data[ $group_id ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $posted_data, $group_id );
 
 							endforeach;
 
@@ -1277,12 +1279,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 							if ( $this->is_multilang() ) {
 								// How many times $_POST has this
 
-								if ( $this->is_menu() ) {
-									$repeater_count = ( isset( $posted_data[ $this->lang_current ][ $group_id ] ) && is_array( $posted_data[ $this->lang_current ][ $group_id ] ) ) ? count( $posted_data[ $this->lang_current ][ $group_id ] ) : 0;
-								}
-								if ( $this->is_metabox() ) {
-									$repeater_count = ( isset( $_POST[ $this->unique ][ $this->lang_current ][ $group_id ] ) && is_array( $_POST[ $this->unique ][ $this->lang_current ][ $group_id ] ) ) ? count( $_POST[ $this->unique ][ $this->lang_current ][ $group_id ] ) : 0;
-								}
+								$repeater_count = ( isset( $posted_data[ $this->lang_current ][ $group_id ] ) && is_array( $posted_data[ $this->lang_current ][ $group_id ] ) ) ? count( $posted_data[ $this->lang_current ][ $group_id ] ) : 0;
 
 							} // $this->is_multilang()
 
@@ -1292,20 +1289,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 							 */
 							if ( ! $this->is_multilang() ) {
 
-								if ( $this->is_options_simple() ) {
-
-									$repeater_count = ( isset( $_POST[ $group_id ] ) && is_array( $_POST[ $group_id ] ) ) ? count( $_POST[ $group_id ] ) : 0;
-
-								} else {
-
-									if ( $this->is_menu() ) {
-										$repeater_count = ( isset( $posted_data[ $group_id ] ) && is_array( $posted_data[ $group_id ] ) ) ? count( $posted_data[ $group_id ] ) : 0;
-									}
-									if ( $this->is_metabox() ) {
-										$repeater_count = ( isset( $_POST[ $this->unique ][ $group_id ] ) && is_array( $_POST[ $this->unique ][ $group_id ] ) ) ? count( $_POST[ $this->unique ][ $group_id ] ) : 0;
-									}
-
-								}
+								$repeater_count = ( isset( $posted_data[ $group_id ] ) && is_array( $posted_data[ $group_id ] ) ) ? count( $posted_data[ $group_id ] ) : 0;
 
 							}
 
@@ -1320,7 +1304,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 										continue;
 									}
 
-									$sanitized_fields_data[ $group_id ][ $i ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $group_id, $i );
+									$sanitized_fields_data[ $group_id ][ $i ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $posted_data, $group_id, $i );
 
 								endforeach; // $group_fields
 							}
@@ -1344,7 +1328,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 *
 		 * @return mixed $clean_value
 		 */
-		public function get_sanitized_field_value_from_global_post( $field, $group_id = null, $group_field_index = null ) {
+		public function get_sanitized_field_value_from_global_post( $field, $posted_data = array(), $group_id = null, $group_field_index = null ) {
 
 			if ( ! isset( $field['id'] ) || ! isset( $field['type'] ) ) {
 				return '';
@@ -1358,9 +1342,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			// Adding elements to $keys_array
 			// order matters!!!
-			if ( ! $this->is_options_simple() ) {
-				$keys_array[] = $this->unique;
-			}
 
 			if ( $this->is_multilang() ) {
 				$keys_array[] = $this->lang_current;
@@ -1377,11 +1358,42 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			$keys_array[] = $field_id;
 
 			// Get $dirty_value from global $_POST
-			$dirty_value = $this->get_array_nested_value( $_POST, $keys_array, '' );
+			$dirty_value = $this->get_array_nested_value( $posted_data, $keys_array, '' );
 
 			$clean_value = $this->sanitize( $field, $dirty_value );
 
 			return $clean_value;
+
+		}
+
+		/**
+		 * Validate and sanitize values
+		 *
+		 * @param $field
+		 * @param $value
+		 *
+		 * @return mixed
+		 */
+		public function sanitize( $field, $dirty_value ) {
+
+			$dirty_value = isset( $dirty_value ) ? $dirty_value : '';
+
+			// if $config array has sanitize function, then call it
+			if ( isset( $field['sanitize'] ) && ! empty( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) {
+
+				// TODO: in future, we can allow for sanitize functions array as well
+				$sanitize_func_name = $field['sanitize'];
+
+				$clean_value = call_user_func( $sanitize_func_name, $dirty_value );
+
+			} else {
+
+				// if $config array doe not have sanitize function, do sanitize on field type basis
+				$clean_value = $this->get_sanitized_field_value_by_type( $field, $dirty_value );
+
+			}
+
+			return apply_filters( 'exopite_sof_sanitize_value', $clean_value, $dirty_value, $field, $this->config );
 
 		}
 
@@ -1508,37 +1520,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		}
 
 		/**
-		 * Validate and sanitize values
-		 *
-		 * @param $field
-		 * @param $value
-		 *
-		 * @return mixed
-		 */
-		public function sanitize( $field, $dirty_value ) {
-
-			$dirty_value = isset( $dirty_value ) ? $dirty_value : '';
-
-			// if $config array has sanitize function, then call it
-			if ( isset( $field['sanitize'] ) && ! empty( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) {
-
-				// TODO: in future, we can allow for sanitize functions array as well
-				$sanitize_func_name = $field['sanitize'];
-
-				$clean_value = call_user_func( $sanitize_func_name, $dirty_value );
-
-			} else {
-
-				// if $config array doe not have sanitize function, do sanitize on field type basis
-				$clean_value = $this->get_sanitized_field_value_by_type( $field, $dirty_value );
-
-			}
-
-			return apply_filters( 'exopite_sof_sanitize_value', $clean_value, $dirty_value, $field, $this->config );
-
-		}
-
-		/**
 		 * Loop fileds based on field from user
 		 *
 		 * @param $callbacks
@@ -1559,7 +1540,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				foreach ( $section['fields'] as $field ) {
 
 					// If has subfields
-					if ( $callbacks['main'] == 'include_enqueue_field_class' && isset( $field['fields'] ) ) {
+					if ( $callbacks['main'] == 'enqueue_field_class' && isset( $field['fields'] ) ) {
 
 						foreach ( $field['fields'] as $subfield ) {
 
@@ -1590,11 +1571,26 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		/**
 		 * Loop and add callback to include and enqueue
 		 */
-		public function include_enqueue_field_classes() {
+		public function include_field_classes() {
 
 			$callbacks = array(
 				'before' => false,
-				'main'   => 'include_enqueue_field_class',
+				'main'   => 'include_field_class',
+				'after'  => false
+			);
+
+			$this->loop_fields( $callbacks );
+
+		}
+
+		/**
+		 * Loop and add callback to include and enqueue
+		 */
+		public function enqueue_field_classes() {
+
+			$callbacks = array(
+				'before' => false,
+				'main'   => 'enqueue_field_class',
 				'after'  => false
 			);
 
@@ -1606,7 +1602,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 * Include field classes
 		 * and enqueue they scripts
 		 */
-		public function include_enqueue_field_class( $field ) {
+		public function include_field_class( $field ) {
 
 			$class = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
 
@@ -1626,19 +1622,25 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			}
 
-			if ( class_exists( $class ) ) {
+		}
 
-				if ( class_exists( $class ) && method_exists( $class, 'enqueue' ) ) {
+		/**
+		 * Include field classes
+		 * and enqueue they scripts
+		 */
+		public function enqueue_field_class( $field ) {
 
-					$args = array(
-						'plugin_sof_url'  => plugin_dir_url( __FILE__ ),
-						'plugin_sof_path' => plugin_dir_path( __FILE__ ),
-						'field'           => $field,
-					);
+			$class = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
 
-					$class::enqueue( $args );
+			if ( class_exists( $class ) && method_exists( $class, 'enqueue' ) ) {
 
-				}
+				$args = array(
+					'plugin_sof_url'  => plugin_dir_url( __FILE__ ),
+					'plugin_sof_path' => plugin_dir_path( __FILE__ ),
+					'field'           => $field,
+				);
+
+				$class::enqueue( $args );
 
 			}
 

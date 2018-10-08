@@ -20,11 +20,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 
 			echo $this->element_before();
 
-			if ( $this->config['type'] == 'metabox' ) {
-
-				echo 'This item only available in menu!<br>';
-
-			} else {
+			if ( $this->config['type'] == 'menu' ) {
 
 				$nonce   = wp_create_nonce( 'exopite_sof_backup' );
 				$options = get_option( $this->unique );
@@ -54,6 +50,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_backup' ) ) {
 				echo '<a href="#" class="button button-warning exopite-sof-reset-js" data-confirm="' . __( 'Are you sure, you want to reset all options?', 'exopite-sof' ) . '">' . __( 'Reset All Options', 'exopite-sof' ) . '</a>';
 
 				echo '<div class="exopite-sof--data" data-admin="' . admin_url( 'admin-ajax.php' ) . '" data-unique="' . $this->unique . '" data-wpnonce="' . $nonce . '"></div>';
+
+			} else {
+
+				echo 'This item only available in menu!<br>';
 
 			}
 
