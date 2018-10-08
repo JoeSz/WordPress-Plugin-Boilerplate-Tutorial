@@ -567,8 +567,9 @@ class Plugin_Name_Admin {
                     'id'             => 'select_4',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Posts',
-                    'options'        => 'posts',
+                    // 'options'        => 'posts',
                     'query'          => array(
+                        'type'           => 'posts',
                         'args'           => array(
                             'orderby'      => 'post_date',
                             'order'        => 'DESC',
@@ -583,8 +584,9 @@ class Plugin_Name_Admin {
                     'id'             => 'select_5',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Pages',
-                    'options'        => 'pages',
+                    // 'options'        => 'pages',
                     'query'          => array(
+                        'type'           => 'pages',
                         'args'           => array(
                             'orderby'      => 'post_date',
                             'order'        => 'DESC',
