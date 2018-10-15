@@ -1526,6 +1526,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function loop_fields( $callbacks ) {
 
+			if ( ! is_array( $this->fields ) ) return;
+
 			foreach ( $this->fields as $section ) {
 
 				// before
@@ -1540,7 +1542,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				foreach ( $section['fields'] as $field ) {
 
 					// If has subfields
-					if ( $callbacks['main'] == 'enqueue_field_class' && isset( $field['fields'] ) ) {
+					if ( ( $callbacks['main'] == 'include_field_class' || $callbacks['main'] == 'enqueue_field_class' ) && isset( $field['fields'] ) ) {
 
 						foreach ( $field['fields'] as $subfield ) {
 
