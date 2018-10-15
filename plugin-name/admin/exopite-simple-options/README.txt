@@ -7,7 +7,7 @@ Tested up to: 4.9.8
 Stable tag: 4.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180930
+Version: 20181015
 Plugin URL: https://joe.szalai.org/exopite/exopite-simple-options-framework/
 GitHub URL: https://github.com/JoeSz/Exopite-Simple-Options-Framework
 
@@ -211,6 +211,12 @@ Actions
 * exopite_sof_form_meta_after (unique)
 
 == Changelog ==
+
+= 20181015 - 2018-10-15 =
+* Fix TinyMCE is undefinied error in save, if not enqueued.
+
+= 20181002 - 2018-10-02 =
+* Fix import and delete options didn't work because minification error.
 
 = 20180930 - 2018-09-30 =
 * Load "non multilang" options in multilang if multilang not exist and other way arround for compatibility.

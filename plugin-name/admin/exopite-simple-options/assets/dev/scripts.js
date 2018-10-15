@@ -212,7 +212,9 @@ if (typeof throttle !== "function") {
             var $ajaxMessage = $(this).find('.exopite-sof-ajax-message');
             $submitButtons.val(saveButtonString).attr('disabled', true);
 
-            tinyMCE.triggerSave();
+            if (typeof tinyMCE != 'undefined') {
+                tinyMCE.triggerSave();
+            }
 
             /**
              * Ajax save submit
