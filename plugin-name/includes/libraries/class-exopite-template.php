@@ -144,7 +144,7 @@ if ( ! class_exists( 'Exopite_Template' ) ) {
             }
 
             // Flat and concatenat array.
-            $_variables_array = self::flat_concatenat_array( self::$variables_array );
+            $_variables_array = self::flat_concatenate_array( self::$variables_array );
 
             // Replace variables in tmeplate.
             $template = self::replace_variables_in_template( $template, $_variables_array );
