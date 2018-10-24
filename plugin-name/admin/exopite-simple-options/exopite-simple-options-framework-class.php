@@ -112,7 +112,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		public $languages = array();
 
-		public $version = '20181002';
+		public $version = '20181015';
 
 		public $debug = false;
 
@@ -1077,6 +1077,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 					$posted_data = $_POST[ $this->unique ];
 				}
 
+				if ( $posted_data === null ) return;
 
 				// Stop WP from clearing custom fields on autosave
 				if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
