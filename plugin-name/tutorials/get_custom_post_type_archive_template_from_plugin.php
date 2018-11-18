@@ -50,7 +50,7 @@ function get_custom_post_type_archive_template(  ) {
             // Try to locate in plugin templates folder
             if ( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $templates_dir . '/archive-' . $custom_post_type . '.php' ) ) {
                 return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/' . $templates_dir . '/archive-' . $custom_post_type . '.php';
-            } elseif ( file_exists( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/archive-' . $custom_post_type . '.php' ) ) {
+            } elseif ( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_name . '/archive-' . $custom_post_type . '.php' ) ) {
                 // Try to locate in plugin base folder
                 return WP_PLUGIN_DIR . '/' . $this->plugin_name . '/archive-' . $custom_post_type . '.php';
             } else {
