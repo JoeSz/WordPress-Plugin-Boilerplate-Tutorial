@@ -58,7 +58,8 @@ public function create_menu() {
 
         'type'              => 'menu',                          // Required, menu or metabox
         'id'                => $this->plugin_name . '-test',    // Required, meta box id, unique per page, to save: get_option( id )
-        'menu'              => 'plugins.php',                   // Required, sub page to your options page
+        'parent'            => 'plugins.php',                   // Required, sub page to your options page
+        // 'parent'            => 'edit.php?post_type=your_post_type',
         'submenu'           => true,                            // Required for submenu
         'title'             => esc_html__( 'Demo Admin Page', 'plugin-name' ),    //The name of this page
         'capability'        => 'manage_options',                // The capability needed to view the page
