@@ -118,12 +118,12 @@ if ( ! defined( 'WPINC' ) ) die;
     <form method="post" name="cleanup_options" action="options.php">
     <?php
         //Grab all options
-        $options = get_option($this->plugin_name); 
-        
+        $options = get_option($this->plugin_name);
+
         $example_select = ( isset( $options['example_select'] ) && ! empty( $options['example_select'] ) ) ? esc_attr( $options['example_select'] ) : '1';
         $example_text = ( isset( $options['example_text'] ) && ! empty( $options['example_text'] ) ) ? esc_attr( $options['example_text'] ) : 'default';
         $example_checkbox = ( isset( $options['example_checkbox'] ) && ! empty( $options['example_checkbox'] ) ) ? 1 : 0;
-        
+
         settings_fields($this->plugin_name);
         do_settings_sections($this->plugin_name);
         // Sources: - http://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
