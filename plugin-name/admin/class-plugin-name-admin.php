@@ -262,9 +262,11 @@ class Plugin_Name_Admin {
                  * - range
                  * - select
                  * - switcher
+                 * - tab
                  * - tap_list
                  * - text
                  * - textarea
+                 * - typography
                  * - upload
                  * - video mp4/oembed
                  *
@@ -688,6 +690,69 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
+                    'id'          => 'tabbed_1',
+                    'type'        => 'tab',
+                    'title'       => esc_html__( 'Tab', 'plugin-name' ),
+                    'equal_width' => true,
+                    'tabs'        => array(
+
+                        array(
+                            'title'  => esc_html__( 'Tab 1', 'plugin-name' ),
+                            'icon'   => 'fa fa-star',
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_1_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 1 Text', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'      => 'ace_editor_2',
+                                    'type'    => 'ace_editor',
+                                    'title'   => esc_html__( 'Tab ACE Editor', 'plugin-name' ),
+                                    'options' => array(
+                                        'theme'                     => 'ace/theme/chrome',
+                                        'mode'                      => 'ace/mode/javascript',
+                                        'showGutter'                => true,
+                                        'showPrintMargin'           => true,
+                                        'enableBasicAutocompletion' => true,
+                                        'enableSnippets'            => true,
+                                        'enableLiveAutocompletion'  => true,
+                                    ),
+                                    'attributes'    => array(
+                                        'style'        => 'height: 300px; max-width: 700px;',
+                                    ),
+                                ),
+
+                            ),
+                        ),
+
+                        array(
+                            'title'  => esc_html__( 'Tab 2', 'plugin-name' ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_2_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 2 Text', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'tab_3_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 3 Text', 'plugin-name' ),
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
+                ),
+
+                array(
                     'id'        => 'tap_list_1',
                     'type'      => 'tap_list',
                     'title'     => 'Tap list Radio',
@@ -748,15 +813,29 @@ class Plugin_Name_Admin {
                     'default'      => 'value-5',
                 ),
 
-                 array(
+                array(
+                    'id'      => 'typography_1',
+                    'type'    => 'typography',
+                    'title'   => esc_html__( 'Typography', 'exopite-combiner-minifier' ),
+                    'default' => array(
+                        'family'    =>'Arial Black',
+                        'variant'   =>'600',
+                        'size'      => 10,
+                        'height'    => 16,
+                        'color'     => '#000000',
+                    ),
+                    'preview' => true,
+                ),
+
+                array(
                     'type'    => 'group',
                     'id'      => 'group_1',
                     'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
                     'options' => array(
                         'repeater'          => true,
                         'accordion'         => true,
-                        'button_title'      => 'Add new',
-                        'accordion_title'   => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
                         'limit'             => 50,
                         'sortable'          => true,
                     ),
