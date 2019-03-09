@@ -265,7 +265,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 					 */
 					if ( isset( $this->config['type'] ) && $this->config['type'] == 'metabox' && ! isset( $post ) ) {
 						global $post;
-					} elseif ( isset( $this->config['type'] ) && $this->config['type'] == 'menu' ) {
+					} else {
 						$post = array();
 					}
 

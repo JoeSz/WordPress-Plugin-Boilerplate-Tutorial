@@ -18,9 +18,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image_select' ) ) {
 
 			$input_type = ( ! empty( $this->field['radio'] ) ) ? 'radio' : 'checkbox';
 			$input_attr = ( $input_type == 'checkbox' ) ? '[]' : '';
+			$layout = ( isset( $this->field['layout'] ) && $this->field['layout'] == 'vertical' ) ? 'exopite-sof-field-image-selector-vertical' : 'exopite-sof-field-image-selector-horizontal';
 
 			echo $this->element_before();
-			echo ( empty( $input_attr ) ) ? '<div class="exopite-sof-field-image-selector">' : '';
+			echo '<div class="exopite-sof-field-image-selector ' . $layout . '">';
+			// echo ( empty( $input_attr ) ) ? '<div class="exopite-sof-field-image-selector">' : '';
 
 			if ( isset( $this->field['options'] ) ) {
 				$options = $this->field['options'];
@@ -31,7 +33,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image_select' ) ) {
 				}
 			}
 
-			echo ( empty( $input_attr ) ) ? '</div>' : '';
+			echo '</div>';
+			// echo ( empty( $input_attr ) ) ? '</div>' : '';
 			echo $this->element_after();
 
 		}

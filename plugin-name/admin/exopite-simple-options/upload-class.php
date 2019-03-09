@@ -203,7 +203,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 		 * Handle Attachment
 		 */
 		public static function add_attachment( $url, $filepath ) {
-
+			
+			$updated_url = trim( substr( $url, strpos( $url, 'uploads/') + 8 ));
+			
 			$wp_upload_dir = wp_upload_dir();
 			$filename      = str_replace( $wp_upload_dir['url'] . '/', '', $url );
 
@@ -219,7 +221,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 
 			// Attach file to post if attach is true and it is uploaded in a post (metabox)
 			$post_id   = ( isset( $_POST['postId'] ) ) ? intval( $_POST['postId'] ) : 0;
-			$attach_id = wp_insert_attachment( $attachment, $url, $post_id );
+			$attach_id = wp_insert_attachment( $attachment, $updated_url, $post_id );
 
 			// Determines if attachment is an image.
 			if ( wp_attachment_is_image( $attach_id ) ) {

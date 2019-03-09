@@ -22,15 +22,14 @@
 
             var plugin = this;
 
-            $.trumbowyg.svgPath = plugin.$element.find('.trumbowyg-js').data('icon-path');
-
             plugin.trumbowygOptions = new Object();
+            plugin.trumbowygOptions.svgPath = plugin.$element.find('.trumbowyg-js').data('icon-path');
 
             plugin.trumbowygOptions.btnsDef = {
                 // Customizables dropdowns
                 image: {
                     dropdown: ['insertImage', 'base64'],
-                    ico: 'insertImage'
+                    ico: 'insertImage',
                 }
             };
 

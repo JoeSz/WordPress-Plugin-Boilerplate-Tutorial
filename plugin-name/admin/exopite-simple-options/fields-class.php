@@ -35,6 +35,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 			$this->where        = ( isset( $this->config['type'] ) ) ? $this->config['type'] : '';
 			$this->multilang    = ( isset( $this->config['multilang'] ) ) ? $this->config['multilang'] : false;
 			$this->is_multilang = ( isset( $this->config['is_multilang'] ) ) ? (bool) $this->config['is_multilang'] : false;
+			$this->google_fonts = '';
 
 			$this->lang_default = ( $this->multilang && isset( $this->multilang['default'] ) ) ? $this->multilang['default'] : mb_substr( get_locale(), 0, 2 );
 			$this->lang_current = ( $this->multilang && isset( $this->multilang['current'] ) ) ? $this->multilang['current'] : $this->lang_default;
@@ -61,7 +62,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
 		public function element_before() {
 
-			return ( isset( $this->field['before'] ) ) ? '<div class="exopite-sof-before">' . $this->field['before'] . '</div>' : '';
+			$element = 'div';
+			if ( isset( $this->field['pseudo'] ) && $this->field['pseudo'] ) {
+				$element = 'span';
+			}
+			return ( isset( $this->field['before'] ) ) ? '<' . $element . ' class="exopite-sof-before">' . $this->field['before'] . '</' . $element . '>' : '';
 
 		}
 
@@ -140,61 +145,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
 			return $value;
 
-
-			/**
-			 * Set default if not exist
-			 */
-//			if ( (
-//				     // multilang activated and multilang set to value but not in the current language
-//				     ( is_array( $this->multilang ) && isset( $this->value['multilang'] ) && ! isset( $value[ $this->multilang['current'] ] ) ) ||
-//				     // multilang is activated but still "single language" value there and not current language (either current is set or next rule apply)
-//				     ( is_array( $this->multilang ) && ! isset( $this->value['multilang'] ) && $this->multilang['current'] != $this->multilang['default'] ) ||
-//				     // value is not set
-//				     ! isset( $value )
-//			     ) &&
-//			     // and default value is set in options
-//			     isset( $this->field['default'] ) && $this->field['default'] !== ''
-//			) {
-//
-//				$default = $this->field['default'];
-//
-//				if ( is_array( $default ) ) {
-//
-//					if ( is_callable( $default['function'] ) ) {
-//						$args = ( isset( $default['args'] ) ) ? $default['args'] : '';
-//
-//						return call_user_func( $default['function'], $args );
-//					}
-//
-//				}
-//
-//				return $default;
-//
-//			}
-//
-//			if ( is_array( $this->multilang ) && isset( $this->value['multilang'] ) && is_array( $value ) ) {
-//
-//				$current = $this->multilang['current'];
-//
-//				if ( isset( $value[ $current ] ) ) {
-//					$value = $value[ $current ];
-//				} else if ( $this->multilang['current'] == $this->multilang['default'] && isset( $value[ $current ] ) ) {
-//					$value = $this->value;
-//				} else {
-//					$value = '';
-//				}
-//
-//			} else if ( is_array( $this->multilang ) && ! is_array( $value ) && ( $this->multilang['current'] != $this->multilang['default'] ) ) {
-//				$value = '';
-//			} else if ( ! is_array( $this->multilang ) && isset( $this->value['multilang'] ) && is_array( $this->value ) ) {
-//
-//				$value = array_values( $this->value );
-//				$value = $value[0];
-//
-//			}
-//
-//			return $value;
-
 		}
 
 		public function element_attributes( $el_attributes = array() ) {
@@ -255,6 +205,23 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
 		}
 
+		public function get_google_fonts_json() {
+
+			if( empty( $this->google_fonts ) ) {
+
+				$google_fonts_json_fn = implode( DIRECTORY_SEPARATOR, array( __DIR__, 'assets', 'google-fonts.json' ) );
+
+				if ( file_exists( $google_fonts_json_fn ) ) {
+					$google_fonts_json = file_get_contents( $google_fonts_json_fn );
+					$this->google_fonts = json_decode( $google_fonts_json );
+				}
+
+			}
+
+			return $this->google_fonts;
+
+		}
+
 		public static function do_enqueue( $styles_scripts, $args ) {
 
 			foreach ( $styles_scripts as $resource ) {
@@ -287,7 +254,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 						$function = 'wp_enqueue_style';
 						break;
 					default:
-						continue;
+						continue 2;
 
 				}
 

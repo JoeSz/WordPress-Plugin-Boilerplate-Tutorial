@@ -225,6 +225,7 @@ if (typeof throttle !== "function") {
                 success: function () {
                     $submitButtons.val(currentButtonString).attr('disabled', false);
                     $ajaxMessage.html(savedButtonString).addClass('success show');
+                    $submitButtons.blur();
                     setTimeout(function () {
                         // $ajaxMessage.fadeOut( 400 );
                         $ajaxMessage.removeClass('show');
@@ -428,6 +429,12 @@ if (typeof throttle !== "function") {
 
             });
 
+            plugin.$element.find('.exopite-sof-nav-list-parent-item > .exopite-sof-nav-list-item-title').on('click' + '.' + plugin._name, function () {
+
+                plugin.toggleSubMenu.call(plugin, $(this));
+
+            });
+
         },
 
         // Unbind events that trigger methods
@@ -435,15 +442,20 @@ if (typeof throttle !== "function") {
             this.$element.off('.' + this._name);
         },
 
-        changeTab: function (botton) {
+        toggleSubMenu: function (button) {
+            // var $parent = button;
+            var $parent = button.parents('.exopite-sof-nav-list-parent-item');
+            $parent.toggleClass('active').find('ul').slideToggle(200);
+        },
+        changeTab: function (button) {
 
-            if (!botton.hasClass('active')) {
+            if (!button.hasClass('active')) {
 
-                var section = '.exopite-sof-section-' + botton.data('section');
+                var section = '.exopite-sof-section-' + button.data('section');
 
                 this.$element.find('.exopite-sof-nav-list-item.active').removeClass('active');
 
-                botton.addClass('active');
+                button.addClass('active');
 
                 this.$element.find('.exopite-sof-section').addClass('hide');
                 this.$element.find(section).removeClass('hide');
@@ -489,12 +501,12 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
+/**
  * Exopite SOF Repeater
  */
 ; (function ($, window, document, undefined) {
 
-    /*
+    /**
      * A jQuery Plugin Boilerplate
      *
      * https://github.com/johndugan/jquery-plugin-boilerplate/blob/master/jquery.plugin-boilerplate.js
@@ -538,6 +550,13 @@ if (typeof throttle !== "function") {
 
                 e.preventDefault();
                 plugin.remove.call(plugin, $(this));
+
+            });
+
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--clone:not(.disabled)', function (e) {
+
+                e.preventDefault();
+                plugin.addNew.call(plugin, $(this));
 
             });
 
@@ -590,9 +609,9 @@ if (typeof throttle !== "function") {
 
         updateNameIndex: function () {
 
-            var fieldParentName = this.$element.find('.exopite-sof-cloneable__wrapper').data('name');
-
+            var fieldParentName = this.$element.find('.exopite-sof-cloneable__wrapper').data('name').replace("[REPLACEME]", "");
             // test if multilang (and option stored in array)
+            var regex_multilang_select = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]\[(.*?)\[(.*?)\]/, "i");
             var regex_multilang = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
             // test if not multilang (and option stored in array)
             var regex_array = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
@@ -603,11 +622,10 @@ if (typeof throttle !== "function") {
 
                 $(el).find('[name^="' + fieldParentName + '"]').attr('name', function () {
 
-                    if (regex_multilang.test(this.name)) {
-                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4) {
+                    if (regex_multilang_select.test(this.name)) {
+                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4, $5) {
                             // options[en][group][0][field][]
-                            // options[en][group][0][field]
-                            // options[group][0][field][] (options array no multilang and select)
+                            /*
                             var index_item_second = $2;
                             var index_item_third = $3;
                             if ($2 == 'REPLACEME') {
@@ -616,7 +634,32 @@ if (typeof throttle !== "function") {
                             if ($3 == 'REPLACEME') {
                                 index_item_third = index;
                             }
+                            var index_item = ($3 == 'REPLACEME') ? index : $3;
+                            */
+                            return '[' + $1 + '][' + $2 + '][' + index + '][' + $4 + '][' + $5 + ']';
+                        });
+                    }
+
+                    if (regex_multilang.test(this.name)) {
+                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4) {
+                            // options[en][group][0][field]
+                            // options[group][0][field][] (options array no multilang and select)
+                            var index_item_second = $2;
+                            var index_item_third = $3;
+                            /*
+                            if ($2 == 'REPLACEME') {
+                                index_item_second = index;
+                            }
+                            if ($3 == 'REPLACEME') {
+                                index_item_third = index;
+                            }
                             // var index_item = ($3 == 'REPLACEME') ? index : $3;
+                            */
+                            if (!$4 || 0 === $4.length) {
+                                index_item_second = index;
+                            } else {
+                                index_item_third = index;
+                            }
                             return '[' + $1 + '][' + index_item_second + '][' + index_item_third + '][' + $4 + ']';
                         });
                     }
@@ -626,12 +669,17 @@ if (typeof throttle !== "function") {
                             // group[0][emails_group_callback][] (simple and select)
                             var index_item_first = $1;
                             var index_item_second = $2;
-                            if ($1 == 'REPLACEME') {
+                            if (!$3 || 0 === $3.length) {
                                 index_item_first = index;
-                            }
-                            if ($2 == 'REPLACEME') {
+                            } else {
                                 index_item_second = index;
                             }
+                            // if ($1 == 'REPLACEME') {
+                            //     index_item_first = index;
+                            // }
+                            // if ($2 == 'REPLACEME') {
+                            //     index_item_second = index;
+                            // }
                             // var index_item = ($2 == 'REPLACEME') ? index : $2;
                             return '[' + index_item_first + '][' + index_item_second + '][' + $3 + ']';
                         });
@@ -639,8 +687,8 @@ if (typeof throttle !== "function") {
                     if (regex_simple.test(this.name)) {
                         return this.name.replace(regex_simple, function ($0, $1, $2) {
                             //options[0][field]
-                            var index_item = ($1 == 'REPLACEME') ? index : $1;
-                            return '[' + index_item + '][' + $2 + ']';
+                            // var index_item = ($1 == 'REPLACEME') ? index : $1;
+                            return '[' + index + '][' + $2 + ']';
                         });
                     }
 
@@ -651,14 +699,21 @@ if (typeof throttle !== "function") {
 
         },
 
-        addNew: function () {
+        addNew: function ($element) {
 
             var $group = this.$element.parents('.exopite-sof-field-group');
 
             if ($.fn.chosen) $group.find("select.chosen").chosen("destroy");
 
-            var $muster = this.$element.find('.exopite-sof-cloneable__muster');
-            var $cloned = $muster.clone(true);
+            var is_cloned = false;
+            var $cloned = null;
+            if ($element.hasClass('exopite-sof-cloneable--clone')) {
+                $cloned = $element.parents('.exopite-sof-cloneable__item').clone(true);
+                is_cloned = true;
+            } else {
+                var $muster = this.$element.find('.exopite-sof-cloneable__muster');
+                $cloned = $muster.clone(true);
+            }
 
             /**
              * Get hidden "muster" element and clone it. Remove hidden muster classes.
@@ -666,6 +721,7 @@ if (typeof throttle !== "function") {
              * Finaly append to group.
              */
             $cloned.find('.exopite-sof-cloneable--remove').removeClass('disabled');
+            $cloned.find('.exopite-sof-cloneable--clone').removeClass('disabled');
             $cloned.removeClass('exopite-sof-cloneable__muster');
             $cloned.removeClass('exopite-sof-cloneable__muster--hidden');
             $cloned.removeClass('exopite-sof-accordion--hidden');
@@ -673,7 +729,13 @@ if (typeof throttle !== "function") {
 
             this.$element.trigger('exopite-sof-field-group-item-added-before', [$cloned, $group]);
 
-            $group.find('.exopite-sof-cloneable__wrapper').append($cloned);
+            if (is_cloned) {
+                $cloned.insertAfter($element.parents('.exopite-sof-cloneable__item'));
+            } else {
+                $group.find('.exopite-sof-cloneable__wrapper').append($cloned);
+            }
+
+            $cloned.insertAfter($element.parents('.exopite-sof-cloneable__item') );
 
             this.checkAmount();
             this.updateNameIndex();
@@ -689,6 +751,7 @@ if (typeof throttle !== "function") {
 
             // Handle dependencies.
             $cloned.exopiteSofManageDependencies('sub');
+            $cloned.find('.exopite-sof-cloneable__content').removeAttr("style").show();
 
             this.$element.trigger('exopite-sof-field-group-item-added-after', [$cloned, $group]);
         },
@@ -796,7 +859,7 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
+/**
  * Exopite SOF Accordion
  */
 ; (function ($, window, document, undefined) {
@@ -848,8 +911,9 @@ if (typeof throttle !== "function") {
 
             plugin.$container.off().on('click' + '.' + plugin._name, '.exopite-sof-accordion__title', function (e) {
                 e.preventDefault();
-                plugin.toggleAccordion.call(plugin, $(this));
-
+                if (!$(e.target).hasClass('exopite-sof-cloneable--clone')) {
+                    plugin.toggleAccordion.call(plugin, $(this));
+                }
             });
 
             /**
@@ -933,7 +997,300 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
+
+/**
+ * Exopite SOF Search
+ */
+; (function ($, window, document, undefined) {
+
+    var pluginName = "exopiteSofSearch";
+
+    // The actual plugin constructor
+    function Plugin(element, options) {
+
+        this.element = element;
+        this._name = pluginName;
+        this.$element = $(element);
+        this.$nav = this.$element.find('.exopite-sof-nav');
+        // this.$wrapper = $searchField.parents('.exopite-sof-wrapper');
+        // this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
+        this.isSortableCalled = false;
+        this.init();
+
+    }
+
+    Plugin.prototype = {
+
+        init: function () {
+
+            $.expr[':'].containsIgnoreCase = function (n, i, m) {
+                return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+            };
+
+            this.bindEvents();
+
+        },
+
+        // Bind events that trigger methods
+        bindEvents: function () {
+            var plugin = this;
+
+            plugin.$element.on('keyup' + '.' + plugin._name, '.exopite-sof-search', function (e) {
+                e.preventDefault();
+                plugin.doSearch.call(plugin, $(this));
+            });
+
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-section-header', function (e) {
+                e.preventDefault();
+                plugin.selectSection.call(plugin, $(this));
+            });
+
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-nav.search', function (e) {
+                e.preventDefault();
+                plugin.clearSearch.call(plugin, $(this));
+            });
+
+        },
+
+        // Unbind events that trigger methods
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+        clearSearch: function ($clickedElement) {
+            var plugin = this;
+            plugin.$element.find('.exopite-sof-search').val('').blur();
+            plugin.$element.find('.exopite-sof-nav').removeClass('search');
+            plugin.$element.find('.exopite-sof-section-header').hide();
+            plugin.$element.find('.exopite-sof-field h4').closest('.exopite-sof-field').not('.hidden').removeAttr('style');
+            plugin.$element.find('.exopite-sof-field-card').removeAttr('style');
+            var activeElement = plugin.$nav.find("ul li.active").data('section');
+            plugin.$element.find('.exopite-sof-sections .exopite-sof-section-' + activeElement).removeClass('hide');
+        },
+        activateSection: function (activeElement) {
+            var plugin = this;
+            if (plugin.$nav.length > 0) {
+                plugin.$element.find('.exopite-sof-section-header').hide();
+                plugin.$element.find('.exopite-sof-nav li[data-section="' + activeElement + '"]').addClass('active');
+                plugin.$element.find('.exopite-sof-nav').removeClass('search');
+            }
+            plugin.$element.find('.exopite-sof-sections .exopite-sof-section').addClass('hide');
+            plugin.$element.find('.exopite-sof-sections .exopite-sof-section-' + activeElement).removeClass('hide');
+            plugin.$element.find('.exopite-sof-field h4').closest('.exopite-sof-field').not('.hidden').removeAttr('style');
+            plugin.$element.find('.exopite-sof-field-card').removeAttr('style');
+        },
+        selectSection: function ($sectionHeader) {
+            var plugin = this;
+            plugin.$element.find('.exopite-sof-search').val('').blur();
+            var activeElement = $sectionHeader.data('section');
+            plugin.activateSection(activeElement);
+        },
+        doSearch: function ($searchField) {
+            var plugin = this;
+            var searchValue = $searchField.val();
+            var activeElement = this.$nav.find("ul li.active").data('section');
+            if (typeof this.$element.data('section') === 'undefined') {
+                this.$element.data('section', activeElement);
+            }
+
+            if (searchValue) {
+                if (this.$nav.length > 0) {
+                    this.$element.find('.exopite-sof-nav-list-item').removeClass('active');
+                    this.$element.find('.exopite-sof-nav').addClass('search');
+                }
+                this.$element.find('.exopite-sof-section-header').show();
+                this.$element.find('.exopite-sof-section').removeClass('hide');
+                this.$element.find('.exopite-sof-field h4').closest('.exopite-sof-field').not('.hidden').hide();
+                this.$element.find('.exopite-sof-field-card').hide();
+                this.$element.find('.exopite-sof-field h4:containsIgnoreCase(' + searchValue + ')').closest('.exopite-sof-field').not('.hidden').show();
+            } else {
+                activeElement = this.$element.data('section');
+                this.$element.removeData('section');
+                plugin.activateSection(activeElement);
+            }
+
+        },
+
+    };
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                    new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+/**
+ * Exopite SOF Search
+ */
+; (function ($, window, document, undefined) {
+
+    var pluginName = "exopiteFontPreview";
+
+    // The actual plugin constructor
+    function Plugin(element, options) {
+
+        this.element = element;
+        this._name = pluginName;
+        this.$element = $(element);
+        this.$nav = this.$element.find('.exopite-sof-nav');
+        // this.$wrapper = $searchField.parents('.exopite-sof-wrapper');
+        // this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
+        this.isSortableCalled = false;
+        this.init();
+
+    }
+
+    Plugin.prototype = {
+
+        init: function () {
+            var plugin = this;
+            // var parentName = jQuery( this ).attr( 'data-id' );
+            plugin.preview = this.$element.find('.exopite-sof-font-preview');
+            plugin.fontColor = this.$element.find( '.font-color-js' );
+            plugin.fontSize = this.$element.find( '.font-size-js' );
+            plugin.lineHeight = this.$element.find( '.line-height-js' );
+            plugin.fontFamily = this.$element.find( '.exopite-sof-typo-family' );
+            plugin.fontWeight = this.$element.find( '.exopite-sof-typo-variant' );
+
+            // Set current values to preview
+            this.updatePreview();
+            this.loadGoogleFont();
+
+            this.bindEvents();
+
+        },
+
+        // Bind events that trigger methods
+        bindEvents: function () {
+            var plugin = this;
+
+            plugin.$element.on('change' + '.' + plugin._name, '.font-size-js, .line-height-js, .font-color-js, .exopite-sof-typo-variant', function (e) {
+                e.preventDefault();
+                plugin.updatePreview();
+            });
+
+            plugin.$element.on('change' + '.' + plugin._name, '.exopite-sof-typo-family', function (e) {
+                e.preventDefault();
+                plugin.loadGoogleFont();
+            });
+
+
+        },
+
+        // Unbind events that trigger methods
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+        updatePreview: function () {
+            var plugin = this;
+            var fontWeightStyle = plugin.calculateFontWeight(plugin.fontWeight.find(':selected').text());
+            // Update preiew
+            plugin.preview.css({
+                'font-size': plugin.fontSize.val() + 'px',
+                'line-height': plugin.lineHeight.val() + 'px',
+                'font-weight': fontWeightStyle.fontWeightValue,
+                'font-style': fontWeightStyle.fontStyleValue
+            });
+        },
+        updateVariants: function (variants) {
+            var plugin = this;
+            var variantsArray = variants.split('|');
+            plugin.fontWeight.empty();
+            $.each(variantsArray, function (key, value) {
+                plugin.fontWeight.append($("<option></option>").attr("value", value).text(value));
+            });
+            plugin.fontWeight.val('regular');
+            plugin.fontWeight.trigger("chosen:updated");
+        },
+        loadGoogleFont: function () {
+            var plugin = this;
+            var variants = plugin.fontFamily.find(":selected").data('variants');
+
+            plugin.updateVariants(variants);
+
+            var font = plugin.fontFamily.val();
+            if (!font) return;
+            var href = '//fonts.googleapis.com/css?family=' + font + ':' + variants.replace(/\|/g, ',');
+            var parentName = plugin.$element.find('.exopite-sof-font-field-js').data('id');
+            var html = '<link href="' + href + '" class="cs-font-preview-' + parentName + '" rel="stylesheet" type="text/css" />';
+
+            if ( $( '.cs-font-preview-' + parentName ).length > 0 ) {
+                $( '.cs-font-preview-' + parentName ).attr( 'href', href ).load();
+            } else {
+                $('head').append( html ).load();
+            }
+
+            // Update preiew
+            plugin.preview.css('font-family', font).css('font-weight', '400');
+
+        },
+        calculateFontWeight: function ( fontWeight ) {
+            var fontWeightValue = '400';
+            var fontStyleValue = 'normal';
+
+            switch( fontWeight ) {
+                case '100':
+                    fontWeightValue = '100';
+                    break;
+                case '100italic':
+                    fontWeightValue = '100';
+                    fontStyleValue = 'italic';
+                    break;
+                case '300':
+                    fontWeightValue = '300';
+                    break;
+                case '300italic':
+                    fontWeightValue = '300';
+                    fontStyleValue = 'italic';
+                    break;
+                case '500':
+                    fontWeightValue = '500';
+                    break;
+                case '500italic':
+                    fontWeightValue = '500';
+                    fontStyleValue = 'italic';
+                    break;
+                case '700':
+                    fontWeightValue = '700';
+                    break;
+                case '700italic':
+                    fontWeightValue = '700';
+                    fontStyleValue = 'italic';
+                    break;
+                case '900':
+                    fontWeightValue = '900';
+                    break;
+                case '900italic':
+                    fontWeightValue = '900';
+                    fontStyleValue = 'italic';
+                    break;
+                case 'italic':
+                    fontStyleValue = 'italic';
+                    break;
+            }
+
+            return { fontWeightValue, fontStyleValue };
+        },
+
+
+    };
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                    new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+/**
  * Exopite Save Options with AJAX
  */
 ; (function ($, window, document, undefined) {
@@ -1123,6 +1480,7 @@ if (typeof throttle !== "function") {
     $(document).ready(function () {
 
         $('.exopite-sof-wrapper').exopiteSofManageDependencies();
+        $('.exopite-sof-wrapper').exopiteSofSearch();
         $('.exopite-sof-sub-dependencies').exopiteSofManageDependencies('sub');
 
         $('.exopite-sof-wrapper-menu').exopiteSaveOptionsAJAX();
@@ -1134,11 +1492,10 @@ if (typeof throttle !== "function") {
         });
 
         $('.exopite-sof-content-js').exopiteOptionsNavigation();
-
+        $('.exopite-sof-font-field').exopiteFontPreview();
         $('.exopite-sof-group').exopiteSOFTinyMCE();
+        $('.exopite-sof-accordion').exopiteSOFAccordion();
         $('.exopite-sof-group').exopiteSOFRepeater();
-        $('.exopite-sof-group').exopiteSOFAccordion();
-
         $('.exopite-sof-field-backup').exopiteImportExportAJAX();
 
     });

@@ -3,11 +3,11 @@ Author: Joe Szalai and raoabid
 Donate link: http://joe.szalai.org
 Tags: comments, spam
 Requires at least: 4.9
-Tested up to: 4.9.8
-Stable tag: 4.9
+Tested up to: 5.0.3
+Stable tag: 5.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20181015
+Version: 20190218
 Plugin URL: https://joe.szalai.org/exopite/exopite-simple-options-framework/
 GitHub URL: https://github.com/JoeSz/Exopite-Simple-Options-Framework
 
@@ -19,6 +19,12 @@ Documentation is still in-progress.
 
 The Framework based on some CodeStar Framework, MetaBox.io code and design. The fields configs desgin also based on CodeStar Framework.
 I created this framework for plugins and metaboxes. Not for Themes. For Themes I recommend CodeStar Framework.
+
+== IMPORTANT ==
+* As 2018-09-11 we have a new hooks name to meet WordPress standards.
+* After multilanguage compatibility the <b>options array did changed.
+  from `unique[field-id]` to `unique[current_lang][field-id]` where:
+  if multilang plugin installed, then the selected language, otherwise WordPress installed language.
 
 == Description ==
 
@@ -194,6 +200,8 @@ Filters
 * exopite_sof_sanitize_value (value, config)
 * exopite_sof_add_field (output, field, config )
 * exopite_sof_meta_get_options (meta_options, unique, post_id )
+* exopite_sof_field_value (value, unique, options, field )
+
 
 Actions
 * exopite_sof_do_save_options (valid, unique)
@@ -211,6 +219,17 @@ Actions
 * exopite_sof_form_meta_after (unique)
 
 == Changelog ==
+
+= 20190218 - 2019-02-18 =
+* Include Trumbowyg localy
+* Some bugfixes (New PHP, WordPress version and Gutenberg)
+
+= 20181122 - 2018-11-22 =
+* Fix name index update on drag drop and delete in gorup field.
+
+= 20181026 - 2018-10-26 =
+* Filter to override save methode. "exopite_sof_field_value"
+* Various bugfiexes.
 
 = 20181015 - 2018-10-15 =
 * Fix TinyMCE is undefinied error in save, if not enqueued.
