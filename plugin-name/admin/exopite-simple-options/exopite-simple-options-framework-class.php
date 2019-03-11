@@ -1706,7 +1706,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				$output .= '<div class="exopite-sof-field exopite-sof-field-' . $field['type'] . $wrap_class . $hidden . '"' . $depend . '>';
 			}
 
-			if ( ! empty( $field['title'] ) ) {
+			if ( isset( $field['title'] ) ) {
 
 				$output .= '<h4 class="exopite-sof-title">';
 
@@ -1776,7 +1776,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			}
 
-			if ( ! empty( $field['title'] ) ) {
+			if ( isset( $field['title'] ) ) {
 				$output .= '</div>';
 			} // exopite-sof-fieldset
 

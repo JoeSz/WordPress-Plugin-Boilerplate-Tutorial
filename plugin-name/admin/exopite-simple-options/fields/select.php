@@ -79,6 +79,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 
 			echo $this->element_before();
 
+			echo $this->element_prepend();
+
 			if ( isset( $this->field['options'] ) || isset( $this->field['query'] ) ) {
 
 				$options    = ( isset( $this->field['options'] ) && is_array( $this->field['options'] ) ) ? $this->field['options'] : array();
@@ -102,6 +104,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_select' ) ) {
 				echo '</select>';
 
 			}
+
+			echo $this->element_append();
 
 			echo $this->element_after();
 

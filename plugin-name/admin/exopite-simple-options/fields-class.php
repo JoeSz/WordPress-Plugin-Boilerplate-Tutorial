@@ -82,8 +82,59 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Fields' ) ) {
 
 		}
 
+		public function element_prepend() {
+
+			$out = '';
+
+			if ( isset( $this->field['prepend'] ) || isset( $this->field['append'] ) ) {
+				$out .= '<span class="exopite-sof-form-field exopite-sof-form-field-input">';
+			}
+
+			if ( isset( $this->field['prepend'] ) ) {
+
+				$out .= '<span class="input-prepend">';
+
+				if ( strpos( $this->field['prepend'], 'fa-' ) !== false ) {
+					$out .= '<i class="fa ' . $this->field['prepend'] . '" aria-hidden="true"></i>';
+				} elseif ( strpos( $this->field['prepend'], 'dashicons' ) !== false ) {
+					$out .= '<span class="dashicons ' . $this->field['prepend'] . '"></span>';
+				} else {
+					$out .= $this->field['prepend'];
+				}
+
+				$out .= '</span>';
+			}
+
+			return $out;
+		}
+
+		public function element_append() {
+
+			$out = '';
+
+			if ( isset( $this->field['append'] ) ) {
+				$out .= '<span class="input-append">';
+
+				if ( strpos( $this->field['append'], 'fa-' ) !== false ) {
+					$out .= '<i class="fa ' . $this->field['append'] . '" aria-hidden="true"></i>';
+				} elseif ( strpos( $this->field['append'], 'dashicons' ) !== false ) {
+					$out .= '<span class="dashicons ' . $this->field['append'] . '"></span>';
+				} else {
+					$out .= $this->field['append'];
+				}
+
+				$out .= '</span>';
+			}
+
+			if ( isset( $this->field['prepend'] ) || isset( $this->field['append'] ) ) {
+				$out .= '</span>';
+			}
+
+			return $out;
+		}
+
 		public function element_help() {
-			return ( isset( $this->field['help'] ) ) ? '<span class="exopite-sof-help" title="' . $this->field['help'] . '" data-title="' . $this->field['help'] . '"><span class="fa fa-question-circle"></span></span>' : '';
+			return ( isset( $this->field['help'] ) ) ? '<span class="exopite-sof-help" title="' . $this->field['help'] . '" data-title="' . $this->field['help'] . '"><span class="fa fa-question"></span></span>' : '';
 		}
 
 		public function element_type() {

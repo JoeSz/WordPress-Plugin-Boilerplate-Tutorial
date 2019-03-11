@@ -6,7 +6,7 @@
         $( '.exopite-sof-field-select ').find( 'select.chosen' ).each(function(index, el) {
             $( el ).chosen({
                 disable_search_threshold: 15,
-                width: '300px',
+                width: '375px',
                 allow_single_deselect: true
             });
         });

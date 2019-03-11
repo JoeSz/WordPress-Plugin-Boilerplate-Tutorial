@@ -606,7 +606,6 @@ if (typeof throttle !== "function") {
             });
 
         },
-
         updateNameIndex: function () {
 
             var fieldParentName = this.$element.find('.exopite-sof-cloneable__wrapper').data('name').replace("[REPLACEME]", "");
@@ -741,7 +740,7 @@ if (typeof throttle !== "function") {
             this.updateNameIndex();
 
             // If has choosen, initilize it.
-            if ($.fn.chosen) $group.find("select.chosen").chosen({ width: "300px" });
+            if ($.fn.chosen) $group.find("select.chosen").chosen({ width: "375px" });
 
             // If has date picker, initilize it.
             $cloned.find('.datepicker').each(function (index, el) {

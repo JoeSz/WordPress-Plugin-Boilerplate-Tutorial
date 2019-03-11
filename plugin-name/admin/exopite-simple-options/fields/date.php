@@ -20,6 +20,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_date' ) ) {
 			$classes     = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 
 			echo $this->element_before();
+
+			echo $this->element_prepend();
+
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
 				echo '<input type="date" ';
 			} else {
@@ -34,6 +37,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_date' ) ) {
 				echo 'data-format="' . $date_format . '"';
 			}
 			echo '>';
+
+			echo $this->element_append();
+
 			echo $this->element_after();
 
 		}

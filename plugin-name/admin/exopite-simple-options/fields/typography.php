@@ -118,39 +118,45 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 				$self->include_field_class( array( 'type' => 'color' ) );
 				$self->enqueue_field_class( array( 'type' => 'color' ) );
 
-				$field = array(
+				$field_size = array(
 					'id'      => 'size',
                     'type'    => 'number',
                     'default' =>  ( isset( $this->field['default']['size'] ) ) ? $this->field['default']['size'] : '',
-					'before'  => 'Size ',
+					// 'before'  => 'Size ',
 					'pseudo'  => true,
 					'class' => 'font-size-js',
+					'prepend' => 'fa-arrows-v',
+					'append' => 'px',
                 );
 
-				echo $self->add_field( $field, $value['size'] );
-
-				$field = array(
+				$field_height = array(
 					'id'      => 'height',
                     'type'    => 'number',
                     'default' =>  ( isset( $this->field['default']['height'] ) ) ? $this->field['default']['height'] : '',
-					'before'  => 'Height ',
+					// 'before'  => 'Height ',
+					'prepend' => 'fa-arrows-v',
+					'append' => 'px',
 					'pseudo'  => true,
 					'class' => 'line-height-js',
                 );
 
-				echo $self->add_field( $field, $value['height'] );
-
-				$field = array(
+				$field_color = array(
 					'id'      => 'color',
                     'type'    => 'color',
                     'rgba'   => true,
                     'default' =>  ( isset( $this->field['default']['color'] ) ) ? $this->field['default']['color'] : '',
-					'before'  => 'Color ',
+					// 'before'  => 'Color ',
 					'pseudo'  => true,
 					'class' => 'font-color-js',
                 );
 
-				echo $self->add_field( $field, $value['color'] );
+				echo '<div>';
+				echo $self->add_field( $field_size, $value['size'] );
+				echo $self->add_field( $field_height, $value['height'] );
+				echo '</div>';
+				echo '<div>';
+				echo $self->add_field( $field_color, $value['color'] );
+				echo '</div>';
 
 				/**
 				 * Font Preview
