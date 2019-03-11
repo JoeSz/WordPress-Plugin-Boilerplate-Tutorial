@@ -361,6 +361,14 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
+                    'id'      => 'text_ap',
+                    'type'    => 'text',
+                    'title'   => 'Text',
+                    'prepend' => 'fa-font',
+                    'append'  => 'Char',
+                ),
+
+                array(
                     'id'     => 'password_1',
                     'type'   => 'password',
                     'title'  => 'Password',
@@ -417,6 +425,7 @@ class Plugin_Name_Admin {
                     'title'  => 'Date ISO',
                     'format' => 'yy-mm-dd',
                     'class'  => 'datepic-class',
+                    'prepend' => 'fa-calendar',
                 ),
 
                 array(
@@ -532,6 +541,22 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
+                    'id'             => 'select_7',
+                    'type'           => 'select',
+                    'title'          => 'Select Chosen',
+                    'options'        => array(
+                        'bmw'          => 'BMW',
+                        'mercedes'     => 'Mercedes',
+                        'volkswagen'   => 'Volkswagen',
+                        'other'        => 'Other',
+                    ),
+                    'default_option' => 'Select your favorite car',
+                    'default'     => 'bmw',
+                    'class'       => 'chosen',
+                    'prepend' => 'dashicons-arrow-down-alt',
+                ),
+
+                array(
                     'id'             => 'select_2',
                     'type'           => 'select',
                     'title'          => 'Select Chosen',
@@ -544,6 +569,7 @@ class Plugin_Name_Admin {
                     'default_option' => 'Select your favorite car',
                     'default'     => 'bmw',
                     'class'       => 'chosen',
+                    'append' => 'dashicons-admin-tools',
                 ),
 
                 array(
@@ -820,8 +846,8 @@ class Plugin_Name_Admin {
                     'default' => array(
                         'family'    =>'Arial Black',
                         'variant'   =>'600',
-                        'size'      => 10,
-                        'height'    => 16,
+                        'size'      => 16,
+                        'height'    => 24,
                         'color'     => '#000000',
                     ),
                     'preview' => true,
