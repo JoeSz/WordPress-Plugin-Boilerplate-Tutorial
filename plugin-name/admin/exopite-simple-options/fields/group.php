@@ -67,7 +67,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 			echo $this->element_before();
 
-			// $unallows  = array( 'tab' );
 			$unallows  = array( 'group', 'tab' );
 			$fields    = array_values( $this->field['fields'] );
 			$unique_id = ( ! empty( $this->unique ) ) ? $this->unique : $this->field['id'];
@@ -246,9 +245,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				} else {
 
-					$data_multilang = ( $this->config['multilang'] ) ? true : false;
-
-					echo '<div class="exopite-sof-cloneable__wrapper exopite-sof-accordion__wrapper" data-multilang="' . $data_multilang . '" data-sortable="' . $sortable . '" data-name="' . $base_id['id'] . '">';
+					echo '<div class="exopite-sof-cloneable__wrapper exopite-sof-accordion__wrapper" data-sortable="' . $sortable . '" data-name="' . $base_id['id'] . '">';
 
 				}
 

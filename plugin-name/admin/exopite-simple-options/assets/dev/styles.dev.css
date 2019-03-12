@@ -2488,6 +2488,9 @@ input:disabled + .switch__toggle {
     width: 29px;
     background: #fff;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 input[type="color"] {
     height: 31px;
@@ -2585,6 +2588,9 @@ input[type="color"] {
     line-height: 29px;
     color: #888;
     padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .exopite-sof-form-field .input-prepend {
     border-right: none;
@@ -2593,5 +2599,13 @@ input[type="color"] {
     border-left: none;
 }
 .exopite-sof-wrapper .exopite-sof-fieldset .dashicons {
-    line-height: 29px;
+    /* line-height: 29px; */
+}
+.exopite-sof-fieldset input.disabled,
+.exopite-sof-fieldset input:disabled,
+.exopite-sof-fieldset select.disabled,
+.exopite-sof-fieldset select:disabled,
+.exopite-sof-fieldset textarea.disabled,
+.exopite-sof-fieldset textarea:disabled {
+    background: #ddd;
 }

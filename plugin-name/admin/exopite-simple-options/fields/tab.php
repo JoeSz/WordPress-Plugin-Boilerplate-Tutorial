@@ -37,13 +37,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 
 				reset( $tabs );
 				$tab_active = ( $key === key( $tabs ) ) ? ' checked="checked"' : '';
-				$equal_width = ( isset( $this->field['options']['equal_width'] ) ) ? ' equal-width' : '';
+				$equal_width = ( isset( $this->field['options']['equal_width'] ) && $this->field['options']['equal_width'] ) ? ' equal-width' : '';
 
 				/**
 				 * @link https://codepen.io/mikestreety/pen/yVNNNm
 				 */
 
-				echo '<input name="tabs" type="radio" id="' . $tab_id . '" class="input"' . $tab_active . '>';
+				echo '<input name="' . $this->field['id'] . '" type="radio" id="' . $tab_id . '" class="input"' . $tab_active . '>';
 				echo '<label for="' . $tab_id . '" class="label' . $equal_width . '">' . $tab['title'] . '</label>';
 				echo '<div class="tab">';
 
