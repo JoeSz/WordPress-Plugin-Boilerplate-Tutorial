@@ -78,6 +78,7 @@ class Plugin_Name_Post_Types {
             'menu_position'      => ( isset( $fields['menu_position'] ) ) ? $fields['menu_position'] : 21,
             'menu_icon'          => ( isset( $fields['menu_icon'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
             'show_in_nav_menus'  => ( isset( $fields['show_in_nav_menus'] ) ) ? $fields['show_in_nav_menus'] : true,
+            'show_in_rest'       => ( isset( $fields['show_in_rest'] ) ) ? $fields['show_in_rest'] : true,
         );
 
         if ( isset( $fields['rewrite'] ) ) {
