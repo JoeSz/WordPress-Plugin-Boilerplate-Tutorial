@@ -231,109 +231,45 @@ class Plugin_Name_Admin {
 
         );
 
+        /**
+         * Available fields:
+         * - ACE field
+         * - attached
+         * - backup
+         * - button
+         * - button_bar
+         * - card
+         * - checkbox
+         * - color
+         * - content
+         * - date
+         * - editor
+         * - group
+         * - hidden
+         * - image
+         * - image_select
+         * - meta
+         * - notice
+         * - number
+         * - password
+         * - radio
+         * - range
+         * - select
+         * - switcher
+         * - tab
+         * - tap_list
+         * - text
+         * - textarea
+         * - typography
+         * - upload
+         * - video mp4/oembed
+         */
+
         $fields[] = array(
-            'name'   => 'first',
-            'title'  => 'First',
+            'name'   => 'basic',
+            'title'  => 'Basic',
             'icon'   => 'dashicons-admin-generic',
             'fields' => array(
-
-                /**
-                 * Available fields:
-                 * - ACE field
-                 * - attached
-                 * - backup
-                 * - button
-                 * - button_bar
-                 * - card
-                 * - checkbox
-                 * - color
-                 * - content
-                 * - date
-                 * - editor
-                 * - group
-                 * - hidden
-                 * - image
-                 * - image_select
-                 * - meta
-                 * - notice
-                 * - number
-                 * - password
-                 * - radio
-                 * - range
-                 * - select
-                 * - switcher
-                 * - tab
-                 * - tap_list
-                 * - text
-                 * - textarea
-                 * - typography
-                 * - upload
-                 * - video mp4/oembed
-                 *
-                 * Add your fields, eg.:
-                 */
-
-                array(
-                    'id'      => 'ace_editor_1',
-                    'type'    => 'ace_editor',
-                    'title'   => 'ACE Editor',
-                    'options' => array(
-                        'theme'                     => 'ace/theme/chrome',
-                        'mode'                      => 'ace/mode/javascript',
-                        'showGutter'                => true,
-                        'showPrintMargin'           => true,
-                        'enableBasicAutocompletion' => true,
-                        'enableSnippets'            => true,
-                        'enableLiveAutocompletion'  => true,
-                    ),
-                    'attributes'    => array(
-                        'style'        => 'height: 300px; max-width: 700px;',
-                    ),
-                ),
-
-                array(
-                    'id'            => 'video_1',
-                    'type'          => 'video',
-                    'title'         => 'Video oEmbed',
-                    // 'default'       => '/wp-content/uploads/2018/01/video.mp4',
-                    // - OR for oEmbed: -
-                    'default'       => 'https://www.youtube.com/watch?v=KujZ__rrs0k',
-                    'info'          => 'oEmbed',
-                    'attributes'    => array(
-                        'placeholder'   => 'oEmbed',
-                    ),
-                    'options'       => array(
-                        'input'         => false,
-                        'oembed'        => true,
-                    ),
-                ),
-
-                array(
-                    'id'      => 'upload_1',
-                    'type'    => 'upload',
-                    'title'   => 'Upload',
-                    'options' => array(
-                        'attach'                    => true, // attach to post (only in metabox)
-                        'filecount'                 => '101',
-                        // 'allowed'                   => array( 'png', 'jpeg' ),
-                        // 'delete-enabled'            => false,
-                        // 'delete-force-confirm'      => true,
-                        // 'retry-enable-auto'         => true,
-                        // 'retry-max-auto-attempts'   => 3,
-                        // 'retry-auto-attempt-delay'  => 3,
-                        // 'auto-upload'               => false,
-                    ),
-                ),
-
-                array(
-                    'id'      => 'attached_1',
-                    'type'    => 'attached',
-                    'title'   => 'Attached',
-                    'options' => array(
-                        'type' => '', // attach to post (only in metabox)
-                    ),
-                ),
-
 
                 array(
                     'type'    => 'notice',
@@ -348,16 +284,28 @@ class Plugin_Name_Admin {
                     'before'      => 'Text Before',
                     'after'       => 'Text After',
                     'class'       => 'text-class',
-                    'attributes'  => 'data-test="test"',
                     'description' => 'Description',
                     'default'     => 'Default Text',
                     'attributes'    => array(
                        'rows'        => 10,
                        'cols'        => 5,
                        'placeholder' => 'do stuff',
+                       'data-test'   => 'test',
+
                     ),
                     'help'        => 'Help text',
 
+                ),
+
+                array(
+                    'id'     => 'test_disabled',
+                    'type'   => 'text',
+                    'title'  => 'Disabled',
+                    'attributes'     => array(
+                    'placeholder' => 'This is a diabled element',
+                    'disabled'    => 'disabled',
+
+                    ),
                 ),
 
                 array(
@@ -374,6 +322,207 @@ class Plugin_Name_Admin {
                     'title'  => 'Password',
                 ),
 
+
+
+                array(
+                    'type'    => 'content',
+                    'wrap_class'   => 'no-border-bottom', // for all fieds
+                    'title'   => 'Content Title',
+                    'content' => 'You can "group" element together, by adding the class <code>no-border-bottom</code> to the <code>wrap_class</code>.',
+                    'before' => 'Before Text',
+                    'after'  => 'After Text',
+                ),
+
+                array(
+                    'id'    => 'image_1',
+                    'type'  => 'image',
+                    'title' => 'Image',
+                ),
+
+
+                array(
+                    'id'      => 'switcher_1',
+                    'type'    => 'switcher',
+                    'title'   => 'Switcher',
+                    'label'   => 'You want to do this?',
+                    'default' => 'yes',
+                ),
+
+
+                array(
+                    'id'      => 'hidden_1',
+                    'type'    => 'hidden',
+                    'default' => 'hidden',
+                ),
+
+                array(
+                    'id'    => 'checkbox_1',
+                    'type'  => 'checkbox',
+                    'title' => 'Checkbox',
+                    'label' => 'Did you like this framework ?',
+                    'after' => '<i>If you check this and the other checkbox, a text field will appier.</i>'
+                ),
+
+                array(
+                    'id'    => 'checkbox_2',
+                    'type'  => 'checkbox',
+                    'title' => 'Checkbox Fancy',
+                    'label' => 'Do you want to do this?',
+                    'style'    => 'fancy',
+                ),
+
+                array(
+                    'id'     => 'text_2',
+                    'type'   => 'text',
+                    'title'  => 'Text Test Dependency',
+                    'dependency' => array( 'checkbox_1|checkbox_2', '==|==', 'true|true' ),
+                    'attributes'    => array(
+                        'placeholder' => 'Dependency test',
+                    ),
+                ),
+
+                array(
+                  'id'      => 'radio_1',
+                  'type'    => 'radio',
+                  'title'   => 'Radio',
+                  'options' => array(
+                    'yes'   => 'Yes, Please.',
+                    'no'    => 'No, Thank you.',
+                  ),
+                  'default' => 'no',
+                ),
+
+                array(
+                  'id'      => 'radio_2',
+                  'type'    => 'radio',
+                  'title'   => 'Radio Fancy',
+                  'options' => array(
+                    'yes'   => 'Yes, Please.',
+                    'no'    => 'No, Thank you.',
+                  ),
+                  'default' => 'no',
+                  'style'    => 'fancy',
+                ),
+
+                array(
+                    'id'      => 'test_unknown_1',
+                    'type'    => 'test_unknown_type',
+                    'title'   => 'Test Unknown Element',
+                ),
+
+                array(
+                    'id'        => 'image_select_1',
+                    'type'      => 'image_select',
+                    'title'     => 'Image Select Radio',
+                    'options'   => array(
+                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
+                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
+                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
+                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
+                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
+                    ),
+                    'radio'        => true,
+                    'default'      => 'value-5',
+                ),
+
+                array(
+                    'id'        => 'image_select_2',
+                    'type'      => 'image_select',
+                    'title'     => 'Image Select Checkbox',
+                    'options'   => array(
+                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
+                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
+                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
+                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
+                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
+                    ),
+                    'default'      => 'value-5',
+                    'description' => 'This is a longer description with <a href="#">link</a> to explain what this field for.<br><i>You can use any HTML here.</i>',
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'attached',
+            'title'  => 'Attached',
+            'icon'   => 'dashicons-images-alt',
+            'fields' => array(
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'warning',
+                    'content' => 'Metabox only in metabox available.',
+                ),
+
+                array(
+                    'id'      => 'attached_1',
+                    'type'    => 'attached',
+                    'title'   => 'Attached',
+                    'options' => array(
+                        'type' => '', // attach to post (only in metabox)
+                    ),
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'backup',
+            'title'  => 'Backup',
+            'icon'   => 'dashicons-backup',
+            'fields' => array(
+
+                array(
+                    'type'    => 'backup',
+                    'title'   => esc_html__( 'Backup', 'exopite-seo-core' ),
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'buttons',
+            'title'  => 'Button',
+            'icon'   => 'fa fa-toggle-on',
+            'fields' => array(
+
+                array(
+                'id'      => 'button_1',
+                'type'    => 'button',
+                'title'   => 'Button',
+                'options' => array(
+                    'href'      => '#',
+                    'target'    => '_self',
+                    'value'     => 'button',
+                    'btn-class' => 'exopite-sof-btn',
+                ),
+                ),
+
+                array(
+                'id'      => 'button_bar_1',
+                'type'    => 'button_bar',
+                'title'   => 'Button bar',
+                'options' => array(
+                    'one'   => 'One',
+                    'two'   => 'Two',
+                    'three' => 'Three',
+                ),
+                'default' => 'two',
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'colors',
+            'title'  => 'Color',
+            'icon'   => 'dashicons-art',
+            'fields' => array(
 
                 array(
                     'id'     => 'color_1',
@@ -395,29 +544,55 @@ class Plugin_Name_Admin {
                     'picker' => 'html5',
                 ),
 
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'contents',
+            'title'  => 'Contents',
+            'icon'   => 'fa fa-align-justify',
+            'fields' => array(
+
                 array(
-                    'id'    => 'image_1',
-                    'type'  => 'image',
-                    'title' => 'Image',
+                    'type'    => 'card',
+                    'class'   => 'class-name', // for all fieds
+                    'title'   => 'Panel Title',
+                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
+                    'header' => 'Header Text',
+                    'footer' => 'Footer Text',
                 ),
 
                 array(
-                    'id'          => 'textarea_1',
-                    'type'        => 'textarea',
-                    'title'       => 'Textarea',
-                    'help'        => 'This option field is useful. &quot;You&quot; will love it! This option field is useful. You will love it!',
-                    'attributes'    => array(
-                        'placeholder' => 'do stuff',
-                    ),
+                    'type'    => 'card',
+                    'class'   => 'class-name', // for all fieds
+                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
                 ),
 
                 array(
-                    'id'      => 'switcher_1',
-                    'type'    => 'switcher',
-                    'title'   => 'Switcher',
-                    'label'   => 'You want to do this?',
-                    'default' => 'yes',
+                    'type'    => 'content',
+                    'class'   => 'class-name', // for all fieds
+                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. </p>',
+
                 ),
+
+                array(
+                    'type'    => 'content',
+                    'class'   => 'class-name', // for all fieds
+                    'title'   => 'Content Title',
+                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
+                    'before' => 'Before Text',
+                    'after'  => 'After Text',
+                ),
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'dates',
+            'title'  => 'Date',
+            'icon'   => 'fa fa-calendar',
+            'fields' => array(
 
                 array(
                     'id'     => 'date_2',
@@ -438,31 +613,6 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'      => 'hidden_1',
-                    'type'    => 'hidden',
-                    'default' => 'hidden',
-                ),
-
-                array(
-                    'id'    => 'checkbox_1',
-                    'type'  => 'checkbox',
-                    'title' => 'Checkbox',
-                    'label' => 'Did you like this framework ?',
-                    'after' => '<i>If you check this and the other checkbox, a text field will appier.</i>'
-                ),
-
-                array(
-                    'id'     => 'text_2',
-                    'type'   => 'text',
-                    'title'  => 'Text Test Dependency',
-                    'dependency' => array( 'checkbox_1|checkbox_2', '==|==', 'true|true' ),
-                    'attributes'    => array(
-                        'placeholder' => 'Dependency test',
-                    ),
-                ),
-
-
-                array(
                     'id'     => 'date_1',
                     'type'   => 'date',
                     'title'  => 'Date',
@@ -471,62 +621,419 @@ class Plugin_Name_Admin {
                     'picker' => 'html5',
                 ),
 
+
+            )
+        );
+
+        $fields[] = array(
+            'title'  => esc_html__( 'Editor', 'exopite-combiner-minifier' ),
+            'icon'   => 'fa fa-paragraph',
+            'name'   => 'editors',
+            'sections' => array(
                 array(
-                  'id'      => 'radio_1',
-                  'type'    => 'radio',
-                  'title'   => 'Radio',
-                  'options' => array(
-                    'yes'   => 'Yes, Please.',
-                    'no'    => 'No, Thank you.',
-                  ),
-                  'default' => 'no',
+                    'title'  => esc_html__( 'ACE Editor', 'exopite-combiner-minifier' ),
+                    'name'   => 'editors1',
+                    'icon'   => 'fa fa-code',
+                    'fields' => array(
+
+
+                        array(
+                            'id'      => 'ace_editor_1',
+                            'type'    => 'ace_editor',
+                            'title'   => 'ACE Editor',
+                            'options' => array(
+                                'theme'                     => 'ace/theme/chrome',
+                                'mode'                      => 'ace/mode/javascript',
+                                'showGutter'                => true,
+                                'showPrintMargin'           => true,
+                                'enableBasicAutocompletion' => true,
+                                'enableSnippets'            => true,
+                                'enableLiveAutocompletion'  => true,
+                            ),
+                            'attributes'    => array(
+                                'style'        => 'height: 300px; max-width: 700px;',
+                            ),
+                        ),
+
+                    ),
                 ),
 
                 array(
-                    'id'    => 'checkbox_2',
-                    'type'  => 'checkbox',
-                    'title' => 'Checkbox Fancy',
-                    'label' => 'Do you want to do this?',
-                    'style'    => 'fancy',
+                    'title'  => esc_html__( 'WYSIWYG Editors', 'exopite-combiner-minifier' ),
+                    'name'   => 'editors2',
+                    'icon'   => 'fa fa-paragraph',
+                    'fields' => array(
+
+                        array(
+                            'id'     => 'editor_1',
+                            'type'   => 'editor',
+                            'title'  => 'Editor TinyMCE',
+                        ),
+
+                        array(
+                            'id'     => 'editor_trumbowyg',
+                            'type'   => 'editor',
+                            'title'  => 'Editor Trumbowyg',
+                            'editor' => 'trumbowyg',
+                        ),
+
+                    ),
                 ),
 
                 array(
-                  'id'      => 'radio_2',
-                  'type'    => 'radio',
-                  'title'   => 'Radio Fancy',
-                  'options' => array(
-                    'yes'   => 'Yes, Please.',
-                    'no'    => 'No, Thank you.',
-                  ),
-                  'default' => 'no',
-                  'style'    => 'fancy',
+                    'title'  => esc_html__( 'Textarea', 'exopite-combiner-minifier' ),
+                    'name'   => 'editors3',
+                    'icon'   => 'dashicons-text',
+                    'fields' => array(
+
+                        array(
+                            'id'          => 'textarea_1',
+                            'type'        => 'textarea',
+                            'title'       => 'Textarea',
+                            'attributes'    => array(
+                                'placeholder' => 'do stuff',
+                            ),
+                        ),
+
+
+                    ),
+                ),
+
+            ),
+
+        );
+
+        $fields[] = array(
+            'name'   => 'groups',
+            'title'  => 'Group',
+            'icon'   => 'fa fa-object-ungroup',
+            'fields' => array(
+
+                array(
+                    'type'    => 'group',
+                    'id'      => 'group_1',
+                    'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => true,
+                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                        'sortable'          => true,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'text_group',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'switcher_group',
+                            'type'    => 'switcher',
+                            'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                            'default' => 'yes',
+                        ),
+
+                        array(
+                            'id'             => 'emails_group_callback',
+                            'type'           => 'select',
+                            'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
+                            'query'          => array(
+                                'type'          => 'callback',
+                                'function'      => array( $this, 'get_all_emails' ),
+                                'args'          => array() // WordPress query args
+                            ),
+                            'attributes' => array(
+                                'multiple' => 'multiple',
+                                'style'    => 'width: 200px; height: 56px;',
+                            ),
+                            'class'       => 'chosen',
+                        ),
+
+                        array(
+                            'id'      => 'textarea_group',
+                            'type'    => 'textarea',
+                            'class'   => 'some-class',
+                            'title'   => esc_html__( 'Textarea', 'plugin-name' ),
+                            'default' => esc_html__( 'Some text', 'plugin-name' ),
+                            'after'   => '<mute>' . esc_html__( 'Some info: ', 'plugin-name' ) . '</mute>',
+                        ),
+
+                        array(
+                            'id'     => 'editor_tinymce_group',
+                            'type'   => 'editor',
+                            'title'  => 'Editor TinyMCE',
+                        ),
+
+                        array(
+                            'id'     => 'editor_trumbowyg_group',
+                            'type'   => 'editor',
+                            'title'  => 'Editor Trumbowyg',
+                            'editor' => 'trumbowyg',
+                        ),
+
+                    ),
+
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'numbers',
+            'title'  => 'Number',
+            'icon'   => 'fa fa-sliders',
+            'fields' => array(
+
+                array(
+                    'id'      => 'number_1',
+                    'type'    => 'number',
+                    'title'   => 'Number',
+                    'default' => '10',
+                    // 'unit'    => '$',
+                    'after'   => ' <i class="text-muted">$ (dollars)</i>',
+                    'min'     => '2',
+                    'max'     => '20',
+                    'step'    => '2',
                 ),
 
                 array(
-                  'id'      => 'button_1',
-                  'type'    => 'button',
-                  'title'   => 'Button',
-                  'options' => array(
-                    'href'      => '#',
-                    'target'    => '_self',
-                    'value'     => 'button',
-                    'btn-class' => 'exopite-sof-btn',
-                  ),
+                    'id'      => 'range_1',
+                    'type'    => 'range',
+                    'title'   => 'range',
+                    'default' => '10',
+                    // 'unit'    => '$',
+                    'after'   => ' <i class="text-muted">$ (dollars)</i>',
+                    'min'     => '2',
+                    'max'     => '20',
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'tab',
+            'title'  => 'Tab',
+            'icon'   => 'fa fa-folder',
+            'fields' => array(
+
+                array(
+                    'id'          => 'tabbed_1',
+                    'type'        => 'tab',
+                    'title'       => esc_html__( 'Tab', 'plugin-name' ),
+                    'options'     => array(
+                        'equal_width' => true,
+                    ),
+                    'tabs'        => array(
+
+                        array(
+                            'title'  => esc_html__( 'Tab 1', 'plugin-name' ),
+                            'icon'   => 'fa fa-star',
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_1_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 1 Text 1', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'      => 'ace_editor_2',
+                                    'type'    => 'ace_editor',
+                                    'title'   => esc_html__( 'Tab 1 ACE Editor 1', 'plugin-name' ),
+                                    'options' => array(
+                                        'theme'                     => 'ace/theme/chrome',
+                                        'mode'                      => 'ace/mode/javascript',
+                                        'showGutter'                => true,
+                                        'showPrintMargin'           => true,
+                                        'enableBasicAutocompletion' => true,
+                                        'enableSnippets'            => true,
+                                        'enableLiveAutocompletion'  => true,
+                                    ),
+                                    'attributes'    => array(
+                                        'style'        => 'height: 300px; max-width: 700px;',
+                                    ),
+                                ),
+
+                            ),
+                        ),
+
+                        array(
+                            'title'  => esc_html__( 'Tab 2', 'plugin-name' ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_2_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'tab_3_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
                 ),
 
                 array(
-                  'id'      => 'button_bar_1',
-                  'type'    => 'button_bar',
-                  'title'   => 'Button bar',
-                  'options' => array(
-                    'one'   => 'One',
-                    'two'   => 'Two',
-                    'three' => 'Three',
-                  ),
-                  'default' => 'two',
+                    'id'          => 'tabbed_2',
+                    'type'        => 'tab',
+                    'title'       => esc_html__( 'Tab Same Width', 'plugin-name' ),
+                    'options'     => array(
+                        'equal_width' => false,
+                    ),
+                    'tabs'        => array(
+
+                        array(
+                            'title'  => esc_html__( 'Tab 3', 'plugin-name' ),
+                            'icon'   => 'fa fa-star',
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_4_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 3 Text 1', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'      => 'ace_editor_3',
+                                    'type'    => 'ace_editor',
+                                    'title'   => esc_html__( 'Tab 3 ACE Editor 1', 'plugin-name' ),
+                                    'options' => array(
+                                        'theme'                     => 'ace/theme/chrome',
+                                        'mode'                      => 'ace/mode/javascript',
+                                        'showGutter'                => true,
+                                        'showPrintMargin'           => true,
+                                        'enableBasicAutocompletion' => true,
+                                        'enableSnippets'            => true,
+                                        'enableLiveAutocompletion'  => true,
+                                    ),
+                                    'attributes'    => array(
+                                        'style'        => 'height: 300px; max-width: 700px;',
+                                    ),
+                                ),
+
+                            ),
+                        ),
+
+                        array(
+                            'title'  => esc_html__( 'Tab 4', 'plugin-name' ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tab_5_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 4 Text 1', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'tab_6_text',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 4 Text 1', 'plugin-name' ),
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
                 ),
 
-               array(
+
+            )
+        );
+
+       $fields[] = array(
+            'name'   => 'tap_lists',
+            'title'  => 'Tap List',
+            'icon'   => 'fa fa-hand-pointer-o',
+            'fields' => array(
+
+
+                array(
+                    'id'        => 'tap_list_1',
+                    'type'      => 'tap_list',
+                    'title'     => 'Tap list Radio',
+                    'options'   => array(
+                        'value-1' => 'First',
+                        'value-2' => 'Second',
+                        'value-3' => 'Third',
+                        'value-4' => 'Forth',
+                        'value-5' => 'Fifth',
+                    ),
+                    'radio'        => true,
+                    'default'      => 'value-3',
+                ),
+
+                array(
+                    'id'        => 'tap_list_2',
+                    'type'      => 'tap_list',
+                    'title'     => 'Tap list Checkbox',
+                    'options'   => array(
+                        'value-1' => 'First',
+                        'value-2' => 'Second',
+                        'value-3' => 'Third',
+                        'value-4' => 'Forth',
+                        'value-5' => 'Fifth',
+                    ),
+                    'default'      => array(
+                        'value-2',
+                        'value-3'
+                    ),
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'typography_section',
+            'title'  => 'Typography',
+            'icon'   => 'fa fa-font',
+            'fields' => array(
+
+                array(
+                    'id'      => 'typography_1',
+                    'type'    => 'typography',
+                    'title'   => esc_html__( 'Typography', 'exopite-combiner-minifier' ),
+                    'default' => array(
+                        'family'    =>'Arial Black',
+                        'variant'   =>'600',
+                        'size'      => 16,
+                        'height'    => 24,
+                        'color'     => '#000000',
+                    ),
+                    'preview' => true,
+                ),
+
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'selects',
+            'title'  => 'Select',
+            'icon'   => 'fa fa-list-ul',
+            'fields' => array(
+
+                array(
                     'id'             => 'select_1',
                     'type'           => 'select',
                     'title'          => 'Select',
@@ -626,8 +1133,8 @@ class Plugin_Name_Admin {
 
                 /**
                  * Options via callback function,
-                 * options settings will be ignored
-                 */
+                * options settings will be ignored
+                */
                 array(
                     'id'             => 'select_6',
                     'type'           => 'select',
@@ -640,330 +1147,79 @@ class Plugin_Name_Admin {
                 ),
 
 
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'video',
+            'title'  => 'Video',
+            'icon'   => 'fa fa-youtube-play',
+            'fields' => array(
 
                 array(
-                    'type'    => 'card',
-                    'class'   => 'class-name', // for all fieds
-                    'title'   => 'Panel Title',
-                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
-                    'header' => 'Header Text',
-                    'footer' => 'Footer Text',
-                ),
-
-                array(
-                    'type'    => 'card',
-                    'class'   => 'class-name', // for all fieds
-                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
-                ),
-
-                array(
-                    'type'    => 'content',
-                    'class'   => 'class-name', // for all fieds
-                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. </p>',
-
-                ),
-
-                array(
-                    'type'    => 'content',
-                    'class'   => 'class-name', // for all fieds
-                    'title'   => 'Content Title',
-                    'content' => '<p>Etiam consectetur commodo ullamcorper. Donec quis diam nulla. Maecenas at mi molestie ex aliquet dignissim a in tortor. Sed in nisl ac mi rutrum feugiat ac sed sem. Nullam tristique ex a tempus volutpat. Sed ut placerat nibh, a iaculis risus. Aliquam sit amet erat vel nunc feugiat viverra. Mauris aliquam arcu in dolor volutpat, sed tempor tellus dignissim.</p><p>Quisque nec lectus vitae velit commodo condimentum ut nec mi. Cras ut ultricies dui. Nam pretium <a href="#">rutrum eros</a> ac facilisis. Morbi vulputate vitae risus ac varius. Quisque sed accumsan diam. Sed elementum eros lectus, et egestas ante hendrerit eu. Proin porta, enim nec dignissim commodo, odio orci maximus tortor, iaculis congue felis velit sed lorem. </p>',
-                    'before' => 'Before Text',
-                    'after'  => 'After Text',
-                ),
-
-
-                array(
-                    'id'      => 'test_unknown_1',
-                    'type'    => 'test_unknown_type',
-                    'title'   => 'Test Unknown Element',
-                ),
-
-                array(
-                    'id'     => 'editor_1',
-                    'type'   => 'editor',
-                    'title'  => 'Editor TinyMCE',
-                ),
-
-                array(
-                    'id'     => 'editor_trumbowyg',
-                    'type'   => 'editor',
-                    'title'  => 'Editor Trumbowyg',
-                    'editor' => 'trumbowyg',
-                ),
-
-                array(
-                    'id'      => 'number_1',
-                    'type'    => 'number',
-                    'title'   => 'Number',
-                    'default' => '10',
-                    // 'unit'    => '$',
-                    'after'   => ' <i class="text-muted">$ (dollars)</i>',
-                    'min'     => '2',
-                    'max'     => '20',
-                    'step'    => '2',
-                ),
-
-                array(
-                    'id'      => 'range_1',
-                    'type'    => 'range',
-                    'title'   => 'range',
-                    'default' => '10',
-                    // 'unit'    => '$',
-                    'after'   => ' <i class="text-muted">$ (dollars)</i>',
-                    'min'     => '2',
-                    'max'     => '20',
-                ),
-
-                array(
-                    'id'          => 'tabbed_1',
-                    'type'        => 'tab',
-                    'title'       => esc_html__( 'Tab', 'plugin-name' ),
-                    'equal_width' => true,
-                    'tabs'        => array(
-
-                        array(
-                            'title'  => esc_html__( 'Tab 1', 'plugin-name' ),
-                            'icon'   => 'fa fa-star',
-                            'fields' => array(
-
-                                array(
-                                    'id'    => 'tab_1_text',
-                                    'type'  => 'text',
-                                    'title' => esc_html__( 'Tab 1 Text', 'plugin-name' ),
-                                ),
-
-                                array(
-                                    'id'      => 'ace_editor_2',
-                                    'type'    => 'ace_editor',
-                                    'title'   => esc_html__( 'Tab ACE Editor', 'plugin-name' ),
-                                    'options' => array(
-                                        'theme'                     => 'ace/theme/chrome',
-                                        'mode'                      => 'ace/mode/javascript',
-                                        'showGutter'                => true,
-                                        'showPrintMargin'           => true,
-                                        'enableBasicAutocompletion' => true,
-                                        'enableSnippets'            => true,
-                                        'enableLiveAutocompletion'  => true,
-                                    ),
-                                    'attributes'    => array(
-                                        'style'        => 'height: 300px; max-width: 700px;',
-                                    ),
-                                ),
-
-                            ),
-                        ),
-
-                        array(
-                            'title'  => esc_html__( 'Tab 2', 'plugin-name' ),
-                            'fields' => array(
-
-                                array(
-                                    'id'    => 'tab_2_text',
-                                    'type'  => 'text',
-                                    'title' => esc_html__( 'Tab 2 Text', 'plugin-name' ),
-                                ),
-
-                                array(
-                                    'id'    => 'tab_3_text',
-                                    'type'  => 'text',
-                                    'title' => esc_html__( 'Tab 3 Text', 'plugin-name' ),
-                                ),
-
-                            ),
-
-                        ),
-
+                    'id'            => 'video_1',
+                    'type'          => 'video',
+                    'title'         => 'Video oEmbed',
+                    // 'default'       => '/wp-content/uploads/2018/01/video.mp4',
+                    // - OR for oEmbed: -
+                    'default'       => 'https://www.youtube.com/watch?v=KujZ__rrs0k',
+                    'info'          => 'oEmbed',
+                    'attributes'    => array(
+                        'placeholder'   => 'oEmbed',
                     ),
-
-                ),
-
-                array(
-                    'id'        => 'tap_list_1',
-                    'type'      => 'tap_list',
-                    'title'     => 'Tap list Radio',
-                    'options'   => array(
-                        'value-1' => 'First',
-                        'value-2' => 'Second',
-                        'value-3' => 'Third',
-                        'value-4' => 'Forth',
-                        'value-5' => 'Fifth',
-                    ),
-                    'radio'        => true,
-                    'default'      => 'value-3',
-                ),
-
-                array(
-                    'id'        => 'tap_list_2',
-                    'type'      => 'tap_list',
-                    'title'     => 'Tap list Checkbox',
-                    'options'   => array(
-                        'value-1' => 'First',
-                        'value-2' => 'Second',
-                        'value-3' => 'Third',
-                        'value-4' => 'Forth',
-                        'value-5' => 'Fifth',
-                    ),
-                    'default'      => array(
-                        'value-2',
-                        'value-3'
+                    'options'       => array(
+                        'input'         => false,
+                        'oembed'        => true,
                     ),
                 ),
 
                 array(
-                    'id'        => 'image_select_1',
-                    'type'      => 'image_select',
-                    'title'     => 'Image Select Radio',
-                    'options'   => array(
-                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
-                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
-                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
-                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
-                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
+                    'id'            => 'video_2',
+                    'type'          => 'video',
+                    'title'         => 'Video oEmbed',
+                    // 'default'       => '/wp-content/uploads/2018/01/video.mp4',
+                    // - OR for oEmbed: -
+                    'default'       => 'https://www.youtube.com/watch?v=KujZ__rrs0k',
+                    'info'          => 'oEmbed',
+                    'attributes'    => array(
+                        'placeholder'   => 'oEmbed',
                     ),
-                    'radio'        => true,
-                    'default'      => 'value-5',
+                    'options'       => array(
+                        'input'         => true,
+                        'oembed'        => true,
+                    ),
                 ),
 
-                array(
-                    'id'        => 'image_select_2',
-                    'type'      => 'image_select',
-                    'title'     => 'Image Select Checkbox',
-                    'options'   => array(
-                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
-                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
-                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
-                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
-                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
-                    ),
-                    'default'      => 'value-5',
-                ),
+
+            )
+        );
+
+        $fields[] = array(
+            'name'   => 'upload',
+            'title'  => 'Upload',
+            'icon'   => 'fa fa-upload',
+            'fields' => array(
+
 
                 array(
-                    'id'      => 'typography_1',
-                    'type'    => 'typography',
-                    'title'   => esc_html__( 'Typography', 'exopite-combiner-minifier' ),
-                    'default' => array(
-                        'family'    =>'Arial Black',
-                        'variant'   =>'600',
-                        'size'      => 16,
-                        'height'    => 24,
-                        'color'     => '#000000',
-                    ),
-                    'preview' => true,
-                ),
-
-                array(
-                    'type'    => 'group',
-                    'id'      => 'group_1',
-                    'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
+                    'id'      => 'upload_1',
+                    'type'    => 'upload',
+                    'title'   => 'Upload',
                     'options' => array(
-                        'repeater'          => true,
-                        'accordion'         => true,
-                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
-                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
-                        'limit'             => 50,
-                        'sortable'          => true,
+                        'attach'                    => true, // attach to post (only in metabox)
+                        'filecount'                 => '101',
+                        // 'allowed'                   => array( 'png', 'jpeg' ),
+                        // 'delete-enabled'            => false,
+                        // 'delete-force-confirm'      => true,
+                        // 'retry-enable-auto'         => true,
+                        // 'retry-max-auto-attempts'   => 3,
+                        // 'retry-auto-attempt-delay'  => 3,
+                        // 'auto-upload'               => false,
                     ),
-                    'fields'  => array(
-
-                        array(
-                            'id'      => 'text_group',
-                            'type'    => 'text',
-                            'title'   => esc_html__( 'Text', 'plugin-name' ),
-                            'attributes' => array(
-                                // mark this field az title, on type this will change group item title
-                                'data-title' => 'title',
-                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
-                            ),
-                        ),
-
-                        array(
-                            'id'      => 'switcher_group',
-                            'type'    => 'switcher',
-                            'title'   => esc_html__( 'Switcher', 'plugin-name' ),
-                            'default' => 'yes',
-                        ),
-
-                        array(
-                            'id'             => 'emails_group_callback',
-                            'type'           => 'select',
-                            'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
-                            'query'          => array(
-                                'type'          => 'callback',
-                                'function'      => array( $this, 'get_all_emails' ),
-                                'args'          => array() // WordPress query args
-                            ),
-                            'attributes' => array(
-                                'multiple' => 'multiple',
-                                'style'    => 'width: 200px; height: 56px;',
-                            ),
-                            'class'       => 'chosen',
-                        ),
-
-                        array(
-                            'id'      => 'textarea_group',
-                            'type'    => 'textarea',
-                            'class'   => 'some-class',
-                            'title'   => esc_html__( 'Textarea', 'plugin-name' ),
-                            'default' => esc_html__( 'Some text', 'plugin-name' ),
-                            'after'   => '<mute>' . esc_html__( 'Some info: ', 'plugin-name' ) . '</mute>',
-                        ),
-
-                        array(
-                            'id'     => 'editor_tinymce_group',
-                            'type'   => 'editor',
-                            'title'  => 'Editor TinyMCE',
-                        ),
-
-                        array(
-                            'id'     => 'editor_trumbowyg_group',
-                            'type'   => 'editor',
-                            'title'  => 'Editor Trumbowyg',
-                            'editor' => 'trumbowyg',
-                        ),
-
-                    ),
-
-                ),
-
-                array(
-                    'type'    => 'backup',
-                    'title'   => esc_html__( 'Backup', 'exopite-seo-core' ),
-                ),
-
-            )
-        );
-
-        $fields[] = array(
-            'name'   => 'second',
-            'title'  => 'Second',
-            'icon'   => 'dashicons-portfolio',
-            'fields' => array(
-
-                array(
-                    'type'    => 'content',
-                    'content' => 'Second Section',
-
                 ),
 
 
             )
-        );
-
-        $fields[] = array(
-            'name'   => 'third',
-            'title'  => 'Third',
-            'icon'   => 'dashicons-portfolio',
-            'fields' => array(
-
-                array(
-                    'type'    => 'content',
-                    'content' => 'Third Section',
-
-                ),
-
-            ),
         );
 
         /**
