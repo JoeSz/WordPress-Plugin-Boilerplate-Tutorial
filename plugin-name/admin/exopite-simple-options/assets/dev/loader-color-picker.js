@@ -13,7 +13,7 @@
             change: function (event, ui) {
                 var color = ui.color.toString();
                 if ($(this).hasClass('font-color-js')) {
-                    $(this).parents('.wp-picker-container').next().css({'color': color});
+                    $(this).parents('.exopite-sof-font-field').find('.exopite-sof-font-preview').css({'color': color});
                 }
             },
         });

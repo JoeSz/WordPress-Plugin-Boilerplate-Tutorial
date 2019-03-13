@@ -2488,7 +2488,7 @@ input:disabled + .switch__toggle {
     width: 29px;
     background: #fff;
     text-align: center;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
@@ -2585,7 +2585,7 @@ input[type="color"] {
     min-width: 20px;
     border: 1px solid #e5e5e5;
     text-align: center;
-    line-height: 29px;
+    /* line-height: 29px; */
     color: #888;
     padding: 0 5px;
     display: flex;
