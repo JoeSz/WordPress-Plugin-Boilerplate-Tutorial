@@ -105,7 +105,8 @@ if ( is_admin() ) {
 	}
 
 	$MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://updates.example.net/?action=get_metadata&slug=' . PLUGIN_NAME_PLUGIN_NAME, //Metadata URL.
+		// CHANGE THIS FOR YOUR UPDATE URL
+		'https://update.joeszalai.org/?action=get_metadata&slug=' . PLUGIN_NAME_PLUGIN_NAME, //Metadata URL.
 		__FILE__, //Full path to the main plugin file.
 		PLUGIN_NAME_PLUGIN_NAME //Plugin slug. Usually it's the same as the name of the directory.
 	);
