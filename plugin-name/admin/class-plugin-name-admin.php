@@ -829,14 +829,14 @@ class Plugin_Name_Admin {
                 array(
                     'id'          => 'tabbed_1',
                     'type'        => 'tab',
-                    'title'       => esc_html__( 'Tab', 'plugin-name' ),
+                    'title'       => esc_html__( 'Tab Same Width', 'plugin-name' ),
                     'options'     => array(
                         'equal_width' => true,
                     ),
                     'tabs'        => array(
 
                         array(
-                            'title'  => esc_html__( 'Tab 1', 'plugin-name' ),
+                            'title'  => '<i class="fa fa-microchip" aria-hidden="true"></i> ' . esc_html__( 'Tab 1', 'plugin-name' ),
                             'icon'   => 'fa fa-star',
                             'fields' => array(
 
@@ -868,7 +868,7 @@ class Plugin_Name_Admin {
                         ),
 
                         array(
-                            'title'  => esc_html__( 'Tab 2', 'plugin-name' ),
+                            'title'  => '<i class="fa fa-superpowers" aria-hidden="true"></i> ' . esc_html__( 'Tab 2', 'plugin-name' ),
                             'fields' => array(
 
                                 array(
@@ -894,7 +894,7 @@ class Plugin_Name_Admin {
                 array(
                     'id'          => 'tabbed_2',
                     'type'        => 'tab',
-                    'title'       => esc_html__( 'Tab Same Width', 'plugin-name' ),
+                    'title'       => esc_html__( 'Tab', 'plugin-name' ),
                     'options'     => array(
                         'equal_width' => false,
                     ),
