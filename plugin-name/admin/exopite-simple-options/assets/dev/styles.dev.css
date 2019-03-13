@@ -108,7 +108,7 @@
     border: 3px dashed #ccc;
     background: transparent;
 }
-.qq-template .exopite-sof-btn {
+.exopite-sof-field .qq-template .exopite-sof-btn {
     margin-right: 8px;
 }
 /*
@@ -2347,6 +2347,9 @@ input:disabled + .switch__toggle {
     box-shadow: none;
     background: #f4f4f4;
 }
+.exopite-sof-fieldset select {
+    padding: 4px 12px 5px 12px;
+}
 .exopite-sof-fieldset .chosen-container-multi .chosen-choices li.search-choice ,
 .exopite-sof-fieldset .chosen-container-active .chosen-single,
 .exopite-sof-fieldset .chosen-container-single .chosen-single,
@@ -2365,6 +2368,7 @@ input:disabled + .switch__toggle {
 .exopite-sof-fieldset .button.button-small.wp-picker-clear,
 .exopite-sof-fieldset input[type="text"].colorpicker,
 .exopite-sof-fieldset select,
+.exopite-sof-wrapper .exopite-sof-fieldset select,
 .exopite-sof-fieldset input[type="number"],
 .exopite-sof-fieldset input[type="email"],
 .exopite-sof-fieldset input[type="password"],
@@ -2483,7 +2487,7 @@ input:disabled + .switch__toggle {
     height: 29px;
     display: inline-block;
     vertical-align: top;
-    margin-top: 1px;
+    /* margin-top: 1px; */
     line-height: 27px;
     width: 29px;
     background: #fff;
@@ -2608,4 +2612,10 @@ input[type="color"] {
 .exopite-sof-fieldset textarea.disabled,
 .exopite-sof-fieldset textarea:disabled {
     background: #ddd;
+}
+.exopite-sof-wrapper input, .exopite-sof-wrapper select {
+    margin: 0;
+}
+.exopite-sof-media input {
+    margin-right: 1px;
 }
