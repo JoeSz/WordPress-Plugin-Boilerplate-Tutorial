@@ -1,0 +1,66 @@
+.exopite-meta-boxes-wrapper .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 7px;
+    position: relative;
+    min-height: 30px;
+    line-height: 30px;
+}
+.exopite-meta-boxes-wrapper .meta-row > label {
+    flex: 0 0 200px;
+}
+.exopite-meta-boxes-wrapper .meta-row > span {
+    flex: 1 1 auto;
+}
+.exopite-meta-boxes-wrapper .meta-row select,
+.exopite-meta-boxes-wrapper .meta-row textarea,
+.exopite-meta-boxes-wrapper .meta-row input {
+    border: 1px solid #ddd;
+    box-shadow: none;
+}
+.exopite-meta-boxes-wrapper .meta-row select:disabled,
+.exopite-meta-boxes-wrapper .meta-row textarea:disabled,
+.exopite-meta-boxes-wrapper .meta-row input:disabled {
+    background: #f5f5f5;
+    cursor: no-drop;
+}
+.exopite-meta-boxes-wrapper .meta-row select,
+.exopite-meta-boxes-wrapper .meta-row textarea,
+.exopite-meta-boxes-wrapper .meta-row input[type="text"],
+.exopite-meta-boxes-wrapper .meta-row input[type="url"],
+.exopite-meta-boxes-wrapper .meta-row input[type="password"] {
+    width: 100%;
+}
+.exopite-meta-boxes-wrapper .meta-row select {
+    max-width: 375px;
+}
+.exopite-meta-boxes-unit {
+    font-size: 16px;
+    vertical-align: middle;
+}
+.exopite-meta-boxes-unit.muted {
+    color: #aaa;
+}
+.exopite-meta-boxes-upload-preview {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 100px;
+    width: 100px;
+    border: 1px solid #bbb;
+    position: relative;
+    display: none;
+}
+.exopite-meta-boxes-upload-preview-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 18px;
+    background: rgba(255,0,0,.5);
+    width: 15px;
+    text-align: center;
+    height: 16px;
+    line-height: 13px;
+    color: #fff;
+    cursor: pointer;
+}
