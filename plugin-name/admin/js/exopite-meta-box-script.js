@@ -19,6 +19,10 @@
             metaImageFrame = wp.media.frames.metaImageFrame = wp.media({
                 title: 'bla',
                 button: { text: 'Use this file' },
+                multiple: false,
+                library: {
+                    type: 'image',
+                }
             });
 
             var $that = $(this);
