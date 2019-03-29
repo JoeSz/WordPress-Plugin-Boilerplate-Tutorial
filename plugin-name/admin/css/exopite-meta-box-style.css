@@ -64,3 +64,58 @@
     color: #fff;
     cursor: pointer;
 }
+/**
+ * TABS
+ * @link https://kyusuf.com/post/completely-css-tabs/
+ */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ddd;
+}
+.tabs > .input {
+    position: absolute;
+    opacity: 0;
+}
+.tabs > .nav-tab {
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+    border-bottom: 1px solid #ddd;
+}
+.tabs > .input:focus + .nav-tab {
+    z-index: 1;
+}
+.tabs > .input:checked + .nav-tab {
+    border-bottom: 1px solid #fff;
+    background: #fff;
+    color: #000;
+}
+@media (max-width: 599px) {
+    .tabs > .nav-tab {
+        margin-left: 0;
+    }
+}
+@media (min-width: 600px) {
+    .tabs > .nav-tab {
+        width: auto;
+        margin-bottom: -1px;
+        z-index: 1;
+    }
+}
+.tabs > .panel {
+    display: none;
+    padding: 12px 12px 5px 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-bottom: none;
+}
+@media (min-width: 600px) {
+    .tabs > .panel {
+        order: 99;
+    }
+}
+.tabs > .input:checked + .nav-tab + .panel {
+    display: block;
+    width: 100%;
+}
