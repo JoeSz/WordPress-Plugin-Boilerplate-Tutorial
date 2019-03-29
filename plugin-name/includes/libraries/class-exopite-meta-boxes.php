@@ -2,20 +2,9 @@
 
 /**
  * ToDos:
- * - add multi select
- * - move sanitize to his own function
  * - add error messages
  */
 
-/**
- * Register custom post type
- *
- * @link       http://joe.szalai.org
- * @since      1.0.0
- *
- * @package    Exopite_Portfolio
- * @subpackage Exopite_Portfolio/includes
- */
 if ( ! class_exists( 'Exopite_Meta_Boxes' ) ) :
 
 class Exopite_Meta_Boxes {
@@ -35,40 +24,40 @@ class Exopite_Meta_Boxes {
      *         - before
      *         - after
      *         - default
-     *
+     *   // Enqueue meta box style and script with the plugin
 	 *	 // Add metabox to custom post type
 	 *	$metabox_args = array(
      *	    'cpt_name' => array(
-     *	        'meta-box-id' => 'meta_box_id',
-     *	        'meta-box-title' => 'title',
-     *          'meta-box-post-context' => 'advanced' | 'normal' | 'side',
-     *          'meta-box-post-priority' => 'high' | 'low',
-     *	        'meta-box-fields' => array(
-     *	            'content_id' => array(
-     *	                'label' => 'Something to say',
+     *	        'id' => 'meta_box_unique',
+     *	        'title' => 'title',
+     *          'post-context' => 'advanced' | 'normal' | 'side',
+     *          'post-priority' => 'high' | 'low',
+     *	        'fields' => array(
+     *	            'content_unique' => array(
+     *	                'title' => 'Something to say',
 	 *					'type' => 'content',
 	 *					'default' => 'This is the text of the content field.',
      *	            ),
-     *	            'text_id' => array(
-     *	                'label' => 'Price',
+     *	            'text_unique' => array(
+     *	                'title' => 'Price',
 	 *					'type' => 'text',
 	 *					'unit' => '€',
 	 *					'attributes' => array(
 	 *						'style' => 'max-width:375px;',
 	 *					),
      *	            ),
-     *	            'hidden_id' => array(
-     *	                'label' => 'Hidden',
+     *	            'hidden_unique' => array(
+     *	                'title' => 'Hidden',
 	 *					'type' => 'hidden',
 	 *					'default' => 'hidden_text'
      *	            ),
-     *	            'submit_id' => array(
-     *	                'label' => 'Submit',
+     *	            'submit_unique' => array(
+     *	                'title' => 'Submit',
 	 *					'type' => 'submit',
 	 *					'default' => 'Submit button',
      *	            ),
-     *	            'number_id' => array(
-     *	                'label' => 'Number',
+     *	            'number_unique' => array(
+     *	                'title' => 'Number',
 	 *					'type' => 'number',
 	 *					'default' => 5,
 	 *					'attributes' => array(
@@ -77,7 +66,7 @@ class Exopite_Meta_Boxes {
 	 *					),
      *	            ),
      *	            'text_with_attrs' => array(
-     *	                // 'label' => 'Label is optional',
+     *	                // 'title' => 'Title is optional',
 	 *					'type' => 'text',
 	 *					'attributes' => array(
 	 *						'placeholder' => 'Placeholder',
@@ -85,17 +74,17 @@ class Exopite_Meta_Boxes {
 	 *					),
      *
      *	            ),
-     *	            'select_id' => array(
-     *	                'label' => 'Select',
+     *	            'select_unique' => array(
+     *	                'title' => 'Select',
 	 *					'type' => 'select',
 	 *					'options' => $this->some_function(),
 	 *				),
-	 *				'checkbox' => array(
-	 *					'label' => 'Checkbox',
+	 *				'checkbox_unique' => array(
+	 *					'title' => 'Checkbox',
 	 *					'type' => 'checkbox',
 	 *				),
-	 *				'checkbox_multiple' => array(
-	 *					'label' => 'Multiple Checkboxes',
+	 *				'checkbox_multiple_unique' => array(
+	 *					'title' => 'Multiple Checkboxes',
 	 *					'type' => 'checkbox',
 	 *					'options' => array(
 	 *					    'option-1' => 'Option 1',
@@ -106,8 +95,8 @@ class Exopite_Meta_Boxes {
 	 *					// 	'style' => 'vertical',
 	 *					// ),
 	 *				),
-	 *				'radio' => array(
-	 *					'label' => 'Radio',
+	 *				'radio_unique' => array(
+	 *					'title' => 'Radio',
 	 *					'type' => 'radio',
 	 *					'options' => array(
 	 *					    'option-1' => 'Option 1',
@@ -118,8 +107,8 @@ class Exopite_Meta_Boxes {
 	 *						'style' => 'vertical',
 	 *					),
 	 *				),
-	 *				'radio_default' => array(
-	 *					'label' => 'Radio',
+	 *				'radio_default_unique' => array(
+	 *					'title' => 'Radio',
 	 *					'type' => 'radio',
 	 *					'options' => array(
 	 *					    'option-1' => 'Option 1',
@@ -127,13 +116,57 @@ class Exopite_Meta_Boxes {
 	 *						'option-3' => 'Option 3',
 	 *					),
 	 *					'default' => 'option-3',
-	 *				),
+     *				),
+     *  			'tabs_unique' => array(
+	 * 					'type' => 'tab',
+	 * 					'first_tab_unique' => array(
+	 * 						'type' => 'section',
+	 * 						'title' => 'First Tab',
+	 * 						'fields' => array(
+	 * 							'tab_text_1_unique' => array(
+	 * 								'title' => 'Text 1',
+	 * 								'type' => 'text',
+	 * 								'attributes' => array(
+	 * 									'style' => 'max-width:375px;',
+	 * 								),
+	 * 							),
+	 * 							'tab_text_2_unique' => array(
+	 * 								'title' => 'Text 2',
+	 * 								'type' => 'text',
+	 * 								'attributes' => array(
+	 * 									'style' => 'max-width:375px;',
+	 * 								),
+	 * 							),
+	 * 						),
+	 * 					),
+	 * 					'second_tab_unique' => array(
+	 * 						'type' => 'section',
+	 * 						'title' => 'Second Tab',
+	 * 						'fields' => array(
+	 * 							'tab_text_3_unique' => array(
+	 * 								'title' => 'Text 3',
+	 * 								'type' => 'text',
+	 * 								'attributes' => array(
+	 * 									'style' => 'max-width:375px;',
+	 * 								),
+	 * 							),
+	 * 							'tab_text_4_unique' => array(
+	 * 								'title' => 'Text 4',
+	 * 								'type' => 'text',
+	 * 								'attributes' => array(
+	 * 									'style' => 'max-width:375px;',
+	 * 								),
+	 * 							),
+	 * 						),
+	 * 					),
+     *
+	 * 				),
      *	        ),
-     *	        'meta-box-wrapper-class' => 'wrapper',
-     *	        'meta-box-wrapper-selector' => 'div',
-     *	        'meta-box-row-class' => 'row',
-	 *			'meta-box-row-selector' => 'div',
-	 *			// 'meta-box-debug' => true,
+     *	        'wrapper-class' => 'wrapper',
+     *	        'wrapper-selector' => 'div',
+     *	        'row-class' => 'row',
+	 *			'row-selector' => 'div',
+	 *			// 'debug' => true,
      *
      *	   	),
 	 *	);
@@ -143,7 +176,6 @@ class Exopite_Meta_Boxes {
     protected $args = array();
 
     protected $plugin_url;
-    // protected $unique;
 
     public function __construct( $args, $plugin_url ) {
 
@@ -164,7 +196,12 @@ class Exopite_Meta_Boxes {
 
     public function admin_enqueue_scripts() {
 
-        wp_enqueue_style( 'exopite_meta_box_style_css', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'css', 'exopite-meta-box-style.css' ) ) );
+        /**
+         * Enqueue style and script with the plugin
+         */
+
+        // wp_enqueue_style( 'exopite_meta_box_style_css', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'css', 'exopite-meta-box-style.css' ) ) );
+        // wp_enqueue_script( 'exopite_meta_box_style_js', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'js', 'exopite-meta-box-style.css' ) ), array( 'jquery' ), '1.0.0', true );
 
     }
 
@@ -187,12 +224,12 @@ class Exopite_Meta_Boxes {
              * @link https://developer.wordpress.org/reference/functions/add_meta_box/
              */
             add_meta_box(
-                $options["meta-box-id"],
-                $options["meta-box-title"],
+                $options["id"],
+                $options["title"],
                 array( $this, "render_meta_box" ),
                 $cpt_name,
-                $options["meta-box-post-context"],
-                $options["meta-box-post-priority"]
+                $options["post-context"],
+                $options["post-priority"]
             );
 
         }
@@ -202,7 +239,7 @@ class Exopite_Meta_Boxes {
     public function get_wrapper_start( $options ) {
 
         ?>
-        <<?php echo $options['meta-box-wrapper-selector']; ?> class="exopite-meta-boxes-wrapper <?php echo $options['meta-box-wrapper-class']; ?>">
+        <<?php echo $options['wrapper-selector']; ?> class="exopite-meta-boxes-wrapper <?php echo $options['wrapper-class']; ?>">
         <?php
 
     }
@@ -210,7 +247,7 @@ class Exopite_Meta_Boxes {
     public function get_wrapper_end( $options ) {
 
         ?>
-        </<?php echo $options['meta-box-wrapper-selector']; ?>>
+        </<?php echo $options['wrapper-selector']; ?>>
         <?php
 
     }
@@ -218,12 +255,19 @@ class Exopite_Meta_Boxes {
     public function get_row_start( $name, $options, $field ) {
 
         $row_classes = 'meta-row';
-        if ( isset( $options['meta-box-row-class'] ) ) {
-            $row_classes .= ' ' . $options['meta-box-row-class'];
+        if ( isset( $options['row-class'] ) ) {
+            $row_classes .= ' ' . $options['row-class'];
         }
 
+        $field_title = ( isset( $field['title'] ) ) ? $field['title'] : '';
+        $label_class = '';
+        if ( empty( $field_title ) ) {
+            $label_class = ' class="hidden"';
+        }
+
+
         ?>
-        <<?php echo $options['meta-box-row-selector']; ?> class="<?php echo $row_classes; ?>"><label for="<?php echo $name; ?>"><?php echo $field['label']; ?></label><span>
+        <<?php echo $options['row-selector']; ?> class="<?php echo $row_classes; ?>"><label for="<?php echo $name; ?>"<?php echo $label_class; ?>><?php echo $field['title']; ?></label><span>
         <?php
 
     }
@@ -231,7 +275,7 @@ class Exopite_Meta_Boxes {
     public function get_row_end( $options ) {
 
         ?>
-        </span></<?php echo $options['meta-box-row-selector']; ?>>
+        </span></<?php echo $options['row-selector']; ?>>
         <?php
 
     }
@@ -364,6 +408,239 @@ class Exopite_Meta_Boxes {
 
     }
 
+    public function add_regular_field( $name, $custom, $field ) {
+
+        ?>
+        <input type="<?php echo $field['type']; ?>" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $this->get_field_value( $name, $custom, $field ); ?>">
+        <?php
+
+    }
+
+    public function add_content_field( $name, $custom, $field ) {
+
+        echo $this->get_field_value( $name, $custom, $field );
+
+    }
+
+    public function add_password_field( $name, $custom, $field ) {
+
+        ?>
+        <input type="password" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $this->get_field_value( $name, $custom, $field ); ?>">
+        <?php
+
+    }
+
+    public function add_textarea_field( $name, $custom, $field ) {
+
+        ?>
+        <textarea <?php $this->get_field_attributes( $name, $field ); ?>><?php echo $this->get_field_value( $name, $custom, $field ); ?></textarea>
+        <?php
+
+    }
+
+    public function add_radio_field( $name, $custom, $field ) {
+
+        if ( isset( $field['options'] ) ) {
+
+            foreach ( $field['options'] as $key => $element ) :
+
+                $label_attr = '';
+
+                if ( isset( $field['config'] ) && isset( $field['config']['style'] ) && $field['config']['style'] == 'vertical' ) {
+                    $label_attr = ' style="display:block;"';
+                }
+
+                ?>
+                <label<?php echo $label_attr; ?>>
+                    <input type="radio" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $key; ?>" <?php checked( $this->get_field_value( $name, $custom, $field ), $key ); ?> />
+                    <?php
+                        echo $element;
+                    ?>
+                </label>
+                <?php
+
+            endforeach;
+
+        }
+
+    }
+
+    public function add_checkbox_field( $name, $custom, $field ) {
+
+        if ( isset( $field['options'] ) ) {
+
+            foreach ( $field['options'] as $key => $element ) :
+
+                $label_attr = '';
+
+                if ( isset( $field['config'] ) && isset( $field['config']['style'] ) && $field['config']['style'] == 'vertical' ) {
+                    $label_attr = ' style="display:block;"';
+                }
+
+                ?>
+                <label<?php echo $label_attr; ?>>
+                    <input type="checkbox" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $key; ?>" <?php $this->checked( $this->get_field_value( $name, $custom, $field ), $key ); ?> />
+                    <?php
+                        echo $element;
+                    ?>
+                </label>
+                <?php
+
+            endforeach;
+
+        } else {
+            ?>
+            <input type="checkbox" <?php $this->get_field_attributes( $name, $field ); ?> value="yes" <?php checked( $this->get_field_value( $name, $custom, $field ), 'yes' ); ?> />
+            <?php
+        }
+
+    }
+
+    public function add_select_field( $name, $custom, $field ) {
+
+        ?>
+        <select <?php $this->get_field_attributes( $name, $field ); ?>>
+            <?php
+            foreach ( $field['options'] as $key => $value ) :
+                ?>
+                <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $this->get_field_value( $name, $custom, $field ) ); ?>><?php echo $value; ?></option>
+                <?php
+            endforeach;
+            ?>
+        </select>
+        <?php
+
+    }
+
+    public function add_upload_field( $name, $custom, $field ) {
+
+        $field['classes'] .= ' exopite-meta-boxes-upload-url';
+
+        $value = $this->get_field_value( $name, $custom, $field );
+
+        if ( isset( $field['config']['preview'] ) && $field['config']['preview'] ) :
+
+            $preview_attrs = '';
+            if ( isset( $value ) && ! empty( trim( $value ) ) && $this->is_image( $value ) ) {
+                $preview_attrs = ' style="display:block;background-image:url(' . $value . ')"';
+            }
+
+            ?>
+            <span class="exopite-meta-boxes-upload-preview"<?php echo $preview_attrs; ?>><span class="exopite-meta-boxes-upload-preview-close">×</span></span>
+            <?php
+
+        endif;
+
+        /**
+         * The actual field that will hold the URL for our file
+         */
+        ?>
+        <input type="url" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $value; ?>">
+        <?php
+            /**
+             * The button that opens our media uploader
+             * The `data-media-uploader-target` value should match the ID/unique selector of your field.
+             * We'll use this value to dynamically inject the file URL of our uploaded media asset into your field once successful (in the myplugin-media.js file)
+             */
+        ?>
+        <button type="button" class="button exopite-meta-boxes-upload-button"><?php echo ( isset( $field['config']['button_text'] ) ) ? $field['config']['button_text'] : 'Upload'; ?></button>
+
+        <?php
+
+    }
+
+    public function get_fields( $name, $custom, $options, $field ) {
+
+        $this->get_row_start( $name, $options, $field );
+
+        $this->get_field_before( $field );
+
+        switch ( $field['type'] ) {
+
+            case 'content':
+                $this->add_content_field( $name, $custom, $field );
+                break;
+
+            case 'password':
+                $this->add_password_field( $name, $custom, $field );
+                break;
+
+            case 'textarea':
+                $this->add_textarea_field( $name, $custom, $field );
+                break;
+
+            case 'radio':
+                $this->add_radio_field( $name, $custom, $field );
+                break;
+
+            case 'checkbox':
+                $this->add_checkbox_field( $name, $custom, $field );
+                break;
+
+            case 'select':
+                $this->add_select_field( $name, $custom, $field );
+                break;
+
+            case 'upload':
+                $this->add_upload_field( $name, $custom, $field );
+                break;
+
+            case 'tab':
+
+                echo '<div class="tabs">';
+
+                $i = 0;
+
+                foreach ( $field as $key => $value ) {
+
+                    if ( is_array( $value ) && isset( $value['type'] ) && $value['type'] == 'section' && isset( $value['fields'] ) ) {
+
+                        $section_title = ( isset( $value['title'] ) ) ? $value['title'] : 'Tab';
+
+                        /**
+                         * Maybe later allow select other tabs to be open on start. Maybe with URL param?
+                         */
+                        $checked = '';
+                        if ( $i == 0 ) {
+                            $checked = ' checked="checked" ';
+                        }
+
+                        echo '<input name="tabs" type="radio" id="tab-' . $i . '"' . $checked . 'class="input"/>';
+                        echo '<label for="tab-' . $i . '" class="nav-tab">' . $section_title . '</label>';
+                        echo '<div class="panel">';
+
+                        foreach ( $value['fields'] as $tab_field_name => $tab_field ) {
+
+                            $this->get_fields( $tab_field_name, $custom, $options, $tab_field );
+
+                        }
+
+                        echo '</div>';
+
+                        $i++;
+
+                    }
+
+                }
+
+                echo '</div>';
+
+                break;
+
+            default:
+                $this->add_regular_field( $name, $custom, $field );
+                break;
+
+        }
+
+        $this->get_field_unit( $field );
+
+        $this->get_field_after( $field );
+
+        $this->get_row_end( $options );
+
+    }
+
     // Display meta box and custom fields
     public function render_meta_box() {
 
@@ -380,7 +657,7 @@ class Exopite_Meta_Boxes {
 
         foreach ( $this->args as $cpt_name => $options ) {
 
-            if ( isset( $options['meta-box-debug'] ) && $options['meta-box-debug'] ) {
+            if ( isset( $options['debug'] ) && $options['debug'] ) {
                 echo '<pre>';
                 var_export( $custom );
                 echo '</pre>';
@@ -390,149 +667,9 @@ class Exopite_Meta_Boxes {
 
                 $this->get_wrapper_start( $options );
 
-                foreach ( $options['meta-box-fields'] as $name => $field ) {
+                foreach ( $options['fields'] as $name => $field ) {
 
-                    $this->get_row_start( $name, $options, $field );
-
-                    $this->get_field_before( $field );
-
-                    switch ( $field['type'] ) {
-
-                        case 'content':
-                            echo $this->get_field_value( $name, $custom, $field );
-                            break;
-
-                        case 'password':
-                            ?>
-                            <input type="password" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $this->get_field_value( $name, $custom, $field ); ?>">
-                            <?php
-                            break;
-
-                        case 'textarea':
-                            ?>
-                            <textarea <?php $this->get_field_attributes( $name, $field ); ?>><?php echo $this->get_field_value( $name, $custom, $field ); ?></textarea>
-                            <?php
-                            break;
-
-                        case 'radio':
-                            if ( isset( $field['options'] ) ) {
-
-                                foreach ( $field['options'] as $key => $element ) :
-
-                                    $label_attr = '';
-
-                                    if ( isset( $field['config'] ) && isset( $field['config']['style'] ) && $field['config']['style'] == 'vertical' ) {
-                                        $label_attr = ' style="display:block;"';
-                                    }
-
-                                    ?>
-                                    <label<?php echo $label_attr; ?>>
-                                        <input type="radio" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $key; ?>" <?php checked( $this->get_field_value( $name, $custom, $field ), $key ); ?> />
-                                        <?php
-                                            echo $element;
-                                        ?>
-                                    </label>
-                                    <?php
-
-                                endforeach;
-
-                            }
-                            break;
-
-                        case 'checkbox':
-                            if ( isset( $field['options'] ) ) {
-
-                                foreach ( $field['options'] as $key => $element ) :
-
-                                    $label_attr = '';
-
-                                    if ( isset( $field['config'] ) && isset( $field['config']['style'] ) && $field['config']['style'] == 'vertical' ) {
-                                        $label_attr = ' style="display:block;"';
-                                    }
-
-                                    ?>
-                                    <label<?php echo $label_attr; ?>>
-                                        <input type="checkbox" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $key; ?>" <?php $this->checked( $this->get_field_value( $name, $custom, $field ), $key ); ?> />
-                                        <?php
-                                            echo $element;
-                                        ?>
-                                    </label>
-                                    <?php
-
-                                endforeach;
-
-                            } else {
-                                ?>
-                                <input type="checkbox" <?php $this->get_field_attributes( $name, $field ); ?> value="yes" <?php checked( $this->get_field_value( $name, $custom, $field ), 'yes' ); ?> />
-                                <?php
-                            }
-                            break;
-
-                        case 'select':
-                            ?>
-                            <select <?php $this->get_field_attributes( $name, $field ); ?>>
-                                <?php
-                                foreach ( $field['options'] as $key => $value ) :
-                                    ?>
-                                    <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $this->get_field_value( $name, $custom, $field ) ); ?>><?php echo $value; ?></option>
-                                    <?php
-                                endforeach;
-                                ?>
-                            </select>
-                            <?php
-                            break;
-
-                       case 'upload':
-
-                            $field['classes'] .= ' exopite-meta-boxes-upload-url';
-
-                            $value = $this->get_field_value( $name, $custom, $field );
-
-                            if ( isset( $field['config']['preview'] ) && $field['config']['preview'] ) :
-
-                                $preview_attrs = '';
-                                if ( isset( $value ) && ! empty( trim( $value ) ) && $this->is_image( $value ) ) {
-                                    $preview_attrs = ' style="display:block;background-image:url(' . $value . ')"';
-                                }
-
-                                ?>
-                                <span class="exopite-meta-boxes-upload-preview"<?php echo $preview_attrs; ?>><span class="exopite-meta-boxes-upload-preview-close">×</span></span>
-                                <?php
-
-                            endif;
-
-                            /**
-                             * The actual field that will hold the URL for our file
-                             */
-                            ?>
-                            <input type="url" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $value; ?>">
-                            <?php
-                                /**
-                                 * The button that opens our media uploader
-                                 * The `data-media-uploader-target` value should match the ID/unique selector of your field.
-                                 * We'll use this value to dynamically inject the file URL of our uploaded media asset into your field once successful (in the myplugin-media.js file)
-                                 */
-                            ?>
-                            <button type="button" class="button exopite-meta-boxes-upload-button"><?php echo ( isset( $field['config']['button_text'] ) ) ? $field['config']['button_text'] : 'Upload'; ?></button>
-
-                            <?php
-                            break;
-
-                        default:
-
-                            ?>
-                            <input type="<?php echo $field['type']; ?>" <?php $this->get_field_attributes( $name, $field ); ?> value="<?php echo $this->get_field_value( $name, $custom, $field ); ?>">
-                            <?php
-                            break;
-
-                    }
-
-                    $this->get_field_unit( $field );
-
-                    $this->get_field_after( $field );
-
-                    $this->get_row_end( $options );
-
+                    $this->get_fields( $name, $custom, $options, $field );
 
                 }
 
@@ -542,6 +679,20 @@ class Exopite_Meta_Boxes {
 
         }
 
+    }
+
+    public function is_image( $url ) {
+        $pos = strrpos( $url, ".");
+        if ($pos === false) {
+            return false;
+        }
+
+        $ext = strtolower(trim(substr( $url, $pos)));
+        $imgExts = array(".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif"); // this is far from complete but that's always going to be the case...
+        if ( in_array($ext, $imgExts) ) {
+            return true;
+        }
+        return false;
     }
 
     public function check_rights() {
@@ -572,7 +723,7 @@ class Exopite_Meta_Boxes {
 
         foreach ( $this->args as $cpt_name => $options ) {
 
-            foreach ( $options['meta-box-fields'] as $name => $value ) {
+            foreach ( $options['fields'] as $name => $value ) {
 
                 // 'text' | 'password' | 'textarea' | 'select' | 'radio' | 'checkbox'
                 switch ( $value['type'] ) {
