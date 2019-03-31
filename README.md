@@ -51,12 +51,13 @@ Check out the `/plugin-name/tutorials/`.
 
 ### Example Plugins, Plugins I have created with the Boilerplate
 
+#### You could take a look, how you can implement some functions.
+
 * [Exopite-Multifilter-Multi-Sorter](https://github.com/JoeSz/Exopite-Multifilter-Multi-Sorter-WordPress-Plugin) - Working with shortcodes and AJAX
 * [Exopite-Notificator](https://github.com/JoeSz/Exopite-Notificator-WordPress-Plugin) - Working with hooks for comments, posts, user profile, authenticate, etc... in WordPress.
-* [Exopite-Combiner-and-Minifier-WordPress-Plugin](https://github.com/JoeSz/Exopite-Combiner-and-Minifier-WordPress-Plugin) - Working with output buffering and DOM manipulation with Simple HTML DOM.
+* [Exopite-Combiner-and-Minifier-WordPress-Plugin](https://github.com/JoeSz/Exopite-Combiner-and-Minifier-WordPress-Plugin) - Working with output buffering and DOM manipulation with PHP DOMDocument.
 * [Exopite-SEO-Core](https://github.com/JoeSz/Exopite-SEO-Core) - Working with several SEO releated WordPress hooks.
 * [Exopite-Lazy-Load-XT](https://github.com/JoeSz/Exopite-Lazy-Load-XT-WordPress-Plugin) - Working with output buffering as well as content manipulation (like thumbnails, etc...) in WordPress.
-* [Exopite-WooCommerce-Ajaxify](https://github.com/JoeSz/Exopite-WooCommerce-Ajaxify-WordPress-Plugin) - Using WooCommers hooks and AJAX.
 
 ## Contents
 
