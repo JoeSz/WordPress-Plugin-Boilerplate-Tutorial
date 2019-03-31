@@ -237,14 +237,14 @@ class Plugin_Name_Admin {
          * - attached
          * - backup
          * - button
-         * - button_bar
+         * - botton_bar
          * - card
          * - checkbox
          * - color
          * - content
          * - date
          * - editor
-         * - group
+         * - group/accordion item
          * - hidden
          * - image
          * - image_select
@@ -271,11 +271,6 @@ class Plugin_Name_Admin {
             'icon'   => 'dashicons-admin-generic',
             'fields' => array(
 
-                array(
-                    'type'    => 'notice',
-                    'class'   => 'success',
-                    'content' => 'This is info notice field for your highlight sentence.',
-                ),
 
                 array(
                     'id'          => 'text_1',
@@ -309,7 +304,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'      => 'text_ap',
+                    'id'      => 'text_icon',
                     'type'    => 'text',
                     'title'   => 'Text',
                     'prepend' => 'fa-font',
@@ -410,38 +405,97 @@ class Plugin_Name_Admin {
                     'title'   => 'Test Unknown Element',
                 ),
 
-                array(
-                    'id'        => 'image_select_1',
-                    'type'      => 'image_select',
-                    'title'     => 'Image Select Radio',
-                    'options'   => array(
-                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
-                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
-                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
-                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
-                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
-                    ),
-                    'radio'        => true,
-                    'default'      => 'value-5',
-                ),
-
-                array(
-                    'id'        => 'image_select_2',
-                    'type'      => 'image_select',
-                    'title'     => 'Image Select Checkbox',
-                    'options'   => array(
-                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
-                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
-                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
-                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
-                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
-                    ),
-                    'default'      => 'value-5',
-                    'description' => 'This is a longer description with <a href="#">link</a> to explain what this field for.<br><i>You can use any HTML here.</i>',
-                ),
-
 
             )
+        );
+
+        $fields[] = array(
+            'name'   => 'accordions',
+            'title'  => 'Accordion',
+            'icon'   => 'fa fa-bars',
+            'fields' => array(
+
+                array(
+                    'id'          => 'accordion_1',
+                    'type'        => 'accordion',
+                    'title'       => esc_html__( 'Accordion', 'plugin-name' ),
+                    'options' => array(
+                        'allow_all_open' => false,
+                    ),
+                    'sections'        => array(
+
+                        array(
+                            'options' => array(
+                                'icon'   => 'fa fa-star',
+                                'title'  => 'Section 1',
+                                'closed' => false,
+                            ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'accordion_1_section_1_text_1',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Accordion 1 Text 1', 'plugin-name' ),
+                                    'default' => 'default text',
+                                ),
+
+
+                            ),
+                        ),
+
+                        array(
+                            'options' => array(
+                                'icon'   => 'fa fa-star',
+                                'title'  => 'Section 2',
+                            ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'accordion_1_section_2_text_1',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Accordion 2 Text 1', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'accordion_1_section_2_text_2',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Accordion 2 Text 2', 'plugin-name' ),
+                                ),
+
+                            ),
+
+                        ),
+
+
+                        array(
+                            'options' => array(
+                                'icon'   => 'fa fa-star',
+                                'title'  => 'Section 3',
+                            ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'accordion_1_section_3_text_1',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Accordion 3 Text 1', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'accordion_1_section_3_text_2',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Accordion 3 Text 2', 'plugin-name' ),
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
+                ),
+
+
+            ),
         );
 
         $fields[] = array(
@@ -595,7 +649,7 @@ class Plugin_Name_Admin {
             'fields' => array(
 
                 array(
-                    'id'     => 'date_2',
+                    'id'     => 'date_1',
                     'type'   => 'date',
                     'title'  => 'Date ISO',
                     'format' => 'yy-mm-dd',
@@ -604,7 +658,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'         => 'date_3',
+                    'id'         => 'date_2',
                     'type'       => 'date',
                     'title'      => 'Date DE',
                     'format'     => 'dd.mm.yy',
@@ -613,7 +667,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'     => 'date_1',
+                    'id'     => 'date_3',
                     'type'   => 'date',
                     'title'  => 'Date',
                     'format' => 'yy-mm-dd',
@@ -632,7 +686,7 @@ class Plugin_Name_Admin {
             'sections' => array(
                 array(
                     'title'  => esc_html__( 'ACE Editor', 'exopite-combiner-minifier' ),
-                    'name'   => 'editors1',
+                    'name'   => 'editors',
                     'icon'   => 'fa fa-code',
                     'fields' => array(
 
@@ -704,15 +758,331 @@ class Plugin_Name_Admin {
         );
 
         $fields[] = array(
+            'name'   => 'fieldsets',
+            'title'  => 'Fieldset',
+            'icon'   => 'fa fa-list-alt',
+            'fields' => array(
+
+                array(
+                    'type'    => 'fieldset',
+                    'id'      => 'fieldset_1',
+                    'title'   => esc_html__( 'Fieldset field', 'plugin-name' ),
+                    'description'   => esc_html__( 'Cols can be 1 to 4 and 6.', 'plugin-name' ) . '<br>' . esc_html__( 'Three cols per row.', 'plugin-name' ),
+                    'options' => array(
+                        'cols' => 3,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'fieldset_1_text_1',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                        ),
+
+                        array(
+                            'id'             => 'fieldset_1_select_1',
+                            'type'           => 'select',
+                            'title'          => 'Miltiselect',
+                            'options'        => array(
+                                'bmw'          => 'BMW',
+                                'mercedes'     => 'Mercedes',
+                                'volkswagen'   => 'Volkswagen',
+                                'other'        => 'Other',
+                            ),
+                            'default_option' => 'Select your favorite car',
+                            'default'     => 'bmw',
+                            'attributes' => array(
+                                'multiple' => 'multiple',
+                                'style'    => 'width: 200px; height: 125px;',
+                            ),
+                            'class'       => 'chosen',
+                        ),
+
+
+                        array(
+                             'id'      => 'fieldset_1_switcher_1',
+                             'type'    => 'switcher',
+                             'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                             'default' => 'yes',
+                         ),
+                    ),
+                ),
+
+                array(
+                    'type'    => 'fieldset',
+                    'id'      => 'fieldset_2',
+                    'title'   => esc_html__( 'Fieldset field', 'plugin-name' ),
+                    'description'   => esc_html__( 'E.g.: use for border, but can be used for many things, link dimensions or spacing, etc...', 'plugin-name' ) . '<br>' . esc_html__( 'Two cols per row.', 'plugin-name' ),
+                    'options' => array(
+                        'cols' => 2,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'fieldset_2_top',
+                            'type'    => 'text',
+                            'prepend' => 'fa fa-long-arrow-up',
+                            'append'  => 'px',
+                            'attributes' => array(
+                                'placeholder' => esc_html__( 'top', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'fieldset_2_bottom',
+                            'type'    => 'text',
+                            'prepend' => 'fa fa-long-arrow-down',
+                            'append'  => 'px',
+                            'attributes' => array(
+                                'placeholder' => esc_html__( 'bottom', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'fieldset_2_left',
+                            'type'    => 'text',
+                            'prepend' => 'fa fa-long-arrow-left',
+                            'append'  => 'px',
+                            'attributes' => array(
+                                'placeholder' => esc_html__( 'left', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'fieldset_2_right',
+                            'type'    => 'text',
+                            'prepend' => 'fa fa-long-arrow-right',
+                            'append'  => 'px',
+                            'attributes' => array(
+                                'placeholder' => esc_html__( 'right', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'             => 'fieldset_2_border_style',
+                            'type'           => 'select',
+                            'options'        => array(
+                                'none'          => 'None',
+                                'solid'         => 'Solid',
+                                'dashed'        => 'Dashed',
+                                'dotted'        => 'Dotted',
+                                'double'        => 'Double',
+                                'inset'         => 'Inset',
+                                'outset'        => 'Outset',
+                                'groove'        => 'Groove',
+                                'ridge'         => 'ridge',
+                            ),
+                            'default_option' => 'None',
+                            'default'     => 'none',
+                            'class'       => 'chosen width-150',
+                        ),
+
+                        array(
+                            'id'     => 'fieldset_2_color',
+                            'type'   => 'color',
+                            'rgba'   => true,
+                        ),
+
+                    ),
+                ),
+
+                array(
+                    'type'    => 'fieldset',
+                    'id'      => 'fieldset_3',
+                    'title'   => esc_html__( 'Fieldset field', 'plugin-name' ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'fieldset_3_text_1',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                        ),
+
+                        array(
+                            'id'             => 'fieldset_3_select_1',
+                            'type'           => 'select',
+                            'title'          => 'Miltiselect',
+                            'options'        => array(
+                                'bmw'          => 'BMW',
+                                'mercedes'     => 'Mercedes',
+                                'volkswagen'   => 'Volkswagen',
+                                'other'        => 'Other',
+                            ),
+                            'default_option' => 'Select your favorite car',
+                            'default'     => 'bmw',
+                            'attributes' => array(
+                                'multiple' => 'multiple',
+                                'style'    => 'width: 200px; height: 125px;',
+                            ),
+                            'class'       => 'chosen',
+                        ),
+
+
+                        array(
+                             'id'      => 'fieldset_3_switcher_1',
+                             'type'    => 'switcher',
+                             'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                             'default' => 'yes',
+                         ),
+                    ),
+                ),
+
+
+            ),
+        );
+
+        $fields[] = array(
             'name'   => 'groups',
-            'title'  => 'Group',
+            'title'  => 'Repeater/Sortable',
             'icon'   => 'fa fa-object-ungroup',
             'fields' => array(
 
                 array(
                     'type'    => 'group',
                     'id'      => 'group_1',
-                    'title'   => esc_html__( 'Gruop field', 'plugin-name' ),
+                    'title'   => esc_html__( 'Group field nested (3 level)', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => true,
+                        'button_title'      => esc_html__( 'Add new (L1)', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                        'sortable'          => true,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'group_1_text_1',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'type'    => 'group',
+                            'id'      => 'group_1_group_1',
+                            'title'   => esc_html__( 'Group field', 'plugin-name' ),
+                            'options' => array(
+                                'repeater'          => true,
+                                'accordion'         => true,
+                                'button_title'      => esc_html__( 'Add new (L2)', 'plugin-name' ),
+                                'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                                'limit'             => 50,
+                                'sortable'          => true,
+                            ),
+                            'fields'  => array(
+
+                                array(
+                                    'id'      => 'group_1_group_1_text_1',
+                                    'type'    => 'text',
+                                    // 'title'   => esc_html__( 'Text', 'plugin-name' ),
+                                    'attributes' => array(
+                                        // mark this field az title, on type this will change group item title
+                                        'data-title' => 'title',
+                                        'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                                    ),
+                                ),
+
+                                array(
+                                    'id'     => 'group_1_group_1_color_1',
+                                    'type'   => 'color',
+                                    'title'  => 'Color',
+                                ),
+
+                                array(
+                                    'id'     => 'group_1_group_1_date_1',
+                                    'type'   => 'date',
+                                    'title'  => 'Date ISO',
+                                    'format' => 'yy-mm-dd',
+                                    'class'  => 'datepic-class',
+                                    'prepend' => 'fa-calendar',
+                                ),
+
+
+                                array(
+                                    'id'      => 'group_1_group_1_typography_1',
+                                    'type'    => 'typography',
+                                    'title'   => esc_html__( 'Typography', 'exopite-combiner-minifier' ),
+                                    'default' => array(
+                                        'family'    =>'Arial Black',
+                                        'variant'   =>'600',
+                                        'size'      => 16,
+                                        'height'    => 24,
+                                        'color'     => '#000000',
+                                    ),
+                                    'preview' => true,
+                                ),
+                                array(
+                                    'id'             => 'group_1_group_1_select_1',
+                                    'type'           => 'select',
+                                    'title'          => 'Miltiselect',
+                                    'options'        => array(
+                                        'bmw'          => 'BMW',
+                                        'mercedes'     => 'Mercedes',
+                                        'volkswagen'   => 'Volkswagen',
+                                        'other'        => 'Other',
+                                    ),
+                                    'default_option' => 'Select your favorite car',
+                                    'default'     => 'bmw',
+                                    'attributes' => array(
+                                        'multiple' => 'multiple',
+                                        'style'    => 'width: 200px; height: 125px;',
+                                    ),
+                                    'class'       => 'chosen',
+                                ),
+
+                                array(
+                                    'type'    => 'group',
+                                    'id'      => 'group_1_group_1_group_1',
+                                    // 'title'   => esc_html__( 'Group field', 'plugin-name' ),
+                                    'options' => array(
+                                        'repeater'          => true,
+                                        'accordion'         => true,
+                                        'button_title'      => esc_html__( 'Add new (L3)', 'plugin-name' ),
+                                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                                        'limit'             => 50,
+                                        'sortable'          => true,
+                                    ),
+                                    'fields'  => array(
+
+                                        array(
+                                            'id'     => 'group_1_group_1_group_1_editor_trumbowyg_1',
+                                            'type'   => 'editor',
+                                            'title'  => 'Editor Trumbowyg',
+                                            'editor' => 'trumbowyg',
+                                        ),
+
+                                        array(
+                                            'id'      => 'group_1_group_1_group_1_text_1',
+                                            'type'    => 'text',
+                                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                                            'attributes' => array(
+                                                // mark this field az title, on type this will change group item title
+                                                'data-title' => 'title',
+                                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                                            ),
+                                        ),
+
+
+                                    ),
+
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+                ),
+
+                array(
+                    'type'    => 'group',
+                    'id'      => 'group_2',
+                    'title'   => esc_html__( 'Group field', 'plugin-name' ),
                     'options' => array(
                         'repeater'          => true,
                         'accordion'         => true,
@@ -724,7 +1094,7 @@ class Plugin_Name_Admin {
                     'fields'  => array(
 
                         array(
-                            'id'      => 'text_group',
+                            'id'      => 'group_2_text_1',
                             'type'    => 'text',
                             'title'   => esc_html__( 'Text', 'plugin-name' ),
                             'attributes' => array(
@@ -735,14 +1105,14 @@ class Plugin_Name_Admin {
                         ),
 
                         array(
-                            'id'      => 'switcher_group',
+                            'id'      => 'group_2_switcher_1',
                             'type'    => 'switcher',
                             'title'   => esc_html__( 'Switcher', 'plugin-name' ),
                             'default' => 'yes',
                         ),
 
                         array(
-                            'id'             => 'emails_group_callback',
+                            'id'             => 'group_2_select_1_emails_callback',
                             'type'           => 'select',
                             'title'          => esc_html__( 'Users Email (callback)', 'plugin-name' ),
                             'query'          => array(
@@ -758,22 +1128,61 @@ class Plugin_Name_Admin {
                         ),
 
                         array(
-                            'id'      => 'textarea_group',
-                            'type'    => 'textarea',
-                            'class'   => 'some-class',
-                            'title'   => esc_html__( 'Textarea', 'plugin-name' ),
-                            'default' => esc_html__( 'Some text', 'plugin-name' ),
-                            'after'   => '<mute>' . esc_html__( 'Some info: ', 'plugin-name' ) . '</mute>',
+                            'id'          => 'group_2_tabbed_1',
+                            'type'        => 'tab',
+                            'title'       => esc_html__( 'Tab same with', 'plugin-name' ),
+                            'options'     => array(
+                                'equal_width' => true,
+                            ),
+                            'tabs'        => array(
+
+                                array(
+                                    'title'  => '<i class="fa fa-microchip" aria-hidden="true"></i> ' . esc_html__( 'Tab 1', 'plugin-name' ),
+                                    'icon'   => 'fa fa-star',
+                                    'fields' => array(
+
+                                        array(
+                                            'id'    => 'group_2_tab_1_text_1',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 1 Text 1', 'plugin-name' ),
+                                        ),
+
+
+                                    ),
+                                ),
+
+                                array(
+                                    'title'  => '<i class="fa fa-superpowers" aria-hidden="true"></i> ' . esc_html__( 'Tab 2', 'plugin-name' ),
+                                    'fields' => array(
+
+                                        array(
+                                            'id'    => 'group_2_tab_2_text_text_1',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                        ),
+
+                                        array(
+                                            'id'    => 'group_2_tab_2_text_2',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                        ),
+
+                                    ),
+
+                                ),
+
+                            ),
+
                         ),
 
                         array(
-                            'id'     => 'editor_tinymce_group',
+                            'id'     => 'group_2_editor_tinymce_1',
                             'type'   => 'editor',
                             'title'  => 'Editor TinyMCE',
                         ),
 
                         array(
-                            'id'     => 'editor_trumbowyg_group',
+                            'id'     => 'group_2_editor_trumbowyg_1',
                             'type'   => 'editor',
                             'title'  => 'Editor Trumbowyg',
                             'editor' => 'trumbowyg',
@@ -783,8 +1192,262 @@ class Plugin_Name_Admin {
 
                 ),
 
+                array(
+                    'type'    => 'group',
+                    'id'      => 'group_3',
+                    'title'   => esc_html__( 'Group field not an accordion', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => true,
+                        // 'accordion'         => false,
+                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                        'sortable'          => true,
+                        'closed'            => false,
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'group_3_text_1',
+                            'type'    => 'text',
+                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'group_3_switcher_1',
+                            'type'    => 'switcher',
+                            'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                            'default' => 'yes',
+                        ),
+
+                        array(
+                            'id'          => 'group_3_tabbed_1',
+                            'type'        => 'tab',
+                            'title'       => esc_html__( 'Tab same with', 'plugin-name' ),
+                            'options'     => array(
+                                'equal_width' => true,
+                            ),
+                            'tabs'        => array(
+
+                                array(
+                                    'title'  => '<i class="fa fa-microchip" aria-hidden="true"></i> ' . esc_html__( 'Tab 1', 'plugin-name' ),
+                                    'icon'   => 'fa fa-star',
+                                    'fields' => array(
+
+                                        array(
+                                            'id'    => 'group_3_tab_1_text_1',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 1 Text 1', 'plugin-name' ),
+                                        ),
+
+
+                                    ),
+                                ),
+
+                                array(
+                                    'title'  => '<i class="fa fa-superpowers" aria-hidden="true"></i> ' . esc_html__( 'Tab 2', 'plugin-name' ),
+                                    'fields' => array(
+
+                                        array(
+                                            'id'    => 'group_3_tab_2_text_2',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                        ),
+
+                                        array(
+                                            'id'    => 'group_3_tab_2_text_3',
+                                            'type'  => 'text',
+                                            'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                        ),
+
+                                    ),
+
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
+                ),
+
+                array(
+                    'type'    => 'group',
+                    'id'      => 'group_4_sortable',
+                    'title'   => esc_html__( 'Sortable, repetable field multiple', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => true,
+                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                        'sortable'          => true,
+                        'mode'              => 'compact',
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'group_4_sortable_text_1',
+                            'type'    => 'text',
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                        array(
+                            'id'      => 'group_4_sortable_text_2',
+                            'type'    => 'text',
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+                    ),
+                ),
+
+                array(
+                    'type'    => 'group',
+                    'id'      => 'group_5_sortable',
+                    'title'   => esc_html__( 'Sortable (group) field single', 'plugin-name' ),
+                    'options' => array(
+                        'repeater'          => true,
+                        'accordion'         => false,
+                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        'limit'             => 50,
+                        'sortable'          => true,
+                        'mode'              => 'compact', // only repeater
+                    ),
+                    'fields'  => array(
+
+                        array(
+                            'id'      => 'group_5_sortable_text_1',
+                            'type'    => 'text',
+                            'attributes' => array(
+                                // mark this field az title, on type this will change group item title
+                                'data-title' => 'title',
+                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                            ),
+                        ),
+
+
+                    ),
+                ),
 
             )
+        );
+
+        $fields[] = array(
+            'name'   => 'image_selects',
+            'title'  => 'Image select',
+            'icon'   => 'fa fa-picture-o',
+            'fields' => array(
+
+
+                array(
+                    'id'        => 'image_select_1',
+                    'type'      => 'image_select',
+                    'title'     => 'Image Select Radio',
+                    'options'   => array(
+                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
+                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
+                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
+                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
+                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
+                    ),
+                    'radio'        => true,
+                    'default'      => 'value-2',
+                ),
+
+                array(
+                    'id'        => 'image_select_2',
+                    'type'      => 'image_select',
+                    'title'     => 'Image Select Checkbox',
+                    'options'   => array(
+                        'value-1' => 'https://dummyimage.com/100x80/2ecc70/fff.gif&text=100x80',
+                        'value-2' => 'https://dummyimage.com/100x80/e74c3c/fff.gif&text=100x80',
+                        'value-3' => 'https://dummyimage.com/100x80/ffbc00/fff.gif&text=100x80',
+                        'value-4' => 'https://dummyimage.com/100x80/3498db/fff.gif&text=100x80',
+                        'value-5' => 'https://dummyimage.com/100x80/555555/fff.gif&text=100x80',
+                    ),
+                    'default'      => 'value-3',
+                    'description' => 'This is a longer description with <a href="#">link</a> to explain what this field for.<br><i>You can use any HTML here.</i>',
+                ),
+
+                array(
+                    'id'          => 'image_select_3',
+                    'type'        => 'image_select',
+                    'title'       => 'Image Select Radio Vertical',
+                    'options'     => array(
+                        'value-1'   => 'https://dummyimage.com/450x70/2ecc70/fff.gif&text=450x70',
+                        'value-2'   => 'https://dummyimage.com/450x70/e74c3c/fff.gif&text=450x70',
+                        'value-3'   => 'https://dummyimage.com/450x70/ffbc00/fff.gif&text=450x70',
+                        'value-4'   => 'https://dummyimage.com/450x70/3498db/fff.gif&text=450x70',
+                        'value-5'   => 'https://dummyimage.com/450x70/555555/fff.gif&text=450x70',
+                    ),
+                    'default'     => 'value-4',
+                    'layout'      => 'vertical',
+                    'radio'       => true,
+                    'description' => esc_html__( 'Vertical layot, could be used for e.g. header styles.', 'plugin-name' ),
+                ),
+
+            ),
+        );
+
+        $fields[] = array(
+            'name'   => 'notices',
+            'title'  => 'Notice',
+            'icon'   => 'fa fa-exclamation-circle',
+            'fields' => array(
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'info',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'primary',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'secondary',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'success',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'warning',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+                array(
+                    'type'    => 'notice',
+                    'class'   => 'danger',
+                    'content' => 'This is info notice field for your highlight sentence.',
+                ),
+
+            ),
         );
 
         $fields[] = array(
@@ -829,7 +1492,133 @@ class Plugin_Name_Admin {
                 array(
                     'id'          => 'tabbed_1',
                     'type'        => 'tab',
-                    'title'       => esc_html__( 'Tab Same Width', 'plugin-name' ),
+                    'title'       => esc_html__( 'Nested Tabs with same width', 'plugin-name' ),
+                    'options'     => array(
+                        'equal_width' => true,
+                    ),
+                    'tabs'        => array(
+
+                        array(
+                            'title'  => '<i class="fa fa-microchip" aria-hidden="true"></i> ' . esc_html__( 'Tab 1', 'plugin-name' ),
+                            'icon'   => 'fa fa-star',
+                            'fields' => array(
+
+
+                                    array(
+                                        'id'          => 'tabbed_1_tab1',
+                                        'type'        => 'tab',
+                                        'title'       => esc_html__( 'Tab same width', 'plugin-name' ),
+                                        'options'     => array(
+                                            'equal_width' => true,
+                                        ),
+                                        'tabs'        => array(
+
+                                            array(
+                                                'title'  => '<i class="fa fa-microchip" aria-hidden="true"></i> ' . esc_html__( 'Tab 1', 'plugin-name' ),
+                                                'icon'   => 'fa fa-star',
+                                                'fields' => array(
+
+                                                    array(
+                                                        'id'    => 'tabbed_1_tab_1_text_1',
+                                                        'type'  => 'text',
+                                                        'title' => esc_html__( 'Tab 1 Text 1', 'plugin-name' ),
+                                                    ),
+
+                                                ),
+                                            ),
+
+                                            array(
+                                                'title'  => '<i class="fa fa-superpowers" aria-hidden="true"></i> ' . esc_html__( 'Tab 2', 'plugin-name' ),
+                                                'fields' => array(
+
+                                                    array(
+                                                        'id'    => 'tabbed_1_tab_1_text_2',
+                                                        'type'  => 'text',
+                                                        'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                                    ),
+
+                                                    array(
+                                                        'id'    => 'tabbed_1_tab_1_text_3',
+                                                        'type'  => 'text',
+                                                        'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                                    ),
+
+                                                ),
+
+                                            ),
+
+                                        ),
+
+                                    ),
+
+
+                            ),
+                        ),
+
+                        array(
+                            'title'  => '<i class="fa fa-superpowers" aria-hidden="true"></i> ' . esc_html__( 'Tab 2', 'plugin-name' ),
+                            'fields' => array(
+
+                                array(
+                                    'id'    => 'tabbed_1_tab_2_text_1',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'id'    => 'tabbed_1_tab_2_text_2',
+                                    'type'  => 'text',
+                                    'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
+                                ),
+
+                                array(
+                                    'type'    => 'group',
+                                    'id'      => 'tabbed_1_tab_2_group_1',
+                                    'title'   => esc_html__( 'Group field', 'plugin-name' ),
+                                    'options' => array(
+                                        'repeater'          => true,
+                                        'accordion'         => true,
+                                        'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
+                                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                                        'limit'             => 50,
+                                        'sortable'          => true,
+                                    ),
+                                    'fields'  => array(
+
+                                        array(
+                                            'id'      => 'tabbed_1_tab_2_group_1_text_1',
+                                            'type'    => 'text',
+                                            'title'   => esc_html__( 'Text', 'plugin-name' ),
+                                            'attributes' => array(
+                                                // mark this field az title, on type this will change group item title
+                                                'data-title' => 'title',
+                                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
+                                            ),
+                                        ),
+
+                                        array(
+                                            'id'      => 'tabbed_1_tab_2_group_1_switcher_1',
+                                            'type'    => 'switcher',
+                                            'title'   => esc_html__( 'Switcher', 'plugin-name' ),
+                                            'default' => 'yes',
+                                        ),
+
+                                    ),
+
+                                ),
+
+                            ),
+
+                        ),
+
+                    ),
+
+                ),
+
+                array(
+                    'id'          => 'tabbed_2',
+                    'type'        => 'tab',
+                    'title'       => esc_html__( 'Tab same width', 'plugin-name' ),
                     'options'     => array(
                         'equal_width' => true,
                     ),
@@ -841,13 +1630,13 @@ class Plugin_Name_Admin {
                             'fields' => array(
 
                                 array(
-                                    'id'    => 'tab_1_text',
+                                    'id'    => 'tabbed_2_tab_1_text_1',
                                     'type'  => 'text',
                                     'title' => esc_html__( 'Tab 1 Text 1', 'plugin-name' ),
                                 ),
 
                                 array(
-                                    'id'      => 'ace_editor_2',
+                                    'id'      => 'tabbed_2_tab_1_ace_editor_1',
                                     'type'    => 'ace_editor',
                                     'title'   => esc_html__( 'Tab 1 ACE Editor 1', 'plugin-name' ),
                                     'options' => array(
@@ -872,13 +1661,13 @@ class Plugin_Name_Admin {
                             'fields' => array(
 
                                 array(
-                                    'id'    => 'tab_2_text',
+                                    'id'    => 'tabbed_2_tab_1_text_2',
                                     'type'  => 'text',
                                     'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
                                 ),
 
                                 array(
-                                    'id'    => 'tab_3_text',
+                                    'id'    => 'tabbed_2_tab_1_text_3',
                                     'type'  => 'text',
                                     'title' => esc_html__( 'Tab 2 Text 2', 'plugin-name' ),
                                 ),
@@ -892,7 +1681,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'          => 'tabbed_2',
+                    'id'          => 'tabbed_3',
                     'type'        => 'tab',
                     'title'       => esc_html__( 'Tab', 'plugin-name' ),
                     'options'     => array(
@@ -906,13 +1695,13 @@ class Plugin_Name_Admin {
                             'fields' => array(
 
                                 array(
-                                    'id'    => 'tab_4_text',
+                                    'id'    => 'tabbed_3_tab_1_text_1',
                                     'type'  => 'text',
                                     'title' => esc_html__( 'Tab 3 Text 1', 'plugin-name' ),
                                 ),
 
                                 array(
-                                    'id'      => 'ace_editor_3',
+                                    'id'      => 'tabbed_3_tab_1_ace_editor_1',
                                     'type'    => 'ace_editor',
                                     'title'   => esc_html__( 'Tab 3 ACE Editor 1', 'plugin-name' ),
                                     'options' => array(
@@ -937,15 +1726,15 @@ class Plugin_Name_Admin {
                             'fields' => array(
 
                                 array(
-                                    'id'    => 'tab_5_text',
+                                    'id'    => 'tabbed_3_tab_1_text_2',
                                     'type'  => 'text',
                                     'title' => esc_html__( 'Tab 4 Text 1', 'plugin-name' ),
                                 ),
 
                                 array(
-                                    'id'    => 'tab_6_text',
+                                    'id'    => 'tabbed_3_tab_1_text_3',
                                     'type'  => 'text',
-                                    'title' => esc_html__( 'Tab 4 Text 1', 'plugin-name' ),
+                                    'title' => esc_html__( 'Tab 4 Text 2', 'plugin-name' ),
                                 ),
 
                             ),
@@ -1048,7 +1837,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_7',
+                    'id'             => 'select_2',
                     'type'           => 'select',
                     'title'          => 'Select Chosen',
                     'options'        => array(
@@ -1064,7 +1853,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_2',
+                    'id'             => 'select_3',
                     'type'           => 'select',
                     'title'          => 'Select Chosen',
                     'options'        => array(
@@ -1080,7 +1869,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_3',
+                    'id'             => 'select_4',
                     'type'           => 'select',
                     'title'          => 'Miltiselect',
                     'options'        => array(
@@ -1099,7 +1888,7 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'             => 'select_4',
+                    'id'             => 'select_5',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Posts',
                     // 'options'        => 'posts',
@@ -1116,7 +1905,7 @@ class Plugin_Name_Admin {
 
 
                 array(
-                    'id'             => 'select_5',
+                    'id'             => 'select_6',
                     'type'           => 'select',
                     'title'          => 'Select Chosen Pages',
                     // 'options'        => 'pages',
@@ -1136,7 +1925,7 @@ class Plugin_Name_Admin {
                 * options settings will be ignored
                 */
                 array(
-                    'id'             => 'select_6',
+                    'id'             => 'select_7',
                     'type'           => 'select',
                     'title'          => 'Title',
                     'query'          => array(
