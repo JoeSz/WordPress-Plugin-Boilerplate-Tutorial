@@ -46,13 +46,16 @@
                 ['fullscreen']
             ];
 
+            // plugin.$element.find('.trumbowyg-js').not('.disabled').trumbowyg(plugin.trumbowygOptions);
             plugin.$element.find('.trumbowyg-js').not(':disabled').trumbowyg(plugin.trumbowygOptions);
 
-            var $group = plugin.$element.parents('.exopite-sof-field-group');
+            var $group = plugin.$element.closest('.exopite-sof-group');
 
+            // $group.on('exopite-sof-field-group-item-added-after', function (event, $cloned) {
             plugin.$element.on('exopite-sof-field-group-item-added-after', function (event, $cloned) {
 
-                $cloned.find('.trumbowyg-js').trumbowyg(plugin.trumbowygOptions);
+                console.log('test exopite-sof-field-group-item-added-after');
+                $cloned.find('.trumbowyg-js').not(':disabled').trumbowyg(plugin.trumbowygOptions);
 
             });
 

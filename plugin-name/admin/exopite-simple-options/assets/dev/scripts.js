@@ -23,6 +23,19 @@ if (typeof throttle !== "function") {
     }
 }
 
+// https://stackoverflow.com/questions/24159478/skip-recursion-in-jquery-find-for-a-selector/24215566?noredirect=1#comment37410122_24215566
+jQuery.fn.findExclude = function (selector, mask, result) {
+    result = typeof result !== 'undefined' ? result : new jQuery();
+    this.children().each(function () {
+        var thisObject = jQuery(this);
+        if (thisObject.is(selector))
+            result.push(this);
+        if (!thisObject.is(mask))
+            thisObject.findExclude(selector, mask, result);
+    });
+    return result;
+}
+
 /**
  * Get url parameter in jQuery
  * @link https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js/25359264#25359264
@@ -51,7 +64,7 @@ if (typeof throttle !== "function") {
  */
 ; (function ($, window, document, undefined) {
     'use strict';
-    /*
+    /**
      * Dependency System
      *
      * Codestar Framework
@@ -121,8 +134,8 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
- * Exopite Save Options with AJAX
+/**
+ * Exopite SOF Save Options with AJAX
  */
 ; (function ($, window, document, undefined) {
 
@@ -254,8 +267,8 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
- * Exopite Media Uploader
+/**
+ * Exopite SOF Media Uploader
  */
 ; (function ($, window, document, undefined) {
 
@@ -385,8 +398,8 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
-/*
- * Exopite Options Navigation
+/**
+ * Exopite SOF Options Navigation
  */
 ; (function ($, window, document, undefined) {
 
@@ -502,274 +515,7 @@ if (typeof throttle !== "function") {
 })(jQuery, window, document);
 
 /**
- * Exopite SOF Repeater
- */
-; (function ($, window, document, undefined) {
-
-    /**
-     * A jQuery Plugin Boilerplate
-     *
-     * https://github.com/johndugan/jquery-plugin-boilerplate/blob/master/jquery.plugin-boilerplate.js
-     * https://john-dugan.com/jquery-plugin-boilerplate-explained/
-     */
-
-    var pluginName = "exopiteSOFRepeater";
-
-    // The actual plugin constructor
-    function Plugin(element, options) {
-
-        this.element = element;
-        this._name = pluginName;
-        this.$element = $(element);
-        this.init();
-
-    }
-
-    Plugin.prototype = {
-
-        init: function () {
-
-            this.bindEvents();
-            this.updateTitle();
-
-        },
-
-        // Bind events that trigger methods
-        bindEvents: function () {
-            var plugin = this;
-
-            plugin.$element.find('.exopite-sof-cloneable--add').off().on('click' + '.' + plugin._name, function (e) {
-
-                e.preventDefault();
-                if ($(this).is(":disabled")) return;
-                plugin.addNew.call(plugin, $(this));
-
-            });
-
-            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--remove:not(.disabled)', function (e) {
-
-                e.preventDefault();
-                plugin.remove.call(plugin, $(this));
-
-            });
-
-            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--clone:not(.disabled)', function (e) {
-
-                e.preventDefault();
-                plugin.addNew.call(plugin, $(this));
-
-            });
-
-            plugin.$element.find('.exopite-sof-cloneable__item').on('input change blur', '[data-title=title]', function (event) {
-
-                plugin.updateTitle();
-
-            });
-
-        },
-
-        // Unbind events that trigger methods
-        unbindEvents: function () {
-            this.$element.off('.' + this._name);
-        },
-
-        remove: function ($button) {
-
-            $button.parents('.exopite-sof-cloneable__item').remove();
-            this.checkAmount();
-            this.updateNameIndex();
-            $button.trigger('exopite-sof-field-group-item-removed');
-        },
-
-        checkAmount: function () {
-
-            var numItems = this.$element.find('.exopite-sof-cloneable__wrapper').children('.exopite-sof-cloneable__item').length;
-            var maxItems = this.$element.data('limit');
-
-            if (maxItems <= numItems) {
-                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", true);
-                return false;
-            } else {
-                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", false);
-                return true;
-            }
-
-
-        },
-
-        updateTitle: function () {
-
-            this.$element.find('.exopite-sof-cloneable__wrapper').find('.exopite-sof-cloneable__item').each(function (index, el) {
-                var title = $(el).find('[data-title=title]').val();
-                $(el).find('.exopite-sof-cloneable__text').text(title);
-                $(el).trigger('exopite-sof-field-group-item-title-updated');
-            });
-
-        },
-        updateNameIndex: function () {
-
-            var fieldParentName = this.$element.find('.exopite-sof-cloneable__wrapper').data('name').replace("[REPLACEME]", "");
-            // test if multilang (and option stored in array)
-            var regex_multilang_select = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]\[(.*?)\[(.*?)\]/, "i");
-            var regex_multilang = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
-            // test if not multilang (and option stored in array)
-            var regex_array = new RegExp(/\[(.*?)\]\[(.*?)\]\[(.*?)\]/, "i");
-            // test if metabox and option stored in separate meta values
-            var regex_simple = new RegExp(/\[(.*?)\]\[(.*?)\]/, "i");
-
-            this.$element.find('.exopite-sof-cloneable__wrapper').find('.exopite-sof-cloneable__item').each(function (index, el) {
-
-                $(el).find('[name^="' + fieldParentName + '"]').attr('name', function () {
-
-                    if (regex_multilang_select.test(this.name)) {
-                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4, $5) {
-                            // options[en][group][0][field][]
-                            /*
-                            var index_item_second = $2;
-                            var index_item_third = $3;
-                            if ($2 == 'REPLACEME') {
-                                index_item_second = index;
-                            }
-                            if ($3 == 'REPLACEME') {
-                                index_item_third = index;
-                            }
-                            var index_item = ($3 == 'REPLACEME') ? index : $3;
-                            */
-                            return '[' + $1 + '][' + $2 + '][' + index + '][' + $4 + '][' + $5 + ']';
-                        });
-                    }
-
-                    if (regex_multilang.test(this.name)) {
-                        return this.name.replace(regex_multilang, function ($0, $1, $2, $3, $4) {
-                            // options[en][group][0][field]
-                            // options[group][0][field][] (options array no multilang and select)
-                            var index_item_second = $2;
-                            var index_item_third = $3;
-                            /*
-                            if ($2 == 'REPLACEME') {
-                                index_item_second = index;
-                            }
-                            if ($3 == 'REPLACEME') {
-                                index_item_third = index;
-                            }
-                            // var index_item = ($3 == 'REPLACEME') ? index : $3;
-                            */
-                            if (!$4 || 0 === $4.length) {
-                                index_item_second = index;
-                            } else {
-                                index_item_third = index;
-                            }
-                            return '[' + $1 + '][' + index_item_second + '][' + index_item_third + '][' + $4 + ']';
-                        });
-                    }
-                    if (regex_array.test(this.name)) {
-                        return this.name.replace(regex_array, function ($0, $1, $2, $3) {
-                            // options[group][0][field]
-                            // group[0][emails_group_callback][] (simple and select)
-                            var index_item_first = $1;
-                            var index_item_second = $2;
-                            if (!$3 || 0 === $3.length) {
-                                index_item_first = index;
-                            } else {
-                                index_item_second = index;
-                            }
-                            // if ($1 == 'REPLACEME') {
-                            //     index_item_first = index;
-                            // }
-                            // if ($2 == 'REPLACEME') {
-                            //     index_item_second = index;
-                            // }
-                            // var index_item = ($2 == 'REPLACEME') ? index : $2;
-                            return '[' + index_item_first + '][' + index_item_second + '][' + $3 + ']';
-                        });
-                    }
-                    if (regex_simple.test(this.name)) {
-                        return this.name.replace(regex_simple, function ($0, $1, $2) {
-                            //options[0][field]
-                            // var index_item = ($1 == 'REPLACEME') ? index : $1;
-                            return '[' + index + '][' + $2 + ']';
-                        });
-                    }
-
-
-                });
-
-            });
-
-        },
-
-        addNew: function ($element) {
-
-            var $group = this.$element.parents('.exopite-sof-field-group');
-
-            if ($.fn.chosen) $group.find("select.chosen").chosen("destroy");
-
-            var is_cloned = false;
-            var $cloned = null;
-            if ($element.hasClass('exopite-sof-cloneable--clone')) {
-                $cloned = $element.parents('.exopite-sof-cloneable__item').clone(true);
-                is_cloned = true;
-            } else {
-                var $muster = this.$element.find('.exopite-sof-cloneable__muster');
-                $cloned = $muster.clone(true);
-            }
-
-            /**
-             * Get hidden "muster" element and clone it. Remove hidden muster classes.
-             * Add trigger before and after (for various programs, like TinyMCE, Trumbowyg, etc...)
-             * Finaly append to group.
-             */
-            $cloned.find('.exopite-sof-cloneable--remove').removeClass('disabled');
-            $cloned.find('.exopite-sof-cloneable--clone').removeClass('disabled');
-            $cloned.removeClass('exopite-sof-cloneable__muster');
-            $cloned.removeClass('exopite-sof-cloneable__muster--hidden');
-            $cloned.removeClass('exopite-sof-accordion--hidden');
-            $cloned.find('[disabled]').attr('disabled', false);
-
-            this.$element.trigger('exopite-sof-field-group-item-added-before', [$cloned, $group]);
-
-            if (is_cloned) {
-                $cloned.insertAfter($element.parents('.exopite-sof-cloneable__item'));
-            } else {
-                $group.find('.exopite-sof-cloneable__wrapper').append($cloned);
-            }
-
-            $cloned.insertAfter($element.parents('.exopite-sof-cloneable__item') );
-
-            this.checkAmount();
-            this.updateNameIndex();
-
-            // If has choosen, initilize it.
-            if ($.fn.chosen) $group.find("select.chosen").chosen({ width: "375px" });
-
-            // If has date picker, initilize it.
-            $cloned.find('.datepicker').each(function (index, el) {
-                var dateFormat = $(el).data('format');
-                $(el).removeClass('hasDatepicker').datepicker({ 'dateFormat': dateFormat });
-            });
-
-            // Handle dependencies.
-            $cloned.exopiteSofManageDependencies('sub');
-            $cloned.find('.exopite-sof-cloneable__content').removeAttr("style").show();
-
-            this.$element.trigger('exopite-sof-field-group-item-added-after', [$cloned, $group]);
-        },
-
-    };
-
-    $.fn[pluginName] = function (options) {
-        return this.each(function () {
-            if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName,
-                    new Plugin(this, options));
-            }
-        });
-    };
-
-})(jQuery, window, document);
-
-/*
- * Exopite Save Options with AJAX
+ * Exopite SOF Handle TinyMCE
  */
 ; (function ($, window, document, undefined) {
 
@@ -859,11 +605,18 @@ if (typeof throttle !== "function") {
 })(jQuery, window, document);
 
 /**
- * Exopite SOF Accordion
+ * Exopite SOF Repeater
  */
 ; (function ($, window, document, undefined) {
 
-    var pluginName = "exopiteSOFAccordion";
+    /**
+     * A jQuery Plugin Boilerplate
+     *
+     * https://github.com/johndugan/jquery-plugin-boilerplate/blob/master/jquery.plugin-boilerplate.js
+     * https://john-dugan.com/jquery-plugin-boilerplate-explained/
+     */
+
+    var pluginName = "exopiteSOFRepeater";
 
     // The actual plugin constructor
     function Plugin(element, options) {
@@ -871,8 +624,10 @@ if (typeof throttle !== "function") {
         this.element = element;
         this._name = pluginName;
         this.$element = $(element);
-        this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
-        this.isSortableCalled = false;
+        this.$sortableWrapper = this.$element.children('.exopite-sof-cloneable__wrapper');
+        this.$container = $(element).children('.exopite-sof-accordion__wrapper').first();
+        this.sortable = null;
+
         this.init();
 
     }
@@ -881,25 +636,28 @@ if (typeof throttle !== "function") {
 
         init: function () {
 
+            this.isSortable = (this.$container.data('is-sortable'));
             this.bindEvents();
+            this.updateTitle();
+            this.setMusterDisabled();
+            this.sortableInit();
 
-            if (this.$container.data('sortable')) {
+            /**
+             * Access other plugin functions and variables
+             */
+            // this.$element.data('plugin_exopiteSOFAccordion').showYorself('test')
+            // console.log('options: ' + JSON.stringify(this.$element.data('plugin_exopiteSOFAccordion').sortableOptions));
 
-                /**
-                 * Make accordion items sortable.
-                 *
-                 * https://jqueryui.com/sortable/
-                 * http://api.jqueryui.com/sortable/
-                 */
-                this.$container.sortable({
-                    axis: "y",
-                    cursor: "move",
-                    handle: '.exopite-sof-accordion__title',
-                    tolerance: "pointer",
-                    distance: 5,
-                    opacity: 0.5,
+        },
+
+        sortableInit: function() {
+
+            if (this.isSortable) {
+
+                //https://github.com/lukasoppermann/html5sortable
+                sortable('.exopite-sof-cloneable__wrapper', {
+                    handle: '.exopite-sof-cloneable__title',
                 });
-                // this.$element.disableSelection();
             }
 
         },
@@ -908,11 +666,41 @@ if (typeof throttle !== "function") {
         bindEvents: function () {
             var plugin = this;
 
-            plugin.$container.off().on('click' + '.' + plugin._name, '.exopite-sof-accordion__title', function (e) {
+            // Predefinied
+            plugin.$element.find('.exopite-sof-cloneable--add').off().on('click' + '.' + plugin._name, function (e) {
                 e.preventDefault();
-                if (!$(e.target).hasClass('exopite-sof-cloneable--clone')) {
-                    plugin.toggleAccordion.call(plugin, $(this));
-                }
+                if ($(this).is(":disabled")) return;
+                plugin.addNew.call(plugin, $(this));
+
+            });
+
+            // Dynamically added
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--remove:not(.disabled)', function (e) {
+
+                if (e.target != this) return false;
+                e.preventDefault();
+                plugin.remove($(this));
+
+            });
+
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-cloneable--clone:not(.disabled)', function (e) {
+
+                // Match only on clicked element
+                if (e.target != this) return false;
+
+                e.preventDefault();
+
+                // Stop event bubbling
+                e.stopPropagation();
+
+                plugin.addNew($(this));
+
+            });
+
+            plugin.$element.find('.exopite-sof-cloneable__item').on('input change blur', '[data-title=title]', function (event) {
+
+                plugin.updateTitleElement($(this));
+
             });
 
             /**
@@ -926,30 +714,283 @@ if (typeof throttle !== "function") {
 
             });
 
-            plugin.$container.on('sortstop' + '.' + plugin._name, function () {
 
-                // Need to reorder name index, make sure, saved in the wanted order in meta
-                plugin.$container.find('.exopite-sof-accordion__item').each(function (index_item) {
-                    var $name_prefix = plugin.$container.data('name');
-                    var $name_prefix = $name_prefix.replace('[REPLACEME]', '');
-                    $(this).find('[name^="' + $name_prefix + '"]').each(function () {
-                        var $this_name = $(this).attr('name');
-                        // Escape square brackets
-                        $name_prefix_item = $name_prefix.replace(/\[/g, '\\[').replace(/]/g, '\\]');
-                        var regex = new RegExp($name_prefix_item + '\\[\\d+\\]');
-                        // Generate name to replace based on the parent item
-                        var $this_name_updated = $this_name.replace(regex, $name_prefix + '\[' + index_item + '\]');
-                        // Update
-                        $(this).attr('name', $this_name_updated);
+            plugin.$container.on('sortstop' + '.' + plugin._name, function (event, ui) {
+
+                event.stopPropagation();
+
+                plugin.updateName($(this));
+
+            });
+
+        },
+
+        // Unbind events that trigger methods
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+
+        updateName: function( $element ) {
+            var plugin = this;
+
+            var text = $element.closest('.exopite-sof-group').children('.exopite-sof-cloneable--add').text();
+
+            var $wrapper = $element.closest('.exopite-sof-cloneable__wrapper');
+            var wrapperName = $wrapper.attr('data-name');
+            var baseName = wrapperName.replace(/\[REPLACEME\]$/, '');
+            var baseNameRegex = plugin.escapeRegExp(baseName);
+            var regexGroupName = new RegExp(baseNameRegex + "\\[(.*?)\\]", "i");
+
+            $wrapper.findExclude('.exopite-sof-cloneable__item', '.exopite-sof-group').each(function(index, el){
+
+                /**
+                 * Update data-name for muster element (set parent indexes for cloning)
+                 */
+                $(el).find('[data-name^="' + baseName + '"]').each(function(indexName, elDataName){
+                    var elementName = $(elDataName).attr('data-name');
+
+                    var relpacedName = elementName.replace(regexGroupName, function ($0, $1) {
+                        // options[en][group][0][field][]
+
+                        return baseName + '[' + index + ']';
                     });
+
+                    $(elDataName).attr('data-name', relpacedName);
+
                 });
 
-                plugin.$element.trigger('exopite-sof-accordion-sortstop', [plugin.$container]);
+                /**
+                 * Update element names (only this parent index) from current level to the last level
+                 */
+                $(el).find('[name^="' + baseName + '"]').each(function(indexName, elName){
 
-                // Stop next click after reorder
-                // @link https://stackoverflow.com/questions/947195/jquery-ui-sortable-how-can-i-cancel-the-click-event-on-an-item-thats-dragged/19858331#19858331
-                //
-                plugin.isSortableCalled = true;
+                    var elementName = $(elName).attr('name');
+                    var relpacedName = elementName.replace(regexGroupName, function ($0, $1) {
+                        // options[en][group][0][field][]
+
+                        return baseName + '[' + index + ']';
+                    });
+
+                    $(elName).attr('name', relpacedName);
+
+                });
+
+
+            });
+
+        },
+
+        remove: function ($button) {
+
+            $wrapper = $button.closest('.exopite-sof-cloneable__wrapper');
+            $button.closest('.exopite-sof-cloneable__item').remove();
+            this.updateName($wrapper);
+            this.checkAmount($wrapper);
+
+            $button.trigger('exopite-sof-field-group-item-removed');
+
+        },
+
+        checkAmount: function ($wrapper) {
+
+            var numItems = $wrapper.children('.exopite-sof-cloneable__item').length;
+            var maxItems = $wrapper.data('limit');
+
+            if (typeof maxItems !== 'undefined') {
+                return numItems;
+            }
+
+            /**
+             * Fixme:
+             * - This apply to all child, wrong!
+             */
+            if (maxItems <= numItems) {
+                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", true);
+                return false;
+            } else {
+                this.$element.find('.exopite-sof-cloneable--add').attr("disabled", false);
+                return numItems;
+            }
+
+
+        },
+
+        setMusterDisabled: function () {
+
+            /**
+             * Mainly for nested elements (in our case: tab)
+             * This will prevent dinamically added muster elements to save.
+             */
+            this.$element.find('.exopite-sof-cloneable__muster').find('[name]').prop('disabled', true).addClass('disabled');
+
+        },
+
+        updateTitleElement: function ($element) {
+
+            var $item = $element.closest('.exopite-sof-cloneable__item');
+            var title = $item.find('[data-title=title]').first().val();
+            $item.children('.exopite-sof-cloneable__title').children('.exopite-sof-cloneable__text').text(title);
+            $item.trigger('exopite-sof-field-group-item-title-updated');
+
+        },
+
+        updateTitle: function () {
+
+            this.$element.find('.exopite-sof-cloneable__wrapper').find('.exopite-sof-cloneable__item').each(function (index, el) {
+                var title = $(el).find('[data-title=title]').val();
+                if (title) {
+                    $(el).find('.exopite-sof-cloneable__text').text(title);
+                }
+
+                $(el).trigger('exopite-sof-field-group-item-title-updated');
+            });
+
+        },
+
+        escapeRegExp: function (stringToGoIntoTheRegex) {
+            // https://stackoverflow.com/questions/17885855/use-dynamic-variable-string-as-regex-pattern-in-javascript/17886301#17886301
+            return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        },
+
+        removeIfNested: function(index) {
+            // this is the corrent DOM element
+            var $this = $(this),
+                return_value = false;
+
+            $.each($this.attr('class').split(/\s+/), function(index) {
+                if ($this.parents("." + this).length > 0) {
+                    return_value = default_value || true;
+                }
+            });
+
+            return return_value;
+        },
+
+        addNew: function ($element) {
+
+            var plugin = this;
+
+            var $group = $element.parent();
+
+            if ($.fn.chosen) $group.find("select.chosen").chosen("destroy");
+
+            var is_cloned = false;
+            var $cloned = null;
+
+            // Decide which element need to clone: the clicked or the muster?
+            if ($element.hasClass('exopite-sof-cloneable--clone')) {
+                $cloned = $element.parent().parent().parent('.exopite-sof-cloneable__item').clone(true);
+                is_cloned = true;
+            } else {
+                var $muster = $element.parent().children('.exopite-sof-cloneable__muster');
+                $cloned = $muster.clone(true);
+            }
+
+            /**
+             * Get hidden "muster" element and clone it. Remove hidden muster classes.
+             * Add trigger before and after (for various programs, like TinyMCE, Trumbowyg, etc...)
+             * Finaly append to group.
+             */
+            $cloned.find('.exopite-sof-cloneable--remove').removeClass('disabled');
+            $cloned.find('.exopite-sof-cloneable--clone').removeClass('disabled');
+            $cloned.removeClass('exopite-sof-cloneable__muster');
+            $cloned.removeClass('exopite-sof-cloneable__muster--hidden');
+            $cloned.removeClass('exopite-sof-accordion--hidden');
+            $cloned.findExclude('[disabled]', '.exopite-sof-cloneable__muster').attr('disabled', false).removeClass('disabled');;
+
+            plugin.$element.trigger('exopite-sof-field-group-item-added-before', [$cloned, $group]);
+
+            if (is_cloned) {
+                // Insert after clicked element
+                $cloned.insertAfter($element.closest('.exopite-sof-cloneable__item'));
+                $wrapper = $element.closest('.exopite-sof-cloneable__wrapper');
+            } else {
+                // Insert after all elements
+                $group.children('.exopite-sof-cloneable__wrapper').first().append($cloned);
+                $wrapper = $element.closest('.exopite-sof-group').children('.exopite-sof-cloneable__wrapper');
+            }
+
+            var numItem = plugin.checkAmount($wrapper);
+            if (! numItem) {
+                return;
+            }
+
+            plugin.setMusterDisabled();
+            plugin.updateName($wrapper);
+
+            // If has choosen, initilize it.
+            if ($.fn.chosen) $group.find("select.chosen").chosen({ width: "375px" });
+
+            // If has date picker, initilize it.
+            $cloned.find('.datepicker').each(function (index, el) {
+                var dateFormat = $(el).data('format');
+                $(el).removeClass('hasDatepicker').datepicker({ 'dateFormat': dateFormat });
+            });
+
+            // this.sortable.destroy();
+            plugin.sortableInit();
+
+            // Handle dependencies.
+            $cloned.exopiteSofManageDependencies('sub');
+            $cloned.find('.exopite-sof-cloneable__content').removeAttr("style").show();
+
+            plugin.$element.trigger('exopite-sof-field-group-item-added-after', [$cloned, $group]);
+        },
+
+    };
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                    new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+/**
+ * Exopite SOF Accordion
+ */
+; (function ($, window, document, undefined) {
+
+    var pluginName = "exopiteSOFAccordion";
+
+    // The actual plugin constructor
+    function Plugin(element, options) {
+
+        this.element = element;
+        this._name = pluginName;
+        this.$element = $(element);
+        this.$container = $(element).children('.exopite-sof-accordion__wrapper').first();
+        this.allOpen = (this.$container.data('all-open') || typeof this.$container.data('all-open') == 'undefined');
+        this.init();
+
+    }
+
+    Plugin.prototype = {
+
+        init: function () {
+
+            this.bindEvents();
+
+        },
+
+        // showYorself: function(somevar){
+        //     console.log('Yeah baby it is me: ' + somevar);
+        // },
+
+        // Bind events that trigger methods
+        bindEvents: function () {
+            var plugin = this;
+
+            plugin.$container.off().on('click' + '.' + plugin._name, '.exopite-sof-accordion__title', function (e) {
+                e.preventDefault();
+
+                if (!$(e.target).hasClass('exopite-sof-cloneable--clone') && !$(this).closest('.exopite-sof-accordion__wrapper').hasClass('exopite-sof-group-compact')) {
+                    plugin.toggleAccordion.call(plugin, $(this));
+                }
 
             });
 
@@ -960,24 +1001,44 @@ if (typeof throttle !== "function") {
             this.$container.off('.' + this._name);
         },
 
-        toggleAccordion: function ($header) {
+        slideUp: function ($element) {
+            $element.children('.exopite-sof-accordion__content').slideUp(350, function () {
+                $element.addClass('exopite-sof-accordion--hidden');
+            });
+        },
 
+        slideDown: function ($element) {
+            $element.children('.exopite-sof-accordion__content').slideDown(350, function () {
+                $element.removeClass('exopite-sof-accordion--hidden');
+            });
+        },
+
+        toggleAccordion: function ($header) {
+            var plugin = this;
             var $this = $header.parent('.exopite-sof-accordion__item');
 
-            // To prevent unwanted click trigger after sort (drag and drop)
-            if (this.isSortableCalled) {
-                this.isSortableCalled = false;
-                return;
-            }
+            /**
+             * This is for the accordion field.
+             */
+            if (!this.allOpen) {
 
-            if ($this.hasClass('exopite-sof-accordion--hidden')) {
-                $this.find('.exopite-sof-accordion__content').slideDown(350, function () {
-                    $this.removeClass('exopite-sof-accordion--hidden');
+                this.$container.findExclude('.exopite-sof-accordion__item', '.exopite-sof-accordion').each(function (index, el) {
+
+                    if ($(el).is($this)) {
+                        plugin.slideDown($this);
+                    } else {
+                        plugin.slideUp($(el));
+                    }
+
                 });
+
             } else {
-                $this.find('.exopite-sof-accordion__content').slideUp(350, function () {
-                    $this.addClass('exopite-sof-accordion--hidden');
-                });
+
+                if ($this.hasClass('exopite-sof-accordion--hidden')) {
+                    plugin.slideDown($this);
+                } else {
+                    plugin.slideUp($this);
+                }
 
             }
 
@@ -998,7 +1059,7 @@ if (typeof throttle !== "function") {
 
 
 /**
- * Exopite SOF Search
+ * Exopite SOF Search In Options
  */
 ; (function ($, window, document, undefined) {
 
@@ -1011,9 +1072,7 @@ if (typeof throttle !== "function") {
         this._name = pluginName;
         this.$element = $(element);
         this.$nav = this.$element.find('.exopite-sof-nav');
-        // this.$wrapper = $searchField.parents('.exopite-sof-wrapper');
-        // this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
-        this.isSortableCalled = false;
+
         this.init();
 
     }
@@ -1069,13 +1128,19 @@ if (typeof throttle !== "function") {
             var plugin = this;
             if (plugin.$nav.length > 0) {
                 plugin.$element.find('.exopite-sof-section-header').hide();
-                plugin.$element.find('.exopite-sof-nav li[data-section="' + activeElement + '"]').addClass('active');
+                var $activeElement = plugin.$element.find('.exopite-sof-nav li[data-section="' + activeElement + '"]');
+                $activeElement.addClass('active');
+                if ( $activeElement.parents('.exopite-sof-nav-list-parent-item').length > 0  &&
+                    ! $activeElement.parents('.exopite-sof-nav-list-parent-item').hasClass('active') ) {
+                    $activeElement.parents('.exopite-sof-nav-list-parent-item').addClass('active').find('ul').slideToggle(200);;
+                }
                 plugin.$element.find('.exopite-sof-nav').removeClass('search');
             }
             plugin.$element.find('.exopite-sof-sections .exopite-sof-section').addClass('hide');
             plugin.$element.find('.exopite-sof-sections .exopite-sof-section-' + activeElement).removeClass('hide');
             plugin.$element.find('.exopite-sof-field h4').closest('.exopite-sof-field').not('.hidden').removeAttr('style');
             plugin.$element.find('.exopite-sof-field-card').removeAttr('style');
+
         },
         selectSection: function ($sectionHeader) {
             var plugin = this;
@@ -1123,7 +1188,7 @@ if (typeof throttle !== "function") {
 })(jQuery, window, document);
 
 /**
- * Exopite SOF Search
+ * Exopite SOF Font Field Preview
  */
 ; (function ($, window, document, undefined) {
 
@@ -1136,9 +1201,7 @@ if (typeof throttle !== "function") {
         this._name = pluginName;
         this.$element = $(element);
         this.$nav = this.$element.find('.exopite-sof-nav');
-        // this.$wrapper = $searchField.parents('.exopite-sof-wrapper');
-        // this.$container = $(element).find('.exopite-sof-accordion__wrapper').first();
-        this.isSortableCalled = false;
+
         this.init();
 
     }
@@ -1147,7 +1210,7 @@ if (typeof throttle !== "function") {
 
         init: function () {
             var plugin = this;
-            // var parentName = jQuery( this ).attr( 'data-id' );
+
             plugin.preview = this.$element.find('.exopite-sof-font-preview');
             plugin.fontColor = this.$element.find( '.font-color-js' );
             plugin.fontSize = this.$element.find( '.font-size-js' );
@@ -1290,7 +1353,7 @@ if (typeof throttle !== "function") {
 })(jQuery, window, document);
 
 /**
- * Exopite Save Options with AJAX
+ * Exopite SOF Import/Export Options with AJAX
  */
 ; (function ($, window, document, undefined) {
 
@@ -1473,11 +1536,113 @@ if (typeof throttle !== "function") {
 
 })(jQuery, window, document);
 
+/**
+ * Exopite SOF Tab Navigation
+ */
+; (function ($, window, document, undefined) {
+
+    var pluginName = "exopiteTabs";
+
+    // The actual plugin constructor
+    function Plugin(element, options) {
+
+        this.element = element;
+        this._name = pluginName;
+        this.$element = $(element);
+        this.init();
+
+    }
+
+    Plugin.prototype = {
+
+        init: function () {
+
+            this.bindEvents();
+
+        },
+
+        /**
+         * Looks a little bit strange, but some readon this is the only way
+         * what I find, to make this work in group field.
+         */
+        // Bind events that trigger methods
+        bindEvents: function () {
+            var plugin = this;
+            plugin.$tabLinks = plugin.$element.children('.exopite-sof-tab-header').children('.exopite-sof-tab-link');
+            plugin.$tabContents = plugin.$element.children('.exopite-sof-tab-content');
+            plugin.mobileHeader = plugin.$tabContents.children('.exopite-sof-tab-mobile-header');
+
+            plugin.$tabLinks.off().on('click' + '.' + plugin._name, function (event) {
+
+                plugin.changeTabs(event, this);
+
+            });
+
+            plugin.mobileHeader.off().on('click' + '.' + plugin._name, function (event) {
+
+                var index = $(this).parent().index() - 1;
+                var that = this;
+
+                // tabLinks
+                var $tabLinks = $(that).parent().parent().children('.exopite-sof-tab-header').children('.exopite-sof-tab-link');
+                var $tabContents = $(that).parent().parent().children('.exopite-sof-tab-content');
+
+                $tabLinks.removeClass('active');
+                $tabLinks.eq(index).addClass('active');
+                $tabContents.removeClass('active');
+                $(that).parent().addClass('active');
+
+            });
+
+        },
+
+        // Unbind events that trigger methods
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+
+        changeTabs: function (event, that, index) {
+            var plugin = this;
+            var index = $(that).index();
+
+            $(that).parent().children('.exopite-sof-tab-link').removeClass('active');
+            $(that).parent().parent().children('.exopite-sof-tab-content').removeClass('active');
+            $(that).addClass('active');
+            $(that).parent().parent().children('.exopite-sof-tab-content').eq(index).addClass('active');
+
+        },
+
+    };
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                    new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+/**
+ * ToDos:
+ * - sortable only if data-is-sortable is 1 || true
+ * - maybe move sortable to a separate plugin?
+ * - clean up
+ * - fix name generation (if added or cloned) <- drag&drop is working az expected
+ * - replace color picker (
+ *      https://acko.net/blog/farbtastic-jquery-color-picker-plug-in/
+ *      https://www.jqueryscript.net/other/Color-Picker-Plugin-jQuery-MiniColors.html
+ *      https://www.jquery-az.com/a-bootstrap-jquery-color-picker-with-7-demos/
+ *   )?
+ */
 ; (function ($) {
     "use strict";
 
     $(document).ready(function () {
 
+        // $('.exopite-sof-wrapper').exopiteSOFHelpers();
         $('.exopite-sof-wrapper').exopiteSofManageDependencies();
         $('.exopite-sof-wrapper').exopiteSofSearch();
         $('.exopite-sof-sub-dependencies').exopiteSofManageDependencies('sub');
@@ -1496,6 +1661,7 @@ if (typeof throttle !== "function") {
         $('.exopite-sof-accordion').exopiteSOFAccordion();
         $('.exopite-sof-group').exopiteSOFRepeater();
         $('.exopite-sof-field-backup').exopiteImportExportAJAX();
+        $('.exopite-sof-tabs').exopiteTabs();
 
     });
 

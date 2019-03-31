@@ -18,7 +18,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 
 			echo $this->element_before();
 
-			$unallows = array( 'tab', 'group' );
+			$unallows = array();
 			$tabs    = array_values( $this->field['tabs'] );
 			$unique_id = ( ! empty( $this->unique ) ) ? $this->unique : $this->field['id'];
 
@@ -31,21 +31,37 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 			echo '<div class="exopite-sof-tabs">';
 
 			$i = 0;
+
+			$equal_width = ( isset( $this->field['options']['equal_width'] ) && $this->field['options']['equal_width'] ) ? ' equal-width' : '';
+
+			/**
+			 * Tab navigation
+			 */
+			echo '<ul class="exopite-sof-tab-header' . $equal_width . '">';
+
 			foreach ( $tabs as $key => $tab ) {
 
-				$tab_id = $this->field['id'] . '-' . $i;
+				reset( $tabs );
+				$tab_active = ( $key === key( $tabs ) ) ? ' active' : '';
+
+				echo '<li class="exopite-sof-tab-link' . $tab_active . '">' . $tab['title'] . '</li>';
+
+			}
+
+			echo '</ul>';
+
+			/**
+			 * Tab content
+			 */
+			foreach ( $tabs as $key => $tab ) {
 
 				reset( $tabs );
-				$tab_active = ( $key === key( $tabs ) ) ? ' checked="checked"' : '';
-				$equal_width = ( isset( $this->field['options']['equal_width'] ) && $this->field['options']['equal_width'] ) ? ' equal-width' : '';
+				$tab_active = ( $key === key( $tabs ) ) ? ' active' : '';
 
-				/**
-				 * @link https://codepen.io/mikestreety/pen/yVNNNm
-				 */
-
-				echo '<input name="' . $this->field['id'] . '" type="radio" id="' . $tab_id . '" class="input"' . $tab_active . '>';
-				echo '<label for="' . $tab_id . '" class="label' . $equal_width . '">' . $tab['title'] . '</label>';
-				echo '<div class="tab">';
+				echo '<div class="exopite-sof-tab-content' . $tab_active . '">';
+				echo '<div class="exopite-sof-tab-mobile-header">' . $tab['title'] . '</div>';
+				echo '<div class="exopite-sof-tab-content-body">';
+				echo '<div class="exopite-sof-tab-content-body-inner">';
 
 				foreach ( $tab['fields'] as $field ) {
 
@@ -69,8 +85,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_tab' ) ) {
 				}
 
 				echo '</div>';
-
-				$i++;
+				echo '</div>';
+				echo '</div>';
 
 			}
 
