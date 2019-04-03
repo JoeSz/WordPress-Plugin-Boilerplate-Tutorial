@@ -721,7 +721,13 @@ class Exopite_Meta_Boxes {
 
         if ( ! $this->check_rights() ) return;
 
+        $post_type_slug = get_post_type( get_the_ID() );
+
         foreach ( $this->args as $cpt_name => $options ) {
+
+            if ( $post_type_slug !== $cpt_name ) {
+                continue;
+            }
 
             foreach ( $options['fields'] as $name => $value ) {
 
