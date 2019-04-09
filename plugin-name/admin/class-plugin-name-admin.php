@@ -149,6 +149,10 @@ class Plugin_Name_Admin {
 
     }
 
+    public function test_sanitize_callback( $val ) {
+        return str_replace ( 'a', 'b', $val );
+    }
+
     public function create_menu() {
 
         /**
@@ -241,6 +245,7 @@ class Plugin_Name_Admin {
          * - card
          * - checkbox
          * - color
+         * - color_wp
          * - content
          * - date
          * - editor
@@ -289,6 +294,7 @@ class Plugin_Name_Admin {
 
                     ),
                     'help'        => 'Help text',
+                    'sanitize'    => array( $this, 'test_sanitize_callback' ),
 
                 ),
 
@@ -580,23 +586,49 @@ class Plugin_Name_Admin {
 
                 array(
                     'id'     => 'color_1',
-                    'type'   => 'color',
-                    'title'  => 'Color',
+                    'type'   => 'color_wp',
+                    'title'  => 'Color WordPress RGB',
                 ),
 
                 array(
                     'id'     => 'color_2',
-                    'type'   => 'color',
-                    'title'  => 'Color',
+                    'type'   => 'color_wp',
+                    'title'  => 'Color WordPress RGBA',
                     'rgba'   => true,
                 ),
 
                 array(
                     'id'     => 'color_3',
-                    'type'   => 'color',
-                    'title'  => 'Color',
+                    'type'   => 'color_wp',
+                    'title'  => 'Color HTML5',
                     'picker' => 'html5',
                 ),
+
+                array(
+                    'id'     => 'color_4',
+                    'type'   => 'color',
+                    'title'  => 'Color Minicolor RGB',
+                ),
+
+                array(
+                    'id'      => 'color_5',
+                    'type'    => 'color',
+                    'title'   => 'Color Minicolor RGBA',
+                    'rgba'    => true,
+                    'default' => '#ff0000',
+                    // 'default' => 'rgba(255,0,0,1)',
+                ),
+
+                array(
+                    'id'      => 'color_6',
+                    'type'    => 'color',
+                    'title'   => 'Color Minicolor Wheel',
+                    'rgba'    => true,
+                    'control' => 'wheel',
+                    'default' => '#ff0000',
+                ),
+
+
 
 
             )
@@ -988,9 +1020,9 @@ class Plugin_Name_Admin {
                                 ),
 
                                 array(
-                                    'id'     => 'group_1_group_1_color_1',
+                                    'id'     => 'group_1_group_1_color_2',
                                     'type'   => 'color',
-                                    'title'  => 'Color',
+                                    'title'  => 'Color Minicolor',
                                 ),
 
                                 array(
@@ -1002,6 +1034,12 @@ class Plugin_Name_Admin {
                                     'prepend' => 'fa-calendar',
                                 ),
 
+                                array(
+                                    'id'      => 'group_1_group_1_switcher_1',
+                                    'title'   => 'Switcher',
+                                    'type'    => 'switcher',
+                                    'default' => 'yes',
+                                ),
 
                                 array(
                                     'id'      => 'group_1_group_1_typography_1',
