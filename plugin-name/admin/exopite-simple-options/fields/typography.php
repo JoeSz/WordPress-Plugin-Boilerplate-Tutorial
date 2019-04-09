@@ -125,7 +125,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 					// 'before'  => 'Size ',
 					'pseudo'  => true,
 					'class' => 'font-size-js',
-					'prepend' => 'fa-arrows-v',
+					'prepend' => 'fa-font',
 					'append' => 'px',
                 );
 
