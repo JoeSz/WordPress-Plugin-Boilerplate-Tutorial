@@ -599,7 +599,7 @@ class Plugin_Name_Admin {
 
                 array(
                     'id'     => 'color_3',
-                    'type'   => 'color_wp',
+                    'type'   => 'color',
                     'title'  => 'Color HTML5',
                     'picker' => 'html5',
                 ),
