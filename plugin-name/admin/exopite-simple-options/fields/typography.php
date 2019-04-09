@@ -150,11 +150,11 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 					'class' => 'font-color-js',
                 );
 
-				echo '<div>';
+				echo '<div class="exopite-sof-typography-size-height">';
 				echo $self->add_field( $field_size, $value['size'] );
 				echo $self->add_field( $field_height, $value['height'] );
 				echo '</div>';
-				echo '<div>';
+				echo '<div class="exopite-sof-typography-color">';
 				echo $self->add_field( $field_color, $value['color'] );
 				echo '</div>';
 
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 					'fn'         => 'loader-jquery-chosen.min.js',
 					'type'       => 'script',
 					'dependency' => array( 'jquery-chosen' ),
-					'version'    => '',
+					'version'    => '20190407',
 					'attr'       => true,
 				),
 			);

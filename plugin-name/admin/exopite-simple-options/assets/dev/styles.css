@@ -2890,3 +2890,15 @@ input[type="color"] {
 .exopite-sof-cloneable--helper i:hover {
     color: #444;
 }
+.exopite-sof-wrapper input[type="text"].minicolor {
+    padding-left: 40px;
+}
+.exopite-sof-wrapper .minicolors-theme-default .minicolors-swatch {
+    top: 0;
+    left: 0;
+    width: 29px;
+    height: 29px;
+}
+.exopite-sof-typography-color {
+    margin-bottom: 8px;
+}

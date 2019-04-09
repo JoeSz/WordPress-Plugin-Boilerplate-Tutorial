@@ -2,12 +2,16 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2019-03-31
+ * Last edit: 2019-04-07
  *
  * INFOS AND TODOS:
+ * - fix: typography not working in group
+ * - fix: typography font-weight not save/restore
+ * - fix: if no group title, then take parents
  *
- * - IDEAS
- *   - import options from file
+ * IDEAS
+ * - import options from file
+ * - chunk upload
  */
 /**
  * ToDos:
@@ -162,7 +166,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				return;
 			}
 
-			$this->version = '20190331';
+			$this->version = '20190407';
 
 			// TODO: Do sanitize $config['id']
 			$this->unique = $config['id'];
@@ -1089,61 +1093,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				}
 			}
 
-			/**
-			 * Save with "basic sanitization.
-			 * It is "basic" because this will not sanitize nested fields
-			 * (nested groups, filedsets or tabs ).
-			 */
-			/**
-			 * Loop all fields (from $config fields array ) and update values from $_POST
-			 * for both menu and meta
-			 */
-			$section_fields_current_lang = array();
-
-			$sanitizer = new Exopite_Simple_Options_Framework_Sanitize( $this->is_multilang(), $this->lang_current, $this->config );
-
-			foreach ( $this->fields as $section ) {
-
-				// Make sure we have $fields array and get sanitized Values
-				if ( isset( $section['fields'] ) && is_array( $section['fields'] ) ) {
-
-					$section_fields_current_lang = array_merge(
-						$section_fields_current_lang,  // Value we currently have in the array
-						$sanitizer->get_sanitized_fields_values( $section['fields'], $posted_data ) // sanitized array we are getting
-					);
-
-				}
-
-			}
-
-			// update $section_fields_with_values with $section_fields_current_lang
+			$sanitizer = new Exopite_Simple_Options_Framework_Sanitize( $this->is_multilang(), $this->lang_current, $this->config, $this->fields );
 			if ( $this->is_multilang() ) {
-				$section_fields_with_values[ $this->lang_current ] = $section_fields_current_lang;
+				$section_fields_with_values[ $this->lang_current ] = $sanitizer->get_sanitized_values( $this->fields, $posted_data[$this->lang_current] );
 			} else {
-				$section_fields_with_values = $section_fields_current_lang;
+				$section_fields_with_values = $sanitizer->get_sanitized_values( $this->fields, $posted_data );
 			}
-
-			/**
-			 * Save without sanitization
-			 */
-			// if ( $this->is_multilang() ) {
-			// 	$section_fields_with_values[ $this->lang_current ] = $posted_data;
-			// } else {
-			// 	$section_fields_with_values = $posted_data;
-			// }
-
-			/**
-			 * You can sanitize the values yourself with the following filter hooks:
-			 *
-			 * - Both options and metas:
-			 *   exopite_sof_save_options
-			 *
-			 * - Options only:
-			 *   exopite_sof_save_menu_options
-			 *
-			 * - Meta only:
-			 *   exopite_sof_save_meta_options
-			 */
 
 			/**
 			 * The idea here is that, this hook run on both.
@@ -1196,7 +1151,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		public function write_log( $type, $log_line ) {
 
 			$hash        = '';
-			$fn          = plugin_dir_path( __FILE__ ) . '/' . $type . '-' . $hash . '.log';
+			$fn          = plugin_dir_path( __FILE__ ) . '/' . $type . $hash . '.log';
 			$log_in_file = file_put_contents( $fn, date( 'Y-m-d H:i:s' ) . ' - ' . $log_line . PHP_EOL, FILE_APPEND );
 
 		}

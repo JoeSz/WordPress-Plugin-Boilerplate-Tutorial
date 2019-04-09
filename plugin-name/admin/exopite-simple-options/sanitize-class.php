@@ -3,11 +3,19 @@
 } // Cannot access pages directly.
 /**
  *
- * Options Class
+ * Sanitize Class
  *
  * @since 1.0.0
  * @version 1.0.0
  *
+ */
+/**
+ * loop reqursive $valuePOST, get the field from fields based on "name" == "id"
+ * - sanizite by type
+ * - ignore if not exist
+ * - in this case it is irrelevant how many times a filed exist -> ok for groups
+ *
+ * https://www.sitepoint.com/community/t/best-way-to-do-array-search-on-multi-dimensional-array/16382/3
  */
 if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 
@@ -16,281 +24,112 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 		public $is_multilang;
 		public $lang_current;
 		public $config;
+		public $fields;
 
-		public function __construct( $is_multilang, $lang_current, $config ) {
-			/**
-			 * Sanitization order:
-			 * - save
-			 * - get_sanitized_fields_values
-			 * - get_sanitized_field_value_from_global_post
-			 * - sanitize
-			 * - get_sanitized_field_value_by_type
-			 */
+		public static $parent_key;
+
+		public function __construct( $is_multilang, $lang_current, $config, $fields ) {
+
 			$this->is_multilang = $is_multilang;
 			$this->lang_current = $lang_current;
 			$this->config = $config;
+			$this->fields = $fields;
+
 		}
 
-		/**
-		 * FOR TEST
-		 */
-        public static function flat_concatenate_array( $array, $prefix = '' ) {
-            //
-            $result = array();
-            foreach( $array as $key => $value ) {
-                if( is_array( $value ) ) {
-                    $result = $result + self::flat_concatenate_array( $value, $prefix . $key . '.' );
-                }
-                else {
-                    $result[$prefix . $key] = $value;
-                }
-            }
-            return $result;
-        }
+		public function get_sanitized_values( $fields, $posted_data ) {
+
+			// $this->write_log( 'post', var_export( $posted_data, true ) );
+
+			$posted_data = $this->array_search_and_replace( $posted_data );
+
+			// $this->write_log( 'post-after', var_export( $posted_data, true ) );
+
+			return $posted_data;
+
+		}
 
 		/**
 		 * Array infos:
 		 * https://stackoverflow.com/questions/7003559/use-strings-to-access-potentially-large-multidimensional-arrays
 		 * https://stackoverflow.com/questions/6625808/how-can-i-use-a-php-array-as-a-path-to-target-a-value-in-another-array/6625931#6625931
 		 */
+
 		/**
-		 * Loop fields and create a POST like array
-		 *
+		 * Loop $_POST recursive.
 		 */
-		function loop_field_items( $fields, &$path ) {
+		public function array_search_and_replace( &$arr ) {
 
-			foreach( $fields as $key => $value ) {
+			foreach ( $arr as $key => $value ) {
 
-				/**
-				 * If sub array, call self, need to keep position
-				 *
-				 * Loop fields
-				 * if element has fields and ID then work with (save id and loop fields)
-				 * if not loop fields but do not save ID (ID is the path)
-				 *
-				 * 'group_t2.0.group_t3.0.group_t4.0.editor_trumbowyg_l4'
-				 * path = array( group_t2, group_t3, group_t4 );
-				 *
-				 */
-				if ( is_array( $value ) ) {
+				// If array, then call self.
+				if( is_array( $value ) ) {
 
-					$this->loop_field_items( $value, $path );
+					if ( ! is_int( $key ) ) $this->parent_key = $key;
+					$this->array_search_and_replace( $arr[$key] );
 
 				} else {
 
+					$field = null;
+
 					/**
-					 * Add field to path
+					 * Get field by id
 					 */
+					if ( ! is_int( $key ) ) {
+						$field = $this->find_sub_array( 'id', $key, $this->fields );
+						if ( $field == null ) {
+							$field = $this->find_sub_array( 'id', $this->parent_key, $this->fields );
+						}
+					} else {
+						$field = $this->find_sub_array( 'id', $this->parent_key, $this->fields );
+					}
+
+					/**
+					 * Here we have all the necessarily information to sanitize.
+					 * [key,] field and value
+					 */
+
+					$arr[$key] = $this->sanitize( $field, $value );
+
+					// $this->write_log( 'test_print_ext', var_export( $this->parent_key, true ) . PHP_EOL . var_export( $field, true ) . PHP_EOL . var_export( $key, true ) . PHP_EOL . var_export( $value, true ) . PHP_EOL . '----' . PHP_EOL );
 
 				}
 
 			}
 
+			return $arr;
+
 		}
+
 		/**
-		 * END: FOR TEST
+		 * Find field by id.
 		 */
+		public function find_sub_array( $needle_key, $needle_value, $array ) {
 
-		//DEGUB
-		public function write_log( $type, $log_line ) {
+			if ( isset( $array[$needle_key] ) && $array[$needle_key] == $needle_value ) {
+				return $array;
+			}
 
-			$hash        = '';
-			$fn          = plugin_dir_path( __FILE__ ) . '/' . $type . '-' . $hash . '.log';
-			$log_in_file = file_put_contents( $fn, date( 'Y-m-d H:i:s' ) . ' - ' . $log_line . PHP_EOL, FILE_APPEND );
+			foreach( $array as $key => $value ) {
 
-		}
+				if ( is_array( $value ) ) {
 
-		public function get_array_nested_value( array $main_array, array $keys_array, $default_value = null ) {
+					if ( isset( $value[$needle_key] ) && $value[$needle_key] == $needle_value ) {
+						return $value;
+					} else {
+						$finded = $this->find_sub_array( $needle_key, $needle_value, $value );
 
-			$length = count( $keys_array );
+						if( $finded !== null ) {
+							return $finded;
+						}
 
-			for ( $i = 0; $i < $length; $i ++ ) {
-
-				$is_set = ( isset( $main_array[ $keys_array[ $i ] ] ) ) ? true : false;
-
-				if ( ! $is_set ) {
-					// if the array key is not set, we break out of loop and return $$default_value
-					break;
-				} else {
-					// Reset the $main_array to the sub array that we know exit
-					$main_array = $main_array[ $keys_array[ $i ] ];
-
-					if ( $i === $length - 1 ) { // We are at the last item of array
-						// $main_array is now the required value / array
-						return $main_array;
 					}
 
 				}
 
-			} // end for loop
-
-			return $default_value;
-
-		}
-
-		/**
-		 * Get default config for group type field
-		 * @return array $default
-		 */
-		public function get_config_default_group_options() {
-
-			$default = array(
-				//
-				'repeater'        => true,
-				'accordion'       => true,
-				'button_title'    => __( 'Add New', 'exopite-options-framework' ),
-				'accordion_title' => __( 'Accordion Title', 'exopite-options-framework' ),
-				'limit'           => 50,
-				'sortable'        => true,
-			);
-
-			return apply_filters( 'exopite_sof_filter_config_default_group_array', $default );
-		}
-
-		public function get_sanitized_fields_values( $fields, $posted_data ) {
-
-			$sanitized_fields_data = array();
-			foreach ( $fields as $index => $field ) :
-
-				$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
-				$field_id   = ( isset( $field['id'] ) ) ? $field['id'] : false;
-
-				// if do not have $field_id or $field_type, we continue to next field
-				if ( ! $field_id || ! $field_type ) {
-					continue;
-				}
-
-				// if field is not a group
-				if ( $field_type !== 'group' ) {
-
-					$sanitized_fields_data[ $field['id'] ] = $this->get_sanitized_field_value_from_global_post( $field, $posted_data );
-
-				} // ( $field_type !== 'group' )
-
-				// If the field is group
-				if ( $field_type === 'group' ) {
-
-					$group = $field;
-
-					$group_id = ( isset( $field['id'] ) ) ? $field['id'] : false;
-
-					$group_fields = isset( $field['fields'] ) && is_array( $field['fields'] ) ? $field['fields'] : false;
-
-					// We are not processing if group_id is not there
-					if ( $group_id && $group_fields ):
-
-						// Normalise the group options (so we dont need to check for isset()
-						$default_group_options = $this->get_config_default_group_options();
-						$group_options         = ( isset( $group['options'] ) ) ? $group['options'] : $default_group_options;
-						$group['options']      = $group_options = wp_parse_args( $group_options, $default_group_options );
-
-						$is_repeater = ( isset( $group['options']['repeater'] ) ) ? (bool) $group['options']['repeater'] : false;
-
-						// If the group is NOT a repeater
-						if ( ! $is_repeater ) :
-
-							foreach ( $group_fields as $sub_field ) :
-
-								$sub_field_id = ( isset( $sub_field['id'] ) ) ? $sub_field['id'] : false;
-
-								$sanitized_fields_data[ $group_id ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $posted_data, $group_id );
-
-							endforeach;
-
-						endif; // ( ! $is_repeater )  // If the group is NOT a repeater
-
-						// If the group is a repeater
-						if ( $is_repeater ):
-
-							$repeater_count = 0;
-
-							if ( $this->is_multilang ) {
-								// How many times $_POST has this
-
-								$repeater_count = ( isset( $posted_data[ $this->lang_current ][ $group_id ] ) && is_array( $posted_data[ $this->lang_current ][ $group_id ] ) ) ? count( $posted_data[ $this->lang_current ][ $group_id ] ) : 0;
-
-							} // $this->is_multilang
-
-							/**
-							 * ToDos:
-							 * - On simple options NEED to disable multilang! (if meta)
-							 */
-							if ( ! $this->is_multilang ) {
-
-								$repeater_count = ( isset( $posted_data[ $group_id ] ) && is_array( $posted_data[ $group_id ] ) ) ? count( $posted_data[ $group_id ] ) : 0;
-
-							}
-
-							for ( $i = 0; $i < $repeater_count; $i ++ ) {
-
-								foreach ( $group_fields as $sub_field ) :
-
-									$sub_field_id = ( isset( $sub_field['id'] ) ) ? $sub_field['id'] : false;
-
-									// sub field id is required
-									if ( ! $sub_field_id ) {
-										continue;
-									}
-
-									$sanitized_fields_data[ $group_id ][ $i ][ $sub_field_id ] = $this->get_sanitized_field_value_from_global_post( $sub_field, $posted_data, $group_id, $i );
-
-								endforeach; // $group_fields
-							}
-
-						endif; // ( $is_repeater )
-
-					endif; // ( ! $group_id )
-
-				} // ( $field_type === 'group' )
-
-			endforeach; // $fields array
-
-			return $sanitized_fields_data;
-
-		} // get_sanitized_fields_values
-
-		/**
-		 * Get the clean value from single field
-		 *
-		 * @param array $field
-		 *
-		 * @return mixed $clean_value
-		 */
-		public function get_sanitized_field_value_from_global_post( $field, $posted_data = array(), $group_id = null, $group_field_index = null ) {
-
-			if ( ! isset( $field['id'] ) || ! isset( $field['type'] ) ) {
-				return '';
-			} else {
-				$field_id   = $field['id'];
-				$field_type = $field['type'];
 			}
 
-			// Initialize array
-			$keys_array = array();
-
-			// Adding elements to $keys_array
-			// order matters!!!
-
-			if ( $this->is_multilang ) {
-				$keys_array[] = $this->lang_current;
-			}
-
-			if ( $group_id !== null ) {
-				$keys_array[] = $group_id;
-			}
-
-			if ( $group_field_index !== null ) {
-				$keys_array[] = $group_field_index;
-			}
-
-			$keys_array[] = $field_id;
-
-			// Get $dirty_value from global $_POST
-			$dirty_value = $this->get_array_nested_value( $posted_data, $keys_array, '' );
-
-			$clean_value = $this->sanitize( $field, $dirty_value );
-
-			return $clean_value;
+			return null;
 
 		}
 
@@ -307,16 +146,23 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 			$dirty_value = isset( $dirty_value ) ? $dirty_value : '';
 
 			// if $config array has sanitize function, then call it
-			if ( isset( $field['sanitize'] ) && ! empty( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) {
+			if (
+				isset( $field['sanitize'] ) &&
+				! empty( $field['sanitize'] ) &&
+				(
+					function_exists( $field['sanitize'] ) ||
+					is_callable( $field['sanitize'] )
+				)
 
-				// TODO: in future, we can allow for sanitize functions array as well
+			) {
+
 				$sanitize_func_name = $field['sanitize'];
 
 				$clean_value = call_user_func( $sanitize_func_name, $dirty_value );
 
 			} else {
 
-				// if $config array doe not have sanitize function, do sanitize on field type basis
+				// if $config array does not have sanitize function, do sanitize on field type basis
 				$clean_value = $this->get_sanitized_field_value_by_type( $field, $dirty_value );
 
 			}
@@ -339,40 +185,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 
 			switch ( $field_type ) {
 
-				case 'panel':
-					// no break
-				case 'notice':
-					/**
-					 * This fields has nothing to send
-					 */
-					break;
-				case 'image_select':
-					// no break
-				case 'select':
-					// no break
-				case 'typography':
-					// no break
-				case 'tap_list':
-					/**
-					 * Need to check array values.
-					 */
-					// if( ! is_array( $value ) ) {
-					// 	maybe_unserialize( $value );
-					// }
-					// if ( is_array( $value ) ) {
-					// 	foreach( $value as &$item ) {
-					// 		$item = sanitize_text_field( $item );
-					// 	}
-					// }
-
-					break;
-				case 'tab':
-					// no break
-				case 'group':
-					/**
-					 * This nested elements need recursive sanitation.
-					 */
-					break;
 				case 'editor':
 					// no break
 				case 'textarea':
@@ -453,6 +265,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 			}
 
 			return $value;
+
+		}
+
+		//DEGUB
+		public function write_log( $type, $log_line ) {
+
+			$hash        = '';
+			$fn          = plugin_dir_path( __FILE__ ) . '/' . $type . $hash . '.log';
+			$log_in_file = file_put_contents( $fn, date( 'Y-m-d H:i:s' ) . ' - ' . $log_line . PHP_EOL, FILE_APPEND );
 
 		}
 
