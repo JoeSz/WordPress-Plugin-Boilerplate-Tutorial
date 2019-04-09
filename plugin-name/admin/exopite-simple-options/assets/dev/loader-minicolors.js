@@ -29,20 +29,16 @@
             var plugin = this;
 
             plugin.minicolorOptions = {
-                format: 'rgb',
-                // opacity: $(this).attr('data-opacity'),
                 theme: 'default',
-                // control: 'saturation',
                 swatches: '#000|#fff|#f00|#dd9933|#eeee22|#81d742|#1e73be|#8224e3|#2196f3|#4caf50|#ffeb3b|#ff9800|#795548|rgba(0, 0, 0, 0)'.split('|'),
-                // swatches: '#ef9a9a|#90caf9|#a5d6a7|#fff59d|#ffcc80|#bcaaa4|#eeeeee|#f44336|#2196f3|#4caf50|#ffeb3b|#ff9800|#795548|rgba(0, 0, 0, 0)'.split('|'),
                 change: function(value, opacity) {
                     plugin.change(value, opacity, $(this));
                     if( !value ) return;
-                    if( opacity ) value += ', ' + opacity;
-                    if( typeof console === 'object' ) {
-                        console.log(value);
-                    }
                 },
+                hide : function() {
+                    let color = $(this).val();
+                    $(this).val( plugin.rgb2hex(color) );
+                }
             };
 
             plugin.$element.find('.minicolor').each(function (index, el) {
@@ -52,6 +48,7 @@
 
                 plugin.minicolorOptions.opacity = $(el).attr('data-opacity') || false;
                 plugin.minicolorOptions.control = $(el).attr('data-control') || 'saturation';
+                plugin.minicolorOptions.format = $(el).attr('data-format') || 'rgb';
 
                 $(el).minicolors(plugin.minicolorOptions);
 
@@ -68,19 +65,28 @@
 
                 });
 
-                console.log('color picker clone');
-
             });
 
         },
-
+        rgb2hex: function (rgb){
+            var plugin = this;
+            rgba = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?1[\s+]?\)/i);
+            console.log('rgba: ' + rgba);
+            if (rgba === null) return rgb;
+            return (rgba && rgba.length === 4) ? "#" +
+             ("0" + parseInt(rgba[1],10).toString(16)).slice(-2) +
+             ("0" + parseInt(rgba[2],10).toString(16)).slice(-2) +
+             ("0" + parseInt(rgba[3],10).toString(16)).slice(-2) : '';
+        },
         change: function (value, opacity, $this) {
-            // if( opacity ) value += ', ' + opacity;
+            var plugin = this;
             var color = value;
             if ($this.hasClass('font-color-js')) {
                 console.log('has font-color');
                 $this.parents('.exopite-sof-font-field').find('.exopite-sof-font-preview').css({ 'color': color });
             }
+
+            $this.val( plugin.rgb2hex(color) );
         },
 
     };

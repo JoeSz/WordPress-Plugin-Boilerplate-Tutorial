@@ -20,6 +20,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_color' ) ) {
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 			$controls = array( 'hue', 'brightness', 'saturation', 'wheel' );
 			$control = ( isset( $this->field['control'] ) ) ? $this->field['control'] : 'saturation';
+			$formats = array( 'rgb', 'hex' );
+			$format = ( isset( $this->field['format'] ) ) ? $this->field['format'] : 'rgb';
 
 			echo $this->element_before();
 			echo '<input type="';
@@ -37,6 +39,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_color' ) ) {
 			}
 			if ( in_array( $control, $controls ) ) {
 				echo 'data-control="' . $control . '" '; // hue, brightness, saturation, wheel
+			}
+			if ( in_array( $format, $formats ) ) {
+				echo 'data-format="' . $format . '" '; // hue, brightness, saturation, wheel
 			}
 			echo 'name="' . $this->element_name() . '" value="' . $this->element_value() . '"';
 			if ( isset( $this->field['picker'] ) && $this->field['picker'] == 'html5' ) {
