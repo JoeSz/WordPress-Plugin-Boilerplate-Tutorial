@@ -611,16 +611,23 @@ class Plugin_Name_Admin {
                 ),
 
                 array(
-                    'id'      => 'color_5',
+                    'id'     => 'color_5',
+                    'type'   => 'color',
+                    'title'  => 'Color Minicolor HEX',
+                    'format' => 'hex',
+                ),
+
+                array(
+                    'id'      => 'color_6',
                     'type'    => 'color',
-                    'title'   => 'Color Minicolor RGBA',
+                    'title'   => 'Color Minicolor RGBA(/HEX)',
                     'rgba'    => true,
                     'default' => '#ff0000',
                     // 'default' => 'rgba(255,0,0,1)',
                 ),
 
                 array(
-                    'id'      => 'color_6',
+                    'id'      => 'color_7',
                     'type'    => 'color',
                     'title'   => 'Color Minicolor Wheel',
                     'rgba'    => true,
