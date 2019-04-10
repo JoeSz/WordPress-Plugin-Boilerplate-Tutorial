@@ -553,30 +553,30 @@ class Exopite_Meta_Boxes {
         ?>
         <div class="exopite-meta-boxes-gallery-field" data-media-frame-title="<?php echo esc_attr( $options['media_frame_title'] ); ?>" data-media-frame-button="<?php echo esc_attr( $options['media_frame_button'] ); ?>" data-media-frame-type="<?php echo esc_attr( $options['media_type'] ); ?>">
             <input type="hidden" <?php $this->get_field_attributes( $name, $field ); ?> data-control="gallery-ids" value="<?php echo $value ?>" />
+            <span class="exopite-meta-boxes-gallery-wrapper">
             <?php
 
             if ( $value ) :
 
                 ?>
-                <span class="exopite-meta-boxes-gallery-wrapper">
-                    <ul class="exopite-meta-boxes-gallery">
-                    <?php
+                <ul class="exopite-meta-boxes-gallery">
+                <?php
 
-                    $meta_array = explode( ',', $value );
-                    foreach ( $meta_array as $meta_gall_item ) :
+                $meta_array = explode( ',', $value );
+                foreach ( $meta_array as $meta_gall_item ) :
 
-                        ?><li><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></li><?php
+                    ?><li><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></li><?php
 
-                    endforeach;
+                endforeach;
 
-                    ?>
-                    </ul>
-                </span>
+                ?>
+                </ul>
                 <?php
 
             endif;
 
             ?>
+            </span>
             <input class="exopite-meta-boxes-gallery-add" type="button" value="<?php echo esc_attr( $options['add_button'] ); ?>" />
         </div>
         <?php
