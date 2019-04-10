@@ -11,6 +11,7 @@
 }
 .exopite-meta-boxes-wrapper .meta-row > span {
     flex: 1 1 auto;
+    max-width: calc(100% - 200px);
 }
 .exopite-meta-boxes-wrapper .meta-row select,
 .exopite-meta-boxes-wrapper .meta-row textarea,
@@ -118,4 +119,37 @@
 .tabs > .input:checked + .nav-tab + .panel {
     display: block;
     width: 100%;
+}
+.exopite-meta-boxes-gallery {
+    list-style: none;
+}
+.exopite-meta-boxes-gallery li {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+}
+.exopite-meta-boxes-image-delete::before {
+    content: '×';
+}
+.exopite-meta-boxes-image-delete {
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    line-height: 16px;
+    padding: 0 2px 3px 2px;
+    background: red;
+    color: #fff;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.exopite-meta-boxes-gallery {
+    line-height: 0;
+}
+.exopite-meta-boxes-gallery img {
+    float: left;
+}
+.exopite-meta-boxes-gallery-add {
+    cursor: pointer;
 }

@@ -12,6 +12,20 @@ class Exopite_Meta_Boxes {
     /**
      * HOW TO USE
      *
+     * Fields:
+     * - content
+     * - hidden
+     * - submit
+     * - number
+     * - select
+     * - checkbox (single/multiple)
+     * - radio
+     * - text
+     * - password
+     * - upload (image)
+     * - gallery
+     * - tab
+     *
      * Specific to fields:
      *     select:
      *         - options
@@ -24,6 +38,7 @@ class Exopite_Meta_Boxes {
      *         - before
      *         - after
      *         - default
+     *
      *   // Enqueue meta box style and script with the plugin
 	 *	 // Add metabox to custom post type
 	 *	$metabox_args = array(
@@ -32,6 +47,11 @@ class Exopite_Meta_Boxes {
      *	        'title' => 'title',
      *          'post-context' => 'advanced' | 'normal' | 'side',
      *          'post-priority' => 'high' | 'low',
+     *	        'wrapper-class' => 'wrapper',
+     *	        'wrapper-selector' => 'div',
+     *	        'row-class' => 'row',
+	 *			'row-selector' => 'div',
+	 *			// 'debug' => true,
      *	        'fields' => array(
      *	            'content_unique' => array(
      *	                'title' => 'Something to say',
@@ -161,12 +181,17 @@ class Exopite_Meta_Boxes {
 	 * 					),
      *
 	 * 				),
+     *              'gallery_unique' => array(
+     *	                'title' => 'Gallery',
+	 *					'type' => 'gallery',
+	 *					'options' => array(
+	 *						'add_button' => 'Add images',
+	 *						'media_frame_title' => 'Select images for gallery',
+	 *						'media_frame_button' => 'Add',
+	 *						'media_type' => 'image',
+	 *					),
+	 *				),
      *	        ),
-     *	        'wrapper-class' => 'wrapper',
-     *	        'wrapper-selector' => 'div',
-     *	        'row-class' => 'row',
-	 *			'row-selector' => 'div',
-	 *			// 'debug' => true,
      *
      *	   	),
 	 *	);
@@ -512,6 +537,53 @@ class Exopite_Meta_Boxes {
 
     }
 
+    public function add_gallery_field( $name, $custom, $field ) {
+
+        $defaults = array(
+            'add_button' => esc_attr__( 'Add to gallery', 'exopite-meta-boxes' ),
+            'media_frame_title' => esc_attr__( 'Select images for gallery', 'exopite-meta-boxes' ),
+            'media_frame_button' => esc_attr__( 'Add', 'exopite-meta-boxes' ),
+            'media_type' => 'image',
+        );
+
+        $options = ( isset( $field['options'] ) && is_array( $field['options'] ) ) ? $field['options'] : array();
+        $options = wp_parse_args( $options, $defaults );
+
+        $value = $this->get_field_value( $name, $custom, $field );
+        ?>
+        <div class="exopite-meta-boxes-gallery-field" data-media-frame-title="<?php echo esc_attr( $options['media_frame_title'] ); ?>" data-media-frame-button="<?php echo esc_attr( $options['media_frame_button'] ); ?>" data-media-frame-type="<?php echo esc_attr( $options['media_type'] ); ?>">
+            <input type="text" <?php $this->get_field_attributes( $name, $field ); ?> data-control="gallery-ids" value="<?php echo $value ?>" />
+            <?php
+
+            if ( $value ) :
+
+                ?>
+                <span class="exopite-meta-boxes-gallery-wrapper">
+                    <ul class="exopite-meta-boxes-gallery">
+                    <?php
+
+                    $meta_array = explode( ',', $value );
+                    foreach ( $meta_array as $meta_gall_item ) :
+
+                        ?><li><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></li><?php
+
+                    endforeach;
+
+                    ?>
+                    </ul>
+                </span>
+                <?php
+
+            endif;
+
+            // hidden
+            ?>
+            <input class="exopite-meta-boxes-gallery-add" type="button" value="<?php echo esc_attr( $options['add_button'] ); ?>" />
+        </div>
+        <?php
+
+    }
+
     public function add_upload_field( $name, $custom, $field ) {
 
         $field['classes'] .= ' exopite-meta-boxes-upload-url';
@@ -579,6 +651,10 @@ class Exopite_Meta_Boxes {
 
             case 'select':
                 $this->add_select_field( $name, $custom, $field );
+                break;
+
+            case 'gallery':
+                $this->add_gallery_field( $name, $custom, $field );
                 break;
 
             case 'upload':
