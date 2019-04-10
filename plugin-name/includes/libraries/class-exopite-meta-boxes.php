@@ -552,7 +552,7 @@ class Exopite_Meta_Boxes {
         $value = $this->get_field_value( $name, $custom, $field );
         ?>
         <div class="exopite-meta-boxes-gallery-field" data-media-frame-title="<?php echo esc_attr( $options['media_frame_title'] ); ?>" data-media-frame-button="<?php echo esc_attr( $options['media_frame_button'] ); ?>" data-media-frame-type="<?php echo esc_attr( $options['media_type'] ); ?>">
-            <input type="text" <?php $this->get_field_attributes( $name, $field ); ?> data-control="gallery-ids" value="<?php echo $value ?>" />
+            <input type="hidden" <?php $this->get_field_attributes( $name, $field ); ?> data-control="gallery-ids" value="<?php echo $value ?>" />
             <?php
 
             if ( $value ) :
@@ -576,7 +576,6 @@ class Exopite_Meta_Boxes {
 
             endif;
 
-            // hidden
             ?>
             <input class="exopite-meta-boxes-gallery-add" type="button" value="<?php echo esc_attr( $options['add_button'] ); ?>" />
         </div>
