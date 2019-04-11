@@ -78,7 +78,23 @@
             var plugin = this;
 
             plugin.bindEvents();
+            plugin.sortableInit();
 
+        },
+        sortableInit: function () {
+            var plugin = this;
+
+            plugin.$galleryList.sortable({
+                tolerance: "pointer",
+                cursor: "grabbing",
+                stop: function( event, ui ) {
+                    let imageIDs = [];
+                    plugin.$galleryList.children('span').each(function( index, el ){
+                        imageIDs.push( $(el).children('img').attr('id') );
+                    });
+                    plugin.$imageIDs.val( imageIDs.join(',') );
+                }
+            });
         },
         bindEvents: function () {
             var plugin = this;
@@ -90,7 +106,8 @@
 
             });
 
-            plugin.$element.on('click' + '.' + plugin._name, '> .exopite-meta-boxes-image-delete', function (e) {
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-meta-boxes-image-delete', function (e) {
+                console.log('delete click');
                 e.preventDefault();
 
                 plugin.deleteImage.call( plugin, $(this) );
@@ -107,6 +124,7 @@
                 galleryIds = $( galleryIds ).not([removedImage]).get();
                 plugin.$imageIDs.val( galleryIds );
                 $button.parent().remove();
+                plugin.sortableInit();
 
             }
         },
@@ -138,7 +156,6 @@
             // Create Featured Gallery state. This is essentially the Gallery state, but selection behavior is altered.
             plugin.meta_gallery_frame.states.add([
                 new wp.media.controller.Library({
-                    // id: 'shift8-portfolio-gallery',
                     title: title,
                     priority: 20,
                     toolbar: 'main-gallery',
@@ -156,7 +173,6 @@
                 var selection = plugin.meta_gallery_frame.state().get('selection');
                 var library = plugin.meta_gallery_frame.state('gallery-edit').get('library');
                 var ids = plugin.$imageIDs.val();
-                // var ids = jQuery('#shift8_portfolio_gallery').val();
                 if (ids) {
                     let idsArray = ids.split(',');
                     idsArray.forEach(function (id) {
@@ -168,7 +184,7 @@
             });
 
             plugin.meta_gallery_frame.on('ready', function () {
-                $('.media-modal').addClass('no-sidebar');
+                // $('.media-modal').addClass('no-sidebar');
             });
 
             // When an image is selected, run a callback.
@@ -178,19 +194,16 @@
                 var metadataString = '';
                 var images;
                 images = plugin.meta_gallery_frame.state().get('selection');
-                imageHTML += '<ul class="exopite-meta-boxes-gallery">';
+                // imageHTML += '<ul class="exopite-meta-boxes-gallery">';
                 images.each(function (attachment) {
                     imageIDArray.push(attachment.attributes.id);
-                    imageHTML += '<li><span class="exopite-meta-boxes-image-delete"></span><img id="' + attachment.attributes.id + '" src="' + attachment.attributes.sizes.thumbnail.url + '"></li>';
+                    imageHTML += '<span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="' + attachment.attributes.id + '" src="' + attachment.attributes.sizes.thumbnail.url + '"></span>';
                 });
-                imageHTML += '</ul>';
+                // imageHTML += '</ul>';
                 metadataString = imageIDArray.join(",");
                 if (metadataString) {
                     plugin.$imageIDs.val( metadataString );
-                    $(".exopite-meta-boxes-gallery-wrapper").html( imageHTML );
-                    // setTimeout(function () {
-                    //     // ajaxUpdateTempMetaData();
-                    // }, 0);
+                    plugin.$element.children('.exopite-meta-boxes-gallery').html( imageHTML );
                 }
             });
 
@@ -208,6 +221,7 @@
         buildCache: function () {
             this.$element = $(this.element);
             this.$imageIDs = this.$element.children('[data-control="gallery-ids"]');
+            this.$galleryList = this.$element.children('.exopite-meta-boxes-gallery');
         },
     });
 

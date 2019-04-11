@@ -120,13 +120,18 @@
     display: block;
     width: 100%;
 }
+/* Gallery */
 .exopite-meta-boxes-gallery {
     list-style: none;
 }
-.exopite-meta-boxes-gallery li {
+.exopite-meta-boxes-gallery > span {
     position: relative;
     display: inline-block;
     margin-right: 6px;
+    margin-bottom: 6px;
+    cursor: grab;
+    height: 150px;
+    width: 150px;
 }
 .exopite-meta-boxes-image-delete::before {
     content: '×';
@@ -152,4 +157,11 @@
 }
 .exopite-meta-boxes-gallery-add {
     cursor: pointer;
+}
+.exopite-meta-boxes-gallery .sortable-placeholder {
+    height: 150px;
+    width: 150px;
+    border: 5px dashed #ccc;
+    margin-bottom: 6px;
+    box-sizing: border-box;
 }

@@ -221,12 +221,14 @@ class Exopite_Meta_Boxes {
 
     public function admin_enqueue_scripts() {
 
+        // wp_enqueue_script( 'jquery-ui-core');
+
         /**
          * Enqueue style and script with the plugin
          */
 
         // wp_enqueue_style( 'exopite_meta_box_style_css', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'css', 'exopite-meta-box-style.css' ) ) );
-        // wp_enqueue_script( 'exopite_meta_box_style_js', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'js', 'exopite-meta-box-style.css' ) ), array( 'jquery' ), '1.0.0', true );
+        // wp_enqueue_script( 'exopite-meta-box-script_js', join( '/', array( rtrim( $this->plugin_url, '/' ), 'admin', 'js', 'exopite-meta-box-script.js' ) ), array( 'jquery' ), '1.0.0', true );
 
     }
 
@@ -289,7 +291,6 @@ class Exopite_Meta_Boxes {
         if ( empty( $field_title ) ) {
             $label_class = ' class="hidden"';
         }
-
 
         ?>
         <<?php echo $options['row-selector']; ?> class="<?php echo $row_classes; ?>"><label for="<?php echo $name; ?>"<?php echo $label_class; ?>><?php echo $field['title']; ?></label><span>
@@ -553,30 +554,22 @@ class Exopite_Meta_Boxes {
         ?>
         <div class="exopite-meta-boxes-gallery-field" data-media-frame-title="<?php echo esc_attr( $options['media_frame_title'] ); ?>" data-media-frame-button="<?php echo esc_attr( $options['media_frame_button'] ); ?>" data-media-frame-type="<?php echo esc_attr( $options['media_type'] ); ?>">
             <input type="hidden" <?php $this->get_field_attributes( $name, $field ); ?> data-control="gallery-ids" value="<?php echo $value ?>" />
-            <span class="exopite-meta-boxes-gallery-wrapper">
+            <div class="exopite-meta-boxes-gallery">
             <?php
 
             if ( $value ) :
 
-                ?>
-                <ul class="exopite-meta-boxes-gallery">
-                <?php
-
                 $meta_array = explode( ',', $value );
                 foreach ( $meta_array as $meta_gall_item ) :
 
-                    ?><li><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></li><?php
+                    ?><span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></span><?php
 
                 endforeach;
-
-                ?>
-                </ul>
-                <?php
 
             endif;
 
             ?>
-            </span>
+            </div>
             <input class="exopite-meta-boxes-gallery-add" type="button" value="<?php echo esc_attr( $options['add_button'] ); ?>" />
         </div>
         <?php
