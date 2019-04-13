@@ -2902,3 +2902,48 @@ input[type="color"] {
 .exopite-sof-typography-color {
     margin-bottom: 8px;
 }
+/* Gallery */
+.exopite-sof-gallery {
+    list-style: none;
+}
+.exopite-sof-gallery > span {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    cursor: grab;
+}
+.exopite-sof-image-delete::before {
+    content: '×';
+}
+.exopite-sof-image-delete {
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    line-height: 16px;
+    padding: 0 2px 3px 2px;
+    background: red;
+    color: #fff;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.exopite-sof-gallery {
+    line-height: 0;
+}
+.exopite-sof-gallery img {
+    float: left;
+}
+.exopite-sof-gallery-add {
+    cursor: pointer;
+}
+.exopite-sof-gallery .sortable-placeholder {
+    width: 80px;
+    /* border: 3px dashed #ccc; */
+    margin-bottom: 6px;
+    margin-right: 6px;
+    box-sizing: border-box;
+    height: initial;
+    display: inline-block;
+}

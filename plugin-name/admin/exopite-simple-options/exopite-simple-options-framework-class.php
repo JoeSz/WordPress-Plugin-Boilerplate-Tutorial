@@ -30,6 +30,7 @@
  * - content
  * - date
  * - editor
+ * - gallery
  * - group/accordion item
  * - hidden
  * - image

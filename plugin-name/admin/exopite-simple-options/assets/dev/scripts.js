@@ -1172,7 +1172,6 @@ jQuery.fn.findExclude = function (selector, mask, result) {
                 $(el).removeClass('hasDatepicker').datepicker({ 'dateFormat': dateFormat });
             });
 
-            // this.sortable.destroy();
             plugin.sortableInit();
 
             // Handle dependencies.
@@ -1185,6 +1184,10 @@ jQuery.fn.findExclude = function (selector, mask, result) {
                     $(el).exopiteFontPreview();
                 }
 
+            });
+
+            sortable('.exopite-sof-gallery', {
+                forcePlaceholderSize: true,
             });
 
             plugin.$element.trigger('exopite-sof-field-group-item-added-after', [$cloned, $group]);
@@ -1719,6 +1722,224 @@ jQuery.fn.findExclude = function (selector, mask, result) {
 
 })(jQuery, window, document);
 
+; (function ($, window, document, undefined) {
+
+    "use strict";
+
+    var pluginName = "exopiteSOFGallery";
+
+    function Plugin(element, options) {
+        this.element = element;
+        this._name = pluginName;
+        this.meta_gallery_frame = null;
+        this.$container = $(element).children('.exopite-sof-gallery').first();
+
+        this.buildCache();
+        this.init();
+    }
+
+    $.extend(Plugin.prototype, {
+        init: function () {
+            var plugin = this;
+
+            plugin.bindEvents();
+            plugin.sortableInit();
+
+        },
+        sortableInit: function () {
+            var plugin = this;
+
+            sortable('.exopite-sof-gallery', {
+                forcePlaceholderSize: true,
+            });
+
+            // From documentation, not working with dinamically added elements.
+            // sortable('.exopite-sof-gallery', {
+            //     forcePlaceholderSize: true,
+            // })[0].addEventListener('sortstop', function(e) {
+
+            //     console.log('gallery sortstop 0');
+
+            // });
+
+            /**
+             * html5sortable - sortupdate event is not triggered on dynamic elements
+             * @link https://stackoverflow.com/questions/46211700/html5sortable-sortupdate-event-is-not-triggered-on-dynamic-elements/46212177#46212177
+             */
+            // if( sortable('.exopite-sof-gallery').length > 0) {
+            //     sortable('.exopite-sof-gallery')[sortable('.exopite-sof-gallery').length-1].addEventListener('sortstop', function (e) {
+
+            //         plugin.updateIDs( $(this) );
+            //         console.log('gallery sortstop 1');
+
+            //     });
+            // }
+
+            // plugin.$galleryList.sortable({
+            //     tolerance: "pointer",
+            //     cursor: "grabbing",
+            //     stop: function( event, ui ) {
+            //         console.log('test stop');
+            //         let imageIDs = [];
+            //         plugin.$galleryList.children('li').each(function( index, el ){
+            //             imageIDs.push( $(el).children('img').attr('id') );
+            //         });
+            //         plugin.$imageIDs.val( imageIDs.join(',') );
+            //     }
+            // });
+        },
+        bindEvents: function () {
+            var plugin = this;
+
+            plugin.$element.on('click' + '.' + plugin._name, '> .exopite-sof-gallery-add', function (e) {
+                e.preventDefault();
+
+                plugin.manageMediaFrame.call( plugin, $(this) );
+
+            });
+
+            plugin.$element.on('click' + '.' + plugin._name, '.exopite-sof-image-delete', function (e) {
+                e.preventDefault();
+
+                plugin.deleteImage.call( plugin, $(this) );
+
+            });
+
+            plugin.$container.on('sortstop' + '.' + plugin._name, function (event, ui) {
+
+                // console.log('gallery sortstop 2');
+
+                plugin.updateIDs( $(this) );
+
+            });
+
+        },
+        updateIDs: function ( $element ) {
+
+            let imageIDs = [];
+            $element.children('span').each(function( index, el ){
+                imageIDs.push( $(el).children('img').attr('id') );
+            });
+            $element.closest('.exopite-sof-gallery').prev().val( imageIDs.join(',') );
+
+        },
+        deleteImage: function ($button) {
+            var plugin = this;
+            if (confirm('Are you sure you want to remove this image?')) {
+
+                let $imageIDs = $button.closest('.exopite-sof-gallery').prev();
+                var removedImage = $button.next().attr('id');
+                var galleryIds = $imageIDs.val().split(",");
+                galleryIds = $( galleryIds ).not([removedImage]).get();
+                $imageIDs.val( galleryIds );
+                $button.parent().remove();
+                plugin.sortableInit();
+
+            }
+        },
+        manageMediaFrame: function ( $button ) {
+            var plugin = this;
+
+            let $imageIDs = $button.prev().prev();
+            let $galleryWrapper = $button.prev();
+
+            // If the frame already exists, re-open it.
+            plugin.meta_gallery_frame = null;
+
+            let title = plugin.$element.data('media-frame-title') || 'Select Images';
+            let button = plugin.$element.data('media-frame-button') || 'Add';
+            let image = plugin.$element.data('media-frame-type') || 'image';
+
+            // Sets up the media library frame
+            plugin.meta_gallery_frame = wp.media.frames.meta_gallery_frame = wp.media({
+                title: title,
+                button: {
+                    text: button
+                },
+                library: {
+                    type: image
+                },
+                multiple: true
+            });
+
+            // Create Featured Gallery state. This is essentially the Gallery state, but selection behavior is altered.
+            plugin.meta_gallery_frame.states.add([
+                new wp.media.controller.Library({
+                    title: title,
+                    priority: 20,
+                    toolbar: 'main-gallery',
+                    filterable: 'uploaded',
+                    library: wp.media.query(plugin.meta_gallery_frame.options.library),
+                    multiple: plugin.meta_gallery_frame.options.multiple ? 'reset' : false,
+                    editable: true,
+                    allowLocalEdits: true,
+                    displaySettings: true,
+                    displayUserSettings: true
+                }),
+            ]);
+
+            plugin.meta_gallery_frame.on('open', function () {
+                var selection = plugin.meta_gallery_frame.state().get('selection');
+
+                var library = plugin.meta_gallery_frame.state('gallery-edit').get('library');
+                var ids = $imageIDs.val();
+                if (ids) {
+                    let idsArray = ids.split(',');
+                    idsArray.forEach(function (id) {
+                        let attachment = wp.media.attachment(id);
+                        attachment.fetch();
+                        selection.add(attachment ? [attachment] : []);
+                    });
+                }
+            });
+
+            // When an image is selected, run a callback.
+            plugin.meta_gallery_frame.on('select', function () {
+                var imageIDArray = [];
+                var imageHTML = '';
+                var metadataString = '';
+                var images;
+                images = plugin.meta_gallery_frame.state().get('selection');
+                images.each(function (attachment) {
+                    imageIDArray.push(attachment.attributes.id);
+                    imageHTML += '<span><span class="exopite-sof-image-delete"></span><img id="' + attachment.attributes.id + '" src="' + attachment.attributes.sizes.thumbnail.url + '"></span>';
+                });
+                metadataString = imageIDArray.join(",");
+                if (metadataString) {
+                    $imageIDs.val( metadataString );
+                    $galleryWrapper.html( imageHTML );
+                    plugin.sortableInit();
+                }
+            });
+
+            // Finally, open the modal
+            plugin.meta_gallery_frame.open();
+
+        },
+        destroy: function () {
+            this.unbindEvents();
+            this.$element.removeData();
+        },
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+        buildCache: function () {
+            this.$element = $(this.element);
+            this.$imageIDs = this.$element.children('[data-control="gallery-ids"]');
+            this.$galleryList = this.$element.children('.exopite-sof-gallery');
+        },
+    });
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
 /**
  * ToDos:
  * - sortable only if data-is-sortable is 1 || true
@@ -1761,6 +1982,7 @@ jQuery.fn.findExclude = function (selector, mask, result) {
         $('.exopite-sof-group').exopiteSOFRepeater();
         $('.exopite-sof-field-backup').exopiteImportExportAJAX();
         $('.exopite-sof-tabs').exopiteTabs();
+        $('.exopite-sof-gallery-field').exopiteSOFGallery();
 
     });
 
