@@ -79,6 +79,9 @@ public function manage_test_posts_columns( $columns ) {
      */
     $customOrder = array('cb', 'thumbnail', 'title', 'text_1', 'color_2', 'date_2', 'icl_translations', 'date');
 
+    // -- OR --
+    // https://crunchify.com/how-to-move-wordpress-admin-column-before-or-after-any-other-column-manage-post-columns-hook/
+
     /**
      * return a new column array to wordpress.
      * order is the exactly like you set in $customOrder.
