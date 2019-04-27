@@ -287,8 +287,6 @@ class Plugin_Name_Admin {
                     'description' => 'Description',
                     'default'     => 'Default Text',
                     'attributes'    => array(
-                       'rows'        => 10,
-                       'cols'        => 5,
                        'placeholder' => 'do stuff',
                        'data-test'   => 'test',
 
