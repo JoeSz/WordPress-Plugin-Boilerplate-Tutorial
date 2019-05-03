@@ -207,7 +207,7 @@
                 images.each(function (attachment) {
                     imageIDArray.push(attachment.attributes.id);
 
-                    console.log('attrs: ' + JSON.stringify(attachment.attributes)); //video/mp4
+                    // console.log('attrs: ' + JSON.stringify(attachment.attributes)); //video/mp4
 
                     if (attachment.attributes.type == 'video') {
                         imageHTML += '<span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><video class="exopite-meta-boxes-video-thumbs" id="' + attachment.attributes.id + '" src="' + attachment.attributes.url + '"></video></span>';

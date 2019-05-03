@@ -132,6 +132,7 @@
     cursor: grab;
     height: 150px;
     width: 150px;
+    overflow: hidden;
 }
 .exopite-meta-boxes-image-delete::before {
     content: '×';
