@@ -149,6 +149,7 @@
     display: inline-block;
     box-sizing: border-box;
     cursor: pointer;
+    z-index: 1;
 }
 .exopite-meta-boxes-gallery {
     line-height: 0;
