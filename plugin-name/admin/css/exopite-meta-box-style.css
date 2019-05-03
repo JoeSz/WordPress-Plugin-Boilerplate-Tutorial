@@ -126,7 +126,7 @@
 }
 .exopite-meta-boxes-gallery > span {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     margin-right: 6px;
     margin-bottom: 6px;
     cursor: grab;
@@ -164,4 +164,17 @@
     border: 5px dashed #ccc;
     margin-bottom: 6px;
     box-sizing: border-box;
+}
+.exopite-meta-boxes-video-thumbs {
+    max-width: 150px;
+    max-height: 150px;
+}
+.exopite-meta-boxes-gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+.exopite-meta-boxes-image-item video {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }

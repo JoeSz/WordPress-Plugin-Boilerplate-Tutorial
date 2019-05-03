@@ -562,7 +562,21 @@ class Exopite_Meta_Boxes {
                 $meta_array = explode( ',', $value );
                 foreach ( $meta_array as $meta_gall_item ) :
 
-                    ?><span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo wp_get_attachment_thumb_url( $meta_gall_item ); ?>"></span><?php
+                    $src = wp_get_attachment_thumb_url( $meta_gall_item );
+                    if ( ! $src ) {
+                        $src = wp_get_attachment_url( $meta_gall_item );
+                    }
+
+                    if ( $this->is_video( $src ) ) {
+
+                        ?><span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><video id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo $src; ?>"></span><?php
+
+                    } else {
+
+                        ?><span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="<?php echo esc_attr( $meta_gall_item ); ?>" src="<?php echo $src; ?>"></span><?php
+
+                    }
+
 
                 endforeach;
 
@@ -758,6 +772,20 @@ class Exopite_Meta_Boxes {
         $ext = strtolower(trim(substr( $url, $pos)));
         $imgExts = array(".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif"); // this is far from complete but that's always going to be the case...
         if ( in_array($ext, $imgExts) ) {
+            return true;
+        }
+        return false;
+    }
+
+    public function is_video( $url ) {
+        $pos = strrpos( $url, ".");
+        if ($pos === false) {
+            return false;
+        }
+
+        $ext = strtolower(trim(substr( $url, $pos)));
+        $videoExts = array(".mp4");
+        if ( in_array($ext, $videoExts) ) {
             return true;
         }
         return false;

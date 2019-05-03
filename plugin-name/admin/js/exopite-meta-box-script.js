@@ -23,7 +23,8 @@
                 },
                 multiple: false,
                 library: {
-                    type: 'image',
+                    // type: 'image',
+                    type: [ 'video', 'image' ]
                 }
             });
 
@@ -90,7 +91,14 @@
                 stop: function( event, ui ) {
                     let imageIDs = [];
                     plugin.$galleryList.children('span').each(function( index, el ){
-                        imageIDs.push( $(el).children('img').attr('id') );
+
+                        if ( $(el).children('img').length ) {
+                            imageIDs.push( $(el).children('img').attr('id') );
+                        }
+                        if ( $(el).children('video').length ) {
+                            imageIDs.push( $(el).children('video').attr('id') );
+                        }
+
                     });
                     plugin.$imageIDs.val( imageIDs.join(',') );
                 }
@@ -148,7 +156,8 @@
                     text: button
                 },
                 library: {
-                    type: image
+                    type: [ 'video', 'image' ]
+                    // type: image
                 },
                 multiple: true
             });
@@ -197,7 +206,16 @@
                 // imageHTML += '<ul class="exopite-meta-boxes-gallery">';
                 images.each(function (attachment) {
                     imageIDArray.push(attachment.attributes.id);
-                    imageHTML += '<span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="' + attachment.attributes.id + '" src="' + attachment.attributes.sizes.thumbnail.url + '"></span>';
+
+                    console.log('attrs: ' + JSON.stringify(attachment.attributes)); //video/mp4
+
+                    if (attachment.attributes.type == 'video') {
+                        imageHTML += '<span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><video class="exopite-meta-boxes-video-thumbs" id="' + attachment.attributes.id + '" src="' + attachment.attributes.url + '"></video></span>';
+                    } else {
+                        imageHTML += '<span class="exopite-meta-boxes-image-item"><span class="exopite-meta-boxes-image-delete"></span><img id="' + attachment.attributes.id + '" src="' + attachment.attributes.sizes.thumbnail.url + '"></span>';
+                    }
+
+
                 });
                 // imageHTML += '</ul>';
                 metadataString = imageIDArray.join(",");
