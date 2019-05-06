@@ -1940,6 +1940,122 @@ jQuery.fn.findExclude = function (selector, mask, result) {
 
 })(jQuery, window, document);
 
+
+/**
+ * Exopite SOF - Manage empty checkboxes and selects (multiple)
+ *
+ * When checkbox is not checked or select with attribute multiple is empty,
+ * they are not sent in POST so create a hidden input before the element for that.
+ *
+ * This is only relevant for metabox, because in the options the POST can be
+ * check and add them before being sent.
+ */
+; (function ($, window, document, undefined) {
+
+    var pluginName = "exopitePrepareForm";
+
+    // The actual plugin constructor
+    function Plugin(element, options) {
+
+        this.element = element;
+        this._name = pluginName;
+        this.$element = $(element);
+        this.init();
+
+    }
+
+    Plugin.prototype = {
+
+        init: function () {
+
+            this.bindEvents();
+
+        },
+
+        // Bind events that trigger methods
+        bindEvents: function () {
+            var plugin = this;
+
+            plugin.$element.find('select[multiple]').not(':disabled').each(function (index, element) {
+
+                var $this = $(this),
+                    selected_value = $this.val();
+
+                if (!selected_value) {
+                    plugin.addHidden($this.attr('name'), $this);
+                }
+
+            });
+
+            plugin.$element.find('select[multiple]').on('change', function () {
+
+                var $this = $(this),
+                    selected_value = $this.val();
+
+                if (selected_value) {
+                    plugin.removeHidden($this);
+                } else {
+                    plugin.addHidden($this.attr('name'), $this);
+                }
+
+            });
+
+            plugin.$element.find('input:checkbox:not(:checked):not([disabled])').each(function (index, element) {
+
+                var $this = $(this);
+                plugin.addHidden($this.attr('name'), $this);
+
+            });
+
+            plugin.$element.find('input[type="checkbox"]').on('change', function () {
+
+                var $this = $(this),
+                    checked = $this.prop('checked');
+
+                if (checked) {
+                    plugin.removeHidden($this);
+                } else {
+                    plugin.addHidden($this.attr('name'), $this);
+                }
+
+            });
+
+        },
+
+        // Unbind events that trigger methods
+        unbindEvents: function () {
+            this.$element.off('.' + this._name);
+        },
+
+        addHidden: function ( name, $element ) {
+
+            $('<input>').attr({
+                'type': 'hidden',
+                'name': name,
+                'value': 'no'
+            }).insertBefore($element);
+
+        },
+
+        removeHidden: function ( $element ) {
+
+            $element.prev('input[type="hidden"]').remove();
+
+        },
+
+    };
+
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName,
+                    new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
 /**
  * ToDos:
  * - sortable only if data-is-sortable is 1 || true
@@ -1983,6 +2099,7 @@ jQuery.fn.findExclude = function (selector, mask, result) {
         $('.exopite-sof-field-backup').exopiteImportExportAJAX();
         $('.exopite-sof-tabs').exopiteTabs();
         $('.exopite-sof-gallery-field').exopiteSOFGallery();
+        $('.exopite-sof-wrapper-metabox').exopitePrepareForm();
 
     });
 

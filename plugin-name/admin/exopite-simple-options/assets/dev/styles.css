@@ -338,7 +338,9 @@
 
 }
 .exopite-sof-wrapper-metabox {
-    margin: -6px -12px -12px -12px;
+    /* margin: -6px -12px -12px -12px; */
+    margin: -6px -12px -12px -12px !important;
+    box-sizing: content-box;
 }
 .block-editor-page .exopite-sof-wrapper-metabox {
 	margin: 0;
@@ -2956,4 +2958,9 @@ input[type="color"] {
 .edit-post-sidebar .exopite-sof-field-color input.minicolor,
 .edit-post-sidebar .exopite-sof-field-color .minicolors-swatch {
     border-color: #e5e5e5;
+}
+.minicolors,
+.exopite-sof-form-field,
+.exopite-sof-fieldset {
+    box-sizing: content-box;
 }

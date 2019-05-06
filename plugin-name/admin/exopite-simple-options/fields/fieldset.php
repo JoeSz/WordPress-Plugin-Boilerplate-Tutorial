@@ -68,6 +68,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 				$self->include_field_class( array( 'type' => $field['type'] ) );
 				$self->enqueue_field_class( array( 'type' => $field['type'] ) );
 
+				if ( is_serialized( $this->value ) ) {
+					$this->value = unserialize( $this->value );
+				}
+
 				$field_value = '';
 				if ( isset( $this->value[ $field['id'] ] ) ) {
 					$field_value = $this->value[ $field['id'] ];
