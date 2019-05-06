@@ -2,6 +2,10 @@
 	die;
 } // Cannot access pages directly.
 /**
+ * Chunks
+ * - https://docs.fineuploader.com/features/chunking.html
+ */
+/**
  *
  * Options Class
  *
@@ -203,9 +207,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Upload' ) ) {
 		 * Handle Attachment
 		 */
 		public static function add_attachment( $url, $filepath ) {
-			
+
 			$updated_url = trim( substr( $url, strpos( $url, 'uploads/') + 8 ));
-			
+
 			$wp_upload_dir = wp_upload_dir();
 			$filename      = str_replace( $wp_upload_dir['url'] . '/', '', $url );
 

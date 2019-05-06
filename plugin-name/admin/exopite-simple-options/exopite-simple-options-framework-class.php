@@ -196,9 +196,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 			$this->define_shared_hooks();
 
-			$this->define_menu_hooks();
-
-			$this->define_metabox_hooks();
+			$this->define_hooks();
 
 		}
 
@@ -374,6 +372,20 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 		}//define_shared_hooks()
 
+		protected function define_hooks() {
+
+			if ( $this->is_menu() ) {
+
+				$this->define_menu_hooks();
+
+			} elseif ( $this->is_metabox() ) {
+
+				$this->define_metabox_hooks();
+
+			}
+
+		}
+
 		/**
 		 * Register all of the hooks related to 'menu' functionality
 		 *
@@ -381,27 +393,26 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		protected function define_menu_hooks() {
 
-			if ( $this->is_menu() ) {
-				/**
-				 * Load options only if menu
-				 * on metabox, page id is not yet available
-				 */
-				$this->db_options = apply_filters( 'exopite_sof_menu_get_options', get_option( $this->unique ), $this->unique );
+			/**
+			 * Load options only if menu
+			 * on metabox, page id is not yet available
+			 */
+			$this->db_options = apply_filters( 'exopite_sof_menu_get_options', get_option( $this->unique ), $this->unique );
 
 
-				add_action( 'admin_init', array( $this, 'register_setting' ) );
-				add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
-				add_action( 'wp_ajax_exopite-sof-export-options', array( $this, 'export_options' ) );
-				add_action( 'wp_ajax_exopite-sof-import-options', array( $this, 'import_options' ) );
-				add_action( 'wp_ajax_exopite-sof-reset-options', array( $this, 'reset_options' ) );
+			add_action( 'admin_init', array( $this, 'register_setting' ) );
+			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+			add_action( 'wp_ajax_exopite-sof-export-options', array( $this, 'export_options' ) );
+			add_action( 'wp_ajax_exopite-sof-import-options', array( $this, 'import_options' ) );
+			add_action( 'wp_ajax_exopite-sof-reset-options', array( $this, 'reset_options' ) );
 
-				if ( isset( $this->config['plugin_basename'] ) && ! empty( $this->config['plugin_basename'] ) ) {
-					add_filter( 'plugin_action_links_' . $this->config['plugin_basename'], array(
-						$this,
-						'plugin_action_links'
-					) );
-				}
+			if ( isset( $this->config['plugin_basename'] ) && ! empty( $this->config['plugin_basename'] ) ) {
+				add_filter( 'plugin_action_links_' . $this->config['plugin_basename'], array(
+					$this,
+					'plugin_action_links'
+				) );
 			}
+
 		}
 
 		/**
@@ -411,17 +422,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		protected function define_metabox_hooks() {
 
-			if ( $this->is_metabox() ) {
-
-				/**
-				 * Add metabox and register custom fields
-				 *
-				 * @link https://code.tutsplus.com/articles/rock-solid-wordpress-30-themes-using-custom-post-types--net-12093
-				 */
-				add_action( 'admin_init', array( $this, 'add_meta_box' ) );
-				add_action( 'save_post', array( $this, 'save' ) );
-
-			}
+			/**
+			 * Add metabox and register custom fields
+			 *
+			 * @link https://code.tutsplus.com/articles/rock-solid-wordpress-30-themes-using-custom-post-types--net-12093
+			 */
+			add_action( 'admin_init', array( $this, 'add_meta_box' ) );
+			add_action( 'save_post', array( $this, 'save' ) );
 
 		}
 

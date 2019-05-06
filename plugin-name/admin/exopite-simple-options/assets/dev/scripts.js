@@ -1112,7 +1112,7 @@ jQuery.fn.findExclude = function (selector, mask, result) {
 
             var $group = $element.closest('.exopite-sof-group');
 
-            $group.find("select.chosen").chosen("destroy");
+            if ($.fn.chosen) $group.find("select.chosen").chosen("destroy");
 
             var is_cloned = false;
             var $cloned = null;
@@ -1145,7 +1145,7 @@ jQuery.fn.findExclude = function (selector, mask, result) {
                 // Remove font preview plugin
                 $cloned.find('.exopite-sof-font-field').unbind().removeData('plugin_exopiteFontPreview');
 
-                $cloned.find('select.chosen').unbind().removeData().next().remove();
+                if ($.fn.chosen) $cloned.find('select.chosen').unbind().removeData().next().remove();
 
                 // Insert after clicked element
                 $cloned.insertAfter($element.closest('.exopite-sof-cloneable__item'));

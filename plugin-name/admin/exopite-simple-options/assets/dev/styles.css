@@ -2947,3 +2947,13 @@ input[type="color"] {
     height: initial;
     display: inline-block;
 }
+.edit-post-sidebar .exopite-sof-field-color input.minicolor {
+    border-radius: 0;
+    height: 31px;
+    border-color: #e5e5e5;
+    background: #f4f4f4;
+}
+.edit-post-sidebar .exopite-sof-field-color input.minicolor,
+.edit-post-sidebar .exopite-sof-field-color .minicolors-swatch {
+    border-color: #e5e5e5;
+}
