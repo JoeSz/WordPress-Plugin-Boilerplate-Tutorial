@@ -914,6 +914,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			 */
 			if ( $this->is_menu_page_loaded() || $this->is_metabox_enabled_post_type() ) :
 
+				wp_enqueue_media();
+
 				$url  = $this->get_url( $this->dirname );
 				$base = trailingslashit( join( '/', array( $url, 'assets' ) ) );
 
