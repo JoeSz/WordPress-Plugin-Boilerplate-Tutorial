@@ -1233,8 +1233,16 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 								'type' 	=> $value['type'],
 							);
 
-							if ( $value['type'] == 'editor' && isset( $value['editor'] ) ) {
-								$fields[ $value['type'] ]['editor'] = $value['editor'];
+						}
+
+						if ( $value['type'] == 'editor' && isset( $value['editor'] ) ) {
+
+							if ( ! isset( $fields[ $value['type'] ]['editor'] ) || ! is_array( $fields[ $value['type'] ]['editor'] ) ) {
+								$fields[ $value['type'] ]['editor'] = array();
+							}
+
+							if ( ! in_array( $value['editor'], $fields[ $value['type'] ]['editor'] ) ) {
+								$fields[ $value['type'] ]['editor'][] = $value['editor'];
 							}
 
 						}

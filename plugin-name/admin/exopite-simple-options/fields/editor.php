@@ -61,91 +61,95 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_editor' ) ) {
 
 		public static function enqueue( $args ) {
 
-			if ( isset( $args['field'] ) && isset( $args['field']['editor'] ) ) {
+			if ( isset( $args['field'] ) && isset( $args['field']['editor'] ) && is_array( $args['field']['editor'] ) ) {
 
-				switch ( $args['field']['editor'] ) {
+				foreach ( $args['field']['editor'] as $editor ) {
 
-					case 'trumbowyg':
+					switch ( $editor ) {
 
-						$resources = array(
-							array(
-								'name'       => 'trumbowyg',
-								'fn'         => 'editors/trumbowyg/trumbowyg.min.css',
-								'type'       => 'style',
-								'dependency' => array(),
-								'version'    => '2.10.0',
-								'attr'       => 'all',
-							),
-							array(
-								'name'       => 'trumbowyg-colors',
-								'fn'         => 'editors/trumbowyg/trumbowyg.colors.min.css',
-								'type'       => 'style',
-								'dependency' => array(),
-								'version'    => '2.10.0',
-								'attr'       => 'all',
-							),
-							array(
-								'name'       => 'trumbowyg-user',
-								'fn'         => 'editors/trumbowyg/trumbowyg.user.min.css',
-								'type'       => 'style',
-								'dependency' => array(),
-								'version'    => '2.10.0',
-								'attr'       => 'all',
-							),
-							array(
-								'name'       => 'trumbowyg',
-								'fn'         => 'editors/trumbowyg/trumbowyg.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'jquery' ),
-								'version'    => '1.8.2',
-								'attr'       => true,
-							),
-							array(
-								'name'       => 'trumbowyg-base64',
-								'fn'         => 'editors/trumbowyg/trumbowyg.base64.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'trumbowyg' ),
-								'version'    => '1.8.2',
-								'attr'       => true,
-							),
-							array(
-								'name'       => 'trumbowyg-colors',
-								'fn'         => 'editors/trumbowyg/trumbowyg.colors.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'trumbowyg' ),
-								'version'    => '1.8.2',
-								'attr'       => true,
-							),
-							array(
-								'name'       => 'trumbowyg-fontfamily',
-								'fn'         => 'editors/trumbowyg/trumbowyg.fontfamily.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'trumbowyg' ),
-								'version'    => '1.8.2',
-								'attr'       => true,
-							),
-							array(
-								'name'       => 'trumbowyg-fontsize',
-								'fn'         => 'editors/trumbowyg/trumbowyg.fontsize.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'trumbowyg' ),
-								'version'    => '1.8.2',
-								'attr'       => true,
-							),
-							array(
-								'name'       => 'exopite-sof-trumbowyg-loader',
-								'fn'         => 'loader-jquery-trumbowyg.min.js',
-								'type'       => 'script',
-								'dependency' => array( 'trumbowyg' ),
-								'version'    => '',
-								'attr'       => true,
-							),
+						case 'trumbowyg':
 
-						);
+							$resources = array(
+								array(
+									'name'       => 'trumbowyg',
+									'fn'         => 'editors/trumbowyg/trumbowyg.min.css',
+									'type'       => 'style',
+									'dependency' => array(),
+									'version'    => '2.10.0',
+									'attr'       => 'all',
+								),
+								array(
+									'name'       => 'trumbowyg-colors',
+									'fn'         => 'editors/trumbowyg/trumbowyg.colors.min.css',
+									'type'       => 'style',
+									'dependency' => array(),
+									'version'    => '2.10.0',
+									'attr'       => 'all',
+								),
+								array(
+									'name'       => 'trumbowyg-user',
+									'fn'         => 'editors/trumbowyg/trumbowyg.user.min.css',
+									'type'       => 'style',
+									'dependency' => array(),
+									'version'    => '2.10.0',
+									'attr'       => 'all',
+								),
+								array(
+									'name'       => 'trumbowyg',
+									'fn'         => 'editors/trumbowyg/trumbowyg.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'jquery' ),
+									'version'    => '1.8.2',
+									'attr'       => true,
+								),
+								array(
+									'name'       => 'trumbowyg-base64',
+									'fn'         => 'editors/trumbowyg/trumbowyg.base64.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'trumbowyg' ),
+									'version'    => '1.8.2',
+									'attr'       => true,
+								),
+								array(
+									'name'       => 'trumbowyg-colors',
+									'fn'         => 'editors/trumbowyg/trumbowyg.colors.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'trumbowyg' ),
+									'version'    => '1.8.2',
+									'attr'       => true,
+								),
+								array(
+									'name'       => 'trumbowyg-fontfamily',
+									'fn'         => 'editors/trumbowyg/trumbowyg.fontfamily.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'trumbowyg' ),
+									'version'    => '1.8.2',
+									'attr'       => true,
+								),
+								array(
+									'name'       => 'trumbowyg-fontsize',
+									'fn'         => 'editors/trumbowyg/trumbowyg.fontsize.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'trumbowyg' ),
+									'version'    => '1.8.2',
+									'attr'       => true,
+								),
+								array(
+									'name'       => 'exopite-sof-trumbowyg-loader',
+									'fn'         => 'loader-jquery-trumbowyg.min.js',
+									'type'       => 'script',
+									'dependency' => array( 'trumbowyg' ),
+									'version'    => '',
+									'attr'       => true,
+								),
 
-						parent::do_enqueue( $resources, $args );
+							);
 
-						break;
+							parent::do_enqueue( $resources, $args );
+
+							break;
+
+					}
 
 				}
 
