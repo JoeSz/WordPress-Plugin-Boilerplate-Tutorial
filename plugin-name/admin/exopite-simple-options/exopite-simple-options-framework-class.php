@@ -2,7 +2,7 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2019-04-07
+ * Last edit: 2019-05-20
  *
  * INFOS AND TODOS:
  * - fix: typography not working in group
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				return;
 			}
 
-			$this->version = '20190407';
+			$this->version = '20190520';
 
 			// TODO: Do sanitize $config['id']
 			$this->unique = $config['id'];
@@ -914,8 +914,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			 */
 			if ( $this->is_menu_page_loaded() || $this->is_metabox_enabled_post_type() ) :
 
-				wp_enqueue_media();
-
 				$url  = $this->get_url( $this->dirname );
 				$base = trailingslashit( join( '/', array( $url, 'assets' ) ) );
 
@@ -1218,17 +1216,58 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		}
 
 		/**
+		 * @link https://thisinterestsme.com/php-using-recursion-print-values-multidimensional-array/
+		 */
+		public function recursive_walk( $array, &$fields ){
+
+			foreach( $array as $key => $value ) {
+
+				if ( is_array( $value ) ) {
+
+					if ( isset( $value['type'] ) ) {
+
+						if ( ! in_array( $value['type'], $fields ) && ! empty( $value['type'] ) ) {
+
+							$fields[ $value['type'] ] = array(
+								'id'	=> $value['id'],
+								'type' 	=> $value['type'],
+							);
+
+							if ( $value['type'] == 'editor' && isset( $value['editor'] ) ) {
+								$fields[ $value['type'] ]['editor'] = $value['editor'];
+							}
+
+						}
+
+					}
+
+					$this->recursive_walk( $value, $fields );
+
+				}
+
+			}
+
+			return $fields;
+
+		}
+
+		/**
 		 * Loop and add callback to include and enqueue
 		 */
 		public function include_field_classes() {
 
-			$callbacks = array(
-				'before' => false,
-				'main'   => 'include_field_class',
-				'after'  => false
-			);
+			if ( empty( $this->fields ) ) {
+				return;
+			}
 
-			$this->loop_fields( $callbacks );
+			$fields = array();
+			$fields = $this->recursive_walk( $this->fields, $fields );
+
+			foreach ( $fields as $field => $args ) {
+
+				$this->include_field_class( $field );
+
+			}
 
 		}
 
@@ -1237,13 +1276,18 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function enqueue_field_classes() {
 
-			$callbacks = array(
-				'before' => false,
-				'main'   => 'enqueue_field_class',
-				'after'  => false
-			);
+			if ( empty( $this->fields ) ) {
+				return;
+			}
 
-			$this->loop_fields( $callbacks );
+			$fields = array();
+			$fields = $this->recursive_walk( $this->fields, $fields );
+
+			foreach ( $fields as $field => $args ) {
+
+				$this->enqueue_field_class( $args );
+
+			}
 
 		}
 
@@ -1253,18 +1297,18 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 */
 		public function include_field_class( $field ) {
 
-			$class = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
+			$class = 'Exopite_Simple_Options_Framework_Field_' . $field;
 
 			if ( ! class_exists( $class ) ) {
 
-				$field_filename = $this->locate_template( $field['type'] );
+				$field_filename = $this->locate_template( $field );
 
 				if ( file_exists( $field_filename ) ) {
 
 					require_once join( DIRECTORY_SEPARATOR, array(
 						$this->dirname,
 						'fields',
-						$field['type'] . '.php'
+						$field . '.php'
 					) );
 
 				}

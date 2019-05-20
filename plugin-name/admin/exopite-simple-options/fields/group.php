@@ -189,13 +189,6 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 
 				$class = 'Exopite_Simple_Options_Framework_Field_' . $field['type'];
 
-				if ( ! class_exists( $class ) ) {
-
-					$self->include_field_class( $field );
-					$self->enqueue_field_class( $field );
-
-				}
-
 				if ( $this->config['is_options_simple'] ) {
 					$field['is_options_simple'] = true;
 				}

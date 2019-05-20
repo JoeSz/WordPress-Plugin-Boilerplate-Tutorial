@@ -95,6 +95,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image' ) ) {
 
 		}
 
+		public static function enqueue( $args ) {
+
+			wp_enqueue_media();
+
+		}
+
 	}
 
 }
