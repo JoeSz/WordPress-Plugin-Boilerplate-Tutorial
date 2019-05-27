@@ -74,7 +74,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_image' ) ) {
 
 			$preview = '';
 			$value   = $this->element_value();
-			$add     = ( ! empty( $this->field['add_title'] ) ) ? $this->field['add_title'] : __( 'Add Image', 'exopite-sof' );
+			$add     = ( ! empty( $this->field['add_title'] ) ) ? $this->field['add_title'] : esc_attr__( 'Add Image', 'exopite-sof' );
 			$hidden  = ( empty( $value ) ) ? ' hidden' : '';
 			$classes = ( isset( $this->field['class'] ) ) ? implode( ' ', explode( ' ', $this->field['class'] ) ) : '';
 

@@ -42,7 +42,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_attached' ) ) {
 
 				if ( count( $images ) == 0 ) {
 
-					printf( esc_html__( 'There is no attachment with type %s for this %s.', 'exopite-sof' ), $this->field['options']['type'], esc_html( $post_type->labels->singular_name ) );
+					printf( esc_attr__( 'There is no attachment with type %s for this %s.', 'exopite-sof' ), $this->field['options']['type'], esc_html( $post_type->labels->singular_name ) );
 
 				} else {
 

@@ -178,9 +178,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
             <div class="qq-template-info">
 				<?php
 
-				echo __( 'Max amount of files: ', 'exopite-sof' ) . $this->field['options']['filecount'] . '<br>';
-				echo __( 'Max file upload size: ', 'exopite-sof' ) . number_format( (float) ( Exopite_Simple_Options_Framework_Upload::file_upload_max_size() / 1048576 ), 2, '.', '' ) . 'Mb<br><br>';
-				echo '<i style="font-size:.9em;">' . esc_attr__( 'To increase file upload limit in the standard built-in WordPress media uploader up as large as available disk space allows, you could use', 'exopite-sof' ) . ' <a target="_blank" href="' . admin_url() . 'plugin-install.php?tab=plugin-information&plugin=tuxedo-big-file-uploads">Tuxedo Big File Uploads</a> ' . esc_attr__( 'Plugin', 'exopite-sof' ) . '</i>';
+				echo esc_attr__( 'Max amount of files: ', 'exopite-sof' ) . $this->field['options']['filecount'] . '<br>';
+				echo esc_attr__( 'Max file upload size: ', 'exopite-sof' ) . number_format( (float) ( Exopite_Simple_Options_Framework_Upload::file_upload_max_size() / 1048576 ), 2, '.', '' ) . 'Mb<br><br>';
+				// echo '<i style="font-size:.9em;">' . esc_attr__( 'To increase file upload limit in the standard built-in WordPress media uploader up as large as available disk space allows, you could use', 'exopite-sof' ) . ' <a target="_blank" href="' . admin_url() . 'plugin-install.php?tab=plugin-information&plugin=tuxedo-big-file-uploads">Tuxedo Big File Uploads</a> ' . esc_attr__( 'Plugin', 'exopite-sof' ) . '</i>';
 
 				?>
             </div>
@@ -234,4 +234,3 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_upload' ) ) {
 	}
 
 }
-

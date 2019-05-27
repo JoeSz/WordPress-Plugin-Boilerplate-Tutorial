@@ -78,13 +78,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 
 				do_action( 'exopite_sof_typography_family', $family_value, $this );
 
-				echo '<optgroup label="'. __( 'Web Safe Fonts', 'exopite-sof-framework' ) .'">';
+				echo '<optgroup label="'. esc_attr__( 'Web Safe Fonts', 'exopite-sof' ) .'">';
 				foreach ( $websafe_fonts as $websafe_value ) {
 					echo '<option value="'. $websafe_value .'" data-variants="'. implode( '|', $default_variants ) .'" data-type="websafe"'. selected( $websafe_value, $family_value, true ) .'>'. $websafe_value .'</option>';
 				}
 				echo '</optgroup>';
 
-				echo '<optgroup label="'. __( 'Google Fonts', 'exopite-sof-framework' ) .'">';
+				echo '<optgroup label="'. esc_attr__( 'Google Fonts', 'exopite-sof' ) .'">';
 				foreach ( $googlefonts as $google_key => $google_value ) {
 					echo '<option value="'. $google_key .'" data-variants="'. implode( '|', $google_value ) .'" data-type="google"'. selected( $google_key, $family_value, true ) .'>'. $google_key .'</option>';
 				}
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_typography' ) ) {
 
 			} else {
 
-				echo __( 'Error! Can not load json file.', 'exopite-sof-framework' );
+				echo esc_attr__( 'Error! Can not load json file.', 'exopite-sof' );
 
 			}
 
