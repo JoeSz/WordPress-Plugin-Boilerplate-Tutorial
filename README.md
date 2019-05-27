@@ -6,7 +6,7 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
-LAST CHANGE: 2019-04-10
+LAST CHANGE: 2019-05-27
 
 ---
 
@@ -193,6 +193,9 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 2019-05-27 =
+* Update Exopite Simple Options Framework
 
 = 2019-04-10 =
 * Add gallery to death simple metabox field creator
