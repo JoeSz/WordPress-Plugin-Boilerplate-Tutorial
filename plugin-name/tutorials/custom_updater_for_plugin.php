@@ -70,11 +70,15 @@ Important notice to this update
 // ADD TO FILE -> plugin-name.php
 
 // AFTER THIS:
-register_activation_hook( __FILE__, 'activate_exopite_seo_core' );
-register_deactivation_hook( __FILE__, 'deactivate_exopite_seo_core' );
+register_activation_hook( __FILE__, 'activate_plugin_name_core' );
+register_deactivation_hook( __FILE__, 'deactivate_plugin_name_core' );
 
 // ADD TO FILE:
- /**
+
+define( 'YOUR_PLUGIN_NAME_NAME', 'plugin-name' );
+define( 'YOUR_PLUGIN_NAME_PATH', plugin_dir_path( __FILE__ ) );
+
+/**
  * Update
  */
 if ( is_admin() ) {
@@ -92,14 +96,14 @@ if ( is_admin() ) {
      */
     if( ! class_exists( 'Puc_v4_Factory' ) ) {
 
-        require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_SEO_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
+        require_once join( DIRECTORY_SEPARATOR, array( YOUR_PLUGIN_NAME_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
 
     }
 
     $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://update.yourwebsite.ext/?action=get_metadata&slug=plugin-name', //Metadata URL.
+        'https://update.yourwebsite.ext/?action=get_metadata&slug=' . YOUR_PLUGIN_NAME_NAME, //Metadata URL.
         __FILE__, //Full path to the main plugin file.
-        'plugin-name' //Plugin slug. Usually it's the same as the name of the directory.
+        YOUR_PLUGIN_NAME_NAME //Plugin slug. Usually it's the same as the name of the directory.
     );
 
     /**
