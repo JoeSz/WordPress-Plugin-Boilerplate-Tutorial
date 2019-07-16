@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Version: 20190716
+ *
  * ToDos:
  * - add error messages
  */
@@ -196,7 +198,33 @@ class Exopite_Meta_Boxes {
      *	   	),
 	 *	);
      *
-	 *	$plugin_meta_boxes = new Exopite_Meta_Boxes( $metabox_args, PLUGIN_URL );
+     *	$plugin_meta_boxes = new Exopite_Meta_Boxes( $metabox_args, PLUGIN_URL );
+     *
+     * - OR -
+     *
+     *	$plugin_meta_boxes = new Exopite_Meta_Boxes( $metabox_args, $this->plugin_name );
+     *
+     * For WordPress Plugin Boilderplate
+     * includes/class-plugin-name.php
+     * private function load_dependencies() {
+     *     // ...
+     *     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/libraries/class-exopite-meta-boxes.php';
+     *     // ...
+     * }
+     *
+     * private function define_admin_hooks() {
+     *     // ...
+     *     $this->loader->add_action( 'init', $plugin_admin, 'create_metaboxex', 999 );
+     *     // ...
+     * }
+     *
+     * admin/class-om-links-admin.php
+     *
+     * public function enqueue_styles() {
+     *     // ...
+     *     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/exopite-meta-box-style.css', '20190716', 'all' );
+     *     // ...
+     * }
      */
     protected $args = array();
 
