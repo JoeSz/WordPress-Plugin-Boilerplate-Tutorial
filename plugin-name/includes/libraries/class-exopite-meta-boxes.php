@@ -222,7 +222,7 @@ class Exopite_Meta_Boxes {
      *
      * public function enqueue_styles() {
      *     // ...
-     *     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/exopite-meta-box-style.css', '20190716', 'all' );
+     *     wp_enqueue_style( 'exopite-meta-box-style', plugin_dir_url( __FILE__ ) . 'css/exopite-meta-box-style.css', '20190716', 'all' );
      *     // ...
      * }
      */
