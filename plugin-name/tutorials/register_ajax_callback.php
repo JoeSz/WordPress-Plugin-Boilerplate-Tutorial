@@ -21,7 +21,7 @@ private function define_public_hooks() {
     /**
      * The wp_ajax_ is telling wordpress to use ajax and the prefix_ajax_first is the hook name to use in JavaScript or in URL.
      *
-     * Call AJAX function via URL: https://www.yourwebsite.com/wp-admin/admin-ajax.php?action=ajax_first&post_id=23&other_param=something
+     * Call AJAX function via URL: https://www.yourwebsite.com/wp-admin/admin-ajax.php?action=prefix_ajax_first&post_id=23&other_param=something
      *
      * The ajax_first is the callback function.
      * wp_ajax_ is for authenticated users
