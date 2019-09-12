@@ -126,6 +126,8 @@ public function ajax_first() {
 /////////////////////////////////////////////////
 // ADD TO FILE -> public/js/plugin-name-public.js
 
+// ...
+
 $(function() {
 
     // ...
@@ -165,6 +167,8 @@ $(function() {
     });
 
 });
+
+// ...
 
 /////////////////////////////////////////////////////
 // OR more modern and handeling file upload as well.
