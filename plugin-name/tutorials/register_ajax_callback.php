@@ -192,7 +192,7 @@ $(function() {
 // https://developer.mozilla.org/en-US/docs/Web/API/FormData
 // https://caniuse.com/#search=FormData
 //
-// BE CAREFUL WITH OLDER iOS DEVICES!
+// BE CAREFUL WITH OLDER SAFARI/iOS DEVICES!
 //
 // For file upload use must declair enctype="multipart/form-data"
 // eg.: <form enctype="multipart/form-data" method="post" name="primaryPostForm" id="primaryPostForm">
