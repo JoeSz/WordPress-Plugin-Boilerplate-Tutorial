@@ -6,7 +6,7 @@
  **************************/
 
 /**
- * Good articles about the teheme:
+ * Good articles about the theme:
  * - https://developer.wordpress.org/plugins/javascript/ajax/
  * - https://premium.wpmudev.org/blog/using-ajax-with-wordpress/
  */
