@@ -35,6 +35,21 @@ private function define_public_hooks() {
 /////////////////////////////////////////////////////
 // ADD TO FILE -> public/class-plugin-name-public.php
 
+/*
+If you do not want this to do, you could also add a parameter to your button or wrapper,
+if you active the AJAX with a button click or so.
+eg:
+<input type="button" name="some-name" id="some-id" class="button button-primary" data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>" value="Click for AJAX">
+JS:
+$( '#some-id' ).on( 'click', function(){
+    var ajax_url = $( this ).data( 'ajaxurl' );
+
+    // ...
+});
+
+
+*/
+
 public function enqueue_scripts() {
 
     // ...
