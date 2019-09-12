@@ -182,6 +182,8 @@ $(function() {
 // For file upload use must declair enctype="multipart/form-data"
 // eg.: <form enctype="multipart/form-data" method="post" name="primaryPostForm" id="primaryPostForm">
 
+// ...
+
 $(function() {
 
     // On form submit
@@ -220,3 +222,5 @@ $(function() {
     });
 
 }
+
+// ...
