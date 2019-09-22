@@ -2,7 +2,7 @@
 ## **THIS IS A TUTORIAL WITH EXAMPLES**
 ## Now you can install the plugin, I will implement all functionality.
 
-This is a tutorial plugin with examples. I created some tutorials to help with my work and I tought, I share this to help others.
+This is a tutorial plugin with examples. I created some tutorials to help with my work and I thought, I would share this to help others.
 
 More will come... ;)
 
@@ -14,21 +14,21 @@ LAST CHANGE: 2019-05-27
 
 ---
 
-Get the WordPress Plugin Boilderpalte form here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
+Get the WordPress Plugin Boilderplate from here: https://github.com/DevinVinson/WordPress-Plugin-Boilerplate <br />
 Github link for the WordPress Plugin Boilerplate Generator: https://github.com/Tmeister/wppb-gen-site <br />
 Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.me/)
 
 ## Tutorial and example code for:
 * How to register a **custom post types** (e.g.: tests) with **taxonomies** and **capabilities**
-* How to register **metabox** for a custom post type (e.g.: tests)
-* How to register metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
-* How to get custom post type (e.g.: customers) **archive template** from plugin folder
+* How to register a **metabox** for a custom post type (e.g.: tests)
+* How to register a metabox for a custom post type with `Exopite Simple Options Framework` (https://github.com/JoeSz/Exopite-Simple-Options-Framework) (e.g.: tests)
+* How to get a custom post type (e.g.: customers) **archive template** from plugin folder
 * How to add/remove/reorder/sort **custom** post type **list columns** in **admin area** (e.g.: test)
-* How to add admin **options page** to plugin
-* How to add admin options page to plugin with `Exopite Simple Options Framework`
+* How to add admin an **options page** to plugin
+* How to add an admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
-* How to **access plugin** and it's **methodes** later from **outside** of the plugin (eg. from theme or template file)
-* How to **access plugin methodes** from **inside** of the plugin (eg. from admin from public)
+* How to **access plugin** and it's **methods** later from **outside** of the plugin (e.g.: from theme or template file)
+* How to **access plugin methods** from **inside** of the plugin (e.g.: from admin, from public)
 * How to **register, update** and **use custom** datebase **tables**
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
 (`class-gamajo-template-loader.php` from https://github.com/GaryJones/Gamajo-Template-Loader and<br />
@@ -40,7 +40,7 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * Register **POST callback**
 * **Export CSV**
 * Add **custom updater** for your plugin with `YahnisElsts - Plugin Update Checker` (https://github.com/YahnisElsts/plugin-update-checker)
-* Handle AJAX/POST callback (eg.:)<br />
+* Handle AJAX/POST callback (e.g.:)<br />
   * check nonce,
   * insert post and post meta,
   * upload file and add to meta and/or WordPress Media
@@ -54,32 +54,32 @@ Check out the `/plugin-name/tutorials/`.
 #### You could take a look, how you can implement some functions.
 
 * [Exopite-Multifilter-Multi-Sorter](https://github.com/JoeSz/Exopite-Multifilter-Multi-Sorter-WordPress-Plugin) - Working with shortcodes and AJAX
-* [Exopite-Notificator](https://github.com/JoeSz/Exopite-Notificator-WordPress-Plugin) - Working with hooks for comments, posts, user profile, authenticate, etc... in WordPress.
+* [Exopite-Notificator](https://github.com/JoeSz/Exopite-Notificator-WordPress-Plugin) - Working with hooks for comments, posts, user profile, authenticate, etc. in WordPress.
 * [Exopite-Combiner-and-Minifier-WordPress-Plugin](https://github.com/JoeSz/Exopite-Combiner-and-Minifier-WordPress-Plugin) - Working with output buffering and DOM manipulation with PHP DOMDocument.
-* [Exopite-SEO-Core](https://github.com/JoeSz/Exopite-SEO-Core) - Working with several SEO releated WordPress hooks.
-* [Exopite-Lazy-Load-XT](https://github.com/JoeSz/Exopite-Lazy-Load-XT-WordPress-Plugin) - Working with output buffering as well as content manipulation (like thumbnails, etc...) in WordPress.
+* [Exopite-SEO-Core](https://github.com/JoeSz/Exopite-SEO-Core) - Working with several SEO related WordPress hooks.
+* [Exopite-Lazy-Load-XT](https://github.com/JoeSz/Exopite-Lazy-Load-XT-WordPress-Plugin) - Working with output buffering as well as content manipulation (like thumbnails, etc.) in WordPress.
 
 ## Contents
 
 The WordPress Plugin Boilerplate includes the following files:
 
-* `.gitignore`. Used to exclude certain files from the repository.
-* `CHANGELOG.md`. The list of changes to the core project.
-* `README.md`. The file that you’re currently reading.
+* `.gitignore` - Used to exclude certain files from the repository.
+* `CHANGELOG.md` - The list of changes to the core project.
+* `README.md` - The file that you’re currently reading.
 * A `plugin-name` directory that contains the source code - a fully executable WordPress plugin.
 
 ## Features
 
 * The Boilerplate is based on the [Plugin API](http://codex.wordpress.org/Plugin_API), [Coding Standards](http://codex.wordpress.org/WordPress_Coding_Standards), and [Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/php/).
-* All classes, functions, and variables are documented so that you know what you need to be changed.
-* The Boilerplate uses a strict file organization scheme that correspond both to the WordPress Plugin Repository structure, and that make it easy to organize the files that compose the plugin.
+* All classes, functions, and variables are documented so that you know what you need to change.
+* The Boilerplate uses a strict file organization scheme that corresponds both to the WordPress Plugin Repository structure, and that makes it easy to organize the files that compose the plugin.
 * The project includes a `.pot` file as a starting point for internationalization.
 
 ## Installation
 
 The Boilerplate can be installed directly into your plugins folder "as-is". You will want to rename it and the classes inside of it to fit your needs.
 
-Note that this will activate the source code of the Boilerplate, but because the Boilerplate has no real functionality so no menu  items, meta boxes, or custom post types will be added.
+Note that this will activate the source code of the Boilerplate, but because the Boilerplate has no real functionality no menu items, meta boxes, or custom post types will be added.
 
 ## Tutorial files
 
@@ -124,7 +124,7 @@ Tutorial: https://pippinsplugins.com/template-file-loaders-plugins/
 
 ## WordPress.org Preparation
 
-The original launch of this version of the boilerplate included the folder structure needed for using your plugin on the WordPress.org. That folder structure has been moved to its own repo here: https://github.com/DevinVinson/Plugin-Directory-Boilerplate
+The original launch of this version of the boilerplate included the folder structure needed for using your plugin on WordPress.org. That folder structure has been moved to its own repo here: https://github.com/DevinVinson/Plugin-Directory-Boilerplate
 
 ## Recommended Tools
 
@@ -177,7 +177,7 @@ The previous version of the WordPress Plugin Boilerplate included support for a 
 
 These tools are not part of the core of this Boilerplate, as I see them as being additions, forks, or other contributions to the Boilerplate.
 
-The same is true of using tools like Grunt, Composer, etc. These are all fantastic tools, but not everyone uses them. In order to  keep the core Boilerplate as light as possible, these features have been removed and will be introduced in other editions, and will be listed and maintained on the project homepage
+The same is true of using tools like Grunt, Composer, etc. These are all fantastic tools, but not everyone uses them. In order to  keep the core Boilerplate as light as possible, these features have been removed and will be introduced in other editions, and will be listed and maintained on the project homepage.
 
 # Credits
 
@@ -185,7 +185,7 @@ The WordPress Plugin Boilerplate was started in 2011 by [Tom McFarlin](http://tw
 
 The current version of the Boilerplate was developed in conjunction with [Josh Eaton](https://twitter.com/jjeaton), [Ulrich Pogson](https://twitter.com/grapplerulrich), and [Brad Vincent](https://twitter.com/themergency).
 
-The homepage is based on a design as provided by [HTML5Up](http://html5up.net), the Boilerplate logo was designed by  Rob McCaskill of [BungaWeb](http://bungaweb.com), and the site `favicon` was created by [Mickey Kay](https://twitter.com/McGuive7).
+The homepage is based on a design as provided by [HTML5Up](http://html5up.net), the Boilerplate logo was designed by Rob McCaskill of [BungaWeb](http://bungaweb.com), and the site `favicon` was created by [Mickey Kay](https://twitter.com/McGuive7).
 
 ## Documentation, FAQs, and More
 
@@ -203,16 +203,16 @@ CHANGELOG
 = 2018-09-30 =
 * Add tutorial: run code on plugin upgrade with admin notice
 * Add sort to custom post type list columns in admin area
-* Add tutorial to pluhin: add, remove, reorder and sort custom post type list columns in admin area
+* Add tutorial to plugin: add, remove, reorder and sort custom post type list columns in admin area
 
 = 2018-09-25 =
 * Update Exopite Simple Options Framework
 * Add tutorial: Export CSV
 
 = 2018-08-29 =
-* Add tutorial: How to access plugin and it's methodes later from outside of the plugin (eg. from theme or template file)
+* Add tutorial: How to access plugin and it's methods later from outside of the plugin (e.g.: from theme or template file)
 * Add tutorial: Custom updater for your plugin
-* Add tutorial: How to register, update and use custom datebase tables
+* Add tutorial: How to register, update and use custom database tables
 
 = 1.0.2 =
 * Add tutorial
