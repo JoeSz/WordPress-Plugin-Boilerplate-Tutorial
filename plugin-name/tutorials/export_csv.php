@@ -148,7 +148,7 @@
  *
  * You could use PLUGIN-NAME/ADMIN/PARTIALS/PLUGIN-NAME-ADMIN-DISPLAY.PHP
  * and add:
- * <a href="<?php admin_url( 'admin-post.php?action=csv_export' ); ?>" class="button button-primary" target="_blank">Export CSV</a>
+ * <a href="<?php echo admin_url( 'admin-post.php?action=csv_export' ); ?>" class="button button-primary" target="_blank">Export CSV</a>
  *
  * OR you can add to EXOPITE SIMPLE OPTIONS FRAMEWORK ADMIN MENU
  *    array(
