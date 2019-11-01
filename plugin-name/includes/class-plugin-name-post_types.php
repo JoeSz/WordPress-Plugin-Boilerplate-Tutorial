@@ -140,7 +140,6 @@ class Plugin_Name_Post_Types {
             $this->assign_capabilities( $args['capabilities'], $fields['custom_caps_users'] );
         }
 
-        register_post_type( $fields['slug'], $args );
 
         /**
          * Register Taxnonmies if any
@@ -155,6 +154,8 @@ class Plugin_Name_Post_Types {
             }
 
         }
+	    
+	register_post_type( $fields['slug'], $args );
 
     }
 
