@@ -96,11 +96,23 @@ public function validate($input) {
 
     return $valid;
 
+    // -- OR --
+
+    $options = get_option( $this->plugin_name );
+
+    $options['example_checkbox'] = ( isset( $input['example_checkbox'] ) && ! empty( $input['example_checkbox'] ) ) ? 1 : 0;
+    $options['example_text'] = ( isset( $input['example_text'] ) && ! empty( $input['example_text'] ) ) ? esc_attr( $input['example_text'] ) : 'default';
+    $options['example_select'] = ( isset($input['example_select'] ) && ! empty( $input['example_select'] ) ) ? esc_attr($input['example_select']) : 1;
+
+    return $options;
+
 }
 
 public function options_update() {
 
-    register_setting( $this->plugin_name, $this->plugin_name, array( $this, 'validate' ) );
+    register_setting( $this->plugin_name, $this->plugin_name, array(
+       'sanitize_callback' => array( $this, 'validate' ),
+    ) );
 
 }
 
@@ -113,12 +125,12 @@ if ( ! defined( 'WPINC' ) ) die;
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap">
-    <h2>Plugin Name <?php _e('Options', $this->plugin_name); ?></h2>
+    <h2>Plugin Name <?php esc_attr_e('Options', 'plugin_name' ); ?></h2>
 
-    <form method="post" name="cleanup_options" action="options.php">
+    <form method="post" name="<?php echo $this->plugin_name; ?>" action="options.php">
     <?php
         //Grab all options
-        $options = get_option($this->plugin_name);
+        $options = get_option( $this->plugin_name );
 
         $example_select = ( isset( $options['example_select'] ) && ! empty( $options['example_select'] ) ) ? esc_attr( $options['example_select'] ) : '1';
         $example_text = ( isset( $options['example_text'] ) && ! empty( $options['example_text'] ) ) ? esc_attr( $options['example_text'] ) : 'default';
@@ -126,16 +138,14 @@ if ( ! defined( 'WPINC' ) ) die;
 
         settings_fields($this->plugin_name);
         do_settings_sections($this->plugin_name);
-        // Sources: - http://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
-        //          - http://dinbror.dk/blog/lazy-load-images-seo-problem/
-        //          - https://webmasters.googleblog.com/2015/10/deprecating-our-ajax-crawling-scheme.html
+
     ?>
 
     <!-- Select -->
     <fieldset>
-        <p><?php _e( 'Example Select.', $this->plugin_name ); ?></p>
+        <p><?php esc_attr_e( 'Example Select.', 'plugin_name' ); ?></p>
         <legend class="screen-reader-text">
-            <span><?php _e( 'Example Select', $this->plugin_name ); ?></span>
+            <span><?php esc_attr_e( 'Example Select', 'plugin_name' ); ?></span>
         </legend>
         <label for="example_select">
             <select name="<?php echo $this->plugin_name; ?>[example_select]" id="<?php echo $this->plugin_name; ?>-example_select">
@@ -147,25 +157,25 @@ if ( ! defined( 'WPINC' ) ) die;
 
     <!-- Text -->
     <fieldset>
-        <p><?php _e( 'Example Text.', $this->plugin_name ); ?></p>
+        <p><?php esc_attr_e( 'Example Text.', 'plugin_name' ); ?></p>
         <legend class="screen-reader-text">
-            <span><?php _e( 'Example Text', $this->plugin_name ); ?></span>
+            <span><?php esc_attr_e( 'Example Text', 'plugin_name' ); ?></span>
         </legend>
         <input type="text" class="example_text" id="<?php echo $this->plugin_name; ?>-example_text" name="<?php echo $this->plugin_name; ?>[example_text]" value="<?php if( ! empty( $example_text ) ) echo $example_text; else echo 'default'; ?>"/>
     </fieldset>
 
     <!-- Checkbox -->
     <fieldset>
-        <p><?php _e( 'Example Checkbox.', $this->plugin_name ); ?></p>
+        <p><?php esc_attr_e( 'Example Checkbox.', 'plugin_name' ); ?></p>
         <legend class="example-Checkbox">
-            <span><?php _e( 'Example Checkbox', $this->plugin_name ); ?></span>
+            <span><?php esc_attr_e( 'Example Checkbox', 'plugin_name' ); ?></span>
         </legend>
         <label for="<?php echo $this->plugin_name; ?>-example_checkbox">
             <input type="checkbox" id="<?php echo $this->plugin_name; ?>-example_checkbox" name="<?php echo $this->plugin_name; ?>[example_checkbox]" value="1" <?php checked( $example_checkbox, 1 ); ?> />
-            <span><?php esc_attr_e('Example Checkbox', $this->plugin_name); ?></span>
+            <span><?php esc_attresc_attr_e('Example Checkbox', 'plugin_name' ); ?></span>
         </label>
     </fieldset>
 
-    <?php submit_button( __( 'Save all changes', $this->plugin_name ), 'primary','submit', TRUE ); ?>
+    <?php submit_button( __( 'Save all changes', 'plugin_name' ), 'primary','submit', TRUE ); ?>
     </form>
 </div>
