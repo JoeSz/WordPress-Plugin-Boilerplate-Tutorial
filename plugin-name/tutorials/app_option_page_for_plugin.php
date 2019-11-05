@@ -172,7 +172,7 @@ if ( ! defined( 'WPINC' ) ) die;
         </legend>
         <label for="<?php echo $this->plugin_name; ?>-example_checkbox">
             <input type="checkbox" id="<?php echo $this->plugin_name; ?>-example_checkbox" name="<?php echo $this->plugin_name; ?>[example_checkbox]" value="1" <?php checked( $example_checkbox, 1 ); ?> />
-            <span><?php esc_attresc_attr_e('Example Checkbox', 'plugin_name' ); ?></span>
+            <span><?php esc_attr_e('Example Checkbox', 'plugin_name' ); ?></span>
         </label>
     </fieldset>
 
