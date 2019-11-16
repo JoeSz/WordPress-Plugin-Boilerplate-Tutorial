@@ -249,6 +249,7 @@ class Plugin_Name_Admin {
          * - content
          * - date
          * - editor
+         * - gallery
          * - group/accordion item
          * - hidden
          * - image
@@ -1345,7 +1346,7 @@ class Plugin_Name_Admin {
                         'repeater'          => true,
                         'accordion'         => true,
                         'button_title'      => esc_html__( 'Add new', 'plugin-name' ),
-                        'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
+                        // 'group_title'       => esc_html__( 'Accordion Title', 'plugin-name' ),
                         'limit'             => 50,
                         'sortable'          => true,
                         'mode'              => 'compact',
@@ -1355,21 +1356,11 @@ class Plugin_Name_Admin {
                         array(
                             'id'      => 'group_4_sortable_text_1',
                             'type'    => 'text',
-                            'attributes' => array(
-                                // mark this field az title, on type this will change group item title
-                                'data-title' => 'title',
-                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
-                            ),
                         ),
 
                         array(
                             'id'      => 'group_4_sortable_text_2',
                             'type'    => 'text',
-                            'attributes' => array(
-                                // mark this field az title, on type this will change group item title
-                                'data-title' => 'title',
-                                'placeholder' => esc_html__( 'Some text', 'plugin-name' ),
-                            ),
                         ),
 
                     ),
