@@ -717,6 +717,22 @@ class Plugin_Name_Admin {
         );
 
         $fields[] = array(
+            'title'  => esc_html__( 'Gallery', 'exopite-combiner-minifier' ),
+            'icon'   => 'fa fa-paragraph',
+            'name'   => 'galleries',
+            'fields' => array(
+
+                array(
+                    'id'     => 'gallery_1',
+                    'type'   => 'gallery',
+                    'title'  => 'Gallery',
+                ),
+
+            ),
+
+        );
+
+        $fields[] = array(
             'title'  => esc_html__( 'Editor', 'exopite-combiner-minifier' ),
             'icon'   => 'fa fa-paragraph',
             'name'   => 'editors',

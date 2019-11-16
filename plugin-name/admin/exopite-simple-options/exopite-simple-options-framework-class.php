@@ -2,7 +2,7 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2019-05-27
+ * Last edit: 2019-11-16
  *
  * INFOS AND TODOS:
  * - fix: typography not working in group
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				return;
 			}
 
-			$this->version = '20190527';
+			$this->version = '20191116';
 
 			// TODO: Do sanitize $config['id']
 			$this->unique = $config['id'];
@@ -1244,10 +1244,15 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 
 						if ( ! in_array( $value['type'], $fields ) && ! empty( $value['type'] ) ) {
 
-							$fields[ $value['type'] ] = array(
-								'id'	=> $value['id'],
+							$temp_array = array(
 								'type' 	=> $value['type'],
 							);
+
+							if ( isset( $value['id'] ) ) {
+								$temp_array['id'] = $value['id'];
+							}
+
+							$fields[ $value['type'] ] = $temp_array;
 
 						}
 
@@ -1320,6 +1325,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		 * and enqueue they scripts
 		 */
 		public function include_field_class( $field ) {
+
+            if ( is_array( $field ) && isset( $field['type'] ) ) {
+                $field = $field['type'];
+            }
 
 			$class = 'Exopite_Simple_Options_Framework_Field_' . $field;
 
