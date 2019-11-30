@@ -1853,8 +1853,9 @@ input:disabled + .switch__toggle {
 .exopite-sof-cloneable--helper {
     float: right;
 }
+.exopite-sof-group-compact .exopite-sof-cloneable__item .exopite-sof-cloneable__muster--hidden,
 .exopite-sof-cloneable__muster--hidden {
-    display: none;
+    display: none !important;
 }
 .exopite-sof-accordion--hidden .exopite-sof-accordion__content {
     display: none;
