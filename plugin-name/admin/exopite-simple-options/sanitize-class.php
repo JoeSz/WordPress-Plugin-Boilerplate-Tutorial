@@ -65,7 +65,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 				// If array, then call self.
 				if( is_array( $value ) ) {
 
-					if ( ! is_int( $key ) ) $this->parent_key = $key;
+					if ( ! is_int( $key ) ) self::$parent_key = $key;
 					$this->array_search_and_replace( $arr[$key] );
 
 				} else {
@@ -78,10 +78,10 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 					if ( ! is_int( $key ) ) {
 						$field = $this->find_sub_array( 'id', $key, $this->fields );
 						if ( $field == null ) {
-							$field = $this->find_sub_array( 'id', $this->parent_key, $this->fields );
+							$field = $this->find_sub_array( 'id', self::$parent_key, $this->fields );
 						}
 					} else {
-						$field = $this->find_sub_array( 'id', $this->parent_key, $this->fields );
+						$field = $this->find_sub_array( 'id', self::$parent_key, $this->fields );
 					}
 
 					/**
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 
 					$arr[$key] = $this->sanitize( $field, $value );
 
-					// $this->write_log( 'test_print_ext', var_export( $this->parent_key, true ) . PHP_EOL . var_export( $field, true ) . PHP_EOL . var_export( $key, true ) . PHP_EOL . var_export( $value, true ) . PHP_EOL . '----' . PHP_EOL );
+					// $this->write_log( 'test_print_ext', var_export( self::$parent_key, true ) . PHP_EOL . var_export( $field, true ) . PHP_EOL . var_export( $key, true ) . PHP_EOL . var_export( $value, true ) . PHP_EOL . '----' . PHP_EOL );
 
 				}
 

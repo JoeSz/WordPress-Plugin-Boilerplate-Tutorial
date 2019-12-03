@@ -2,7 +2,7 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2019-11-30
+ * Last edit: 2019-12-03
  *
  * INFOS AND TODOS:
  * - fix: typography not working in group
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				return;
 			}
 
-			$this->version = '20191130';
+			$this->version = '20191203';
 
 			// TODO: Do sanitize $config['id']
 			$this->unique = $config['id'];
@@ -1601,18 +1601,21 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				$visibility = '';
 			}
 
-			echo '<div class="exopite-sof-section exopite-sof-section-' . $section['name'] . $visibility . '">';
+            $section_name = ( isset( $section['name'] ) ) ? $section['name'] : '';
+            $section_icon = ( isset( $section['icon'] ) ) ? $section['icon'] : '';
+
+			echo '<div class="exopite-sof-section exopite-sof-section-' . $section_name . $visibility . '">';
 
 			if ( isset( $section['title'] ) && ! empty( $section['title'] ) ) {
 
 				$icon_before = '';
-				if ( strpos( $section['icon'], 'dashicon' ) !== false ) {
+				if ( strpos( $section_icon, 'dashicon' ) !== false ) {
 					$icon_before = 'dashicons-before ';
-				} elseif ( strpos( $section['icon'], 'fa' ) !== false ) {
+				} elseif ( strpos( $section_icon, 'fa' ) !== false ) {
 					$icon_before = 'fa-before ';
 				}
 
-				echo '<h2 class="exopite-sof-section-header" data-section="' . $section['name'] . '"><span class="' . $icon_before . $section['icon'] . '"></span>' . $section['title'] . '</h2>';
+				echo '<h2 class="exopite-sof-section-header" data-section="' . $section_name . '"><span class="' . $icon_before . $section_icon . '"></span>' . $section['title'] . '</h2>';
 
 			}
 
