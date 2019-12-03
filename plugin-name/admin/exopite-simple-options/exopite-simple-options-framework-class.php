@@ -1037,16 +1037,20 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				}
 
 				// Preserve values start with "_".
-				$options = get_option( $this->unique );
-				foreach ( $options as $key => $value ) {
+                $options = get_option( $this->unique );
+                if ( is_array( $options ) ) {
 
-					if ( substr( $key, 0, 1 ) === '_' ) {
+                    foreach ( $options as $key => $value ) {
 
-						$valid[ $key ] = $value;
+                        if ( substr( $key, 0, 1 ) === '_' ) {
 
-					}
+                            $valid[ $key ] = $value;
 
-				}
+                        }
+
+                    }
+
+                }
 
 			}
 
