@@ -222,8 +222,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_group' ) ) {
 						$this->value = unserialize( $this->value );
 					}
 
-
-					$field_value = ( isset( $this->value[ $field['id'] ] ) ) ? $this->value[ $field['id'] ] : '';
+					$field_value = ( isset( $field['id'] ) && isset( $this->value[ $field['id'] ] ) ) ? $this->value[ $field['id'] ] : '';
 
 					$field_value = ( $this->is_repeater ) ? null : $field_value;
 

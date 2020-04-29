@@ -70,7 +70,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Field_fieldset' ) ) {
 				}
 
 				$field_value = '';
-				if ( isset( $this->value[ $field['id'] ] ) ) {
+				if ( isset( $field['id'] ) && isset( $this->value[ $field['id'] ] ) ) {
 					$field_value = $this->value[ $field['id'] ];
 				} elseif ( isset( $field['default'] ) ) {
 					$field_value = $field['default'];

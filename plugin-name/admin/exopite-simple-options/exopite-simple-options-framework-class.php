@@ -1698,7 +1698,9 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				$depend .= ' data-value="' . $section['dependency'][2] . '"';
 			}
 
-			echo '<li  class="exopite-sof-nav-list-item' . $active . $hidden . '"' . $depend . ' data-section="' . $section['name'] . '">';
+            $section_name = ( isset( $section['name'] ) ) ? $section['name'] : '';
+
+			echo '<li  class="exopite-sof-nav-list-item' . $active . $hidden . '"' . $depend . ' data-section="' . $section_name . '">';
 			echo '<span class="exopite-sof-nav-list-item-title">';
 			$this->get_menu_item_icons( $section );
 			echo $section['title'];
