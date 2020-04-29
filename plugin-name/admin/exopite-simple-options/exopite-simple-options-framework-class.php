@@ -205,7 +205,12 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 		public function get_mo_file() {
 			$path = wp_normalize_path( dirname( __FILE__ ) ) . '/lang';
 			$domain = 'exopite-sof';
-			$locale = determine_locale();
+			if ( function_exists( 'determine_locale' ) ) {
+				$locale = determine_locale();
+			} else {
+				$locale = get_locale();
+			}
+
 			return $path . '/' . $domain . '-' . $locale . '.mo';
 		}
 
