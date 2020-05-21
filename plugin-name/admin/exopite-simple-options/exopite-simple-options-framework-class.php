@@ -2,12 +2,9 @@
 	die;
 } // Cannot access pages directly.
 /**
- * Last edit: 2019-12-03
+ * Last edit: 2020-05-21
  *
  * INFOS AND TODOS:
- * - fix: typography not working in group
- * - fix: typography font-weight not save/restore
- * - fix: if no group title, then take parents
  *
  * IDEAS
  * - import options from file
@@ -1132,6 +1129,14 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			} else {
 				$section_fields_with_values = $sanitizer->get_sanitized_values( $this->fields, $posted_data );
 			}
+
+            // Add values here, which start with '_', to skip sanitization.
+            // This values does not come from the framework.
+            foreach ( $valid as $key => $value ) {
+                if ( ! isset( $section_fields_with_values[ $key ] ) ) {
+                    $section_fields_with_values[ $key ] = $value;
+                }
+            }
 
 			/**
 			 * The idea here is that, this hook run on both.

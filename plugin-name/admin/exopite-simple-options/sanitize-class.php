@@ -150,7 +150,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework_Sanitize' ) ) {
 				isset( $field['sanitize'] ) &&
 				! empty( $field['sanitize'] ) &&
 				(
-					function_exists( $field['sanitize'] ) ||
+					( is_string( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) ||
 					is_callable( $field['sanitize'] )
 				)
 
