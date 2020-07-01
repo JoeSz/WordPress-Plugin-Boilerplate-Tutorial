@@ -80,9 +80,9 @@ public $main;
 
 public function __construct( $plugin_name, $version, $plugin_main ) {
 
-    // ...
-
     $this->main = $plugin_main;
+
+    // ...
 
 }
 
