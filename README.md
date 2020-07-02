@@ -27,7 +27,8 @@ Generate your personalized plugin: [Plugin Boilerplate Generator](https://wppb.m
 * How to add admin an **options page** to plugin
 * How to add an admin options page to plugin with `Exopite Simple Options Framework`
 * How to register **shortcodes** in plugin
-* How to **access plugin** and it's **methods** later from **outside** of the plugin (e.g.: from theme or template file)
+* How to **access plugins** and it's **methods** later from **inside** and **outside** of the plugin (e.g.: from theme or template file) with use of <b>Slingleton class</b>
+* How to **access plugin** and it's **methods** later from **outside** of the plugin (e.g.: from theme or template file) with use of <b>global</b>
 * How to **access plugin methods** from **inside** of the plugin (e.g.: from admin, from public)
 * How to **register, update** and **use custom** datebase **tables**
 * Added **custom `get_template_part`** to load (single) template from plugin folder<br />
@@ -88,7 +89,8 @@ You may delete, what you don't use, on production
 Tutorial files
 
 * `tutorials/access_plugin_admin_public_methodes_from_inside.php`
-* `tutorials/access_plugin_and_its_methodes_later_from_outside_of_plugin.php`
+* `tutorials/access_plugin_and_its_methodes_later_from_outside_of_plugin_with_global.php`
+* `tutorials/access_plugin_inside_and_outside_of_plugin_without_singleton_class.php`
 * `tutorials/add_custom_get-template-part_to_load_template_from_plugin.php`
 * `tutorials/add_remove_reorder_sort_custom_post_type_list_columns_in_admin_area.php`
 * `tutorials/add_templater_engine_to_plugin.php`
