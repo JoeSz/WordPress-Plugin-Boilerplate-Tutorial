@@ -6,7 +6,7 @@ This is a tutorial plugin with examples. I created some tutorials to help with m
 
 More will come... ;)
 
-LAST CHANGE: 2019-05-27
+LAST CHANGE: 2020-07-02
 
 ---
 
@@ -195,6 +195,9 @@ If you’re interested in writing any documentation or creating tutorials please
 
 CHANGELOG
 ---------
+
+= 2020-07-02 =
+* Add tutorial: How to access plugin and it's methods later from inside and outside of the plugin (e.g.: from theme or template file) with a Singleton class
 
 = 2019-05-27 =
 * Update Exopite Simple Options Framework
