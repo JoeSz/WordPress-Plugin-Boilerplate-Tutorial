@@ -48,12 +48,11 @@ public function add_plugin_admin_menu() {
      *
      * @link https://codex.wordpress.org/Function_Reference/add_options_page
      */
-    add_submenu_page( 'plugins.php', 'Plugin settings page title', 'Admin area menu slug', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page')
-    );
+    add_submenu_page( 'plugins.php', 'Plugin settings page title', 'Admin area menu slug', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page' ) );
 
 }
 
- /**
+/**
  * Add settings action link to the plugins page.
  *
  * @since    1.0.0
@@ -61,12 +60,10 @@ public function add_plugin_admin_menu() {
 public function add_action_links( $links ) {
 
     /*
-    *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
-    */
-   $settings_link = array(
-    '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>',
-   );
-   return array_merge(  $settings_link, $links );
+     *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+     */
+    $settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
+    return array_merge(  $settings_link, $links );
 
 }
 
@@ -92,6 +89,7 @@ public function validate($input) {
 
     $valid['example_checkbox'] = ( isset( $input['example_checkbox'] ) && ! empty( $input['example_checkbox'] ) ) ? 1 : 0;
     $valid['example_text'] = ( isset( $input['example_text'] ) && ! empty( $input['example_text'] ) ) ? esc_attr( $input['example_text'] ) : 'default';
+    $example_textarea['example_textarea'] = ( isset( $input['example_textarea'] ) && ! empty( $input['example_textarea'] ) ) ? sanitize_textarea_field( $input['example_textarea'] ) : 'default';
     $valid['example_select'] = ( isset($input['example_select'] ) && ! empty( $input['example_select'] ) ) ? esc_attr($input['example_select']) : 1;
 
     return $valid;
@@ -102,6 +100,7 @@ public function validate($input) {
 
     $options['example_checkbox'] = ( isset( $input['example_checkbox'] ) && ! empty( $input['example_checkbox'] ) ) ? 1 : 0;
     $options['example_text'] = ( isset( $input['example_text'] ) && ! empty( $input['example_text'] ) ) ? esc_attr( $input['example_text'] ) : 'default';
+    $options['example_textarea'] = ( isset( $input['example_textarea'] ) && ! empty( $input['example_textarea'] ) ) ? sanitize_textarea_field( $input['example_textarea'] ) : 'default';
     $options['example_select'] = ( isset($input['example_select'] ) && ! empty( $input['example_select'] ) ) ? esc_attr($input['example_select']) : 1;
 
     return $options;
@@ -134,6 +133,7 @@ if ( ! defined( 'WPINC' ) ) die;
 
         $example_select = ( isset( $options['example_select'] ) && ! empty( $options['example_select'] ) ) ? esc_attr( $options['example_select'] ) : '1';
         $example_text = ( isset( $options['example_text'] ) && ! empty( $options['example_text'] ) ) ? esc_attr( $options['example_text'] ) : 'default';
+        $example_textarea = ( isset( $options['example_textarea'] ) && ! empty( $options['example_textarea'] ) ) ? sanitize_textarea_field( $options['example_textarea'] ) : 'default';
         $example_checkbox = ( isset( $options['example_checkbox'] ) && ! empty( $options['example_checkbox'] ) ) ? 1 : 0;
 
         settings_fields($this->plugin_name);
@@ -162,6 +162,17 @@ if ( ! defined( 'WPINC' ) ) die;
             <span><?php esc_attr_e( 'Example Text', 'plugin_name' ); ?></span>
         </legend>
         <input type="text" class="example_text" id="<?php echo $this->plugin_name; ?>-example_text" name="<?php echo $this->plugin_name; ?>[example_text]" value="<?php if( ! empty( $example_text ) ) echo $example_text; else echo 'default'; ?>"/>
+    </fieldset>
+
+    <!-- Textarea -->
+    <fieldset>
+        <p><?php esc_attr_e( 'Example Text.', 'plugin_name' ); ?></p>
+        <legend class="screen-reader-text">
+            <span><?php esc_attr_e( 'Example Text', 'plugin_name' ); ?></span>
+        </legend>
+        <textarea class="example_textarea" id="<?php echo $this->plugin_name; ?>-example_textarea" name="<?php echo $this->plugin_name; ?>[example_textarea]" rows="4" cols="50">
+            <?php if( ! empty( $example_textarea ) ) echo $example_text; else echo 'default'; ?>
+        </textarea>
     </fieldset>
 
     <!-- Checkbox -->
