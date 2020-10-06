@@ -69,7 +69,7 @@ public static function activate() {
     $plugin_post_types->create_custom_post_type();
 
     /**
-     * This only required if custom post type has rewrite!
+     * This is only required if the custom post type has rewrite!
      *
      * Remove rewrite rules and then recreate rewrite rules.
      *
