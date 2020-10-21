@@ -268,7 +268,7 @@ class Plugin_Name {
 		 *
 		 * @tutorial app_option_page_for_plugin_with_options_framework.php
 		 */
-        $this->loader->add_action( 'init', $this->admin, 'create_menu' );
+        $this->loader->add_action( 'admin_menu', $this->admin, 'create_menu', 0 );
 		// END EXOPITE SIMPLE OPTIONS FRAMEWORK
 
 		/********************************************
