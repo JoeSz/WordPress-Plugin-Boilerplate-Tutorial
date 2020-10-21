@@ -796,6 +796,7 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 				'submenu'       => false,
 				//The name of this page
 				'title'         => __( 'Plugin Options', 'exopite-options-framework' ),
+				'option_title'  => '',
 				// The capability needed to view the page
 				'capability'    => 'manage_options',
 				'settings_link' => true,
@@ -888,7 +889,8 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 					$this->config['title'],
 					$this->config['capability'],
 					$this->unique, // slug
-					array( $this, 'display_page' )
+                    array( $this, 'display_page' ),
+                    $this->config['position']
 				);
 
 			}
@@ -1572,11 +1574,13 @@ if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) :
 			$current_language_title = '';
 			if ( $this->is_multilang() ) {
 				$current_language_title = apply_filters( 'exopite_sof_title_language_notice', $this->lang_current );
-				$current_language_title = ' [ ' . $current_language_title . ' ]';
+				$current_language_title = ' [' . $current_language_title . ']';
 			}
 
+			$option_title = ( ! empty( $this->config['option_title'] ) ) ? $this->config['option_title'] : $this->config['title'];
+
 			echo '<header class="exopite-sof-header exopite-sof-header-js">';
-			echo '<h1>' . $this->config['title'] . $current_language_title . '</h1>';
+			echo '<h1>' . $option_title . $current_language_title . '</h1>';
 
 			echo '<span class="exopite-sof-search-wrapper"><input type="text" class="exopite-sof-search"></span>';
 

@@ -430,7 +430,7 @@
         margin-left: 27%;
     }
     .exopite-sof-field-notice .exopite-sof-fieldset {
-        margin-left: calc(25% - 10px);
+        margin-left: calc(27% - 10px);
     }
 }
 .exopite-sof-field::after, .exopite-sof-field::before {
