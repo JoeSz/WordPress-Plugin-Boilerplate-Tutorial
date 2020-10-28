@@ -797,9 +797,9 @@ class Exopite_Meta_Boxes {
             return false;
         }
 
-        $ext = strtolower(trim(substr( $url, $pos)));
-        $imgExts = array(".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif"); // this is far from complete but that's always going to be the case...
-        if ( in_array($ext, $imgExts) ) {
+        $ext = strtolower( trim( substr( $url, $pos ) ) );
+        $imgExts = array( ".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif", ".webp" ); // this is far from complete but that's always going to be the case...
+        if ( in_array( $ext, $imgExts ) ) {
             return true;
         }
         return false;
