@@ -15,7 +15,7 @@ private function define_admin_hooks() {
 
     // From here added
     // Save/Update our plugin options
-    $this->loader->add_action('admin_init', $plugin_admin, 'options_update');
+    $this->loader->add_action( 'admin_init', $plugin_admin, 'options_update' );
 
     // Add menu item
     $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
@@ -59,11 +59,16 @@ public function add_plugin_admin_menu() {
  */
 public function add_action_links( $links ) {
 
-    /*
-     *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+    /**
+     * Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+     * The "plugins.php" must match with the previously added add_submenu_page first option.
      */
-    $settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
-    return array_merge(  $settings_link, $links );
+    $settings_link = array( '<a href="' . admin_url( 'plugins.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
+
+    // -- OR --
+
+    // $settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
+    // return array_merge(  $settings_link, $links );
 
 }
 
@@ -85,14 +90,14 @@ public function display_plugin_setup_page() {
  */
 public function validate($input) {
 
-    $valid = array();
+    // $valid = array();
 
-    $valid['example_checkbox'] = ( isset( $input['example_checkbox'] ) && ! empty( $input['example_checkbox'] ) ) ? 1 : 0;
-    $valid['example_text'] = ( isset( $input['example_text'] ) && ! empty( $input['example_text'] ) ) ? esc_attr( $input['example_text'] ) : 'default';
-    $example_textarea['example_textarea'] = ( isset( $input['example_textarea'] ) && ! empty( $input['example_textarea'] ) ) ? sanitize_textarea_field( $input['example_textarea'] ) : 'default';
-    $valid['example_select'] = ( isset($input['example_select'] ) && ! empty( $input['example_select'] ) ) ? esc_attr($input['example_select']) : 1;
+    // $valid['example_checkbox'] = ( isset( $input['example_checkbox'] ) && ! empty( $input['example_checkbox'] ) ) ? 1 : 0;
+    // $valid['example_text'] = ( isset( $input['example_text'] ) && ! empty( $input['example_text'] ) ) ? esc_attr( $input['example_text'] ) : 'default';
+    // $example_textarea['example_textarea'] = ( isset( $input['example_textarea'] ) && ! empty( $input['example_textarea'] ) ) ? sanitize_textarea_field( $input['example_textarea'] ) : 'default';
+    // $valid['example_select'] = ( isset($input['example_select'] ) && ! empty( $input['example_select'] ) ) ? esc_attr($input['example_select']) : 1;
 
-    return $valid;
+    // return $valid;
 
     // -- OR --
 
