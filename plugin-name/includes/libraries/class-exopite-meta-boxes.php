@@ -456,9 +456,31 @@ class Exopite_Meta_Boxes {
 
     public function checked( $value, $key ) {
 
-        if ( isset( $value ) && is_array( $value ) && in_array( $key, $value ) ) {
-            echo " checked";
+        if ( isset( $value ) && is_array( $value ) ) {
+
+            foreach ( $value as $item_key => $item_value ) {
+                if ( (string)$item_value === (string)$key ) {
+                    echo " checked";
+                    break;
+                }
+            }
+
         }
+
+        /**
+         * Loose checking returns some crazy, counter-intuitive results when used with certain arrays.
+         * It is completely correct behaviour, due to PHP's leniency on variable types, but in "real-life" is almost useless.
+         *
+         * If the key is an int 140 and a value is a steing 140-200, then make false positive.
+         *
+         * https://www.php.net/manual/en/function.in-array.php#106319
+         */
+        // if ( isset( $value ) && is_array( $value ) && isset( $value[$key] ) ) {
+        // // if ( isset( $value ) && is_array( $value ) && in_array( $key, $value, true ) ) {
+        //     echo " checked";
+        // } else {
+        //     echo "";
+        // }
 
     }
 
@@ -819,7 +841,7 @@ class Exopite_Meta_Boxes {
         return false;
     }
 
-    public function check_rights() {
+    public function check_rights( $post_id ) {
 
         // Check nonce
         if( ! isset( $_POST['meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['meta_box_nonce'], 'meta_box_nonce' ) ) return false;
@@ -831,7 +853,7 @@ class Exopite_Meta_Boxes {
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) return false;
 
         // Check the user's permissions.
-        if ( ! current_user_can( 'edit_post', $post->ID ) ) return false;
+        if ( ! current_user_can( 'edit_post', $post_id ) ) return false;
 
         return true;
 
@@ -843,7 +865,7 @@ class Exopite_Meta_Boxes {
         // Get Post object
         global $post;
 
-        if ( ! $this->check_rights() ) return;
+        if ( ! $this->check_rights( $post->ID ) ) return;
 
         $post_type_slug = get_post_type( get_the_ID() );
 
@@ -854,6 +876,10 @@ class Exopite_Meta_Boxes {
             }
 
             foreach ( $options['fields'] as $name => $value ) {
+
+                if ( ! isset( $_POST[$name] ) ) {
+                    continue;
+                }
 
                 // 'text' | 'password' | 'textarea' | 'select' | 'radio' | 'checkbox'
                 switch ( $value['type'] ) {
