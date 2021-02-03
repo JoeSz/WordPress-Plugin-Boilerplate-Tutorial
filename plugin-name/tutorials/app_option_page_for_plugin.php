@@ -180,7 +180,7 @@ if ( ! defined( 'WPINC' ) ) die;
             <span><?php esc_attr_e( 'Example Text', 'plugin_name' ); ?></span>
         </legend>
         <textarea class="example_textarea" id="<?php echo $this->plugin_name; ?>-example_textarea" name="<?php echo $this->plugin_name; ?>[example_textarea]" rows="4" cols="50">
-            <?php if( ! empty( $example_textarea ) ) echo $example_text; else echo 'default'; ?>
+            <?php if( ! empty( $example_textarea ) ) echo $example_textarea; else echo 'default'; ?>
         </textarea>
     </fieldset>
 
