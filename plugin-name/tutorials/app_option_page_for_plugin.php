@@ -47,6 +47,8 @@ public function add_plugin_admin_menu() {
      * add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function);
      *
      * @link https://codex.wordpress.org/Function_Reference/add_options_page
+     *
+     * If you want to list plugin options page under a custom post type, then change 'plugin.php' to e.g. 'edit.php?post_type=your_custom_post_type'
      */
     add_submenu_page( 'plugins.php', 'Plugin settings page title', 'Admin area menu slug', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page' ) );
 
@@ -62,13 +64,14 @@ public function add_action_links( $links ) {
     /**
      * Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
      * The "plugins.php" must match with the previously added add_submenu_page first option.
+     * For custom post type you have to change 'plugins.php?page=' to 'edit.php?post_type=your_custom_post_type&page='
      */
     $settings_link = array( '<a href="' . admin_url( 'plugins.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
 
     // -- OR --
 
     // $settings_link = array( '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', $this->plugin_name ) . '</a>', );
-    
+
     return array_merge(  $settings_link, $links );
 
 }
