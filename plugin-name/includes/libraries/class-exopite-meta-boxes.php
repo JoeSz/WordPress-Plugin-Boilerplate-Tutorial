@@ -101,6 +101,16 @@ class Exopite_Meta_Boxes {
 	 *					'type' => 'select',
 	 *					'options' => $this->some_function(),
 	 *				),
+     *	            'select_unique_multiselect' => array(
+     *	                'title' => 'Select',
+	 *					'type' => 'select',
+	 *					'options' => $this->some_function(), // two dimentional array for optgroups
+     * 					'attributes' => array(
+     *						'multiple' => 'single',
+     *						'class' => 'some-class choosen',
+     *						'data-placeholder' => 'Select some items',
+     *					),
+	 *				),
 	 *				'checkbox_unique' => array(
 	 *					'title' => 'Checkbox',
 	 *					'type' => 'checkbox',
@@ -346,11 +356,18 @@ class Exopite_Meta_Boxes {
         $attributes = array();
         if ( isset( $field['attributes'] ) ) {
             foreach ( $field['attributes'] as $key => $value ) {
-                $attributes[] = $key . '="' . $value . '"';
+                if ( $value == 'single' ) {
+                    $attributes[] = $key;
+                } else {
+                    $attributes[] = $key . '="' . $value . '"';
+                }
             }
         }
 
-        if ( $field['type'] == 'checkbox' && isset( $field['options'] ) ) {
+        if (
+            $field['type'] == 'checkbox' && isset( $field['options'] ) ||
+            $field['type'] == 'select' && isset( $field['attributes']['multiple'] )
+        ) {
             $name = $name . '[]';
         }
 
@@ -425,6 +442,7 @@ class Exopite_Meta_Boxes {
 
         switch ( $field['type'] ) {
 
+            case 'select':
             case 'checkbox':
 
                 if ( is_array( $value ) ) {
@@ -439,7 +457,11 @@ class Exopite_Meta_Boxes {
                 break;
 
             case 'content':
-                return $value;
+                if ( isset( $field['callback'] ) ) {
+                    return call_user_func( $field['callback'], $field['callback_args'] );
+                } else {
+                    return $value;
+                }
                 break;
 
             case 'textarea':
@@ -572,16 +594,61 @@ class Exopite_Meta_Boxes {
 
     }
 
+    public function generate_select_field_options( $field, $field_value, $key, $value ) {
+
+        ?>
+        <option value="<?php echo esc_attr( $key ); ?>" <?php
+
+            if ( isset( $field['attributes']['multiple'] ) ) {
+
+                if ( in_array( $key, $field_value ) ) {
+                    echo ' selected="selected"';
+                }
+
+            } else {
+                selected( $key, $field_value );
+            }
+
+
+        ?>><?php echo $value; ?></option>
+        <?php
+
+    }
+
     public function add_select_field( $name, $custom, $field ) {
 
         ?>
         <select <?php $this->get_field_attributes( $name, $field ); ?>>
             <?php
-            foreach ( $field['options'] as $key => $value ) :
-                ?>
-                <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $this->get_field_value( $name, $custom, $field ) ); ?>><?php echo $value; ?></option>
-                <?php
-            endforeach;
+
+            if ( is_array( $field['options'] ) ) {
+
+                $field_value = $this->get_field_value( $name, $custom, $field );
+
+                foreach ( $field['options'] as $key => $value ) :
+
+                    if ( is_array( $value ) ) {
+
+                        echo '<optgroup label="' . $key . '">';
+
+                        foreach ( $value as $option_key => $option_value ) {
+
+                            $this->generate_select_field_options( $field, $field_value, $option_key, $option_value );
+
+                        }
+
+                        echo '</optgroup>';
+
+                    } else {
+
+                        $this->generate_select_field_options( $field, $field_value, $key, $value );
+
+                    }
+
+                endforeach;
+
+            }
+
             ?>
         </select>
         <?php
@@ -776,6 +843,7 @@ class Exopite_Meta_Boxes {
     // Display meta box and custom fields
     public function render_meta_box() {
 
+
         // Get Post object
         global $post;
 
@@ -881,9 +949,26 @@ class Exopite_Meta_Boxes {
                     continue;
                 }
 
+                if ( isset( $options['sanitize'] ) && $options['sanitize'] == 'no-sanitize' ) {
+                    update_post_meta( $post->ID, $name, $_POST[$name] );
+                }
+
                 // 'text' | 'password' | 'textarea' | 'select' | 'radio' | 'checkbox'
                 switch ( $value['type'] ) {
 
+                    case 'select':
+
+                        if ( is_array( $_POST[$name] ) ) {
+
+                            update_post_meta( $post->ID, $name, $_POST[$name] );
+
+                        } else {
+
+                            update_post_meta( $post->ID, $name, sanitize_text_field( $_POST[$name] ) );
+
+                        }
+
+                        break;
                     case 'checkbox':
 
                         if ( is_array( $_POST[$name] ) ) {
