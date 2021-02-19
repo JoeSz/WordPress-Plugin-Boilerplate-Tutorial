@@ -86,7 +86,7 @@ public function manage_test_posts_columns( $columns ) {
      * return a new column array to wordpress.
      * order is the exactly like you set in $customOrder.
      */
-    foreach ($custom_order as $column_name)
+    foreach ( $custom_order as $column_name )
         $rearranged[$column_name] = $columns[$column_name];
 
     return $rearranged;
@@ -102,7 +102,7 @@ public function manage_posts_custom_column( $column, $post_id ) {
     // $meta = maybe_unserialize( $custom[$this->plugin_name][0] );
 
     // Populate column form meta
-    switch ($column) {
+    switch ( $column  {
 
         case "thumbnail":
             echo '<a href="' . get_edit_post_link() . '">';
