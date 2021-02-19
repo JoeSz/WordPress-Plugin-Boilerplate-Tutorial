@@ -59,6 +59,7 @@ class Exopite_Meta_Boxes {
      *	                'title' => 'Something to say',
 	 *					'type' => 'content',
 	 *					'default' => 'This is the text of the content field.',
+     *                  // 'callback' => array( $this, 'get_shortcode_text' ),  // Use 'callback' instead of 'default'
      *	            ),
      *	            'text_unique' => array(
      *	                'title' => 'Price',
@@ -99,7 +100,8 @@ class Exopite_Meta_Boxes {
      *	            'select_unique' => array(
      *	                'title' => 'Select',
 	 *					'type' => 'select',
-	 *					'options' => $this->some_function(),
+	 *					// 'options' => $this->some_function(), // Use can use a function too.
+     *                  'options' => array( 'option_key' => 'option_val', ... ),
 	 *				),
      *	            'select_unique_multiselect' => array(
      *	                'title' => 'Select',
@@ -224,7 +226,7 @@ class Exopite_Meta_Boxes {
      *
      * private function define_admin_hooks() {
      *     // ...
-     *     $this->loader->add_action( 'init', $plugin_admin, 'create_metaboxex', 999 );
+     *     $this->loader->add_action( 'admin_init', $plugin_admin, 'create_metaboxex', 999 );
      *     // ...
      * }
      *
@@ -595,6 +597,10 @@ class Exopite_Meta_Boxes {
     }
 
     public function generate_select_field_options( $field, $field_value, $key, $value ) {
+
+        if ( empty( $value ) && empty( $key ) ) {
+            $value = '&nbsp;';
+        }
 
         ?>
         <option value="<?php echo esc_attr( $key ); ?>" <?php
