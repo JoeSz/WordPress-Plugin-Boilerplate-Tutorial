@@ -460,7 +460,8 @@ class Exopite_Meta_Boxes {
 
             case 'content':
                 if ( isset( $field['callback'] ) ) {
-                    return call_user_func( $field['callback'], $field['callback_args'] );
+                    $args = ( isset( $field['callback_args'] ) ) ? $field['callback_args'] : null;
+                    return call_user_func( $field['callback'], $args );
                 } else {
                     return $value;
                 }
@@ -607,7 +608,7 @@ class Exopite_Meta_Boxes {
 
             if ( isset( $field['attributes']['multiple'] ) ) {
 
-                if ( in_array( $key, $field_value ) ) {
+                if ( is_array( $field_value ) && in_array( $key, $field_value ) ) {
                     echo ' selected="selected"';
                 }
 
@@ -951,7 +952,7 @@ class Exopite_Meta_Boxes {
 
             foreach ( $options['fields'] as $name => $value ) {
 
-                if ( ! isset( $_POST[$name] ) ) {
+                if ( ! isset( $_POST[$name] ) && ! $value['type'] == 'select' && ! $value['type'] == 'checkbox' ) {
                     continue;
                 }
 
