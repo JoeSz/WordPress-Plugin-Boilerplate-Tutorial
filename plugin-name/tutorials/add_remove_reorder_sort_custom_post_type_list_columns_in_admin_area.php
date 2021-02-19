@@ -77,7 +77,7 @@ public function manage_test_posts_columns( $columns ) {
      *
      * @link http://wordpress.stackexchange.com/questions/8427/change-order-of-custom-columns-for-edit-panels
      */
-    $customOrder = array('cb', 'thumbnail', 'title', 'text_1', 'color_2', 'date_2', 'icl_translations', 'date');
+    $custom_order = array('cb', 'thumbnail', 'title', 'text_1', 'color_2', 'date_2', 'icl_translations', 'date');
 
     // -- OR --
     // https://crunchify.com/how-to-move-wordpress-admin-column-before-or-after-any-other-column-manage-post-columns-hook/
@@ -86,7 +86,7 @@ public function manage_test_posts_columns( $columns ) {
      * return a new column array to wordpress.
      * order is the exactly like you set in $customOrder.
      */
-    foreach ($customOrder as $column_name)
+    foreach ($custom_order as $column_name)
         $rearranged[$column_name] = $columns[$column_name];
 
     return $rearranged;
