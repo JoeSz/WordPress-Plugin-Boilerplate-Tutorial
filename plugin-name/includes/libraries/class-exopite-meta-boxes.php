@@ -40,6 +40,7 @@ class Exopite_Meta_Boxes {
      *         - before
      *         - after
      *         - default
+     *         - class <- add class(es) for the row, string or an array of strings
      *
      *   // Enqueue meta box style and script with the plugin
 	 *	 // Add metabox to custom post type
