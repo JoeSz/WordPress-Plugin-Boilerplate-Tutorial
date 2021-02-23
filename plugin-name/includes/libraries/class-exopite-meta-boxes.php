@@ -469,7 +469,8 @@ class Exopite_Meta_Boxes {
 
                 if ( is_array( $value ) ) {
 
-                    return $value;
+                    // escape
+                    return array_map( 'esc_attr', $value );
 
                 } else {
 
@@ -483,7 +484,7 @@ class Exopite_Meta_Boxes {
                     $args = ( isset( $field['callback_args'] ) ) ? $field['callback_args'] : null;
                     return call_user_func( $field['callback'], $args );
                 } else {
-                    return $value;
+                    return esc_attr( $field['default'] );
                 }
                 break;
 
