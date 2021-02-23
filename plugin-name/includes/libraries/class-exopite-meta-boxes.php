@@ -973,12 +973,15 @@ class Exopite_Meta_Boxes {
 
             foreach ( $options['fields'] as $name => $value ) {
 
-                if ( ! isset( $_POST[$name] ) && ! $value['type'] == 'select' && ! $value['type'] == 'checkbox' ) {
-                    continue;
+                if ( ! isset( $_POST[$name] ) ) {
+                    if ( $value['type'] != 'select' && $value['type'] != 'checkbox' ) {
+                        continue;
+                    }
+
                 }
 
                 if ( isset( $options['sanitize'] ) && $options['sanitize'] == 'no-sanitize' ) {
-                    update_post_meta( $post->ID, $name, $_POST[$name] );
+                    $sanitized_value = $_POST[$name];
                 }
 
                 // 'text' | 'password' | 'textarea' | 'select' | 'radio' | 'checkbox'
@@ -986,47 +989,41 @@ class Exopite_Meta_Boxes {
 
                     case 'select':
 
-                        if ( is_array( $_POST[$name] ) ) {
+                        if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
 
-                            update_post_meta( $post->ID, $name, $_POST[$name] );
+                            $sanitized_value = array_map( 'sanitize_text_field', $_POST[$name] );
 
                         } else {
 
-                            update_post_meta( $post->ID, $name, sanitize_text_field( $_POST[$name] ) );
+                            $sanitized_value = ( isset( $_POST[$name] ) ) ? sanitize_text_field( $_POST[$name] ) : '';
 
                         }
 
                         break;
                     case 'checkbox':
 
-                        if ( is_array( $_POST[$name] ) ) {
+                        if ( isset( $_POST[$name] ) && is_array( $_POST[$name] ) ) {
 
-                            /**
-                             * ToDos:
-                             * - sanitize array each
-                             */
-                            update_post_meta( $post->ID, $name, $_POST[$name] );
+                            $sanitized_value = array_map( 'sanitize_text_field', $_POST[$name] );
 
                         } else {
 
-                            // Sanitize user input.
-                            $sanitized_value = $_POST[$name] ? 'yes' : 'no';
-
-                            // Update the meta field in the database.
-                            update_post_meta( $post->ID, $name, $sanitized_value );
+                            $sanitized_value = ( isset( $_POST[$name] ) ) ? 'yes' : 'no';
 
                         }
 
                         break;
                     case 'textarea':
-                        update_post_meta( $post->ID, $name, sanitize_textarea_field( $_POST[$name] ) );
+                        $sanitized_value = sanitize_textarea_field( $_POST[$name] );
                         break;
 
                     default:
-                        update_post_meta( $post->ID, $name, sanitize_text_field( $_POST[$name] ) );
+                        $sanitized_value = sanitize_text_field( $_POST[$name] );
                         break;
 
                 }
+
+                update_post_meta( $post->ID, $name, $sanitized_value );
 
             }
 
