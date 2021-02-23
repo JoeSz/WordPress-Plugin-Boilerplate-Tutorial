@@ -321,19 +321,38 @@ class Exopite_Meta_Boxes {
 
     public function get_row_start( $name, $options, $field ) {
 
-        $row_classes = 'meta-row';
+        $field_title = ( isset( $field['title'] ) ) ? $field['title'] : '';
+
+        $row_classes = array();
+
+        $row_classes[] = 'meta-row';
         if ( isset( $options['row-class'] ) ) {
-            $row_classes .= ' ' . $options['row-class'];
+            $row_classes[] = $options['row-class'];
         }
 
-        $field_title = ( isset( $field['title'] ) ) ? $field['title'] : '';
-        $label_class = '';
+        if ( isset( $field['class'] ) && ! empty( $field['class'] ) ) {
+
+            if ( ! is_array( $field['class'] ) ) {
+                $temp_classes = explode( ' ', $field['class'] );
+            }
+            // escape
+            $temp_classes = array_map( 'esc_attr', $temp_classes );
+            // merge as unique
+            $row_classes = array_unique( array_merge( $row_classes, $temp_classes ), SORT_REGULAR);
+
+        }
+
         if ( empty( $field_title ) ) {
-            $label_class = ' class="hidden"';
+            $row_classes[] = 'full-row';
+        }
+
+        $title = '';
+        if ( isset( $field['title'] ) && ! empty( $field['title'] ) ) {
+            $title = '<label for="' . $name . '">' . $field['title'] . '</label>';
         }
 
         ?>
-        <<?php echo $options['row-selector']; ?> class="<?php echo $row_classes; ?>"><label for="<?php echo $name; ?>"<?php echo $label_class; ?>><?php echo $field['title']; ?></label><span>
+        <<?php echo $options['row-selector']; ?> class="<?php echo implode( ' ', $row_classes ); ?>"><?php echo $title; ?><span>
         <?php
 
     }
