@@ -974,6 +974,7 @@ class Exopite_Meta_Boxes {
             foreach ( $options['fields'] as $name => $value ) {
 
                 if ( ! isset( $_POST[$name] ) ) {
+
                     if ( $value['type'] != 'select' && $value['type'] != 'checkbox' ) {
                         continue;
                     }
