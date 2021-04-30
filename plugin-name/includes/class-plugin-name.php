@@ -330,6 +330,7 @@ class Plugin_Name {
 		$this->loader->add_action( 'pre_get_posts', $this->admin, 'manage_posts_orderby' );
 		// END ADD/REMOVE/REORDER/SORT CUSTOM POST TYPE LIST COLUMNS (test)
 
+		$this->loader->add_action( 'admin_notices', $this->admin, 'test_plugin_admin_notice' );
 	}
 
 	/**

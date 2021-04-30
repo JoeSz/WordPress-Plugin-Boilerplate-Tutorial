@@ -2310,4 +2310,41 @@ class Plugin_Name_Admin {
         }
     }
     // RUN CODE ON PLUGIN UPGRADE AND ADMIN NOTICE
+
+    // SIMPLE ADMIN NOTE
+    /**
+     * @link https://developer.wordpress.org/reference/hooks/admin_notices/#comment-3462
+     */
+    public function test_plugin_admin_notice() {
+
+    //get the current screen
+    $screen = get_current_screen();
+
+        //return if not plugin settings page
+        //To get the exact your screen ID just do var_dump($screen)
+        // $this->plugin_name
+        if ( $screen->id !== 'toplevel_page_YOUR_PLUGIN_PAGE_SLUG' ) return;
+
+        //Checks if settings updated
+        if ( isset( $_GET['settings-updated'] ) ) {
+            //if settings updated successfully
+            if ( 'true' === $_GET['settings-updated'] ) : ?>
+
+                <div class="notice notice-success is-dismissible">
+                    <p><?php _e('Congratulations! You did a very good job.', 'textdomain') ?></p>
+                </div>
+
+            <?php else : ?>
+
+                <div class="notice notice-warning is-dismissible">
+                    <p><?php _e('Sorry, I can not go through this.', 'textdomain') ?></p>
+                </div>
+
+            <?php endif;
+        }
+
+    }
+
+
+
 }
