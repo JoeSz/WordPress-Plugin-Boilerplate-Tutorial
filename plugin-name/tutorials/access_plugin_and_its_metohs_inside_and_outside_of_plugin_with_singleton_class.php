@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************
- * ACCESS PLUGIN AND METHODES FROM INSIDE/OUTSIDE OF PLUGIN *
+ * ACCESS PLUGIN AND METHODS FROM INSIDE/OUTSIDE OF PLUGIN *
  * -------------------------------------------------------- *
  ************************************************************/
 
@@ -22,7 +22,7 @@
  * This is the Singleton verion.
  *
  * The version with the use of global see in:
- * access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+ * access_plugin_and_its_methods_later_from_outside_of_plugin.php
  */
 // THIS:
 function run_plugin_name() {
