@@ -112,7 +112,7 @@ public function update_row_in_db() {
         '%d'
     );
 
-    return $wpdb->insert( $table, $data, $where, $format, $where_format );
+    return $wpdb->update( $table, $data, $where, $format, $where_format );
 
 }
 
