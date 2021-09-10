@@ -44,6 +44,7 @@ class Exopite_Meta_Boxes {
      *
      *   // Enqueue meta box style and script with the plugin
 	 *	 // Add metabox to custom post type
+     *   // public function create_metaboxes()
 	 *	$metabox_args = array(
      *	    'cpt_name' => array(
      *	        'id' => 'meta_box_unique',
@@ -227,11 +228,11 @@ class Exopite_Meta_Boxes {
      *
      * private function define_admin_hooks() {
      *     // ...
-     *     $this->loader->add_action( 'admin_init', $plugin_admin, 'create_metaboxex', 999 );
+     *     $this->loader->add_action( 'admin_init', $plugin_admin, 'create_metaboxes', 999 );
      *     // ...
      * }
      *
-     * admin/class-om-links-admin.php
+     * admin/class-plugin-name-admin.php
      *
      * public function enqueue_styles() {
      *     // ...

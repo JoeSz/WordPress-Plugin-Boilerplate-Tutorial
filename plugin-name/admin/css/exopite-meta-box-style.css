@@ -235,3 +235,6 @@
     background-color: #d6d8d9;
     border-color: #c6c8ca;
 }
+.exopite-meta-boxes-wrapper select, .exopite-meta-boxes-wrapper textarea {
+    border-radius: 0;
+}

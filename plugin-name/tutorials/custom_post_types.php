@@ -352,6 +352,8 @@ class Plugin_Name_Post_Types {
          */
         $post_types_fields = array(
             array(
+                // Slug max. 20 characters, cannot contain capital letters or spaces!
+                // https://toolset.com/forums/topic/types-custom-post-type-slug-length-limited-to-20-characters/
                 'slug'                  => 'test',
                 'singular'              => 'Test',
                 'plural'                => 'Tests',
