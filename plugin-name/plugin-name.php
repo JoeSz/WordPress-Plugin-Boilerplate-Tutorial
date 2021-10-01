@@ -31,6 +31,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'PLUGIN_NAME_PLUGIN_NAME', 'plugin-name' );
+define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'PLUGIN_NAME_URL', plugin_dir_url( __FILE__ ) );
+define( 'PLUGIN_NAME_PATH', plugin_dir_path( __FILE__ ) );
 
 /**
  * Store plugin base dir, for easier access later from other classes.
