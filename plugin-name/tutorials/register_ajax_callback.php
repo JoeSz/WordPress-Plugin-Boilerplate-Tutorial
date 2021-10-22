@@ -171,6 +171,9 @@ $(function() {
         type: "POST",
         url: wp_ajax.ajax_url,
         data: dataJSON,
+        beforeSend: function() {
+            $('.some-class').addClass('loading');
+        },
         success: function( response ){
             // on success
             // code...
@@ -178,6 +181,9 @@ $(function() {
         error: function( xhr, status, error ) {
             console.log( 'Status: ' + xhr.status );
             console.log( 'Error: ' + xhr.responseText );
+        },
+        complete: function() {
+            $('.some-class').removeClass('loading');
         }
     });
 
