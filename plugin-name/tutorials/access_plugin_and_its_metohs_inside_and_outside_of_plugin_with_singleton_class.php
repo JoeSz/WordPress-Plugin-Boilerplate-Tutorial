@@ -60,7 +60,6 @@ public $main;
  */
 public $admin;
 
-
 /**
  * Store plugin public class to allow public access.
  *
