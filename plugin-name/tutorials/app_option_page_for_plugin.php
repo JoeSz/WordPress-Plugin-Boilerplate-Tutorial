@@ -50,7 +50,7 @@ public function add_plugin_admin_menu() {
      *
      * If you want to list plugin options page under a custom post type, then change 'plugin.php' to e.g. 'edit.php?post_type=your_custom_post_type'
      */
-    add_submenu_page( 'plugins.php', 'Plugin settings page title', 'Admin area menu slug', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page' ) );
+    add_submenu_page( 'plugins.php', 'Plugin settings page title', 'Admin area menu slug', 'manage_options', $this->plugin_name, array( $this, 'display_plugin_setup_page' ) );
 
 }
 
