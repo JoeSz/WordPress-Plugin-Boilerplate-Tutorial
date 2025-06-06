@@ -33,7 +33,7 @@ class Plugin_Registry {
     public static function get_instance() {
 
         if ( null === self::$instance ) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -49,19 +49,19 @@ class Plugin_Registry {
     }
 
     public function get( $key ) {
-        return self::$instances[ $key ];
+        return self::$instances[ $key ] ?? null;
     }
 
     public function remove( $key ) {
-
-        if ( ! isset( self::$instances[ $key ] ) ) {
-            unset( self::$instances[ $key ] );
-        }
-
+        unset( self::$instances[ $key ] );
     }
 
     public function has( $key ) {
-        return ( isset( self::$instances[ $key ] ) );
+        return isset( self::$instances[ $key ] );
+    }
+
+    public function list_keys() {
+        return array_keys(self::$instances);
     }
 
 }
