@@ -6,7 +6,7 @@
  * For "Tom McFarlin"case, it is integrated inside in the plugin, but in my case (for working with multiple plugins)
  * it is better to use as a standalone class.
  *
- * How to use:
+ * How to use (e.g: Exopite_Password_Policy):
  * - Set (with plugin boilerplate)
  *   require_once( 'plugin_registry.php' );
  *   $registry = Plugin_Registry::get_instance();
@@ -15,7 +15,12 @@
  *
  * - Get
  *   $registry = Plugin_Registry::get_instance();
- *   $my_plugin = $registry->get( 'my_plugin' );
+ *   $my_plugin = $registry->get( 'exopite_password_policy' );
+ *
+ * - Check instance
+ *   $registry = Plugin_Registry::get_instance();
+ *   $registry->has( 'exopite_password_policy' );
+ *   $registry->list_keys();
  */
 
 if ( ! class_exists( 'Plugin_Registry' ) ) :
@@ -61,7 +66,7 @@ class Plugin_Registry {
     }
 
     public function list_keys() {
-        return array_keys(self::$instances);
+        return array_keys( self::$instances );
     }
 
 }
