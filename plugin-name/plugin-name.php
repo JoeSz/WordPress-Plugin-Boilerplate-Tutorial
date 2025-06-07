@@ -174,7 +174,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  * or you can store it in a static class,
  * etc...
  *
- * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+ * @tutorial access_plugin_and_its_methods_later_from_outside_of_plugin.php
  */
 global $pbt_prefix_plugin_name;
 $pbt_prefix_plugin_name = new Plugin_Name();

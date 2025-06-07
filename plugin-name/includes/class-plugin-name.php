@@ -58,9 +58,9 @@ class Plugin_Name {
 	protected $version;
 
 	/*************************************************************
-	 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+	 * ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 	 *
-	 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+	 * @tutorial access_plugin_and_its_methods_later_from_outside_of_plugin.php
 	 */
 	/**
 	 * Store plugin admin class to allow public access.
@@ -78,12 +78,12 @@ class Plugin_Name {
 	 * @var object      The admin class.
 	 */
 	public $public;
-	// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+	// END ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 
 	/*************************************************************
-	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 	 *
-	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 * @tutorial access_plugin_admin_public_methods_from_inside.php
 	 */
 	/**
 	 * Store plugin main class to allow public access.
@@ -92,7 +92,7 @@ class Plugin_Name {
 	 * @var object      The main class.
 	 */
 	public $main;
-	// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	// ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -109,12 +109,12 @@ class Plugin_Name {
 		$this->version = '1.0.0';
 
 		/*************************************************************
-		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 		 *
-		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 * @tutorial access_plugin_admin_public_methods_from_inside.php
 		 */
 		$this->main = $this;
-		// ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		// ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -223,25 +223,25 @@ class Plugin_Name {
 		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		/*************************************************************
-		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
-		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN)
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
+		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN)
 		 *
 		 *
-		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 * @tutorial access_plugin_admin_public_methods_from_inside.php
 		 */
 		$this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version(), $this->main );
-		// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		// END ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 		/*************************************************************
-		 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		 * ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 		 *
-		 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+		 * @tutorial access_plugin_and_its_methods_later_from_outside_of_plugin.php
 		 */
 		// $this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
-		// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		// END ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 
         /**************************
 		 * CREATE CUSTOM POST TYPES
@@ -348,23 +348,23 @@ class Plugin_Name {
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		/*************************************************************
-		 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
-		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN)
+		 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
+		 * (COMBINED WITH ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN)
 		 *
-		 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+		 * @tutorial access_plugin_admin_public_methods_from_inside.php
 		 */
 		$this->public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version(), $this->main );
-		// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+		// END ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 		/*************************************************************
-		 * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		 * ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 		 *
-		 * @tutorial access_plugin_and_its_methodes_later_from_outside_of_plugin.php
+		 * @tutorial access_plugin_and_its_methods_later_from_outside_of_plugin.php
 		 */
     	// $this->public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
-		// END ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF PLUGIN
+		// END ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF PLUGIN
 	}
 
 	/**
