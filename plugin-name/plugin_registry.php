@@ -21,6 +21,10 @@
  *   $registry = Plugin_Registry::get_instance();
  *   $registry->has( 'exopite_password_policy' );
  *   $registry->list_keys();
+ *
+ * $plugin = new Exopite_Password_Policy();
+ * Plugin_Registry::get_instance()->add( 'exopite_password_policy', $plugin );
+ * $plugin->run();
  */
 
 if ( ! class_exists( 'Plugin_Registry' ) ) :
