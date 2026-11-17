@@ -162,7 +162,7 @@ class Plugin_Name_Admin {
             return;
         }
 
-        echo '<div class="notice notice-error"><p>' . esc_html__( 'Plugin Name: the settings page needs the plugin "Exopite Simple Options Framework". Please install and activate it.', 'plugin-name' ) . '</p></div>';
+        echo '<div class="notice notice-error"><p>' . esc_html__( 'Plugin Name: the settings page needs the plugin "Exopite Simple Options Framework". Please install and activate it:', 'plugin-name' ) . ' <a href="https://github.com/JoeSz/Exopite-Simple-Options-Framework" target="_blank" rel="noopener noreferrer">github.com/JoeSz/Exopite-Simple-Options-Framework</a></p></div>';
 
     }
 
