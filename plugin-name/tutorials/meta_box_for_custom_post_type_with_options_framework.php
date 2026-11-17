@@ -7,32 +7,23 @@
  ********************************************************************************************/
 
 /**
- * Copy exopite-simple-options content folder from
+ * The framework is a separate plugin: install and activate
+ * "Exopite Simple Options Framework" (folder exopite-simple-options) from
  * https://github.com/JoeSz/Exopite-Simple-Options-Framework
- * to admin/exopite-simple-options.
+ * Do not copy it into your plugin any more.
+ *
+ * In the header of your main plugin file add:
+ *  * Requires Plugins:  exopite-simple-options
+ * (WordPress 6.5+ then refuses to activate your plugin without the framework.)
+ *
+ * Create the metabox in a hook (init, admin_menu), not when your plugin file
+ * is loaded: the framework plugin may be loaded after yours. Before you use it:
+ *
+ *     if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) {
+ *         add_action( 'admin_notices', array( $this, 'framework_missing_notice' ) );
+ *         return;
+ *     }
  */
-
-
-////////////////////////////////////////////////
-// ADD TO FILE -> includes/class-plugin-name.php
-
-private function load_dependencies() {
-
-    // ...
-
-    /**
-     * Exopite Simple Options Framework
-     *
-     * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
-     * @author Joe Szalai
-     */
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
-
-    // ...
-
-    $this->loader = new Plugin_Name_Loader();
-
-}
 
 
 private function define_admin_hooks() {

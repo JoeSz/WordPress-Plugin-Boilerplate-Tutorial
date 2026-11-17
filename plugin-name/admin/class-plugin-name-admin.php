@@ -153,8 +153,26 @@ class Plugin_Name_Admin {
         return str_replace ( 'a', 'b', $val );
     }
 
+    /**
+     * Admin notice: the options page needs the plugin "Exopite Simple Options Framework".
+     */
+    public function framework_missing_notice() {
+
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            return;
+        }
+
+        echo '<div class="notice notice-error"><p>' . esc_html__( 'Plugin Name: the settings page needs the plugin "Exopite Simple Options Framework". Please install and activate it.', 'plugin-name' ) . '</p></div>';
+
+    }
+
     public function create_menu() {
 
+        // The framework is a separate plugin now (no embedded copy).
+        if ( ! class_exists( 'Exopite_Simple_Options_Framework' ) ) {
+            add_action( 'admin_notices', array( $this, 'framework_missing_notice' ) );
+            return;
+        }
         /**
          * Create a submenu page under Plugins.
          * Framework also add "Settings" to your plugin in plugins list.

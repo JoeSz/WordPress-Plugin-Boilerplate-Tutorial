@@ -184,7 +184,7 @@ class Plugin_Name {
 		 *
 		 * @tutorial app_option_page_for_plugin_with_options_framework.php
 		 */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
+        // The options framework comes from the plugin "Exopite Simple Options Framework" (header Requires Plugins).
 		// END EXOPITE SIMPLE OPTIONS FRAMEWORK
 
 		$this->loader = new Plugin_Name_Loader();
