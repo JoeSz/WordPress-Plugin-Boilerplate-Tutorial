@@ -41,9 +41,9 @@ class Plugin_Name_Public {
 	private $version;
 
 	/*************************************************************
-	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 	 *
-	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 * @tutorial access_plugin_admin_public_methods_from_inside.php
 	 */
 	/**
 	 * Store plugin main class to allow public access.
@@ -52,7 +52,7 @@ class Plugin_Name_Public {
 	 * @var object      The main class.
 	 */
 	public $main;
-	// END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	// END ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 	/**
 	 * Initialize the class and set its properties.
@@ -69,9 +69,9 @@ class Plugin_Name_Public {
 	// }
 
 	/*************************************************************
-	 * ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+	 * ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 	 *
-	 * @tutorial access_plugin_admin_public_methodes_from_inside.php
+	 * @tutorial access_plugin_admin_public_methods_from_inside.php
 	 */
 	/**
 	 * Initialize the class and set its properties.
@@ -87,7 +87,7 @@ class Plugin_Name_Public {
         $this->main = $plugin_main;
 
     }
-    // END ACCESS PLUGIN ADMIN PUBLIC METHODES FROM INSIDE
+    // END ACCESS PLUGIN ADMIN PUBLIC METHODS FROM INSIDE
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.

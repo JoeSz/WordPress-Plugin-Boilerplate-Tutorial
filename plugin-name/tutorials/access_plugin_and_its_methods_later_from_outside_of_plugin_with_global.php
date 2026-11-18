@@ -1,7 +1,7 @@
 <?php
 
 /*******************************************************************
- * ACCESS PLUGIN AND ITS METHODES LATER FROM OUTSIDE OF THE PLUGIN *
+ * ACCESS PLUGIN AND ITS METHODS LATER FROM OUTSIDE OF THE PLUGIN *
  * --------------------------------------------------------------- *
  *******************************************************************/
 

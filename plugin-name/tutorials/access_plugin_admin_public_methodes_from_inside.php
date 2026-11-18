@@ -1,7 +1,7 @@
 <?php
 
 /*******************************************************
- * ACCESS PLUGIN ADMIN AND PUBLIC METHODES FROM INSIDE *
+ * ACCESS PLUGIN ADMIN AND PUBLIC METHODS FROM INSIDE *
  * --------------------------------------------------- *
  *******************************************************/
 
@@ -45,7 +45,7 @@ private function define_admin_hooks() {
     // of course, now you do not have "$plugin_admin", you need to use "$this->plugin_admin" instead.
     $plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version(), $this->main );
 
-    // -- OR IF YOU WANT TO ACCESS FROM OUTSIDE TOO, SEE access_plugin_and_its_methodes_later_from_outside_of_plugin.php --
+    // -- OR IF YOU WANT TO ACCESS FROM OUTSIDE TOO, SEE access_plugin_and_its_methods_later_from_outside_of_plugin.php --
     // $this->admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version(), $this->main );
 
 
